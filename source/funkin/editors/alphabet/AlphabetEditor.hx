@@ -43,11 +43,6 @@ class AlphabetEditor extends UIState {
 	public var queueReorder:Bool = false;
 	public var componentList:UIButtonList<ComponentButton>;
 
-	public var glyphCreateWindow:UISliceSprite;
-	public var glyphChar:UITextBox;
-	public var confirmGlyph:UIButton;
-	public var deleteGlyph:UIButton;
-
 	public var infoWindow:GlyphInfoWindow;
 	public var curSelectedComponent:AlphabetComponent = null;
 	public var curSelectedData:AlphabetLetterData = null;
@@ -88,22 +83,34 @@ class AlphabetEditor extends UIState {
 			{
 				label: translate("topBar.edit"),
 				childs: [
-					// TODO: add redo and undo
-					/*{
+					{
 						label: translate("edit.undo"),
-						onSelect: null
+						// TODO: add undo
 					},
 					{
 						label: translate("edit.redo"),
-						onSelect: null
-					},*/
-					{
-						label: translate("glyph.deleteCurGlyph"),
-						
+						// TODO: add redo
 					},
 					{
 						label: "Edit Main Data", // TODO: add translations
 						onSelect: _edit_main
+					}
+				]
+			},
+			{
+				label: translate("topBar.glyph"),
+				childs: [
+					{
+						label: translate("glyph.newGlyph"),
+						//onSelect: _glyph_new
+					},
+					{
+						label: translate("glyph.editGlyph"),
+						//onSelect: _glyph_edit
+					},
+					{
+						label: translate("glyph.deleteGlyph"),
+						//onSelect: _glyph_delete
 					}
 				]
 			},
@@ -181,67 +188,6 @@ class AlphabetEditor extends UIState {
 		brokenWarning.color = 0xFFFF6969;
 		add(brokenWarning);
 
-		glyphCreateWindow = new UISliceSprite(FlxG.width - 15, topMenuSpr.bHeight + 15, 200, 150, "editors/ui/context-bg");
-		glyphCreateWindow.x -= glyphCreateWindow.bWidth;
-		uiGroup.add(glyphCreateWindow);
-
-		glyphChar = new UITextBox(glyphCreateWindow.x + 15, glyphCreateWindow.y + 15, "", glyphCreateWindow.bWidth - 30);
-		glyphCreateWindow.members.push(glyphChar);
-
-		confirmGlyph = new UIButton(glyphChar.x, glyphChar.y + glyphChar.bHeight + 15, translate("glyph.newGlyph"), function() {
-			if (deleteGlyph.selectable) {
-				curLetter = tape.manualLetters.indexOf(lastChar) + charsForDefault.length;
-				changeLetter(0);
-			} else {
-				tape.manualLetters.push(lastChar);
-				tape.text = "";
-				for (def in charsForDefault)
-					tape.text += def[Std.int(Math.floor(defaultTmr) % def.length)] + " ";
-				tape.text += tape.manualLetters.join(" ");
-
-				for (i in 0...tape.fastGetData(lastChar).components.length) {
-					var anim = bigLetter.text + i;
-					bigLetter.animation.remove(anim);
-					tape.animation.remove(anim);
-				}
-
-				tape.letterData.set(lastChar, {
-					isDefault: false,
-					advance: Math.NaN,
-					advanceEmpty: true,
-					components: [],
-					startIndex: 0
-				});
-
-				curLetter = tape.manualLetters.length - 1 + charsForDefault.length;
-				changeLetter(0);
-			}
-		}, glyphChar.bWidth);
-		confirmGlyph.selectable = false;
-		glyphCreateWindow.members.push(confirmGlyph);
-
-		deleteGlyph = new UIButton(glyphChar.x, confirmGlyph.y + confirmGlyph.bHeight + 5, translate("glyph.deleteGlyph"), function() {
-			final charIdx = tape.manualLetters.indexOf(lastChar);
-
-			tape.manualLetters.splice(charIdx, 1);
-			tape.text = "";
-			for (def in charsForDefault)
-				tape.text += def[Std.int(Math.floor(defaultTmr) % def.length)] + " ";
-			tape.text += tape.manualLetters.join(" ");
-
-			for (i in 0...tape.fastGetData(lastChar).components.length) {
-				var anim = bigLetter.text + i;
-				bigLetter.animation.remove(anim);
-				tape.animation.remove(anim);
-			}
-			tape.letterData.remove(lastChar);
-
-			changeLetter((curLetter >= charIdx + charsForDefault.length) ? -1 : 0);
-		}, glyphChar.bWidth);
-		deleteGlyph.color = FlxColor.RED;
-		deleteGlyph.selectable = false;
-		glyphCreateWindow.members.push(deleteGlyph);
-
 		infoWindow = new GlyphInfoWindow();
 		uiGroup.add(infoWindow);
 
@@ -262,7 +208,7 @@ class AlphabetEditor extends UIState {
 
 				scaleX: 1,
 				scaleY: 1,
-				
+
 				flipX: false,
 				flipY: false,
 
@@ -301,29 +247,8 @@ class AlphabetEditor extends UIState {
 		}
 	}
 
-	var lastChar:String = "";
 	public override function update(elapsed:Float) {
 		super.update(elapsed);
-
-		if (glyphChar.label.text != lastChar) {
-			if (glyphChar.label.text == "") {
-				lastChar = "";
-				confirmGlyph.selectable = false;
-				deleteGlyph.selectable = false;
-				confirmGlyph.field.text = translate("glyph.newGlyph");
-			} else {
-				glyphChar.label.text = lastChar = switch (tape.forceCase) {
-					case UPPER: glyphChar.label.text.charAt(glyphChar.label.text.length - 1).toUpperCase();
-					case LOWER: glyphChar.label.text.charAt(glyphChar.label.text.length - 1).toLowerCase();
-					case NONE: glyphChar.label.text.charAt(glyphChar.label.text.length - 1);
-				};
-				
-				confirmGlyph.selectable = true;
-				deleteGlyph.selectable = tape.manualLetters.contains(lastChar);
-				confirmGlyph.field.text = translate(deleteGlyph.selectable ? "glyph.editGlyph" : "glyph.newGlyph");
-			}
-		}
-
 		if (queueReorder) {
 			queueReorder = false;
 			var outlines = [];
@@ -419,7 +344,6 @@ class AlphabetEditor extends UIState {
 		curLetter = CoolUtil.positiveModuloInt(curLetter + inc, tape.manualLetters.length + charsForDefault.length);
 		targetX = FlxG.width * 0.5 - tape.defaultAdvance * (0.5 + curLetter * 2);
 		bigLetter.text = (curLetter < charsForDefault.length) ? charsForDefault[curLetter][0] : tape.manualLetters[curLetter - charsForDefault.length];
-		glyphChar.label.text = bigLetter.text;
 		bigLetter.updateHitbox();
 		bigLetter.screenCenter();
 
@@ -472,17 +396,11 @@ class AlphabetEditor extends UIState {
 		changeLetter(1);
 	}
 
-	function buildAlphabet() {
-		var tempPrettyPrint = true;
-		var xmlThingYea:String = "<!DOCTYPE codename-engine-alphabet-font>\n" + Printer.print(tape.buildXML(), tempPrettyPrint);
-		return tempPrettyPrint ? xmlThingYea : xmlThingYea.replace("\n", "");
-	}
-
 	function _file_save(_) {
 		#if sys
 		CoolUtil.safeSaveFile(
 			'${Paths.getAssetsRoot()}/data/alphabet/${__typeface}.xml',
-			buildAlphabet()
+			""//alphabet.buildXML()
 		);
 		#else
 		_file_saveas(_);
@@ -490,7 +408,7 @@ class AlphabetEditor extends UIState {
 	}
 
 	function _file_saveas(_) {
-		openSubState(new SaveSubstate(buildAlphabet(), {
+		openSubState(new SaveSubstate(""/*alphabet.buildXML()*/, {
 			defaultSaveFile: '${__typeface}.xml'
 		}));
 	}

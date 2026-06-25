@@ -1,3 +1,2 @@
-#!/usr/bin/env sh
-cd "$(dirname "$0")/.."
+#!/bin/sh
 haxe -cp commandline -D analyzer-optimize --run Main setup

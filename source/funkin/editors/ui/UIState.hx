@@ -106,7 +106,7 @@ class UIState extends MusicBeatState {
 		}
 
 		if (FlxG.mouse.justPressed) {
-			playEditorSound(Flags.DEFAULT_EDITOR_CLICK_SOUND);
+			FlxG.sound.play(Paths.sound(Flags.DEFAULT_EDITOR_CLICK_SOUND));
 		}
 
 		if (FlxG.mouse.justReleased)
@@ -147,7 +147,7 @@ class UIState extends MusicBeatState {
 	}
 
 	public function closeCurrentContextMenu() {
-		playEditorSound(Flags.DEFAULT_EDITOR_WINDOWCLOSE_SOUND);
+		FlxG.sound.play(Paths.sound(Flags.DEFAULT_EDITOR_WINDOWCLOSE_SOUND));
 		if(curContextMenu != null) {
 			curContextMenu.close();
 			curContextMenu = null;
@@ -155,7 +155,7 @@ class UIState extends MusicBeatState {
 	}
 
 	public function openContextMenu(options:Array<UIContextMenuOption>, ?callback:UIContextMenuCallback, ?x:Float, ?y:Float, ?w:Int) {
-		playEditorSound(Flags.DEFAULT_EDITOR_WINDOWAPPEAR_SOUND);
+		FlxG.sound.play(Paths.sound(Flags.DEFAULT_EDITOR_WINDOWAPPEAR_SOUND));
 		var state = FlxG.state;
 		while(state.subState != null && !(state._requestSubStateReset && state._requestedSubState == null))
 			state = state.subState;
@@ -190,10 +190,5 @@ class UIState extends MusicBeatState {
 	public static function setResolutionAware() {
 		resolutionAware = true;
 		FlxG.scaleMode = uiScaleMode;
-	}
-
-	public static function playEditorSound(path:String) {
-		if (!Options.editorSFX) return;
-		FlxG.sound.play(Paths.sound(path));
 	}
 }

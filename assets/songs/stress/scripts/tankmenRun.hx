@@ -1,14 +1,18 @@
 import flixel.FlxSprite;
 
-var spawnTimes = []; // [[time, direction]]
-var tankmanGroup:TankmenGroup = {
-	run: [],
-	pool: [],
-	group: new FlxTypedGroup<FlxSprite>()
-}
+var tankmanRun:Array<TankmenBG> = [];
+var grpTankmanRun:FlxTypedGroup<FlxSprite> = [];
 
-function recycleTankman()
-	return tankmanGroup.pool.length == 0 ? new TankmenBG(tankmanGroup) : tankmanGroup.pool.shift(); // can be pop but it causes it to be less random
+var spawnTimes = []; // [[time, direction]]
+var tankmanPool = [];
+
+function recycleTankman() {
+	if(tankmanPool.length == 0) {
+		return new TankmenBG();
+	} else {
+		return tankmanPool.shift(); // can be pop but it causes it to be less random
+	}
+}
 
 function getTankman(data:Array<Float>) {
 	var tankman:TankmenBG = recycleTankman();
@@ -18,8 +22,9 @@ function getTankman(data:Array<Float>) {
 }
 
 function postCreate() {
-	insert(members.indexOf(gf) - 1, tankmanGroup.group);
-	if (inCutscene) tankmanGroup.group.visible = false;
+	grpTankmanRun = new FlxTypedGroup();
+	insert(members.indexOf(gf) - 1, grpTankmanRun);
+	if(inCutscene) grpTankmanRun.visible = false;
 
 	/*var tempTankman:TankmenBG = recycleTankman();
 	tempTankman.strumTime = 10;
@@ -37,8 +42,9 @@ function postCreate() {
 	//spawnTimes.reverse(); // no need to reverse it since the notes are already reversed
 }
 
-function onStartCountdown()
-	if (PlayState.instance.seenCutscene) tankmanGroup.group.visible = true;
+function onStartCountdown() {
+	if(PlayState.instance.seenCutscene) grpTankmanRun.visible = true;
+}
 
 function spawnTankmen() {
 	var time = Conductor.songPosition;
@@ -48,46 +54,50 @@ function spawnTankmen() {
 
 		//trace("Spawning Tankman", tankmen.sprite.offset, tankmen.goingRight);
 
-		tankmanGroup.run.push(tankmen);
-		tankmanGroup.group.add(tankmen.sprite);
+		tankmanRun.push(tankmen);
+		grpTankmanRun.add(tankmen.sprite);
 	}
 }
 
 function update(elapsed) {
 	spawnTankmen();
 
-	var length = tankmanGroup.run.length;
-	for (i in 0...length) {
+	var length = tankmanRun.length;
+	for(i in 0...length) {
 		var reverseIndex = length - i - 1;
-		var tankmen = tankmanGroup.run[reverseIndex];
+		var tankmen = tankmanRun[reverseIndex];
 		tankmen.update(elapsed);
 	}
 }
 
 class TankmenBG {
-	public var sprite:FlxSprite;
-
 	var strumTime = 0;
 	var goingRight = false;
 	var tankSpeed = 0.7;
-	var endingOffset:Float;
+
+	var endingOffset = null;
+	var sprite = null;
+
 	var killed = false;
-	var grp:TankmenGroup; // The reference to the current pool
 
-	function new(grp:TankmenGroup) {
-		this.grp = grp;
+	function new() {
+		this.sprite = new FlxSprite();
+		var sprite = this.sprite;
 
-		sprite = new FlxSprite();
 		sprite.frames = Paths.getSparrowAtlas('stages/tank/tankmanKilled1');
 		sprite.antialiasing = true;
 		sprite.animation.addByPrefix('run', 'tankman running', 24, true);
+
 		sprite.animation.play('run');
+
 		sprite.updateHitbox();
+
 		sprite.setGraphicSize(Std.int(sprite.width * 0.8));
 		sprite.updateHitbox();
 	}
 
-	function resetShit(x:Float, y:Float, isGoingRight:Bool) {
+	function resetShit(x, y, isGoingRight) {
+		var sprite = this.sprite;
 		sprite.revive();
 		sprite.setPosition(x, y);
 		sprite.offset.set(0, 0);
@@ -104,6 +114,7 @@ class TankmenBG {
 	}
 
 	function update(elapsed) {
+		var sprite = this.sprite;
 		sprite.visible = !(sprite.x >= FlxG.width * 1.5 || sprite.x <= FlxG.width * -0.5);
 
 		if (sprite.animation.curAnim.name == 'run')
@@ -113,7 +124,8 @@ class TankmenBG {
 			if (goingRight) {
 				endDirection = (FlxG.width * 0.02) - endingOffset;
 				sprite.x = (endDirection + (Conductor.songPosition - strumTime) * tankSpeed);
-			} else sprite.x = (endDirection - (Conductor.songPosition - strumTime) * tankSpeed);
+			}
+			else sprite.x = (endDirection - (Conductor.songPosition - strumTime) * tankSpeed);
 		}
 
 		if (Conductor.songPosition > strumTime)
@@ -121,10 +133,10 @@ class TankmenBG {
 			sprite.animation.play('shot');
 			sprite.animation.finishCallback = function(_) {
 				killed = true;
-				grp.group.remove(sprite, true);
+				grpTankmanRun.remove(sprite, true);
 				sprite.kill();
-				grp.pool.push(this);
-				grp.run.remove(this);
+				tankmanPool.push(this);
+				tankmanRun.remove(this);
 			}
 
 			if (goingRight)

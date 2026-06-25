@@ -359,10 +359,10 @@ class StageEditor extends UIState {
 		var parent = new Access(node.x.parent);
 
 		var charName = switch(node.name) {
-			case "dad" | "opponent": Flags.DEFAULT_OPPONENT;
-			case "gf" | "girlfriend": Flags.DEFAULT_GIRLFRIEND;
-			case "bf" | "boyfriend" | "player": Flags.DEFAULT_CHARACTER;
-			default: (charPos.flipX) ? Flags.DEFAULT_CHARACTER : Flags.DEFAULT_OPPONENT;
+			case "dad" | "opponent": "dad";
+			case "gf" | "girlfriend": "gf";
+			case "bf" | "boyfriend" | "player": "bf";
+			default: (charPos.flipX) ? "bf" : "dad";
 		}
 
 		var char = new Character(0,0, charName, charPos.flipX, true);
@@ -377,7 +377,9 @@ class StageEditor extends UIState {
 		// Play first anim, and make it the last frame
 		var animToPlay = char.getAnimOrder()[0];
 		char.playAnim(animToPlay, true, NONE);
-		var lastIndx = char.animation.curAnim.numFrames - 1;
+		var lastIndx = (char.animateAtlas != null) ?
+			char.animateAtlas.anim.length - 1 :
+			char.animation.curAnim.numFrames - 1;
 		char.playAnim(animToPlay, true, NONE, false, lastIndx);
 		char.stopAnimation();
 
@@ -508,7 +510,7 @@ class StageEditor extends UIState {
 
 	function _file_save(_) {
 		#if sys
-		UIState.playEditorSound(Flags.DEFAULT_EDITOR_SAVE_SOUND);
+		FlxG.sound.play(Paths.sound('editors/save'));
 		CoolUtil.safeSaveFile(
 			'${Paths.getAssetsRoot()}/data/stages/${__stage}.xml',
 			buildStage()
@@ -520,7 +522,7 @@ class StageEditor extends UIState {
 	}
 
 	function _file_saveas(_) {
-		UIState.playEditorSound(Flags.DEFAULT_EDITOR_SAVE_SOUND);
+		FlxG.sound.play(Paths.sound('editors/save'));
 		openSubState(new SaveSubstate(buildStage(), {
 			defaultSaveFile: '${__stage}.xml'
 		}));
@@ -563,7 +565,9 @@ class StageEditor extends UIState {
 		// Play first anim, and make it the last frame
 		var animToPlay = char.getAnimOrder()[0];
 		char.playAnim(animToPlay, true, NONE);
-		var lastIndx = char.animation.curAnim.numFrames - 1;
+		var lastIndx = (char.animateAtlas != null) ?
+			char.animateAtlas.anim.length - 1 :
+			char.animation.curAnim.numFrames - 1;
 		char.playAnim(animToPlay, true, NONE, false, lastIndx);
 		char.stopAnimation();
 
@@ -730,7 +734,7 @@ class StageEditor extends UIState {
 	}
 
 	function _edit_undo(_) {
-		UIState.playEditorSound(Flags.DEFAULT_EDITOR_UNDO_SOUND);
+		FlxG.sound.play(Flags.DEFAULT_EDITOR_UNDO_SOUND);
 		var undo = undos.undo();
 		switch(undo) {
 			case null:
@@ -756,7 +760,7 @@ class StageEditor extends UIState {
 	}
 
 	function _edit_redo(_) {
-		UIState.playEditorSound(Flags.DEFAULT_EDITOR_REDO_SOUND);
+		FlxG.sound.play(Paths.sound(Flags.DEFAULT_EDITOR_REDO_SOUND));
 		var redo = undos.redo();
 		switch(redo) {
 			case null:

@@ -44,7 +44,6 @@ class Charter extends UIState {
 		return FlxG.state is Charter ? cast FlxG.state : null;
 
 	public var charterBG:FunkinSprite;
-	public var charterBookmarksGroup:FlxTypedGroup<FlxSprite> = new FlxTypedGroup<FlxSprite>();
 	public var uiGroup:FlxTypedGroup<FlxSprite> = new FlxTypedGroup<FlxSprite>();
 
 	public var topMenu:Array<UIContextMenuOption>;
@@ -77,7 +76,6 @@ class Charter extends UIState {
 	public var strumlineLockButton:CharterStrumlineButton;
 
 	public var hitsound:FlxSound;
-	public var hitsoundGlobalVolume:Float = 1.0;
 	public var metronome:FlxSound;
 
 	public var vocals:FlxSound;
@@ -96,7 +94,6 @@ class Charter extends UIState {
 	public var rightEventRowText:UIText;
 	public var leftEventsGroup:CharterEventGroup = new CharterEventGroup();
 	public var rightEventsGroup:CharterEventGroup = new CharterEventGroup();
-	public var cameraMovementChanges:Array<CameraChange> = [];
 
 	public var charterCamera:FlxCamera;
 	public var uiCamera:FlxCamera;
@@ -232,11 +229,6 @@ class Charter extends UIState {
 						label: translate("edit.delete"),
 						keybind: [DELETE],
 						onSelect: _edit_delete
-					},
-					{
-						label: translate("edit.deletestacked"),
-						keybind: [SHIFT,DELETE],
-						onSelect: _edit_deletestacked
 					}
 				]
 			},
@@ -313,11 +305,6 @@ class Charter extends UIState {
 						label: translate("view.showBeatsSeparator"),
 						onSelect: _view_showeventBeatSeparator,
 						icon: Options.charterShowBeats ? 1 : 0
-					},
-					{
-						label: translate("view.showCameraHighlights"),
-						onSelect: _view_showeventCameraHighlights,
-						icon: Options.charterShowCameraHighlights ? 1 : 0
 					},
 					null,
 					{
@@ -464,7 +451,7 @@ class Charter extends UIState {
 		rightEventsGroup.eventsRowText = rightEventRowText;
 
 		// thank you neo for pointing out im stupid -lunar
-		// this is future lunar i completely forgot what neo pointed out but hes awesome go follow him on twitter
+		// this is future lunar i completely forgot what neo pointed out but hes awesome go follow him on twitter 
 
 		add(gridBackdropDummy = new CameraHoverDummy(gridBackdrops, FlxPoint.weak(1, 0)));
 		selectionBox = new UISliceSprite(0, 0, 2, 2, 'editors/ui/selection');
@@ -475,7 +462,7 @@ class Charter extends UIState {
 		noteHoverer = new CharterNoteHoverer();
 		noteDeleteAnims = new CharterDeleteAnim();
 
-		charterBookmarksGroup.cameras = selectionBox.cameras = notesGroup.cameras = gridBackdrops.cameras =
+		selectionBox.cameras = notesGroup.cameras = gridBackdrops.cameras =
 		noteHoverer.cameras = noteDeleteAnims.cameras = [charterCamera];
 
 		topMenuSpr = new UITopMenu(topMenu);
@@ -526,7 +513,7 @@ class Charter extends UIState {
 
 		strumlineLockButton = new CharterStrumlineButton("editors/charter/lock-strumline", translate("lock-unlock"));
 		strumlineLockButton.onClick = function () {
-			UIState.playEditorSound(!strumLines.draggable ? Flags.DEFAULT_CHARTER_STRUMUNLOCK_SOUND : Flags.DEFAULT_CHARTER_STRUMLOCK_SOUND);
+			FlxG.sound.play(Paths.sound(!strumLines.draggable ? Flags.DEFAULT_CHARTER_STRUMUNLOCK_SOUND : Flags.DEFAULT_CHARTER_STRUMLOCK_SOUND));
 			if (strumLines != null) {
 				strumLines.draggable = !strumLines.draggable;
 				strumlineLockButton.textTweenColor.color = strumLines.draggable ? 0xFF5C95CA : 0xFFE16565;
@@ -564,7 +551,6 @@ class Charter extends UIState {
 		add(noteDeleteAnims);
 		add(notesGroup);
 		add(selectionBox);
-		add(charterBookmarksGroup);
 		add(strumlineInfoBG);
 		add(strumlineLockButton);
 		add(strumlineAddButton);
@@ -585,8 +571,6 @@ class Charter extends UIState {
 
 		if (Options.editorsResizable)
 			UIState.setResolutionAware();
-
-		updateBookmarks(); //recalling it to fix resolutions
 
 		// ! IF YOU EVER WANNA VIEW IN THE FUTURE, JUST USE A FLXSPRITE :D -lunar
 		/*var dataDisplay:FlxSprite = new FlxSprite().loadGraphic(waveformHandler.waveDatas.get("Voices.ogg"));
@@ -696,7 +680,6 @@ class Charter extends UIState {
 		CharterGridSeperatorBase.lastConductorSprY = Math.NEGATIVE_INFINITY;
 
 		updateWaveforms();
-		updateCameraChanges();
 	}
 
 	public function getWavesToGenerate():Array<{name:String, sound:FlxSound}> {
@@ -752,38 +735,6 @@ class Charter extends UIState {
 		}
 	}
 
-	public function updateCameraChanges() {
-		if (!Options.charterShowCameraHighlights) return;
-
-		cameraMovementChanges = [];
-		for (grp in [leftEventsGroup, rightEventsGroup]) {
-			grp.filterEvents();
-			grp.sortEvents();
-			for(e in grp.members) {
-				for(event in e.events) {
-					if (event.name == "Camera Movement") {
-						cameraMovementChanges.push({
-							strumLineID: event.params[0],
-							step: e.step,
-							endStep: __endStep
-						});
-					}
-				}
-			}
-		}
-
-		//need to sort again for both local and global events to be used
-		cameraMovementChanges.sort(function(e1, e2) {
-			return FlxSort.byValues(FlxSort.ASCENDING, e1.step, e2.step);
-		});
-		//update previous change
-		if (cameraMovementChanges.length > 0) {
-			for (i in 1...cameraMovementChanges.length) {
-				cameraMovementChanges[i-1].endStep = cameraMovementChanges[i].step;
-			}
-		}
-	}
-
 	public override function beatHit(curBeat:Int) {
 		super.beatHit(curBeat);
 		if (FlxG.sound.music.playing) {
@@ -801,7 +752,6 @@ class Charter extends UIState {
 	public var mousePos:FlxPoint = new FlxPoint();
 	public var selectionDragging:Bool = false;
 	public var isSelecting:Bool = false;
-	public var isAltCopyDrag:Bool = false;
 
 	public function updateSelectionLogic() {
 		function select(s:ICharterSelectable) {
@@ -847,7 +797,7 @@ class Charter extends UIState {
 				else
 					Chart.save(PlayState.SONG, __diff.toLowerCase(), __variant, {saveMetaInChart: true, saveLocalEvents: true, seperateGlobalEvents: true, prettyPrint: Options.editorCharterPrettyPrint});
 
-				UIState.playEditorSound(Flags.DEFAULT_EDITOR_SAVE_SOUND);
+				FlxG.sound.play(Paths.sound('editors/save'));
 				undos.save();
 			}
 			autoSaveNotif.cancelled = false;
@@ -966,24 +916,17 @@ class Charter extends UIState {
 					if (!(verticalChange == 0 && horizontalChange == 0)) {
 						notesGroup.sortNotes();
 
-						var changes:Array<CharterChange> = [];
-						if (isAltCopyDrag) {
-							changes.push(CCreateSelection(selection.copy()));
-							isAltCopyDrag = false;
-						}
-						changes.push(CSelectionDrag(undoDrags));
-						changes.push(updateEventsGroups(selection));
-						undos.addToUndo(CChangeBundle(changes));
-					} else if (isAltCopyDrag) {
-						undos.addToUndo(CCreateSelection(selection.copy()));
-						isAltCopyDrag = false;
+						undos.addToUndo(CChangeBundle([
+							CSelectionDrag(undoDrags),
+							updateEventsGroups(selection)
+						]));
 					}
 
 					gridActionType = NONE;
 					currentCursor = ARROW;
 				}
 			case NONE:
-				if (FlxG.mouse.justPressed)
+				if (FlxG.mouse.justPressed) 
 					FlxG.mouse.getWorldPosition(charterCamera, dragStartPos);
 				else if (FlxG.mouse.justPressedRight) {
 					closeCurrentContextMenu();
@@ -1014,7 +957,7 @@ class Charter extends UIState {
 							notesGroup.add(note);
 							selection = [note];
 							undos.addToUndo(CCreateSelection([note]));
-							UIState.playEditorSound(Flags.DEFAULT_CHARTER_NOTEPLACE_SOUND);
+							FlxG.sound.play(Paths.sound(Flags.DEFAULT_CHARTER_NOTEPLACE_SOUND));
 						}
 						isSelecting = false;
 					}
@@ -1031,32 +974,7 @@ class Charter extends UIState {
 						}
 
 						if ((Math.abs(mousePos.x - dragStartPos.x) > (noteSusDrag ? 1 : 5) || Math.abs(mousePos.y - dragStartPos.y) > (noteSusDrag ? 1 : 5))) {
-							if (noteHovered) {
-								if (FlxG.keys.pressed.ALT && selection.length > 0) {
-									var newSelection:Array<ICharterSelectable> = [];
-									for (s in selection) {
-										if (s is CharterNote) {
-											var n:CharterNote = cast s;
-											var newNote = new CharterNote();
-											newNote.updatePos(n.step, n.id, n.susLength, n.type, n.strumLine);
-											notesGroup.add(newNote);
-											newSelection.push(newNote);
-										} else if (s is CharterEvent) {
-											var e:CharterEvent = cast s;
-											var newEvent = new CharterEvent(e.step, [for (event in e.events) Reflect.copy(event)], e.global);
-											newEvent.refreshEventIcons();
-											(e.global ? rightEventsGroup : leftEventsGroup).add(newEvent);
-											newSelection.push(newEvent);
-										}
-									}
-									for (s in selection) s.selected = false;
-									selection = newSelection;
-									for (s in selection) s.selected = true;
-									isAltCopyDrag = true;
-									UIState.playEditorSound(Flags.DEFAULT_EDITOR_COPY_SOUND);
-								}
-								gridActionType = NOTE_DRAG;
-							}
+							if (noteHovered) gridActionType = noteHovered ? NOTE_DRAG : INVALID_DRAG;
 							if (noteSusDrag) gridActionType = SUSTAIN_DRAG;
 						}
 					}
@@ -1168,7 +1086,7 @@ class Charter extends UIState {
 		if (selected == null) return selected;
 
 		if (selected is CharterNote) {
-			UIState.playEditorSound(Flags.DEFAULT_CHARTER_NOTEDELETE_SOUND);
+			FlxG.sound.play(Paths.sound(Flags.DEFAULT_CHARTER_NOTEDELETE_SOUND));
 			var note:CharterNote = cast selected;
 			note.strumLineID = strumLines.members.indexOf(note.strumLine);
 			note.strumLine = null; // For static undos :D
@@ -1648,20 +1566,20 @@ class Charter extends UIState {
 		else {undos = null; FlxG.switchState(new CharterSelection()); Charter.instance.__clearStatics();}
 	}
 
-	function _file_save_all(_) {saveEverything(); UIState.playEditorSound(Flags.DEFAULT_EDITOR_SAVE_SOUND);}
-	function _file_save(_) {saveChart(); UIState.playEditorSound(Flags.DEFAULT_EDITOR_SAVE_SOUND);}
-	function _file_saveas(_) {saveChartAs(); UIState.playEditorSound(Flags.DEFAULT_EDITOR_SAVE_SOUND);}
-	function _file_events_save(_) {saveEvents(); UIState.playEditorSound(Flags.DEFAULT_EDITOR_SAVE_SOUND);}
-	function _file_events_saveas(_) {saveEventsAs(); UIState.playEditorSound(Flags.DEFAULT_EDITOR_SAVE_SOUND);}
-	function _file_save_no_events(_) {saveChart(true, false); UIState.playEditorSound(Flags.DEFAULT_EDITOR_SAVE_SOUND);}
-	function _file_saveas_no_events(_) {saveChartAs(true, false); UIState.playEditorSound(Flags.DEFAULT_EDITOR_SAVE_SOUND);}
-	function _file_meta_save(_) {saveMeta(); UIState.playEditorSound(Flags.DEFAULT_EDITOR_SAVE_SOUND);}
-	function _file_meta_saveas(_) {saveMetaAs(); UIState.playEditorSound(Flags.DEFAULT_EDITOR_SAVE_SOUND);}
-	function _file_saveas_fnflegacy(_) {saveLegacyChartAs(); UIState.playEditorSound(Flags.DEFAULT_EDITOR_SAVE_SOUND);}
-	function _file_saveas_psych(_) {savePsychChartAs(); UIState.playEditorSound(Flags.DEFAULT_EDITOR_SAVE_SOUND);}
+	function _file_save_all(_) {saveEverything(); FlxG.sound.play(Paths.sound('editors/save'));}
+	function _file_save(_) {saveChart(); FlxG.sound.play(Paths.sound('editors/save'));}
+	function _file_saveas(_) {saveChartAs(); FlxG.sound.play(Paths.sound('editors/save'));}
+	function _file_events_save(_) {saveEvents(); FlxG.sound.play(Paths.sound('editors/save'));}
+	function _file_events_saveas(_) {saveEventsAs(); FlxG.sound.play(Paths.sound('editors/save'));}
+	function _file_save_no_events(_) {saveChart(true, false); FlxG.sound.play(Paths.sound('editors/save'));}
+	function _file_saveas_no_events(_) {saveChartAs(true, false); FlxG.sound.play(Paths.sound('editors/save'));}
+	function _file_meta_save(_) {saveMeta(); FlxG.sound.play(Paths.sound('editors/save'));}
+	function _file_meta_saveas(_) {saveMetaAs(); FlxG.sound.play(Paths.sound('editors/save'));}
+	function _file_saveas_fnflegacy(_) {saveLegacyChartAs(); FlxG.sound.play(Paths.sound('editors/save'));}
+	function _file_saveas_psych(_) {savePsychChartAs(); FlxG.sound.play(Paths.sound('editors/save'));}
 
 	function _edit_copy(_, playSFX=true) {
-		if (playSFX) UIState.playEditorSound(Flags.DEFAULT_EDITOR_COPY_SOUND);
+		if (playSFX) FlxG.sound.play(Paths.sound(Flags.DEFAULT_EDITOR_COPY_SOUND));
 		if(selection.length == 0) return;
 
 		var minStep:Float = selection[0].step;
@@ -1680,7 +1598,7 @@ class Charter extends UIState {
 		];
 	}
 	function _edit_paste(_) {
-		UIState.playEditorSound(Flags.DEFAULT_EDITOR_PASTE_SOUND);
+		FlxG.sound.play(Paths.sound(Flags.DEFAULT_EDITOR_PASTE_SOUND));
 		if (clipboard.length <= 0) return;
 
 		var minStep = curStep;
@@ -1708,7 +1626,7 @@ class Charter extends UIState {
 	}
 
 	function _edit_cut(_) {
-		UIState.playEditorSound(Flags.DEFAULT_EDITOR_CUT_SOUND);
+		FlxG.sound.play(Paths.sound(Flags.DEFAULT_EDITOR_CUT_SOUND));
 		if (selection == null || selection.length == 0) return;
 
 		_edit_copy(_, false);
@@ -1716,7 +1634,7 @@ class Charter extends UIState {
 	}
 
 	function _edit_delete(_) {
-		UIState.playEditorSound(Flags.DEFAULT_EDITOR_DELETE_SOUND);
+		FlxG.sound.play(Paths.sound(Flags.DEFAULT_EDITOR_DELETE_SOUND));
 		if (selection == null || selection.length == 0) return;
 		selection.loop((n:CharterNote) -> {
 			noteDeleteAnims.deleteNotes.push({note: n, time: noteDeleteAnims.deleteTime});
@@ -1724,27 +1642,8 @@ class Charter extends UIState {
 		selection = deleteSelection(selection, true);
 	}
 
-	function _edit_deletestacked(_) {
-		UIState.playEditorSound(Flags.DEFAULT_EDITOR_DELETE_SOUND);
-		if (notesGroup.members.length == 0) return;
-		var oldNote:CharterNote = null;
-		var selectionArray:Array<Dynamic> = ((selection.length != 0) ? selection : notesGroup.members.copy());
-		var toDelete:Selection = new Selection();
-		for (note in selectionArray) {
-			if (oldNote != null && oldNote.step == note.step && oldNote.strumLineID == note.strumLineID && oldNote.id == note.id) {
-				noteDeleteAnims.deleteNotes.push({note: oldNote, time: noteDeleteAnims.deleteTime});
-				toDelete.push(oldNote);
-			}
-			oldNote = note;
-		}
-		if (toDelete.length != 0) {
-			deleteSelection(toDelete);
-			if (selection.length != 0) for (i in toDelete) selection.remove(i); //crash prevention
-		}
-	}
-
 	function _undo(undo:CharterChange) {
-		UIState.playEditorSound(Flags.DEFAULT_EDITOR_UNDO_SOUND);
+		FlxG.sound.play(Paths.sound(Flags.DEFAULT_EDITOR_UNDO_SOUND));
 		switch(undo) {
 			case null: // do nothing
 			case CDeleteStrumLine(strumLineID, strumLine):
@@ -1793,11 +1692,7 @@ class Charter extends UIState {
 			case CEditSpecNotesType(notes, oldTypes, newTypes):
 				for(i=>note in notes) note.updatePos(note.step, note.id, note.susLength, oldTypes[i]);
 			case CChangeBundle(changes):
-				var i = changes.length - 1;
-				while (i >= 0) {
-					_undo(changes[i]);
-					i--;
-				}
+				for (change in changes) _undo(change);
 		}
 	}
 
@@ -1809,7 +1704,7 @@ class Charter extends UIState {
 	}
 
 	function _redo(redo:CharterChange) {
-		UIState.playEditorSound(Flags.DEFAULT_EDITOR_REDO_SOUND);
+		FlxG.sound.play(Paths.sound(Flags.DEFAULT_EDITOR_REDO_SOUND));
 		switch(redo) {
 			case null: // do nothing
 			case CDeleteStrumLine(strumLineID, strumLine):
@@ -1908,24 +1803,14 @@ class Charter extends UIState {
 	function _playback_metronome(t) {
 		t.icon = (Options.charterMetronomeEnabled = !Options.charterMetronomeEnabled) ? 1 : 0;
 	}
-
-	public function _slider_mutetoggle(t:UIContextMenuOption) {
-		if (t.slider == null) return;
-		t.button.slider.value = t.button.slider.value > 0 ? 0 : 1;
+	function _song_muteinst(t) {
+		FlxG.sound.music.volume = FlxG.sound.music.volume > 0 ? 0 : 1;
+		t.icon = 1 - Std.int(Math.ceil(FlxG.sound.music.volume));
 	}
-
-	function _song_instvolume(t) {
-		FlxG.sound.music.volume = t.slider.value;
-		t.icon = t.slider.value > 0.5 ? 7 : (t.slider.value > 0 ? 8 : 9);
-	}
-	function _song_voicesvolume(t) {
-		vocals.volume = t.slider.value;
-		for (strumLine in strumLines.members) strumLine.vocals.volume = t.slider.value * strumLine.vocalsVolume;
-		t.icon = t.slider.value > 0.5 ? 7 : (t.slider.value > 0 ? 8 : 9);
-	}
-	function _song_hitsoundvolume(t) {
-		hitsoundGlobalVolume = t.slider.value;
-		t.icon = t.slider.value > 0.5 ? 7 : (t.slider.value > 0 ? 8 : 9);
+	function _song_mutevoices(t) {
+		vocals.volume = vocals.volume > 0 ? 0 : 1;
+		for (strumLine in strumLines.members) strumLine.vocals.volume = strumLine.vocals.volume > 0 ? 0 : 1;
+		t.icon = 1 - Std.int(Math.ceil(vocals.volume));
 	}
 	function _playback_back(_) {
 		if (FlxG.sound.music.playing) return;
@@ -1956,31 +1841,42 @@ class Charter extends UIState {
 		Conductor.songPosition = FlxG.sound.music.length;
 	}
 
-	function _opponent_camera_add(_) addEventAtCurrentStep("Camera Movement", [0], !FlxG.keys.pressed.ALT, !FlxG.keys.pressed.SHIFT);
-	function _player_camera_add(_) addEventAtCurrentStep("Camera Movement", [1], !FlxG.keys.pressed.ALT, !FlxG.keys.pressed.SHIFT);
-
-	function addEventAtCurrentStep(name:String, params:Array<Dynamic>, shouldGlobal:Bool = true, shouldQuant:Bool = false) {
-		var step:Float = (shouldQuant ? quantStep(curStepFloat) : curStepFloat);
-		var __event:CharterEvent = new CharterEvent(step, [{
-			name: name,
-			params: params,
-			time: Conductor.getTimeForStep(step)
-		}], shouldGlobal);
-
-		__event.refreshEventIcons();
-		(__event.global ? rightEventsGroup : leftEventsGroup).add(__event);
-		undos.addToUndo(CEditEvent(__event, [], __event.events));
-		updateCameraChanges();
-	}
-
 	public function getBookmarkList():Array<ChartBookmark> {
 		var bookmarks:Array<ChartBookmark> = [];
 		try {
 			if (PlayState.SONG.bookmarks != null)
 				bookmarks = PlayState.SONG.bookmarks;
 		} catch (e) {}
-
+		
 		return bookmarks;
+	}
+
+		function _opponent_camera_add(_) {
+		var __event:CharterEvent = null;
+
+				__event = new CharterEvent(curStepFloat, [{
+				name: "Camera Movement",
+				params:[0],
+				time: Conductor.getTimeForStep(curStepFloat)
+			}], true);
+				__event.refreshEventIcons();
+				__event.global = true;
+				rightEventsGroup.add(__event);
+				undos.addToUndo(CEditEvent(__event, [], __event.events));
+			
+	}
+		function _player_camera_add(_) {
+		var __event:CharterEvent = null;
+
+				__event = new CharterEvent(curStepFloat, [{
+				name: "Camera Movement",
+				params:[1],
+				time: Conductor.getTimeForStep(curStepFloat)
+			}], true);
+				__event.refreshEventIcons();
+				rightEventsGroup.add(__event);
+				undos.addToUndo(CEditEvent(__event, [], __event.events));
+			
 	}
 
 	function _bookmarks_add(_) {
@@ -1989,9 +1885,9 @@ class Charter extends UIState {
 			var currentBookmarks:Array<ChartBookmark> = getBookmarkList();
 			var newBookmarks:Array<ChartBookmark> = getBookmarkList();
 			newBookmarks.push({time: daStep, name: name, color: color.toWebString()});
-
+				
 			PlayState.SONG.bookmarks = newBookmarks;
-			updateBookmarks();
+			updateBookmarks();	
 			undos.addToUndo(CEditBookmarks(currentBookmarks, newBookmarks));
 		}
 
@@ -2004,7 +1900,6 @@ class Charter extends UIState {
 			}));
 		}
 	}
-
 	function _bookmarks_edit_list(_)
 		FlxG.state.openSubState(new CharterBookmarkList()); //idk why its FlxG.state but it looks so off lmfao
 
@@ -2016,16 +1911,16 @@ class Charter extends UIState {
 		{
 			var bars:Array<FlxSprite> = bs[0];
 			var text:UIText = bs[1];
-
+			
 			if (bars != null) {
 				for (spr in bars) {
 					if (spr == null) continue;
-					charterBookmarksGroup.remove(spr);
+					remove(spr);
 					spr.kill();
 				}
 			}
 			if (text != null) {
-				charterBookmarksGroup.remove(text);
+				remove(text);
 				text.kill();
 			}
 		}
@@ -2046,13 +1941,15 @@ class Charter extends UIState {
 			{
 				var bookmarkspr = new FlxSprite(str.x, (b.time * 40)).makeSolid(str.keyCount * 40, 4, bookmarkcolor);
 				bookmarkspr.updateHitbox();
-				charterBookmarksGroup.add(bookmarkspr);
+				bookmarkspr.camera = charterCamera;
+				add(bookmarkspr);
 				sprites.push(bookmarkspr);
 			}
 
 			var bookmarkText = new UIText(strumLines.members[0].x + 4, 0, 400, b.name, 15, bookmarkcolor, true);
 			bookmarkText.y = sprites[0].y - (bookmarkText.height + 2);
-			charterBookmarksGroup.add(bookmarkText);
+			bookmarkText.camera = charterCamera;
+			add(bookmarkText);
 
 			if (luminance < 0.5)
 				bookmarkText.borderColor = 0x88FFFFFF;
@@ -2070,7 +1967,7 @@ class Charter extends UIState {
 				0,
 				scrollBar.height
 			);
-
+			
 			var bookmarkspr = new FlxSprite(scrollBar.x - 10, yPos).makeSolid(40, 4, bookmarkcolor);
 			uiGroup.add(bookmarkspr);
 			sprites.push(bookmarkspr);
@@ -2096,12 +1993,12 @@ class Charter extends UIState {
 			null,
 			{
 				label: translate("song.addOpponentCamera"),
-				keybinds: [[O], [O, SHIFT], [O, ALT]],
+				keybind: [O],
 				onSelect: _opponent_camera_add
 			},
 			{
 				label: translate("song.addPlayerCamera"),
-				keybinds: [[P], [P, SHIFT], [P, ALT]],
+				keybind: [P],
 				onSelect: _player_camera_add
 			},
 			null,
@@ -2122,56 +2019,26 @@ class Charter extends UIState {
 
 		if (bookmarks.length > 0)
 		{
-			var bookmarkOptions:Array<UIContextMenuOption> = [];
 			var goToBookmark = TU.getRaw("charter.bookmarks.goTo");
 			for (b in bookmarks)
 			{
-				bookmarkOptions.push({
+				newChilds.push({
 					label: goToBookmark.format([b.name]),
 					onSelect: function(_) { Conductor.songPosition = Conductor.getTimeForStep(b.time); }
 				});
 			}
-			newChilds.push({
-				label: translate("bookmarks.bookmarkList"),
-				childs: bookmarkOptions
-			});
 			newChilds.push(null);
 		}
 
+		
 		newChilds.push({
-			label: translate("song.inst"),
-			slider: {
-				min: 0,
-				max: 1,
-				value: 1,
-				onChange: _song_instvolume
-			},
-			onIconClick: _slider_mutetoggle,
-			icon: 7
+			label: translate("song.muteInst"),
+			onSelect: _song_muteinst
 		});
 
 		newChilds.push({
-			label: translate("song.voices"),
-			slider: {
-				min: 0,
-				max: 1,
-				value: 1,
-				onChange: _song_voicesvolume
-			},
-			onIconClick: _slider_mutetoggle,
-			icon: 7
-		});
-
-		newChilds.push({
-			label: translate("song.hitsounds"),
-			slider: {
-				min: 0,
-				max: 1,
-				value: 1,
-				onChange: _song_hitsoundvolume
-			},
-			onIconClick: _slider_mutetoggle,
-			icon: 7
+			label: translate("song.muteVoices"),
+			onSelect: _song_mutevoices
 		});
 
 		if (songTopButton != null) songTopButton.contextMenu = newChilds;
@@ -2195,10 +2062,6 @@ class Charter extends UIState {
 	}
 	function _view_showeventBeatSeparator(t) {
 		t.icon = (Options.charterShowBeats = !Options.charterShowBeats) ? 1 : 0;
-	}
-	function _view_showeventCameraHighlights(t) {
-		t.icon = (Options.charterShowCameraHighlights = !Options.charterShowCameraHighlights) ? 1 : 0;
-		updateCameraChanges();
 	}
 	function _view_switchWaveformRainbow(t) {
 		t.icon = (Options.charterRainbowWaveforms = !Options.charterRainbowWaveforms) ? 1 : 0;
@@ -2225,8 +2088,8 @@ class Charter extends UIState {
 	inline function _snap_decreasesnap(_) changequant(-1);
 	inline function _snap_resetsnap(_) setquant(16);
 
-	inline function changequant(change:Int) {UIState.playEditorSound(Flags.DEFAULT_CHARTER_SNAPPINGCHANGE_SOUND); quant = quants[FlxMath.wrap(quants.indexOf(quant) + change, 0, quants.length-1)]; buildSnapsUI();};
-	inline function setquant(newQuant:Int) {UIState.playEditorSound(Flags.DEFAULT_CHARTER_SNAPPINGCHANGE_SOUND); quant = newQuant; buildSnapsUI();}
+	inline function changequant(change:Int) {FlxG.sound.play(Paths.sound(Flags.DEFAULT_CHARTER_SNAPPINGCHANGE_SOUND)); quant = quants[FlxMath.wrap(quants.indexOf(quant) + change, 0, quants.length-1)]; buildSnapsUI();};
+	inline function setquant(newQuant:Int) {FlxG.sound.play(Paths.sound(Flags.DEFAULT_CHARTER_SNAPPINGCHANGE_SOUND)); quant = newQuant; buildSnapsUI();}
 
 	function buildSnapsUI():Array<UIContextMenuOption> {
 		var snapsTopButton:UITopMenuButton = topMenuSpr == null ? null : cast topMenuSpr.members[snapIndex];
@@ -2262,12 +2125,12 @@ class Charter extends UIState {
 	}
 
 	inline function _note_addsustain(t) {
-		UIState.playEditorSound(Flags.DEFAULT_CHARTER_SUSTAINADD_SOUND);
+		FlxG.sound.play(Paths.sound(Flags.DEFAULT_CHARTER_SUSTAINADD_SOUND));
 		changeNoteSustain(1);
 	}
 
 	inline function _note_subtractsustain(t) {
-		UIState.playEditorSound(Flags.DEFAULT_CHARTER_SUSTAINDELETE_SOUND);
+		FlxG.sound.play(Paths.sound(Flags.DEFAULT_CHARTER_SUSTAINDELETE_SOUND));
 		changeNoteSustain(-1);
 	}
 
@@ -2344,18 +2207,16 @@ class Charter extends UIState {
 				keybind: [CONTROL, SHIFT, A],
 				onSelect: _note_selectmeasure
 			},
-			null
+			null,
+			{
+				label: "(0) " + translate("noteTypes.default"),
+				keybind: [ZERO],
+				onSelect: (_) -> {changeNoteType(0);},
+				icon: this.noteType == 0 ? 1 : 0
+			}
 		];
 
-		var noteTypeOptions:Array<UIContextMenuOption> = [{
-			label: "(0) " + translate("noteTypes.default"),
-			keybind: [ZERO],
-			onSelect: (_) -> {changeNoteType(0);},
-			icon: this.noteType == 0 ? 1 : 0
-		}];
-
-		final noteKeys:Array<Array<Array<FlxKey>>> = [[[ZERO], [NUMPADZERO]], [[ONE], [NUMPADONE]], [[TWO], [NUMPADTWO]], [[THREE], [NUMPADTHREE]], [[FOUR], [NUMPADFOUR]], [[FIVE], [NUMPADFIVE]],
-												[[SIX], [NUMPADSIX]], [[SEVEN], [NUMPADSEVEN]], [[EIGHT], [NUMPADEIGHT]], [[NINE], [NUMPADNINE]]];
+		var noteKeys:Array<FlxKey> = [ZERO, ONE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE];
 		for (i=>type in noteTypes) {
 			var realNoteID:Int = i+1; // Default Note not stored
 			var newChild:UIContextMenuOption = {
@@ -2364,13 +2225,9 @@ class Charter extends UIState {
 				onSelect: (_) -> {changeNoteType(realNoteID);},
 				icon: this.noteType == realNoteID ? 1 : 0
 			};
-			if (realNoteID <= 9) newChild.keybinds = noteKeys[realNoteID];
-			noteTypeOptions.push(newChild);
+			if (realNoteID <= 9) newChild.keybind = [noteKeys[realNoteID]];
+			newChilds.push(newChild);
 		}
-		newChilds.push({
-			label: translate("note.noteTypesList"),
-			childs: noteTypeOptions
-		});
 		newChilds.push({
 			label: translate("note.editNoteTypesList"),
 			color: 0xFF959829, icon: 4,
@@ -2378,7 +2235,6 @@ class Charter extends UIState {
 			onSelect: editNoteTypesList
 		});
 		if (noteTopButton != null) noteTopButton.contextMenu = newChilds;
-		if (topMenu != null && topMenu[noteIndex] != null) topMenu[noteIndex].childs = newChilds;
 		return newChilds;
 	}
 
@@ -2466,12 +2322,8 @@ class Charter extends UIState {
 			}
 	}
 
-	public inline function playHitsound(id:Int) {
-		if (strumLines.members[id] != null && strumLines.members[id].hitsoundVolume > 0 && hitsoundGlobalVolume > 0) {
-			hitsound.volume = hitsoundGlobalVolume * strumLines.members[id].hitsoundVolume;
-			hitsound.replay();
-		}
-	}
+	public inline function hitsoundsEnabled(id:Int)
+		return strumLines.members[id] != null && strumLines.members[id].hitsounds;
 
 	public inline function __fixSelection(selection:Selection):Selection {
 		var newSelection:Selection = new Selection();
@@ -2562,7 +2414,7 @@ class Charter extends UIState {
 			quantSelected: quant,
 			noteTypeSelected: noteType,
 			strumlinesDraggable: strumLines.draggable,
-			hitSounds: [for (strumLine in strumLines.members) strumLine.hitsoundVolume > 0],
+			hitSounds: [for (strumLine in strumLines.members) strumLine.hitsounds],
 			mutedVocals: [for (strumLine in strumLines.members) !(strumLine.vocals.volume > 0)],
 			waveforms: [for (strumLine in strumLines.members) strumLine.selectedWaveform]
 		}
@@ -2578,7 +2430,7 @@ class Charter extends UIState {
 		strumLines.draggable = playtestInfo.strumlinesDraggable;
 
 		for (i => strumLine in strumLines.members)
-			strumLine.hitsoundVolume = playtestInfo.hitSounds[i] ? 1 : 0;
+			strumLine.hitsounds = playtestInfo.hitSounds[i];
 		for (i => strumLine in strumLines.members)
 			strumLine.vocals.volume = playtestInfo.mutedVocals[i] ? 0 : 1;
 		for (i => strumLine in strumLines.members)
@@ -2669,10 +2521,4 @@ typedef PlaytestInfo = {
 	var hitSounds:Array<Bool>;
 	var mutedVocals:Array<Bool>;
 	var waveforms:Array<Int>;
-}
-
-typedef CameraChange = {
-	var strumLineID:Int;
-	var step:Float;
-	var endStep:Float;
 }

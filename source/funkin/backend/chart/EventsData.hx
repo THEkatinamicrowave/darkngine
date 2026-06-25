@@ -75,7 +75,7 @@ class EventsData {
 				defValue: "In"
 			},
 			{name: "Mode", type: TDropDown(['direct', 'stage']), defValue: "direct"},
-			{name: "Multiplicative?", type: TBool, defValue: false}
+			{name: "Multiplicative?", type: TBool, defValue: true}
 		],
 		"Camera Modulo Change" => [
 			{name: "Modulo Interval", type: TInt(1, 9999999, 1), defValue: 4},
@@ -164,10 +164,8 @@ class EventsData {
 
 			if (fileTxt.trim() == "") continue;
 
-			if (!eventsList.contains(eventName)) {
-				eventsList.push(eventName);
-				eventsParams.set(eventName, []);
-			}
+			eventsList.push(eventName);
+			eventsParams.set(eventName, []);
 
 			try {
 				var data:EventInfoFile = cast Json.parse(fileTxt);
@@ -179,8 +177,7 @@ class EventsData {
 						finalParams.push({
 							name: paramData.name,
 							type: hscriptInterp.expr(hscriptParser.parseString(paramData.type)),
-							defValue: paramData.defaultValue,
-							saveIfDefault: paramData.saveIfDefault
+							defValue: paramData.defaultValue
 						});
 					} catch (e) {trace('Error parsing event param ${paramData.name} - ${eventName}: $e'); finalParams.push(null);}
 				}
@@ -197,7 +194,6 @@ typedef EventInfoFile = {
 		var name:String;
 		var type:String;
 		var defaultValue:Dynamic;
-		var ?saveIfDefault:Bool;
 	}>;
 }
 

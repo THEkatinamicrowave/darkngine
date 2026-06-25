@@ -1,5 +1,7 @@
 package funkin.backend.system;
 
+import sys.io.File;
+import sys.FileSystem;
 import flixel.addons.transition.FlxTransitionSprite.GraphicTransTileDiamond;
 import flixel.addons.transition.FlxTransitionableState;
 import flixel.addons.transition.TransitionData;
@@ -7,22 +9,21 @@ import flixel.graphics.FlxGraphic;
 import flixel.math.FlxPoint;
 import flixel.math.FlxRect;
 import flixel.system.ui.FlxSoundTray;
-import funkin.backend.assets.AssetSource;
 import funkin.backend.assets.AssetsLibraryList;
 import funkin.backend.assets.ModsFolder;
-import funkin.backend.system.framerate.Framerate;
+import funkin.backend.assets.AssetSource;
 import funkin.backend.system.framerate.SystemInfo;
 import funkin.backend.system.modules.*;
-import funkin.backend.utils.ThreadUtil;
 import funkin.editors.SaveWarning;
-import funkin.options.PlayerSettings;
 import openfl.Assets;
 import openfl.Lib;
 import openfl.display.Sprite;
 import openfl.text.TextFormat;
 import openfl.utils.AssetLibrary;
-import sys.FileSystem;
-import sys.io.File;
+
+#if ALLOW_MULTITHREADING
+import sys.thread.Thread;
+#end
 #if android
 import android.content.Context;
 import android.os.Build;
@@ -39,7 +40,7 @@ class Main extends Sprite
 
 	public static var scaleMode:FunkinRatioScaleMode;
 	#if !mobile
-	public static var framerateSprite:Framerate;
+	public static var framerateSprite:funkin.backend.system.framerate.Framerate;
 	#end
 
 	var gameWidth:Int = 1280; // Width of the game in pixels (might be less / more in actual pixels).
@@ -56,6 +57,10 @@ class Main extends Sprite
 	public static var time:Int = 0;
 
 	// You can pretty much ignore everything from here on - your code should go in your states.
+
+	#if ALLOW_MULTITHREADING
+	public static var gameThreads:Array<Thread> = [];
+	#end
 
 	public static function preInit() {
 		funkin.backend.utils.NativeAPI.registerAsDPICompatible();
@@ -74,7 +79,7 @@ class Main extends Sprite
 		addChild(game = new FunkinGame(gameWidth, gameHeight, MainState, Options.framerate, Options.framerate, skipSplash, startFullscreen));
 
 		#if (!mobile && !web)
-		addChild(framerateSprite = new Framerate());
+		addChild(framerateSprite = new funkin.backend.system.framerate.Framerate());
 		SystemInfo.init();
 		#end
 	}
@@ -92,8 +97,16 @@ class Main extends Sprite
 		#end;
 	public static var startedFromSource:Bool = #if TEST_BUILD true #else false #end;
 
-	// DEPRECATED
-	@:dox(hide) public static function execAsync(func:Void->Void) ThreadUtil.execAsync(func);
+
+	private static var __threadCycle:Int = 0;
+	public static function execAsync(func:Void->Void) {
+		#if ALLOW_MULTITHREADING
+		var thread = gameThreads[(__threadCycle++) % gameThreads.length];
+		thread.events.run(func);
+		#else
+		func();
+		#end
+	}
 
 	private static function getTimer():Int {
 		return time = Lib.getTimer();
@@ -105,6 +118,10 @@ class Main extends Sprite
 		MemoryUtil.init();
 		@:privateAccess
 		FlxG.game.getTimer = getTimer;
+		#if ALLOW_MULTITHREADING
+		for(i in 0...4)
+			gameThreads.push(Thread.createWithEventLoop(function() {Thread.current().events.promise();}));
+		#end
 		FunkinCache.init();
 		Paths.assetsTree = new AssetsLibraryList();
 
@@ -139,7 +156,6 @@ class Main extends Sprite
 		FlxG.signals.focusGained.add(onFocus);
 		FlxG.signals.preStateSwitch.add(onStateSwitch);
 		FlxG.signals.postStateSwitch.add(onStateSwitchPost);
-		FlxG.signals.postUpdate.add(onUpdate);
 
 		FlxG.mouse.useSystemCursor = true;
 		#if DARK_MODE_WINDOW
@@ -192,14 +208,6 @@ class Main extends Sprite
 
 	private static function onStateSwitch() {
 		scaleMode.resetSize();
-	}
-
-	public static function onUpdate() {
-		if (PlayerSettings.solo.controls.DEV_CONSOLE)
-			NativeAPI.allocConsole();
-
-		if (PlayerSettings.solo.controls.FPS_COUNTER)
-			Framerate.debugMode = (Framerate.debugMode + 1) % 3;
 	}
 
 	private static function onStateSwitchPost() {
