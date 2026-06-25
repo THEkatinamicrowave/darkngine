@@ -79,7 +79,7 @@ class CharterBackdropGroup extends FlxTypedGroup<CharterBackdrop> {
 			grid.conductorFollowerSpr.y = conductorSprY;
 			grid.bottomSeparator.y = (grid.bottomLimit.y = bottomLimitY)-2;
 
-			grid.waveformSprite.shader = strumLine.waveformShader;
+			grid.waveformSprite.shaders.set('waveformShader', strumLine.waveformShader);
 
 			grid.notesGroup.clear();
 			notesGroup.forEach((n) -> {
@@ -183,7 +183,7 @@ class CharterBackdrop extends FlxTypedGroup<FlxBasic> {
 
 		gridBackDrop = new FlxBackdrop(null, Y, 0, 0);
 		gridBackDrop.makeSolid(1, 1, -1);
-		gridBackDrop.shader = gridShader;
+		gridBackDrop.shaders.set('gridShader', gridShader);
 		add(gridBackDrop);
 		gridShader.hset("segments", 4);
 
@@ -272,8 +272,8 @@ class CharterBackdrop extends FlxTypedGroup<FlxBasic> {
 			spr.updateHitbox();
 		}
 
-		waveformSprite.visible = waveformSprite.shader != null;
-		if (waveformSprite.shader == null) return;
+		waveformSprite.visible = waveformSprite.shaders != null;
+		if (waveformSprite.shaders == null) return;
 
 		waveformSprite.scale.set(keyCount * 40, FlxG.height * (1/cameras[0].zoom));
 		waveformSprite.updateHitbox();
@@ -287,9 +287,10 @@ class CharterBackdrop extends FlxTypedGroup<FlxBasic> {
 		}
 		waveformSprite.updateHitbox();
 
-		waveformSprite.shader.data.pixelOffset.value = [Math.max(conductorFollowerSpr.y - ((FlxG.height * (1/cameras[0].zoom)) * 0.5), 0)];
-		waveformSprite.shader.data.textureRes.value = [waveformSprite.width, waveformSprite.height];
-		waveformSprite.shader.data.playerPosition.value = [conductorFollowerSpr.y];
+		var waveformShader:FlxShader = waveformSprite.shaders.get('waveformShader');
+		waveformShader.data.pixelOffset.value = [Math.max(conductorFollowerSpr.y - ((FlxG.height * (1/cameras[0].zoom)) * 0.5), 0)];
+		waveformShader.data.textureRes.value = [waveformSprite.width, waveformSprite.height];
+		waveformShader.data.playerPosition.value = [conductorFollowerSpr.y];
 	}
 }
 

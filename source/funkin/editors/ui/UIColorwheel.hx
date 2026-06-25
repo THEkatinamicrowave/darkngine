@@ -34,7 +34,7 @@ class UIColorwheel extends UISliceSprite {
 
 		colorPicker = new FlxSprite(x + 12.5, (y + 125/2) - (100/2)).makeGraphic(100, 100, FlxColor.TRANSPARENT);
 		colorPicker.drawRoundRect(0, 0, 100, 100, 10, 10, FlxColor.WHITE);
-		colorPicker.shader = colorPickerShader;
+		colorPicker.shaders.set('colorPickerShader', colorPickerShader);
 
 		colorPickerSelector = new UIColorWheelSelector(colorPicker.x + 100 - 16, colorPicker.y);
 
