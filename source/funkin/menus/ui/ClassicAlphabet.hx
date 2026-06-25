@@ -90,7 +90,7 @@ class ClassicAlphabet extends FlxSpriteGroup
 		if (Paths.getAssetsRoot() + alphabetPath != AlphaCharacter.__alphaPath) {
 			refreshAlphabetXML(alphabetPath);
 		}
-		#if MOD_SUPPORT else {
+		#if FPACK_SUPPORT else {
 			var libThing = new LimeLibrarySymbol(alphabetPath);
 			if (libThing.library is AssetLibrary) {
 				var library = cast(libThing.library, AssetLibrary);

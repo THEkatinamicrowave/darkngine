@@ -26,5 +26,5 @@ Instead of this one
 ╔═══════════════════════════════════════╗
 ║ COMPATIBILITY                         ║
 ╚═══════════════════════════════════════╝
-ONLY CODENAME ENGINE MODS ARE SUPPORTED!
-MODS MADE FOR YOSHICRAFTER ENGINE OR PSYCH ENGINE ARE **NOT** SUPPORTED!
+Codename Engine mods are mostly supported. Songs and other data-types (characters, etc.) are
+fully supported; HScript scripts will most likely be broken or heavily optimizable.

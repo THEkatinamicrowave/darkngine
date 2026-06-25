@@ -9,7 +9,7 @@ import openfl.utils.AssetLibrary;
 import openfl.utils.AssetManifest;
 
 using StringTools;
-#if MOD_SUPPORT
+#if FPACK_SUPPORT
 import sys.FileSystem;
 #end
 
@@ -82,7 +82,7 @@ class ModsFolder {
 	 * @param force Whenever the mod should be reloaded if it has already been loaded
 	 */
 	public static function loadModLib(path:String, force:Bool = false, ?modName:String) {
-		#if MOD_SUPPORT
+		#if FPACK_SUPPORT
 		if (FileSystem.exists('$path.zip'))
 			return loadLibraryFromZip('$path'.toLowerCase(), '$path.zip', force, modName);
 		else
@@ -95,7 +95,7 @@ class ModsFolder {
 
 	public static function getModsList():Array<String> {
 		var mods:Array<String> = [];
-		#if MOD_SUPPORT
+		#if FPACK_SUPPORT
 		if (!FileSystem.exists(modsPath)) {
 			// Mods directory does not exist yet, create it
 			FileSystem.createDirectory(modsPath);
@@ -165,7 +165,7 @@ class ModsFolder {
 		return openLib;
 	}
 
-	#if MOD_SUPPORT
+	#if FPACK_SUPPORT
 	public static function loadLibraryFromFolder(libName:String, folder:String, force:Bool = false, ?modName:String, ?tag:AssetSource = MODS) {
 		return prepareModLibrary(libName, new ModsFolderLibrary(folder, libName, modName), force, tag);
 	}

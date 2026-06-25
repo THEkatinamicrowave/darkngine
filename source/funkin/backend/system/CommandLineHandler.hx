@@ -12,7 +12,7 @@ final class CommandLineHandler {
 				case "-h" | "-help" | "help":
 					Sys.println("-- Codename Engine Command Line help --");
 					Sys.println("-help                | Show this help");
-					#if MOD_SUPPORT
+					#if FPACK_SUPPORT
 					Sys.println("-mod [mod name]      | Load a specific mod");
 					Sys.println("-modfolder [path]    | Sets the mod folder path");
 					Sys.println("-addonsfolder [path] | Sets the addons folder path");
@@ -21,7 +21,7 @@ final class CommandLineHandler {
 					Sys.println("-nogpubitmap         | Forces GPU only bitmaps off");
 					Sys.println("-nocwdfix            | Turns off automatic working directory fix");
 					Sys.exit(0);
-				#if MOD_SUPPORT
+				#if FPACK_SUPPORT
 				case "-m" | "-mod" | "-currentmod":
 					i++;
 					var arg = cmd[i];

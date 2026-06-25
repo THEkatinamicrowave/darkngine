@@ -20,7 +20,7 @@ class GlobalScript {
 	public static function init() {
 		if(initialized) return;
 		initialized = true;
-		#if MOD_SUPPORT
+		#if FPACK_SUPPORT
 		ModsFolder.onModSwitch.add(onModSwitch);
 		#end
 
@@ -100,7 +100,7 @@ class GlobalScript {
 					MusicBeatState.ALLOW_DEV_RELOAD = false;
 
 					// Would be better to just re-initalize GlobalScript so there aren't any lose ends.
-					onModSwitch(#if MOD_SUPPORT ModsFolder.currentModFolder #else null #end);
+					onModSwitch(#if FPACK_SUPPORT ModsFolder.currentModFolder #else null #end);
 				}
 			}
 		});

@@ -77,7 +77,7 @@ class AssetsLibraryList extends AssetLibrary {
 			l = getCleanLibrary(l);
 
 			// TODO: do base folder scanning
-			#if MOD_SUPPORT
+			#if FPACK_SUPPORT
 			if (l is IModsAssetLibrary) {
 				var lib = cast(l, IModsAssetLibrary);
 				for(e in lib.getFiles(folder))
@@ -96,7 +96,7 @@ class AssetsLibraryList extends AssetLibrary {
 			l = getCleanLibrary(l);
 
 			// TODO: do base folder scanning
-			#if MOD_SUPPORT
+			#if FPACK_SUPPORT
 			if (l is IModsAssetLibrary) {
 				var lib = cast(l, IModsAssetLibrary);
 				for(e in lib.getFolders(folder))
@@ -154,7 +154,7 @@ class AssetsLibraryList extends AssetLibrary {
 		#if (sys && TEST_BUILD)
 		Logs.infos("Used cne test / cne build. Switching into source assets.");
 
-		#if MOD_SUPPORT
+		#if FPACK_SUPPORT
 		ModsFolder.modsPath = './${Main.pathBack}mods/';
 		ModsFolder.addonsPath = './${Main.pathBack}addons/';
 		#end

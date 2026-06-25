@@ -142,7 +142,7 @@ class MainMenuState extends MusicBeatState
 			if (controls.BACK)
 				FlxG.switchState(new TitleState());
 
-			#if MOD_SUPPORT
+			#if FPACK_SUPPORTRT
 			if (controls.SWITCHMOD) {
 				openSubState(new ModSwitchMenu());
 				persistentUpdate = false;

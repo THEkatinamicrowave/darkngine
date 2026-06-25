@@ -1,6 +1,6 @@
 package funkin.menus;
 
-#if MOD_SUPPORT
+#if FPACK_SUPPORT
 import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
 import funkin.backend.assets.ModsFolder;
