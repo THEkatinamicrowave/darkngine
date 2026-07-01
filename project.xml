@@ -2,7 +2,7 @@
 <project>
 	<!-- _________________________ Application Settings _________________________ -->
 	<app
-		title="Friday Night Funkin' - DarkNgine" main="funkin.backend.system.Main"
+		title="Friday Night Funkin' - DarkNgine" main="Main"
 		file="DarkNgine" packageName="com.darkenorb.darkngine"
 		package="com.darkenorb.darkngine"
 		version="1.0.0" company="DarkenOrb" />
