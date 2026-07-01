@@ -2,50 +2,27 @@
 <project>
 	<!-- _________________________ Application Settings _________________________ -->
 	<app
-		title="Friday Night Funkin' - DarkNgine" main="Main"
+		title="Friday Night Funkin' - DarkNgine" main="funkin.backend.system.Main"
 		file="DarkNgine" packageName="com.darkenorb.darkngine"
 		package="com.darkenorb.darkngine"
-		version="1.0.0" company="DarkenOrb" />
+		version="1.0.0" company="DarkenOrb"
+	/>
 
-	<!--
-		CHANGE THE SAVE PATH & NAME FOR YOUR MOD HERE!
-	-->
 	<haxedef name="SAVE_PATH" value="DarkNgine"/>
 	<haxedef name="SAVE_NAME" value="save-main"/>
 
 	<haxedef name="SAVE_OPTIONS_PATH" value="DarkNgine"/>
 	<haxedef name="SAVE_OPTIONS_NAME" value="options"/>
 
-	<!--Switch Export with Unique ApplicationID and Icon-->
-	<set name="APP_ID" value="0x0100f6c013bbc000" />
-
-	<!-- DO NOT REMOVE!! ALLOWS ME TO DO REGIONS LIKE IN C# AND KEEP CODE ORGANIZED. REMOVING IT WOULD BREAK THE ENGINE -->
-	<haxedef name="REGION" />
-
-	<!--The flixel preloader is not accurate in Chrome. You can use it regularly if you embed the swf into a html file
-		or you can set the actual size of your file manually at "FlxPreloaderBase-onUpdate-bytesTotal"-->
 	<app preloader="flixel.system.FlxPreloader" />
-
-	<!--Minimum without FLX_NO_GAMEPAD: 11.8, without FLX_NO_NATIVE_CURSOR: 11.2-->
 	<set name="SWF_VERSION" value="11.8" />
 
 	<!-- ____________________________ Window Settings ___________________________ -->
 
-	<!--These window settings apply to all targets-->
 	<window width="1280" height="720" background="#000000" hardware="true" vsync="false" />
-
-	<!--HTML5-specific-->
 	<window if="html5" resizable="true" />
-
-	<!--Desktop-specific-->
-	<window if="desktop" orientation="landscape" fullscreen="false" resizable="true" vsync="false"/>
-	<window if="mac" allow-high-dpi="true" />
-
-	<!--Mobile-specific-->
-	<window if="mobile" orientation="landscape" fullscreen="true" width="0" height="0" resizable="false"/>
-
-	<!--Switch-specific-->
-	<window if="switch" orientation="landscape" fullscreen="true" width="0" height="0" resizable="true" />
+	<window if="desktop" orientation="landscape" fullscreen="false" resizable="true" />
+	<window if="mobile" orientation="landscape" fullscreen="true" width="0" height="0" />
 
 	<!-- _________________________________ Engine Settings _______________________________ -->
 
@@ -71,27 +48,29 @@
 	<library name="assets"    preload="true"  if="PRELOAD_ALL"/>
 	<library name="assets"    preload="false" if="NO_PRELOAD_ALL" />
 
-	<section unless="TEST_BUILD">
-		<assets path="assets/"    rename="assets"	exclude="*.ogg" if="web"/>
-		<assets path="assets/"    rename="assets"	exclude="*.mp3" unless="web"/>
+	<assets path="assets/"    rename="assets"	exclude="*.ogg" if="web"/>
+	<assets path="assets/"    rename="assets"	exclude="*.mp3" unless="web"/>
 
-		<!-- TODO: make it copy this manually, instead of using assets node, so it doesn't manually check for fonts -->
-		<assets path='fandompacks' rename='fandompacks' embed='false' />
-	</section>
+	<assets path='fandompacks' rename='fandompacks' embed='false' />
 
 	<assets path='art/readme.txt' rename='do NOT readme.txt' />
 
-	<!-- OpenAL config -->
 	<section if="desktop">
 		<assets path="alsoft.txt" rename="plugins/alsoft.ini" type="text" if="windows"/>
 		<assets path="alsoft.txt" rename="plugins/alsoft.conf" type="text" unless="windows"/>
 	</section>
 
 	<!-- ______________________________ Haxedefines _____________________________ -->
+	<haxedef name="FLX_NO_HEALTH" />
+	<haxedef name="FLX_NO_MOUSE" if="mobile" />
+	<haxedef name="FLX_NO_KEYBOARD" if="mobile" />
+	<haxedef name="FLX_NO_TOUCH" if="desktop" />
+	<haxedef name="FLX_NO_DEBUG" unless="debug" />
+	<haxedef name="NAPE_RELEASE_BUILD" unless="debug" />
+	<haxedef name="message.reporting" value="pretty" />
 
 	<!-- _________________________________ Custom _______________________________ -->
 
-	<!--Place custom nodes like icons here (higher priority to override the HaxeFlixel icon)-->
 	<icon path="art/icon16.png" size='16'/>
 	<icon path="art/icon32.png" size='24'/>
 	<icon path="art/icon32.png" size='32'/>
@@ -105,7 +84,4 @@
 	<icon path="art/iconOG.png" size='512' />
 	<icon path="art/iconOG.png" size='768' />
 	<icon path="art/iconOG.png" size='1024' />
-
-	<!-- _________________________________ Additional stuff _______________________________ -->
-
 </project>
