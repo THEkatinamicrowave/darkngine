@@ -202,7 +202,7 @@ class FunkinSprite extends FlxSkewedSprite implements IBeatReceiver implements I
 			animateAtlas.visible = visible;
 			animateAtlas.flipX = flipX;
 			animateAtlas.flipY = flipY;
-			animateAtlas.shaders = shaders;
+			animateAtlas.shader = shader;
 			animateAtlas.shaderEnabled = shaderEnabled;
 			animateAtlas.antialiasing = antialiasing;
 			animateAtlas.skew = skew;
