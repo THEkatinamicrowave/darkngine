@@ -16,12 +16,7 @@ class GithubIconOption extends TextOption
 	public function set_usePortrait(value:Bool)
 	{
 		if (icon == null) return usePortrait = false;
-		if (value) {
-			icon.shaders.set('circlePFP', new CustomShader('engine/circleProfilePicture'));
-		} else {
-			if (icon.shaders.exists('circlePFP')) icon.shaders.remove('circlePFP');
-		}
-		
+		icon.shader = (value ? new CustomShader('engine/circleProfilePicture') : null);
 		return usePortrait = value;
 	}
 

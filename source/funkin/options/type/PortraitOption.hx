@@ -21,7 +21,7 @@ class PortraitOption extends TextOption {
 		if (portrait == null) {
 			portrait = new FlxSprite();
 			portrait.antialiasing = true;
-			if(usePortrait) portrait.shaders.set('circlePFP', new CustomShader('engine/circleProfilePicture'));
+			if(usePortrait) portrait.shader = new CustomShader('engine/circleProfilePicture');
 			add(portrait);
 		}
 		portrait.loadGraphic(graphic);
