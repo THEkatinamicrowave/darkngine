@@ -49,11 +49,12 @@ class Flags {
 	@:bypass public static var WINDOW_TITLE_USE_MOD_NAME:Bool = false;
 	@:lazy public static var TITLE:String = Application.current.meta.get('name');
 	@:lazy public static var VERSION:String = Application.current.meta.get('version');
+	@:lazy public static var CNE_VERSION:String = '1.0.1';
 
-	@:lazy public static var VERSION_MESSAGE:String = 'Codename Engine v$VERSION';
+	@:lazy public static var VERSION_MESSAGE:String = 'DarkNgine v$VERSION\nCodename Engine v$CNE_VERSION';
 
-	public static var REPO_NAME:String = "CodenameEngine";
-	public static var REPO_OWNER:String = "CodenameCrew";
+	public static var REPO_NAME:String = "darkngine";
+	public static var REPO_OWNER:String = "THEkatinamicrowave";
 	public static var REPO_URL:String = 'https://github.com/$REPO_OWNER/$REPO_NAME';
 
 	/**
@@ -66,7 +67,7 @@ class Flags {
 
 	public static var DEFAULT_DISCORD_LOGO_KEY:String = "icon";
 	public static var DEFAULT_DISCORD_CLIENT_ID:String = "1383853614589673472";
-	public static var DEFAULT_DISCORD_LOGO_TEXT:String = "Codename Engine";
+	public static var DEFAULT_DISCORD_LOGO_TEXT:String = "DarkNgine";
 
 	@:also(funkin.game.Character.FALLBACK_CHARACTER)
 	public static var DEFAULT_CHARACTER:String = "bf";

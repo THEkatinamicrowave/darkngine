@@ -28,15 +28,15 @@ class AsyncUpdater {
 
 	#if windows
 	public static var executableGitHubName:String = "update-windows.exe";
-	public static var executableName:String = "CodenameEngine.exe";
+	public static var executableName:String = "DarkNgine.exe";
 	#end
 	#if linux
 	public static var executableGitHubName:String = "update-linux";
-	public static var executableName:String = "CodenameEngine";
+	public static var executableName:String = "DarkNgine";
 	#end
 	#if mac
 	public static var executableGitHubName:String = "update-mac";
-	public static var executableName:String = "CodenameEngine";
+	public static var executableName:String = "DarkNgine";
 	#end
 
 	public var releases:Array<GitHubRelease>;
@@ -160,7 +160,7 @@ class AsyncUpdater {
 		progress.step = PREPARING;
 
 		#if windows
-		path = '${Sys.getEnv("TEMP")}\\Codename Engine\\Updater\\';
+		path = '${Sys.getEnv("TEMP")}\\DarkNgine\\Updater\\';
 		#else
 		path = '.temp/';
 		#end
