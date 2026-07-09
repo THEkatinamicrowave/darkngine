@@ -7,7 +7,7 @@ DarkNgine is a fork of [Codename Engine](https://github.com/CodenameCrew/Codenam
 <details>
   <summary><h2>New Features</h2></summary>
 
-- Added FlxMultiShader for stacking shaders on FlxSprite
+- nothing so far
 </details>
 
 <details>
