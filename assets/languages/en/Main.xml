@@ -59,6 +59,7 @@
 		<group name="CreditsMain">
 			<str id="credits.name">Credits</str>
 			<str id="credits.madePossible">The people who made this possible!</str>
+			<str id="credits.selectDarkNgine">Select this to see the developers of DarkNgine!</str>
 			<str id="credits.selectCodename">Select this to see all the contributors of the engine!</str>
 			<str id="credits.selectBase">Select this to open the itch.io page of the original game to donate!</str>
 		</group>

@@ -36,6 +36,7 @@ class CreditsMain extends TreeMenu {
 			}
 		}
 
+		first.add(new TextOption('DarkNgine', 'credits.selectDarkNgine', ' >', () -> addMenu(new CreditsDarkNgine())));
 		first.add(new TextOption('Codename Engine', 'credits.selectCodename', ' >', () -> addMenu(new CreditsCodename())));
 		first.add(new TextOption('Friday Night Funkin\'', 'credits.selectBase', ' >', () -> CoolUtil.openURL(Flags.URL_FNF_ITCH)));
 	}

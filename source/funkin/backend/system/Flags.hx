@@ -56,6 +56,10 @@ class Flags {
 	public static var REPO_NAME:String = "darkngine";
 	public static var REPO_OWNER:String = "THEkatinamicrowave";
 	public static var REPO_URL:String = 'https://github.com/$REPO_OWNER/$REPO_NAME';
+	
+	public static var CNE_NAME:String = "CodenameEngine";
+	public static var CNE_OWNER:String = "CodenameCrew";
+	public static var CNE_URL:String = 'https://github.com/$CNE_OWNER/$CNE_NAME';
 
 	/**
 	 * Preferred sound extension for the game's audio files.

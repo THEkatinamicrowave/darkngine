@@ -59,6 +59,7 @@
 		<group name="CreditsMain">
 			<str id="credits.name">Twórcy</str>
 			<str id="credits.madePossible">Ludzie którzy to umożliwili!</str>
+			<str id="credits.selectDarkNgine">Wybierz to, aby zobaczyć twórców DarkNgine!</str>
 			<str id="credits.selectCodename">Wybierz to aby zobaczyć wszystkich współpracowników!</str>
 			<str id="credits.selectBase">Wybierz to aby otworzyć stronę itch.io oryginalnej gry!</str>
 		</group>

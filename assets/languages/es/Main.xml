@@ -45,6 +45,7 @@
 		<group name="CreditsMain">
 			<str id="credits.name">Créditos</str>
 			<str id="credits.madePossible">¡La gente que hizo esto posible!</str>
+			<str id="credits.selectDarkNgine">¡Selecciona esto para ver a los desarrolladores de DarkNgine!</str>
 			<str id="credits.selectCodename">¡Selecciona esto para ver todos los contribuidores del Engine!</str>
 			<str id="credits.selectBase">¡Selecciona esto para abrir la página del juego y donar!</str>
 		</group>

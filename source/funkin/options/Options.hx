@@ -74,8 +74,11 @@ class Options
 	public static var freeplayLastSong:String = null;
 	public static var freeplayLastDifficulty:String = "normal";
 	public static var freeplayLastVariation:String = null;
+	public static var cneContributors:Array<funkin.backend.system.github.GitHubContributor.CreditsGitHubContributor> = [];
+	public static var mainCneDevs:Array<Int> = [];  // IDs
+	public static var cneLastUpdated:Null<Float>;
 	public static var contributors:Array<funkin.backend.system.github.GitHubContributor.CreditsGitHubContributor> = [];
-	public static var mainDevs:Array<Int> = [];  // IDs
+	public static var mainDevs:Array<Int> = [];
 	public static var lastUpdated:Null<Float>;
 
 	/**
