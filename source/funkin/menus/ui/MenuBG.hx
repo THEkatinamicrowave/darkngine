@@ -25,6 +25,13 @@ class MenuBG extends FlxGraphic
 
     private function generateBitmap(color1:FlxColor, color2:FlxColor):BitmapData
 	{
+		function getMergedColor(shift:Int, mixAmount:Float):Int
+		{
+			var c1 = (color1 >> shift) & 0xFF;
+			var c2 = (color2 >> shift) & 0xFF;
+			return Std.int(c1 + (c2 - c1) * mixAmount);
+		}
+
 		var src = Assets.getBitmapData(Paths.image("menus/menuBG-outline"));
 		var w = src.width;
 		var h = src.height;
@@ -34,26 +41,14 @@ class MenuBG extends FlxGraphic
 		for (y in 0...h) for (x in 0...w)
 		{
 			var px = src.getPixel32(x, y);
+			var brightness = (px & 0xFF) / 255; // it's black and white; we don't need this shit
 
-			var r = (px >> 16) & 0xFF;
-			var g = (px >> 8) & 0xFF;
-			var b = px & 0xFF;
+			var full_red = getMergedColor(16, brightness);
+			var full_green = getMergedColor(8, brightness);
+			var full_blue = getMergedColor(0, brightness);
+			var full_alpha = getMergedColor(24, brightness);
 
-			var brightness = (r + g + b) / (3 * 255);
-
-			var r1 = (color1 >> 16) & 0xFF;
-			var g1 = (color1 >> 8) & 0xFF;
-			var b1 = color1 & 0xFF;
-
-			var r2 = (color2 >> 16) & 0xFF;
-			var g2 = (color2 >> 8) & 0xFF;
-			var b2 = color2 & 0xFF;
-
-			var rf = Std.int(r1 + (r2 - r1) * brightness);
-			var gf = Std.int(g1 + (g2 - g1) * brightness);
-			var bf = Std.int(b1 + (b2 - b1) * brightness);
-
-			out.setPixel32(x, y, 0xFF000000 | (rf << 16) | (gf << 8) | bf);
+			out.setPixel32(x, y, (full_alpha << 24) | (full_red << 16) | (full_green << 8) | full_blue);
 		}
 
 		return out;
