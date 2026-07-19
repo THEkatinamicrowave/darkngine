@@ -29,7 +29,7 @@ class FunkinSoundTray extends FlxSoundTray
 		super();
 		removeChildren();
 
-		var box:Bitmap = new Bitmap(BitmapData.fromImage(Assets.getImage(Paths.image("menus/soundtray/box"))));
+		var box:Bitmap = new Bitmap(BitmapData.fromImage(Assets.getImage(Paths.image('menus/soundtray/box'))));
 		box.scaleX = targetScale;
 		box.scaleY = targetScale;
 		box.smoothing = true;
@@ -37,7 +37,7 @@ class FunkinSoundTray extends FlxSoundTray
 		y = -height;
 		visible = false;
 
-		var translucentBars:Bitmap = new Bitmap(BitmapData.fromImage(Assets.getImage(Paths.image("menus/soundtray/bar10"))));
+		var translucentBars:Bitmap = new Bitmap(BitmapData.fromImage(Assets.getImage(Paths.image('menus/soundtray/bar10'))));
 		translucentBars.x = 9;
 		translucentBars.y = 5;
 		translucentBars.alpha = 0.4;
@@ -51,7 +51,7 @@ class FunkinSoundTray extends FlxSoundTray
 		_bars = [];
 		for (i in 0...10)
 		{
-			var bar:Bitmap = new Bitmap(BitmapData.fromImage(Assets.getImage(Paths.image("menus/soundtray/bar" + (i + 1)))));
+			var bar:Bitmap = new Bitmap(BitmapData.fromImage(Assets.getImage(Paths.image('menus/soundtray/bar${i + 1}'))));
 			bar.x = 9;
 			bar.y = 5;
 			bar.scaleX = targetScale;
@@ -65,9 +65,9 @@ class FunkinSoundTray extends FlxSoundTray
 		screenCenter();
 		y = -height - 10;
 
-		FlxSoundTray.volumeUpChangeSFX = Paths.sound("soundtray/increase");
-		FlxSoundTray.volumeDownChangeSFX = Paths.sound("soundtray/decrease");
-		FlxSoundTray.volumeMaxChangeSFX = Paths.sound("soundtray/max");
+		FlxSoundTray.volumeUpChangeSFX = Paths.sound('soundtray/increase');
+		FlxSoundTray.volumeDownChangeSFX = Paths.sound('soundtray/decrease');
+		FlxSoundTray.volumeMaxChangeSFX = Paths.sound('soundtray/max');
 		
 		soundtrayScript.call("postCreate");
 	}
@@ -128,7 +128,7 @@ class FunkinSoundTray extends FlxSoundTray
 
 		screenCenter();
 		y = CoolUtil.fpsLerp(y, targetY, 0.3);
-		alpha = CoolUtil.fpsLerp(alpha, targetAlpha, 0.3);
+		alpha = CoolUtil.fpsLerp(alpha, targetAlpha, 0.2);
 
 		soundtrayScript.call("postUpdate", [elapsed]);
 	}
