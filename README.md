@@ -7,6 +7,7 @@ DarkNgine is a fork of [Codename Engine](https://github.com/CodenameCrew/Codenam
 <details>
   <summary><h2>Changes</h2></summary>
 - Optimize menu backgrounds with MenuBG class
+- Ported V-Slice Sound Tray
 </details>
 
 <details>
