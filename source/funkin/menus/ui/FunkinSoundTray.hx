@@ -10,10 +10,6 @@ class FunkinSoundTray extends FlxSoundTray
 {
 	public var script:Script;
 
-	// Ne_Eo wanted them since it would reduce lags for some people if activated  - Nex
-	public var callsUpdate:Bool = true;
-	public var callsPostUpdate:Bool = true;
-
 	public function new()
 	{
 		script = Script.create(Paths.script('data/soundTray'));
@@ -23,10 +19,9 @@ class FunkinSoundTray extends FlxSoundTray
 		script.call("create");
 		super();
 
-		FlxSoundTray.volumeChangeSFX = Paths.sound('menu/volume');
-		FlxSoundTray.volumeUpChangeSFX = null;
-		FlxSoundTray.volumeDownChangeSFX = null;
-		FlxSoundTray.volumeMaxChangeSFX = null;
+		FlxSoundTray.volumeUpChangeSFX = Paths.sound('soundtray/increase');
+		FlxSoundTray.volumeDownChangeSFX = Paths.sound('soundtray/decrease');
+		FlxSoundTray.volumeMaxChangeSFX = Paths.sound('soundtray/max');
 		text.setTextFormat(new TextFormat(Paths.font("vcr.ttf")));
 
 		script.call("postCreate");
@@ -74,9 +69,9 @@ class FunkinSoundTray extends FlxSoundTray
 
 	public override function update(elapsed:Float)
 	{
-		if (callsUpdate) script.call("update", [elapsed]);
+		script.call("update", [elapsed]);
 		super.update(elapsed);
-		if (callsPostUpdate) script.call("postUpdate", [elapsed]);
+		script.call("postUpdate", [elapsed]);
 	}
 
 	public override function saveSoundPreferences()
