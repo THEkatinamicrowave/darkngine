@@ -26,7 +26,7 @@ class MenuBG extends FlxGraphic
 
     private function generateBitmap(color1:FlxColor, color2:FlxColor):BitmapData
 	{
-		function getMergedColor(shift:Int, mixAmount:Float):Int
+		function getMergedChannel(shift:Int, mixAmount:Float):Int
 		{
 			var c1 = (color1 >> shift) & 0xFF;
 			var c2 = (color2 >> shift) & 0xFF;
@@ -42,14 +42,14 @@ class MenuBG extends FlxGraphic
 		for (y in 0...h) for (x in 0...w)
 		{
 			var px = src.getPixel32(x, y);
-			var brightness = (px & 0xFF) / 255; // it's black and white; we don't need this shit
+			var brightness = (px & 0xFF) / 255; // it's black and white; we don't need rgba shit
 
-			var full_red = getMergedColor(16, brightness);
-			var full_green = getMergedColor(8, brightness);
-			var full_blue = getMergedColor(0, brightness);
-			var full_alpha = getMergedColor(24, brightness);
+			var alpha = getMergedChannel(24, brightness);
+			var red = getMergedChannel(16, brightness);
+			var green = getMergedChannel(8, brightness);
+			var blue = getMergedChannel(0, brightness);
 
-			out.setPixel32(x, y, (full_alpha << 24) | (full_red << 16) | (full_green << 8) | full_blue);
+			out.setPixel32(x, y, (alpha << 24) | (red << 16) | (green << 8) | blue);
 		}
 
 		return out;
