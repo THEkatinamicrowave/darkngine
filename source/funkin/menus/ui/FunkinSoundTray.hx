@@ -1,113 +1,208 @@
 package funkin.menus.ui;
 
+import flixel.system.ui.FlxSoundTray;
+import lime.utils.Assets;
+import openfl.display.Bitmap;
+import openfl.display.BitmapData;
+import funkin.backend.scripting.Script;
 import funkin.backend.scripting.events.CancellableEvent;
 import funkin.backend.scripting.events.soundtray.*;
-import funkin.backend.scripting.Script;
-import flixel.system.ui.FlxSoundTray;
-import openfl.text.TextFormat;
+import funkin.backend.utils.CoolUtil;
 
 class FunkinSoundTray extends FlxSoundTray
 {
-	public var script:Script;
+	public var soundtrayScript:Script;
+	public static var script:String = Flags.DEFAULT_SOUNDTRAY_SCRIPT;
+
+	var targetY:Float = 0;
+	var targetAlpha:Float = 0;
+	var targetScale:Float = 0.30;
 
 	public function new()
 	{
-		script = Script.create(Paths.script('data/soundTray'));
-		script.setParent(this);
-		script.load();
+		soundtrayScript = Script.create(Paths.script(script));
+		soundtrayScript.setParent(this);
+		soundtrayScript.load();
 
-		script.call("create");
+		soundtrayScript.call("create");
+
 		super();
+		removeChildren();
 
-		FlxSoundTray.volumeUpChangeSFX = Paths.sound('soundtray/increase');
-		FlxSoundTray.volumeDownChangeSFX = Paths.sound('soundtray/decrease');
-		FlxSoundTray.volumeMaxChangeSFX = Paths.sound('soundtray/max');
-		text.setTextFormat(new TextFormat(Paths.font("vcr.ttf")));
+		var box:Bitmap = new Bitmap(BitmapData.fromImage(Assets.getImage(Paths.image("menus/soundtray/box"))));
+		box.scaleX = targetScale;
+		box.scaleY = targetScale;
+		box.smoothing = true;
 
-		script.call("postCreate");
+		y = -height;
+		visible = false;
+
+		var translucentBars:Bitmap = new Bitmap(BitmapData.fromImage(Assets.getImage(Paths.image("menus/soundtray/bar10"))));
+		translucentBars.x = 9;
+		translucentBars.y = 5;
+		translucentBars.alpha = 0.4;
+		translucentBars.scaleX = targetScale;
+		translucentBars.scaleY = targetScale;
+		translucentBars.smoothing = true;
+
+		addChild(box);
+		addChild(translucentBars);
+
+		_bars = [];
+		for (i in 0...10)
+		{
+			var bar:Bitmap = new Bitmap(BitmapData.fromImage(Assets.getImage(Paths.image("menus/soundtray/bar" + (i + 1)))));
+			bar.x = 9;
+			bar.y = 5;
+			bar.scaleX = targetScale;
+			bar.scaleY = targetScale;
+			bar.smoothing = true;
+			
+			addChild(bar);
+			_bars.push(bar);
+		}
+
+		screenCenter();
+		y = -height - 10;
+
+		FlxSoundTray.volumeUpChangeSFX = Paths.sound("soundtray/increase");
+		FlxSoundTray.volumeDownChangeSFX = Paths.sound("soundtray/decrease");
+		FlxSoundTray.volumeMaxChangeSFX = Paths.sound("soundtray/max");
+		
+		soundtrayScript.call("postCreate");
 	}
 
-	public override function reloadText(checkIfNull:Bool = true, reloadDefaultTextFormat:Bool = true, displayTxt:String = "VOLUME", y:Float = 16)
-	{
-		var event = EventManager.get(SoundTrayTextEvent).recycle(checkIfNull, reloadDefaultTextFormat, displayTxt, y);
-		script.call("reloadText", [event]);
-		if (event.cancelled) return;
-
-		super.reloadText(event.checkIfNull, event.reloadDefaultTextFormat, event.displayTxt, event.y);
-		script.call("postReloadText", [event]);
-	}
-
-	public override function reloadDtf()
+	override public function reloadDtf():Void
 	{
 		var event = new CancellableEvent();
-		script.call("reloadDtf", [event]);
+		soundtrayScript.call("reloadDtf", [event]);
 		if (event.cancelled) return;
 
 		super.reloadDtf();
-		script.call("postReloadDtf");
+		soundtrayScript.call("postReloadDtf");
 	}
 
-	public override function regenerateBarsArray()
+	override public function regenerateBarsArray():Void
 	{
 		var event = new CancellableEvent();
-		script.call("regenerateBarsArray", [event]);
+		soundtrayScript.call("regenerateBarsArray", [event]);
 		if (event.cancelled) return;
 
 		super.regenerateBarsArray();
-		script.call("postRegenerateBarsArray");
+		soundtrayScript.call("postRegenerateBarsArray");
 	}
 
-	public override function regenerateBars()
+	override public function regenerateBars():Void
 	{
 		var event = new CancellableEvent();
-		script.call("regenerateBars", [event]);
+		soundtrayScript.call("regenerateBars", [event]);
 		if (event.cancelled) return;
 
 		super.regenerateBars();
-		script.call("postRegenerateBars");
+		soundtrayScript.call("postRegenerateBars");
 	}
 
-	public override function update(elapsed:Float)
+	override public function update(ms:Float):Void
 	{
-		script.call("update", [elapsed]);
-		super.update(elapsed);
-		script.call("postUpdate", [elapsed]);
+		var elapsed:Float = ms / 1000;
+
+		soundtrayScript.call("update", [elapsed]);
+
+		var hasVolume:Bool = (!FlxG.sound.muted && FlxG.sound.volume > 0);
+		if (hasVolume)
+		{
+			if (_timer > 0)
+			{
+				_timer -= elapsed;
+				if (_timer <= 0)
+				{
+					targetY = -height - 10;
+					targetAlpha = 0;
+				}
+			}
+			else if (y <= -height)
+				visible = active = false;
+		}
+		else if (!visible)
+			showTray();
+
+		screenCenter();
+		y = CoolUtil.fpsLerp(y, targetY, 0.3);
+		alpha = CoolUtil.fpsLerp(alpha, targetAlpha, 0.3);
+
+		soundtrayScript.call("postUpdate", [elapsed]);
 	}
 
-	public override function saveSoundPreferences()
+	override public function saveSoundPreferences():Void
 	{
 		var event = new CancellableEvent();
-		script.call("saveSoundPreferences", [event]);
+		soundtrayScript.call("saveSoundPreferences", [event]);
 		if (event.cancelled) return;
 
 		super.saveSoundPreferences();
-		script.call("postSaveSoundPreferences");
+		soundtrayScript.call("postSaveSoundPreferences");
 	}
 
-	public override function show(up:Bool = false)
+	override public function show(up:Bool = false):Void
 	{
 		var event = EventManager.get(SoundTrayShowEvent).recycle(up);
-		script.call("show", [event]);
+		soundtrayScript.call("show", [event]);
 		if (event.cancelled) return;
 
-		super.show(event.up);
-		script.call("postShow", [event]);
+		moveTrayMakeVisible(up);
+		saveSoundPreferences();
+
+		soundtrayScript.call("postShow", [event]);
 	}
 
-	public override function screenCenter()
+	public function moveTrayMakeVisible(up:Bool = false):Void
+	{
+		showTray();
+
+		if (!FlxSoundTray.silent)
+		{
+			var sound:Null<String> = (FlxG.sound.volume == 1) ? FlxSoundTray.volumeMaxChangeSFX : (up ? FlxSoundTray.volumeUpChangeSFX : FlxSoundTray.volumeDownChangeSFX);
+			if (sound != null)
+				FlxG.sound.play(sound);
+		}
+	}
+
+	public function showTray():Void
+	{
+		soundtrayScript.call("onShowTray");
+
+		_timer = 1;
+		targetY = 10;
+		targetAlpha = 1;
+
+		visible = active = true;
+		updateBars();
+		
+		soundtrayScript.call("onPostShowTray");
+	}
+
+	public function updateBars():Void
+	{
+		var globalVolume:Int = (FlxG.sound.muted || FlxG.sound.volume == 0) ? 0 : Math.round(FlxG.sound.volume * 10);
+
+		for (i in 0..._bars.length)
+			_bars[i].visible = (i < globalVolume);
+	}
+
+	override public function screenCenter():Void
 	{
 		var event = new CancellableEvent();
-		script.call("screenCenter", [event]);
+		soundtrayScript.call("screenCenter", [event]);
 		if (event.cancelled) return;
 
 		super.screenCenter();
-		script.call("postScreenCenter");
+		soundtrayScript.call("postScreenCenter");
 	}
 
-	private override function __cleanup()
+	private override function __cleanup():Void
 	{
-		script.call("destroy");
-		script.destroy();
+		soundtrayScript.call("destroy");
+		soundtrayScript.destroy();
 		super.__cleanup();
 	}
 }
