@@ -5,9 +5,8 @@
 DarkNgine is a fork of [Codename Engine](https://github.com/CodenameCrew/CodenameEngine) (made by the [Codename Crew](https://github.com/CodenameCrew)) which is designed _specifically_ for the **17 Fandom Funks mod**, designed to support fandom packs. These are just basically mods, but it's cooler because you don't need to like switch them out in the main menu. There are some other differences between Codename Engine and DarkNgine, especially in the class structure of some places, but the two are _generally_ similar. I _might_ make a fandompack API/Tutorial but only if I'm REALLY bored and Slur doesn't have, like, ANYTHING for me to do.
 
 <details>
-  <summary><h2>New Features</h2></summary>
-
-- nothing so far
+  <summary><h2>Changes</h2></summary>
+- Optimize menu backgrounds with MenuBG class
 </details>
 
 <details>

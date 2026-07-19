@@ -1,6 +1,7 @@
 package funkin.options.keybinds;
 
 import flixel.util.FlxColor;
+import funkin.menus.ui.MenuBG;
 import haxe.xml.Access;
 using StringTools;
 
@@ -154,8 +155,12 @@ class KeybindsOptions extends MusicBeatSubstate {
 
 		isSubState = FlxG.state != this;
 		alphabets = new FlxTypedGroup<KeybindSetting>();
-		bg = new FlxSprite(-80).loadAnimatedGraphic(Paths.image(isSubState ? 'menus/menuTransparent' : 'menus/menuBGBlue'));
-		coloredBG = new FlxSprite(-80).loadAnimatedGraphic(Paths.image('menus/menuDesat'));
+		bg = MenuBG.makeSprite(
+			(isSubState ? MenuBGColorPresets.TRANSPARENT_ONE : MenuBGColorPresets.BLUE_ONE),
+			(isSubState ? MenuBGColorPresets.TRANSPARENT_TWO : MenuBGColorPresets.BLUE_TWO),
+			-80
+		);
+		coloredBG = MenuBG.makeSprite(MenuBGColorPresets.DESAT_ONE, MenuBGColorPresets.DESAT_TWO);
 		for(bg in [bg, coloredBG]) {
 			bg.scrollFactor.set();
 			bg.scale.set(1.15, 1.15);

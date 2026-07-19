@@ -7,6 +7,7 @@ import funkin.backend.FunkinText;
 import funkin.backend.scripting.events.menu.MenuChangeEvent;
 import funkin.backend.scripting.events.NameEvent;
 import funkin.menus.credits.CreditsMain;
+import funkin.menus.ui.MenuBG;
 import funkin.options.OptionsMenu;
 import lime.app.Application;
 
@@ -31,20 +32,19 @@ class MainMenuState extends MusicBeatState
 
 	override function create()
 	{
-
 		super.create();
 
 		DiscordUtil.call("onMenuLoaded", ["Main Menu"]);
 
 		CoolUtil.playMenuSong();
 
-		bg = new FlxSprite(-80).loadAnimatedGraphic(Paths.image('menus/menuBG'));
+		bg = MenuBG.makeSprite(MenuBGColorPresets.DEFAULT_ONE, MenuBGColorPresets.DEFAULT_TWO, -80);
 		add(bg);
 
 		camFollow = new FlxObject(0, 0, 1, 1);
 		add(camFollow);
 
-		magenta = new FlxSprite(-80).loadAnimatedGraphic(Paths.image('menus/menuDesat'));
+		magenta = MenuBG.makeSprite(MenuBGColorPresets.DESAT_ONE, MenuBGColorPresets.DESAT_TWO, -80);
 		magenta.visible = false;
 		magenta.color = 0xFFfd719b;
 		add(magenta);

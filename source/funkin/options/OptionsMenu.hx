@@ -3,6 +3,7 @@ package funkin.options;
 import haxe.xml.Access;
 import flixel.util.typeLimit.OneOfThree;
 import funkin.editors.ui.UIState;
+import funkin.menus.ui.MenuBG;
 import funkin.options.categories.*;
 import funkin.options.type.*;
 
@@ -56,7 +57,7 @@ class OptionsMenu extends TreeMenu {
 
 		DiscordUtil.call("onMenuLoaded", ["Options Menu"]);
 
-		add(bg = new FlxSprite().loadAnimatedGraphic(Paths.image('menus/menuBGBlue')));
+		add(bg = MenuBG.makeSprite(MenuBGColorPresets.BLUE_ONE, MenuBGColorPresets.BLUE_TWO));
 		bg.antialiasing = true;
 		bg.scrollFactor.set();
 		updateBG();

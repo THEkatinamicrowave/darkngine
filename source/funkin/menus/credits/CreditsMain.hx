@@ -3,6 +3,7 @@ package funkin.menus.credits;
 import flixel.util.FlxColor;
 import funkin.backend.assets.AssetSource;
 import funkin.backend.system.github.GitHubContributor.CreditsGitHubContributor;
+import funkin.menus.ui.MenuBG;
 import funkin.options.TreeMenu;
 import funkin.options.TreeMenuScreen;
 import funkin.options.type.*;
@@ -17,7 +18,7 @@ class CreditsMain extends TreeMenu {
 
 		DiscordUtil.call("onMenuLoaded", ["Credits Menu"]);
 
-		add(bg = new FlxSprite().loadAnimatedGraphic(Paths.image('menus/menuBGBlue')));
+		add(bg = MenuBG.makeSprite(MenuBGColorPresets.BLUE_ONE, MenuBGColorPresets.BLUE_TWO));
 		bg.antialiasing = true;
 		bg.scrollFactor.set();
 		updateBG();

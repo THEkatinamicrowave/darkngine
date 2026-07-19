@@ -19,6 +19,7 @@ import funkin.editors.ui.UIContextMenu.UIContextMenuOption;
 import funkin.editors.ui.UIContextMenu.UIContextMenuOptionSpr;
 import funkin.editors.ui.UIState;
 import funkin.editors.ui.UITopMenu.UITopMenuButton;
+import funkin.menus.ui.MenuBG;
 import haxe.Json;
 #if sys
 import sys.FileSystem;
@@ -420,7 +421,7 @@ class Charter extends UIState {
 
 		for (camera in FlxG.cameras.list) camera.antialiasing = false;
 
-		charterBG = new FunkinSprite(0, 0, Paths.image('menus/menuDesat'));
+		charterBG = MenuBG.makeSprite(MenuBGColorPresets.DESAT_ONE, MenuBGColorPresets.DESAT_TWO, true);
 		charterBG.color = 0xFF181818;
 		charterBG.cameras = [charterCamera];
 		charterBG.screenCenter();
