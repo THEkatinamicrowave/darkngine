@@ -2,10 +2,11 @@ package funkin.menus.ui;
 
 import flixel.graphics.FlxGraphic;
 import flixel.util.FlxColor;
+import flixel.util.typeLimit.OneOfTwo;
 import openfl.display.BitmapData;
 import openfl.geom.ColorTransform;
 import openfl.geom.Point;
-import openfl.Assets;
+import lime.utils.Assets;
 
 class MenuBG extends FlxGraphic
 {
@@ -15,9 +16,9 @@ class MenuBG extends FlxGraphic
         super("MenuBG_" + color1 + "_" + color2, bmp);
     }
 
-	public static function makeSprite(color1:FlxColor, color2:FlxColor, funkin:Bool = false, x:Float = 0, y:Float = 0):FlxSprite
+	public static function makeSprite(color1:FlxColor, color2:FlxColor, funkin:Bool = false, x:Float = 0, y:Float = 0):OneOfTwo<FlxSprite, FunkinSprite>
 	{
-		var spr:FlxSprite = funkin ? new FunkinSprite(x, y) : new FlxSprite(x, y);
+		var spr = funkin ? new FunkinSprite(x, y) : new FlxSprite(x, y);
 		spr.loadGraphic(new MenuBG(color1, color2));
 
 		return spr;
@@ -29,10 +30,10 @@ class MenuBG extends FlxGraphic
 		{
 			var c1 = (color1 >> shift) & 0xFF;
 			var c2 = (color2 >> shift) & 0xFF;
-			return Std.int(c1 + (c2 - c1) * mixAmount);
+			return Std.int(c2 + (c1 - c2) * mixAmount);
 		}
 
-		var src = Assets.getBitmapData(Paths.image("menus/menuBG-outline"));
+		var src = BitmapData.fromImage(Assets.getImage(Paths.image("menus/bg")));
 		var w = src.width;
 		var h = src.height;
 
