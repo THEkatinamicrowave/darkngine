@@ -3,6 +3,8 @@
 	<spritesheet>menus/alphabet-bold</spritesheet>
 
 	<defaultAnim>character-LETTER0</defaultAnim>
+	<anim char="字" advance="0">character-none</anim>
+
 	<anim char="&amp;">character-ampersand</anim>
 	<anim char="&lt;">character-anglebracket-left</anim>
 	<anim char="&gt;">character-anglebracket-right</anim>
