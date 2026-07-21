@@ -37,6 +37,7 @@ class StoryMenuState extends MusicBeatState {
 	public var blackBar:FlxSprite;
 
 	public var weekBG:FlxSprite;
+	public var weekBGSprite:FlxSprite;
 	public var interpColor:FlxInterpolateColor;
 
 	public var lerpScore:Float = 0;
@@ -70,6 +71,15 @@ class StoryMenuState extends MusicBeatState {
 		weekBG.color = weeks.length > 0 ? weeks[0].bgColor : Flags.DEFAULT_WEEK_COLOR;
 		weekBG.updateHitbox();
 
+		weekBGSprite = new FlxSprite(0, 56);
+		var graphicPath:String = Paths.image(weeks[0].bgSprite);
+		if (Assets.exists(graphicPath)) {
+			weekBGSprite.loadGraphic(graphicPath);
+			weekBGSprite.updateHitbox();
+		} else {
+			weekBGSprite.visible = false;
+		}
+
 		weekSprites = new FlxTypedGroup<MenuItem>();
 
 		// DUMBASS ARROWS
@@ -95,7 +105,7 @@ class StoryMenuState extends MusicBeatState {
 		tracklist.color = 0xFFE55777;
 
 		add(weekSprites);
-		for (e in [blackBar, scoreText, weekTitle, weekBG, tracklist]) {
+		for (e in [blackBar, scoreText, weekTitle, weekBG, weekBGSprite, tracklist]) {
 			e.scrollFactor.set();
 			add(e);
 		}
@@ -163,6 +173,7 @@ class StoryMenuState extends MusicBeatState {
 
 		interpColor.fpsLerpTo(weeks[curWeek].bgColor, 0.0625);
 		weekBG.color = interpColor.color;
+		for (char in characterSprites.members) char.color = interpColor.color;
 	}
 
 	public override function beatHit(curBeat:Int) {
@@ -189,6 +200,18 @@ class StoryMenuState extends MusicBeatState {
 			e.targetY = k - curWeek;
 			e.alpha = k == curWeek ? 1.0 : 0.6;
 		}
+		
+		var graphicPath:String = Paths.image(weeks[curWeek].bgSprite);
+		if (Assets.exists(graphicPath)) {
+			weekBGSprite.loadGraphic(graphicPath);
+			weekBGSprite.scale.set(
+				weekBG.width / weekBGSprite.graphic.width,
+				weekBG.height / weekBGSprite.graphic.height
+			);
+			weekBGSprite.updateHitbox();
+		}
+		weekBGSprite.visible = Assets.exists(graphicPath);
+
 		tracklist.text = '${TU.translate("story.tracks")}\n\n${[for(e in weeks[curWeek].songs) if (!e.hide) e.displayName.getDefault(e.name).toUpperCase()].join('\n')}';
 		weekTitle.text = weeks[curWeek].name.getDefault("");
 

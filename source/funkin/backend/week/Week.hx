@@ -26,7 +26,8 @@ class Week {
 			chars: [null, null, null],
 			songs: [],
 			difficulties: ['easy', 'normal', 'hard'],
-			bgColor: week.has.bgColor ? FlxColor.fromString(week.getAtt("bgColor")) : Flags.DEFAULT_WEEK_COLOR
+			bgColor: week.has.bgColor ? FlxColor.fromString(week.getAtt("bgColor")) : Flags.DEFAULT_WEEK_COLOR,
+			bgSprite: week.has.bgSprite ? 'menus/storymenu/bgs/${week.getAtt('bgSprite')}' : ""
 		};
 
 		var weekName = weekObj.name;

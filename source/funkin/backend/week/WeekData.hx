@@ -13,6 +13,7 @@ typedef WeekData = {
 	var songs:Array<WeekSong>;
 	var difficulties:Array<String>;
 	var bgColor:FlxColor;
+	var bgSprite:String;
 }
 
 typedef WeekCharacter = {
