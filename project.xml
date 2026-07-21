@@ -162,7 +162,7 @@
 		<assets path='fandompacks' rename='fandompacks' embed='false' />
 	</section>
 
-	<assets path='art/readme.txt' rename='do NOT readme.txt' />
+	<assets path='art/readme.txt' rename='maybe readme.txt' />
 
 	<!-- OpenAL config -->
 	<section if="desktop">
