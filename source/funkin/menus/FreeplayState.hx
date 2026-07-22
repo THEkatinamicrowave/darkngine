@@ -1,5 +1,6 @@
 package funkin.menus;
 
+import haxe.xml.Access;
 import flixel.text.FlxText;
 import flixel.util.FlxColor;
 import funkin.backend.assets.AssetSource;
@@ -8,6 +9,8 @@ import funkin.backend.chart.ChartData.ChartMetaData;
 import funkin.backend.scripting.events.menu.MenuChangeEvent;
 import funkin.backend.scripting.events.menu.freeplay.*;
 import funkin.backend.system.Conductor;
+import funkin.backend.week.Week;
+import funkin.backend.week.WeekData;
 import funkin.game.HealthIcon;
 import funkin.menus.ui.MenuBG;
 import funkin.savedata.FunkinSave;
@@ -533,7 +536,7 @@ class FreeplaySonglist {
      *
      * returns true if literally everything failed
      */
-    public function getSongsFromSource(source:AssetSource, useTxt:Bool = true) {
+    public function getSongsFromSource(source:AssetSource, useTxt:Bool = true):Bool {
         var xmlPath = Paths.xml("config/freeplaySonglist");
         var txtPath = Paths.txt("config/freeplaySonglist");
         var legacyTxtPath = Paths.txt("freeplaySonglist");
@@ -541,11 +544,7 @@ class FreeplaySonglist {
         var songsFound:Array<String> = null;
 
         if (Paths.assetsTree.existsSpecific(xmlPath, "TEXT", source)) {
-			if (!Assets.exists(xmlPath)) {
-				trace('xml data is missing!');
-				return;
-			}
-			var xml = Xml.parse(Assets.getText(xmlPath));
+			var xml:Access = new Access(Xml.parse(Assets.getText(xmlPath)).firstElement());
             if (xml != null) {
                 loadFromXML(xml, source);
                 return false;
@@ -554,9 +553,10 @@ class FreeplaySonglist {
 
         if (useTxt) {
             if (Paths.assetsTree.existsSpecific(txtPath, "TEXT", source)) {
+				Logs.warn("data/config/freeplaySonglist.txt is deprecated but it won't be removed due to mod compatibility. Though, for the sake of cool stuff, move to XML", DARKYELLOW, "FreeplaySonglist");
                 songsFound = CoolUtil.coolTextFile(txtPath);
             } else if (Paths.assetsTree.existsSpecific(legacyTxtPath, "TEXT", source)) {
-                Logs.warn("data/freeplaySonglist.txt is deprecated and will be removed in the future. Please move the file to data/config/", DARKYELLOW, "FreeplaySonglist");
+                Logs.warn("yeeeeaaaaaah know what it turns out that data/freeplaySonglist.txt is actually deprecated too :\\ except it actual is going to be removed so move the file to data/config/", DARKYELLOW, "FreeplaySonglist");
                 songsFound = CoolUtil.coolTextFile(legacyTxtPath);
             }
         }
@@ -577,8 +577,42 @@ class FreeplaySonglist {
         return true;
     }
 
-    private function loadFromXML(xml:Xml, source:AssetSource) {
-        // Todo: make it
+    private function loadFromXML(xml:Access, source:AssetSource) {
+		var songList:Array<ChartMetaData> = [];
+
+		var conditionsPassed = function(node:Access):Bool {
+			return true; // add exceptions
+		};
+
+		var addSong = function(songName:String) {
+			if (songName == null || songName == "") return;
+
+			try {
+				songList.push(Chart.loadChartMeta(songName, null, null, source == MODS));
+			} catch (e) {
+				Logs.trace('Song loading for "$songName" failed: ${Std.string(e)}', ERROR);
+			}
+		};
+
+		for (data in xml.elements) {
+			var nodeName:String = data.name.toLowerCase();
+			switch (nodeName) {
+				case "song":
+					addSong(data.getAtt('name').trim());
+
+				case "week":
+					var week:WeekData = Week.loadWeek(data.getAtt('name').trim(), false);
+					if (week == null) continue;
+
+					for (song in week.songs) {
+						addSong(song.name);
+					}
+
+				default: continue;
+			}
+		}
+
+		songs = songList;
     }
 
     public static function get(useTxt:Bool = true) {
