@@ -6,7 +6,7 @@ interface IModsAssetLibrary {
 	public var libName:String;
 	public var basePath:String;
 
-	#if FPACK_SUPPORT
+	#if MOD_SUPPORT
 	public var _parsedAsset:String;
 
 	private function getAssetPath():String;

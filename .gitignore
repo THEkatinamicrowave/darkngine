@@ -4,5 +4,5 @@ latest/*
 !.vscode/settings.json
 !.vscode/tasks.json
 .haxelib/
-fandompacks/*
-!fandompacks/readme.txt
+mods/*
+!mods/readme.txt

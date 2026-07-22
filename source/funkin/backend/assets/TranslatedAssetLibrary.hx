@@ -108,7 +108,7 @@ class TranslatedAssetLibrary extends AssetLibrary implements IModsAssetLibrary {
 		return null;
 	}
 
-	#if FPACK_SUPPORT
+	#if MOD_SUPPORT
 	public var _parsedAsset:String = null;  // Theres no need to actually make this work  - Nex
 
 	public function getFiles(folder:String):Array<String>

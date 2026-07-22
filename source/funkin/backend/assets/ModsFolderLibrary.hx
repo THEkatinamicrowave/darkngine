@@ -6,7 +6,7 @@ import lime.graphics.Image;
 import lime.text.Font;
 import lime.utils.Bytes;
 
-#if FPACK_SUPPORT
+#if MOD_SUPPORT
 import sys.FileStat;
 import sys.FileSystem;
 #end
@@ -32,7 +32,7 @@ class ModsFolderLibrary extends AssetLibrary implements IModsAssetLibrary {
 		return '(ModsFolderLibrary: $modName)';
 	}
 
-	#if FPACK_SUPPORT
+	#if MOD_SUPPORT
 	private var editedTimes:Map<String, Float> = [];
 	public var _parsedAsset:String = null;
 

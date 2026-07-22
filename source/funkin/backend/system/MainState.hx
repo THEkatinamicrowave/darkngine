@@ -1,6 +1,6 @@
 package funkin.backend.system;
 
-#if FPACK_SUPPORT
+#if MOD_SUPPORT
 import sys.FileSystem;
 #end
 import flixel.FlxState;
@@ -43,7 +43,7 @@ class MainState extends FlxState {
 
 		Paths.assetsTree.reset();
 
-		#if FPACK_SUPPORT
+		#if MOD_SUPPORT
 		inline function isDirectory(path:String):Bool
 			return FileSystem.exists(path) && FileSystem.isDirectory(path);
 

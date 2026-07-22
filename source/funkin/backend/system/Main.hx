@@ -163,7 +163,7 @@ class Main extends Sprite
 		#end
 
 		ModsFolder.init();
-		#if FPACK_SUPPORT
+		#if MOD_SUPPORT
 		if (FileSystem.exists("mods/autoload.txt"))
 			modToLoad = File.getContent("mods/autoload.txt").trim();
 

@@ -8,7 +8,7 @@ import lime.utils.AssetLibrary;
 import lime.utils.Assets as LimeAssets;
 import lime.utils.Bytes;
 
-#if FPACK_SUPPORT
+#if MOD_SUPPORT
 import sys.FileStat;
 import sys.FileSystem;
 #end
@@ -36,7 +36,7 @@ class ScriptedAssetLibrary extends ModsFolderLibrary {
 		return '(ScriptedAssetLibrary: $libName/$modName/$scriptName)';
 	}
 
-	#if FPACK_SUPPORT
+	#if MOD_SUPPORT
 	public override function getEditedTime(asset:String):Null<Float> {
 		var result:Dynamic = script.call("getEditedTime", [asset]);
 		if(result != null) {
