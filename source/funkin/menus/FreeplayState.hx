@@ -2,6 +2,7 @@ package funkin.menus;
 
 import flixel.text.FlxText;
 import flixel.util.FlxColor;
+import funkin.backend.assets.AssetSource;
 import funkin.backend.chart.Chart;
 import funkin.backend.chart.ChartData.ChartMetaData;
 import funkin.backend.scripting.events.menu.MenuChangeEvent;
@@ -521,44 +522,82 @@ class FreeplayState extends MusicBeatState
 }
 
 class FreeplaySonglist {
-	public var songs:Array<ChartMetaData> = [];
+    public var songs:Array<ChartMetaData> = [];
 
-	public function new() {}
+    public function new() {}
 
-	public function getSongsFromSource(source:funkin.backend.assets.AssetSource, useTxt:Bool = true) {
-		var songsFound:Array<String> = null;
-		if (useTxt) {
-			var oldPath = Paths.txt('freeplaySonglist');
-			var newPath = Paths.txt('config/freeplaySonglist');
-			if (Paths.assetsTree.existsSpecific(newPath, "TEXT", source)) songsFound = CoolUtil.coolTextFile(newPath);
-			else if (Paths.assetsTree.existsSpecific(oldPath, "TEXT", source)) {
-				Logs.warn("data/freeplaySonglist.txt is deprecated and will be removed in the future. Please move the file to data/config/", DARKYELLOW, "FreeplaySonglist");
-				songsFound = CoolUtil.coolTextFile(oldPath);
+    /**
+     * 1. check for `data/config/freeplaySonglist.xml`
+     * 2. check for `data/config/freeplaySonglist.txt` or `data/freeplaySonglist.txt`
+     * 3. if all else fails, kys (or scan `songs/`)
+     *
+     * returns true if literally everything failed
+     */
+    public function getSongsFromSource(source:AssetSource, useTxt:Bool = true) {
+        var xmlPath = Paths.xml("config/freeplaySonglist");
+        var txtPath = Paths.txt("config/freeplaySonglist");
+        var legacyTxtPath = Paths.txt("freeplaySonglist");
+
+        var songsFound:Array<String> = null;
+
+        if (Paths.assetsTree.existsSpecific(xmlPath, "TEXT", source)) {
+			if (!Assets.exists(xmlPath)) {
+				trace('xml data is missing!');
+				return;
 			}
-		}
-		if (songsFound == null) songsFound = Paths.getFolderDirectories("songs", false, source);
-		if (songsFound.length > 0) {
-			for (s in songsFound) songs.push(Chart.loadChartMeta(s, source == MODS));
-			return false;
-		}
-		return true;
-	}
+			var xml = Xml.parse(Assets.getText(xmlPath));
+            if (xml != null) {
+                loadFromXML(xml, source);
+                return false;
+            }
+        }
 
-	public static function get(useTxt:Bool = true) {
-		var songList = new FreeplaySonglist();
+        if (useTxt) {
+            if (Paths.assetsTree.existsSpecific(txtPath, "TEXT", source)) {
+                songsFound = CoolUtil.coolTextFile(txtPath);
+            } else if (Paths.assetsTree.existsSpecific(legacyTxtPath, "TEXT", source)) {
+                Logs.warn("data/freeplaySonglist.txt is deprecated and will be removed in the future. Please move the file to data/config/", DARKYELLOW, "FreeplaySonglist");
+                songsFound = CoolUtil.coolTextFile(legacyTxtPath);
+            }
+        }
 
-		switch(Flags.SONGS_LIST_MOD_MODE) {
-			case 'prepend':
-				songList.getSongsFromSource(MODS, useTxt);
-				songList.getSongsFromSource(SOURCE, useTxt);
-			case 'append':
-				songList.getSongsFromSource(SOURCE, useTxt);
-				songList.getSongsFromSource(MODS, useTxt);
-			default /*case 'override'*/:
-				if (songList.getSongsFromSource(MODS, useTxt))
-					songList.getSongsFromSource(SOURCE, useTxt);
-		}
+        if (songsFound != null && songsFound.length > 0) {
+            for (s in songsFound)
+                songs.push(Chart.loadChartMeta(s, source == MODS));
+            return false;
+        }
 
-		return songList;
-	}
+        songsFound = Paths.getFolderDirectories("songs", false, source);
+        if (songsFound.length > 0) {
+            for (s in songsFound)
+                songs.push(Chart.loadChartMeta(s, source == MODS));
+            return false;
+        }
+
+        return true;
+    }
+
+    private function loadFromXML(xml:Xml, source:AssetSource) {
+        // Todo: make it
+    }
+
+    public static function get(useTxt:Bool = true) {
+        var songList = new FreeplaySonglist();
+
+        switch (Flags.SONGS_LIST_MOD_MODE) {
+            case "prepend":
+                songList.getSongsFromSource(MODS, useTxt);
+                songList.getSongsFromSource(SOURCE, useTxt);
+
+            case "append":
+                songList.getSongsFromSource(SOURCE, useTxt);
+                songList.getSongsFromSource(MODS, useTxt);
+
+            default: // override
+                if (songList.getSongsFromSource(MODS, useTxt))
+                    songList.getSongsFromSource(SOURCE, useTxt);
+        }
+
+        return songList;
+    }
 }
