@@ -6,7 +6,7 @@
 	<week name="tutorial"/>
 	<week name="week1" ifWeek="tutorial"/>
 	<week name="week2" ifWeek="week1">
-		<exclude name="monster"/>
+		<exclude name="monster" unlessWeek="week2"/>
 	</week>
 	<week name="week3" ifWeek="week2"/>
 	<week name="week4" ifWeek="week3"/>
