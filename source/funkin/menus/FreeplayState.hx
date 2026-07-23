@@ -580,32 +580,109 @@ class FreeplaySonglist {
     private function loadFromXML(xml:Access, source:AssetSource) {
 		var songList:Array<ChartMetaData> = [];
 
-		var conditionsPassed = function(node:Access):Bool {
-			return true; // add exceptions
+		var checkConditions = function(element:Access):Bool {
+			var conditions:Array<Bool> = [];
+
+			if (element.has.ifWeek) {
+				var nodeWeekName:String = element.getAtt('ifWeek').trim();
+				var week = Week.loadWeek(nodeWeekName, false);
+				if (week == null) {
+					Logs.trace('Could not load week "$nodeWeekName"; is this spelled correctly?', ERROR);
+					conditions.push(true);
+				} else {
+					var difficulties:Array<String> = week.difficulties;
+					var highscores:Array<Int> = [for (diff in difficulties) FunkinSave.getWeekHighscore(nodeWeekName, diff).score];
+					
+					conditions.push(Lambda.exists(highscores, score -> score > 0));
+				}
+			}
+			if (element.has.ifSong) {
+				var nodeSongName:String = element.getAtt('ifSong').trim();
+				var song = Chart.loadChartMeta(nodeSongName);
+				if (song == null) {
+					Logs.trace('Could not load song "$nodeSongName"; is this spelled correctly?', ERROR);
+					conditions.push(true);
+				} else {
+					var difficulties:Array<String> = song.difficulties;
+					var highscores:Array<Int> = [for (diff in difficulties) FunkinSave.getSongHighscore(nodeSongName, diff).score];
+					
+					conditions.push(Lambda.exists(highscores, score -> score > 0));
+				}
+			}
+			if (element.has.ifSave) {
+				var savedata = Reflect.field(FlxG.save.data, element.getAtt('ifSave').trim());
+				if (savedata == null) {
+					Logs.trace('Invalid savedata: data returned null; is it spelled correctly and given a default in GlobalScript?', ERROR);
+					conditions.push(true);
+				} else if (!Std.isOfType(savedata, Bool)) {
+					Logs.trace('Invalid savedata: only Bools are supported for now', WARNING);
+					conditions.push(true);
+				} else
+					conditions.push(savedata == true);
+			}
+			if (element.has.unlessWeek) {
+				var nodeWeekName:String = element.getAtt('unlessWeek').trim();
+				var week = Week.loadWeek(nodeWeekName, false);
+				if (week == null) {
+					Logs.trace('Could not load week "$nodeWeekName"; is this spelled correctly?', ERROR);
+					conditions.push(true);
+				} else {
+					var difficulties:Array<String> = week.difficulties;
+					var highscores:Array<Int> = [for (diff in difficulties) FunkinSave.getWeekHighscore(nodeWeekName, diff).score];
+					
+					conditions.push(!Lambda.exists(highscores, score -> score > 0));
+				}
+			}
+			if (element.has.unlessSong) {
+				var nodeSongName:String = element.getAtt('unlessSong').trim();
+				var song = Chart.loadChartMeta(nodeSongName);
+				if (song == null) {
+					Logs.trace('Could not load song "$nodeSongName"; is this spelled correctly?', ERROR);
+					conditions.push(true);
+				} else {
+					var difficulties:Array<String> = song.difficulties;
+					var highscores:Array<Int> = [for (diff in difficulties) FunkinSave.getSongHighscore(nodeSongName, diff).score];
+					
+					conditions.push(!Lambda.exists(highscores, score -> score > 0));
+				}
+			}
+			if (element.has.unlessSave) {
+				var savedata = Reflect.field(FlxG.save.data, element.getAtt('unlessSave').trim());
+				if (savedata == null) {
+					Logs.trace('Invalid savedata: data returned null; is it spelled correctly and given a default in GlobalScript?', ERROR);
+					conditions.push(true);
+				} else if (!Std.isOfType(savedata, Bool)) {
+					Logs.trace('Invalid savedata: only Bools are supported for now', WARNING);
+					conditions.push(true);
+				} else
+					conditions.push(savedata == false);
+			}
+
+			return (conditions.length == 0 || !conditions.contains(false));
 		};
 
-		var addSong = function(songName:String) {
+		var attemptAddSong = function(songName:String) {
 			if (songName == null || songName == "") return;
 
-			try {
-				songList.push(Chart.loadChartMeta(songName, null, null, source == MODS));
-			} catch (e) {
-				Logs.trace('Song loading for "$songName" failed: ${Std.string(e)}', ERROR);
-			}
-		};
+			var chartMeta = Chart.loadChartMeta(songName, null, null, source == MODS);
+			if (chartMeta == null) {
+				Logs.trace('Song loading for "$songName" failed', ERROR);
+			} else
+				songList.push(chartMeta);
+		}
 
 		for (data in xml.elements) {
 			var nodeName:String = data.name.toLowerCase();
 			switch (nodeName) {
 				case "song":
-					addSong(data.getAtt('name').trim());
+					if (checkConditions(data)) attemptAddSong(data.getAtt('name').trim());
 
 				case "week":
 					var week:WeekData = Week.loadWeek(data.getAtt('name').trim(), false);
 					if (week == null) continue;
 
 					for (song in week.songs) {
-						addSong(song.name);
+						if (checkConditions(data)) attemptAddSong(song.name);
 					}
 
 				default: continue;
