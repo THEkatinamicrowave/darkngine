@@ -659,11 +659,30 @@ class FreeplaySonglist {
 					if (checkConditions(data)) attemptAddSong(data.getAtt('name').trim());
 
 				case "week":
-					var week:WeekData = Week.loadWeek(data.getAtt('name').trim(), false);
+					var weekName = data.getAtt('name').trim();
+					var week:WeekData = Week.loadWeek(weekName, false);
 					if (week == null) continue;
 
+					var exclusions:Map<String, Access> = new Map();
+
+					for (child in data.elements) {
+						if (child.name == "exclude") {
+							var songName = child.getAtt("name").trim();
+							exclusions.set(songName, child);
+						}
+					}
+
 					for (song in week.songs) {
-						if (checkConditions(data)) attemptAddSong(song.name);
+						var songName:String = song.name.toLowerCase();
+						
+						if (exclusions.exists(songName)) {
+							var excludeNode = exclusions.get(songName);
+
+							if (checkConditions(excludeNode)) continue;
+						}
+
+						if (checkConditions(data))
+							attemptAddSong(song.name);
 					}
 
 				default: continue;
