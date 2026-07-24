@@ -580,85 +580,66 @@ class FreeplaySonglist {
     private function loadFromXML(xml:Access, source:AssetSource) {
 		var songList:Array<ChartMetaData> = [];
 
+		var evaluate = function(target:String, value:String):Bool {
+			switch (target) {
+				case "Week":
+					var week = Week.loadWeek(value, false);
+					if (week == null) {
+						Logs.trace('Could not load week "$value"; is this spelled correctly?', ERROR);
+						return true;
+					}
+					var highscores = [
+						for (diff in week.difficulties)
+							FunkinSave.getWeekHighscore(value, diff).score
+					];
+					return Lambda.exists(highscores, score -> score > 0);
+
+				case "Song":
+					var song = Chart.loadChartMeta(value);
+					if (song == null) {
+						Logs.trace('Could not load song "$value"; is this spelled correctly?', ERROR);
+						return true;
+					}
+					var highscores = [
+						for (diff in song.difficulties)
+							FunkinSave.getSongHighscore(value, diff).score
+					];
+					return Lambda.exists(highscores, score -> score > 0);
+
+				case "Save":
+					var savedata = Reflect.field(FlxG.save.data, value);
+					if (savedata == null) {
+						Logs.trace('Invalid savedata "$value": null', ERROR);
+						return true;
+					}
+					if (!Std.isOfType(savedata, Bool)) {
+						Logs.trace('Invalid savedata "$value": only Bool supported', WARNING);
+						return true;
+					}
+					return savedata;
+
+				default:
+					return true;
+			}
+		}
+
 		var checkConditions = function(element:Access):Bool {
-			var conditions:Array<Bool> = [];
+			for (att in cast(element, Xml).attributes()) {
+				var name = att;
+				var value = element.getAtt(name).trim();
 
-			if (element.has.ifWeek) {
-				var nodeWeekName:String = element.getAtt('ifWeek').trim();
-				var week = Week.loadWeek(nodeWeekName, false);
-				if (week == null) {
-					Logs.trace('Could not load week "$nodeWeekName"; is this spelled correctly?', ERROR);
-					conditions.push(true);
-				} else {
-					var difficulties:Array<String> = week.difficulties;
-					var highscores:Array<Int> = [for (diff in difficulties) FunkinSave.getWeekHighscore(nodeWeekName, diff).score];
-					
-					conditions.push(Lambda.exists(highscores, score -> score > 0));
-				}
-			}
-			if (element.has.ifSong) {
-				var nodeSongName:String = element.getAtt('ifSong').trim();
-				var song = Chart.loadChartMeta(nodeSongName);
-				if (song == null) {
-					Logs.trace('Could not load song "$nodeSongName"; is this spelled correctly?', ERROR);
-					conditions.push(true);
-				} else {
-					var difficulties:Array<String> = song.difficulties;
-					var highscores:Array<Int> = [for (diff in difficulties) FunkinSave.getSongHighscore(nodeSongName, diff).score];
-					
-					conditions.push(Lambda.exists(highscores, score -> score > 0));
-				}
-			}
-			if (element.has.ifSave) {
-				var savedata = Reflect.field(FlxG.save.data, element.getAtt('ifSave').trim());
-				if (savedata == null) {
-					Logs.trace('Invalid savedata: data returned null; is it spelled correctly and given a default in GlobalScript?', ERROR);
-					conditions.push(true);
-				} else if (!Std.isOfType(savedata, Bool)) {
-					Logs.trace('Invalid savedata: only Bools are supported for now', WARNING);
-					conditions.push(true);
-				} else
-					conditions.push(savedata == true);
-			}
-			if (element.has.unlessWeek) {
-				var nodeWeekName:String = element.getAtt('unlessWeek').trim();
-				var week = Week.loadWeek(nodeWeekName, false);
-				if (week == null) {
-					Logs.trace('Could not load week "$nodeWeekName"; is this spelled correctly?', ERROR);
-					conditions.push(true);
-				} else {
-					var difficulties:Array<String> = week.difficulties;
-					var highscores:Array<Int> = [for (diff in difficulties) FunkinSave.getWeekHighscore(nodeWeekName, diff).score];
-					
-					conditions.push(!Lambda.exists(highscores, score -> score > 0));
-				}
-			}
-			if (element.has.unlessSong) {
-				var nodeSongName:String = element.getAtt('unlessSong').trim();
-				var song = Chart.loadChartMeta(nodeSongName);
-				if (song == null) {
-					Logs.trace('Could not load song "$nodeSongName"; is this spelled correctly?', ERROR);
-					conditions.push(true);
-				} else {
-					var difficulties:Array<String> = song.difficulties;
-					var highscores:Array<Int> = [for (diff in difficulties) FunkinSave.getSongHighscore(nodeSongName, diff).score];
-					
-					conditions.push(!Lambda.exists(highscores, score -> score > 0));
-				}
-			}
-			if (element.has.unlessSave) {
-				var savedata = Reflect.field(FlxG.save.data, element.getAtt('unlessSave').trim());
-				if (savedata == null) {
-					Logs.trace('Invalid savedata: data returned null; is it spelled correctly and given a default in GlobalScript?', ERROR);
-					conditions.push(true);
-				} else if (!Std.isOfType(savedata, Bool)) {
-					Logs.trace('Invalid savedata: only Bools are supported for now', WARNING);
-					conditions.push(true);
-				} else
-					conditions.push(savedata == false);
+				var isIf = name.startsWith("if");
+				var isUnless = name.startsWith("unless");
+				if (!isIf && !isUnless) continue;
+
+				var target = name.substr(isIf ? 2 : 6);
+				var result = evaluate(target, value);
+
+				if (isIf && !result) return false;
+				if (isUnless && result) return false;
 			}
 
-			return (conditions.length == 0 || !conditions.contains(false));
+			return true;
 		};
 
 		var attemptAddSong = function(songName:String) {
