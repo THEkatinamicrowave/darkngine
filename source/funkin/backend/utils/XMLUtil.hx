@@ -190,7 +190,7 @@ final class XMLUtil {
 		}
 		if (node.has.flipX) spr.flipX = node.att.flipX == "true";
 		if (node.has.flipY) spr.flipY = node.att.flipY == "true";
-		if (!node.has.updateHitbox || node.att.updateHitbox == "false") spr.updateHitbox();
+		if (node.has.updateHitbox && node.att.updateHitbox == "true") spr.updateHitbox();
 
 		if (node.has.zoomfactor)
 			spr.zoomFactor = Std.parseFloat(node.getAtt("zoomfactor")).getDefaultFloat(spr.zoomFactor);
