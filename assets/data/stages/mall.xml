@@ -9,7 +9,7 @@
 	<box name="snowUnder" x="-1200" y="800" width="5400" height="3000" color="#F3F4F5"/>
 	<sprite name="fgSnow" x="-1150" y="680" sprite="fgSnow"/>
 
-	<girlfriend x="808.5" y="854"/>
+	<girlfriend x="829.5" y="782"/>
 	<dad x="42" y="882" camxoffset="150" camyoffset="-100"/>
 	<boyfriend x="1177.5" y="871" camxoffset="-300" camyoffset="-200"/>
 
