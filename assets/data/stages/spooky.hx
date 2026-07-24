@@ -21,7 +21,6 @@ public function lightningStrikeShit(playSound:Bool, beat:Int) {
 }
 
 function beatHit(beat:Int) {
-	trace(PlayState.instance.SONG.meta);
     if (PlayState.instance.SONG != null) {
       	if ((beat == 4) && (PlayState.instance.SONG.meta.name.toLowerCase() == "spookeez")) {
         	lightningStrikeShit(false, beat);
