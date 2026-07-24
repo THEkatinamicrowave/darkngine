@@ -6,6 +6,6 @@
 	</sprite>
 
 	<girlfriend/>
-	<dad camx="150" camy="-100"/>
-	<boyfriend camx="-100" camy="-100"/>
+	<dad camxoffset="150" camyoffset="-100"/>
+	<boyfriend camxoffset="-100" camyoffset="-100"/>
 </stage>

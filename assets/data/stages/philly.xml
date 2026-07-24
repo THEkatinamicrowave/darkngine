@@ -8,6 +8,6 @@
 	<sprite name="street" x="-299" y="144" sprite="street"/>
 
 	<girlfriend/>
-	<dad camx="200" camy="-100"/>
-	<boyfriend camx="-200" camy="-100"/>
+	<dad camxoffset="200" camyoffset="-100"/>
+	<boyfriend camxoffset="-200" camyoffset="-100"/>
 </stage>
