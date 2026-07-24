@@ -1,8 +1,8 @@
 <!DOCTYPE codename-engine-stage>
 <stage zoom="1.1" name="philly" folder="stages/philly/" startCamPosY="510" startCamPosX="950">
 	<sprite name="sky" x="-100" y="0" sprite="sky" scroll="0.1"/>
-	<sprite name="city" x="-255" y="45" sprite="city" scroll="0.3" scale="0.9" updateHitbox="true"/>
-	<sprite name="lights" x="-184" y="155" sprite="win" scroll="0.3" scale="0.9" updateHitbox="true"/>
+	<sprite name="city" x="-255" y="45" sprite="city" scroll="0.3" scale="0.9"/>
+	<sprite name="lights" x="-184" y="155" sprite="win" scroll="0.3" scale="0.9"/>
 	<sprite name="behindTrain" x="-299" y="144" sprite="behindTrain"/>
 	<sprite name="train" x="2000" y="360" sprite="train"/>
 	<sprite name="street" x="-299" y="144" sprite="street"/>
