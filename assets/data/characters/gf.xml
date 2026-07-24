@@ -1,5 +1,5 @@
 <!DOCTYPE codename-engine-character>
-<character x="215" y="-410" camx="50" color="#A5004D">
+<character x="215" y="-435" camx="50" color="#A5004D">
 	<anim name="cheer" anim="GF Cheer"/>
 	<anim name="singUP" anim="GF Up Note"/>
 	<anim name="singLEFT" anim="GF left note"/>
