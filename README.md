@@ -11,6 +11,7 @@ DarkNgine is a fork of [Codename Engine](https://github.com/CodenameCrew/Codenam
 - Markup Effect for Alphabet
 - BGSprite Property Implemented for Week XMLs
 - FreeplaySonglist XML file support for more accessible Freeplay Songlist stuff (TODO: documentation)
+- Ported V-Slice stages
 </details>
 
 <details>
