@@ -7,7 +7,7 @@
 	<sprite name="train" x="2000" y="360" sprite="train"/>
 	<sprite name="street" x="-299" y="144" sprite="street"/>
 
-	<girlfriend/>
-	<dad camxoffset="200" camyoffset="-100"/>
-	<boyfriend camxoffset="-200" camyoffset="-100"/>
+	<girlfriend x="751.5" y="787"/>
+	<dad x="468" y="885" camxoffset="200" camyoffset="-100"/>
+	<boyfriend x="1020.5" y="885" camxoffset="-200" camyoffset="-100"/>
 </stage>

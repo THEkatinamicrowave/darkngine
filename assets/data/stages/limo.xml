@@ -24,12 +24,12 @@
 		<anim name="danceRight" anim="hench dancing" loop="false" indices="15,16,17,18,19,20,21,22,23,24,25,26,27,28,29"/>
 	</sprite>
 
-	<girlfriend />
+	<girlfriend x="787" y="779"/>
 
 	<sprite name="limo" x="-120" y="528" sprite="limoDrive"/>
 
-	<dad camxoffset="150"/>
-	<boyfriend camxoffset="-300" camyoffset="-100"/>
+	<dad x="329.5" y="913" camxoffset="150"/>
+	<boyfriend x="1217.5" y="592" camxoffset="-300" camyoffset="-100"/>
 
 	<sprite name="fastCar" x="-12600" y="160" sprite="fastCarLol"/>
 </stage>

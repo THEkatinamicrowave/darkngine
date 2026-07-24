@@ -5,7 +5,7 @@
 		<anim name="lightning" anim="halloweem bg lightning strike" loop="false"/>
 	</sprite>
 
-	<girlfriend/>
-	<dad camxoffset="150" camyoffset="-100"/>
-	<boyfriend camxoffset="-100" camyoffset="-100"/>
+	<girlfriend x="382" y="865"/>
+	<dad x="989.5" y="885" camxoffset="150" camyoffset="-100"/>
+	<boyfriend x="751.5" y="787" camxoffset="-100" camyoffset="-100"/>
 </stage>
