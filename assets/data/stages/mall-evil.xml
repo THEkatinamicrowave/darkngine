@@ -1,10 +1,12 @@
 <!DOCTYPE codename-engine-stage>
-<stage zoom="1.05" name="mall-evil" folder="stages/mall/" startCamPosY="400" startCamPosX="1300">
-	<sprite name="bg" x="-400" y="-500" sprite="evilBG" scroll="0.2"/>
-	<sprite name="evilTree" x="300" y="-300" sprite="evilTree" scroll="0.2"/>
-	<sprite name="evilSnow" x="-200" y="700" sprite="evilSnow" />
+<stage zoom="1" name="mall-evil" folder="stages/mall/" startCamPosY="400" startCamPosX="1300">
+	<box name="solid" x="-500" y="-1000" width="2400" height="2000" color="#23062D" scroll="0.2"/>
 
-	<girlfriend />
-	<dad y="20"/>
-	<boyfriend x="1090"/>
+	<sprite name="bg" x="-400" y="-500" sprite="evilBG" scale="0.8" scroll="0.2" updateHitbox="true"/>
+	<sprite name="evilTree" x="300" y="-300" sprite="evilTree" scroll="0.2"/>
+	<sprite name="evilSnow" x="-500" y="700" sprite="evilSnow" />
+
+	<girlfriend/>
+	<dad camxoffset="150" camyoffset="-100"/>
+	<boyfriend camxoffset="-100" camyoffset="-100"/>
 </stage>
