@@ -13,6 +13,8 @@
 	<week name="week5" ifWeek="week4">
 		<exclude name="winter-horrorland" unlessWeek="week5"/>
 	</week>
-	<week name="week6" ifWeek="week5"/>
+	<week name="week6" ifWeek="week5">
+		<exclude name="thorns" unlessWeek="week6"/>
+	</week>
 	<week name="week7" ifWeek="week6"/>
 </freeplaySonglist>
