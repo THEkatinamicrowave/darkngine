@@ -1,6 +1,14 @@
 <!DOCTYPE codename-engine-stage>
 <stage zoom="1" name="school-evil" folder="stages/school/" startCamPosY="550" startCamPosX="600">
 	<use-extension script="pixel"/>
-	<sprite name="bg" x="400" y="200" sprite="animatedEvilSchool"
-		antialiasing="false" scale="6" scrollx="0.8" scrolly="0.9" type="loop"/>
+
+	<box x="-500" y="-1000" width="2400" height="2000" color="#000000" scroll="0"/>
+	<sprite name="backTrees" x="-842" y="-80" sprite="evil/weekBackTrees" scroll="0.5"/>
+	<sprite name="school" x="-816" y="-38" sprite="evil/weebSchool" scroll="0.75"/>
+	<sprite name="street" x="-662" y="6" sprite="evil/weebStreet"/>
+	<sprite name="trees" x="-662" y="6" sprite="evil/weebTrees"/>
+
+	<girlfriend x="724" y="823"/>
+	<dad x="0" y="648" camxoffset="440" camyoffset="270"/>
+	<boyfriend x="1168" y="900" camxoffset="-200" camyoffset="-94"/>
 </stage>

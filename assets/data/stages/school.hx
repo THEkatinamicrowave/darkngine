@@ -1,10 +1,16 @@
 //
-function create() {
-	if (PlayState.SONG.meta.name.toLowerCase() == "roses") {
-		bgGirls.animation.remove("danceLeft");
-		bgGirls.animation.remove("danceRight");
-		bgGirls.animation.addByIndices('danceLeft', 'BG fangirls dissuaded', CoolUtil.numberArray(14), "", 24, false);
-		bgGirls.animation.addByIndices('danceRight', 'BG fangirls dissuaded', CoolUtil.numberArray(30, 15), "", 24, false);
+function postCreate() {
+	for (stageShit in [sky, backTrees, school, street, treesFG, treesBG, petals, freaks]) {
+		stageShit.antialiasing = false;
+		stageShit.scale.set(6, 6);
+		stageShit.updateHitbox();
 	}
-	bgGirls.animation.play("danceLeft", true); // horrible fix, please fix later
+
+	if (PlayState.SONG.meta.name.toLowerCase() == "roses") {
+		freaks.removeAnim("danceLeft");
+		freaks.removeAnim("danceRight");
+		freaks.addAnim('danceLeft', 'BG fangirls dissuaded', 24, false, false, CoolUtil.numberArray(15));
+		freaks.addAnim('danceRight', 'BG fangirls dissuaded', 24, false, false, CoolUtil.numberArray(30, 15));
+	}
+	freaks.playAnim("danceLeft", true); // horrible fix, please fix later
 }
