@@ -212,7 +212,7 @@ class StoryMenuState extends MusicBeatState {
 		}
 		weekBGSprite.visible = Assets.exists(graphicPath);
 
-		tracklist.text = '${TU.translate("story.tracks")}\n\n${[for(e in weeks[curWeek].songs) if (!e.hide) e.displayName.getDefault(e.name).toUpperCase()].join('\n')}';
+		tracklist.text = '${TU.translate("story.tracks")}\n\n${[for(e in weeks[curWeek].songs) if (!e.hide) e.displayName.getDefault(e.name)].join('\n')}';
 		weekTitle.text = weeks[curWeek].name.getDefault("");
 
 		if (characterSprites != null) for (i in 0...3) {
