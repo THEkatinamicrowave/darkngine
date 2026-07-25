@@ -1,0 +1,4 @@
+<!DOCTYPE codename-engine-character>
+<character x="-120" y="-651" sprite="placeholder man" camx="-150" camy="100">
+	<anim name="idle" anim="idle"/>
+</character>
