@@ -321,7 +321,7 @@ class CharacterEditor extends UIState {
 		add(uiGroup);
 
 		playAnimation(character.getAnimOrder()[0]);
-		changeStage("stage");
+		changeStage("characteradjuster");
 
 		if (Options.editorsResizable)
 			UIState.setResolutionAware();

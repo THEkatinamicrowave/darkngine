@@ -1,0 +1,11 @@
+<!DOCTYPE codename-engine-stage>
+<stage zoom="0.9" name="characteradjuster">
+	<box name="bg" x="-960" y="-540" width="1920" height="1080" color="#AADDAA"/>
+	<box name="dad_feet" x="-505" y="-5" width="10" height="10" color="#FF00FF"/>
+	<box name="bf_feet" x="495" y="-5" width="10" height="10" color="#0080FF"/>
+	<box name="gf_feet" x="-5" y="-5" width="10" height="10" color="#FF0020"/>
+
+	<girlfriend x="0" scroll="1" y="0"/>
+	<dad x="-500" y="0"/>
+	<boyfriend x="500" y="0"/>
+</stage>
