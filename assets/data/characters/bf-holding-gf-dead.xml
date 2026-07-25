@@ -1,5 +1,5 @@
 <!DOCTYPE codename-engine-character>
-<character x="-300" y="-460" flipX="true" camx="100" camy="120" isPlayer="true" icon="bf-holding-gf-dead" color="#31B0D1">
+<character x="-255" y="-399" flipX="true" camx="100" camy="120" isPlayer="true" color="#31B0D1">
 	<anim name="firstDeath" anim="BF Dies with GF"/>
 	<anim name="deathLoop" anim="BF Dead with GF Loop" y="-17"/>
 	<anim name="deathConfirm" anim="RETRY confirm holding gf" y="14"/>
