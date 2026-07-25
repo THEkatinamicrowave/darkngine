@@ -1,11 +1,11 @@
 <!DOCTYPE codename-engine-stage>
-<stage zoom="1" name="spooky" folder="stages/spooky/" startCamPosY="400" startCamPosX="600">
+<stage zoom="1" name="spooky" folder="stages/spooky/" startCamPosY="727" startCamPosX="686">
 	<sprite name="halloweenBG" x="-200" y="-100" sprite="halloween_bg" anim="idle" type="none">
 		<anim name="idle" anim="halloweem bg0" type="loop" />
 		<anim name="lightning" anim="halloweem bg lightning strike" loop="false"/>
 	</sprite>
 
-	<girlfriend x="382" y="865"/>
-	<dad x="989.5" y="885" camxoffset="150" camyoffset="-100"/>
-	<boyfriend x="751.5" y="787" camxoffset="-100" camyoffset="-100"/>
+	<girlfriend x="727" y="736"/>
+	<dad x="398" y="804" camxoffset="100"/>
+	<boyfriend x="703" y="814" camxoffset="-100"/>
 </stage>
