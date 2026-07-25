@@ -6,7 +6,7 @@ function postCreate() {
 	spirit = new FlxSprite(320, 170).loadGraphic(Paths.image('game/cutscenes/weeb/spiritFaceForward'));
 	spirit.setGraphicSize(Std.int(spirit.width * 6));
 	if(Options.gameplayShaders) {
-		spirit.shaders.set('abberation', new CustomShader('chromaticAberration'));
+		spirit.shader = new CustomShader('chromaticAberration');
 		FlxTween.num(-0.003, 0.003, 3, {ease: FlxEase.sineInOut, type: FlxTweenType.PINGPONG}, function(num) { if(aberration == null) return; aberration.redOff = [0, -num]; aberration.blueOff = [0, num]; });
 	}
 	cutscene.add(spirit);
@@ -25,7 +25,7 @@ function close(event) {
 	for(c in cutscene.charMap) c.visible = false;
 
 	spirit.destroy();
-	spirit.shaders.remove('abberation');
+	spirit.shader = null;
 	new FlxTimer().start(0.4, function(swagTimer:FlxTimer) {
 		cutscene.dialogueCamera.alpha -= 0.15;
 
