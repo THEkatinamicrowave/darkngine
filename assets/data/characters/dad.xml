@@ -1,5 +1,5 @@
 <!DOCTYPE codename-engine-character>
-<character x="-215" y="-770" camx="-150" color="#AF66CE" holdTime="6.1">
+<character x="-180" y="-725" camx="-150" camy="100" icon="dad" color="#AF66CE" holdTime="6.1">
 	<anim name="idle" anim="Dad idle dance" indices="2..12,0,1"/>
 	<anim name="singUP" anim="Dad Sing note UP" x="-10" y="50"/>
 	<anim name="singLEFT" anim="dad sing note right" x="-10" y="10"/>
