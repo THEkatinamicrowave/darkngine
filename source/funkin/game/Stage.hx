@@ -233,7 +233,7 @@ class Stage extends FlxBasic implements IBeatReceiver {
 			case "girlfriend" | "gf": {
 				x: 400,
 				y: 130,
-				scroll: 0.95,
+				scroll: 1,
 				flip: false
 			};
 			case "dad" | "opponent": {
