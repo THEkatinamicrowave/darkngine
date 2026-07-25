@@ -12,6 +12,7 @@ function postCreate() {
 	}
 
 	wiggleBack = new CustomShader('wiggle');
+	wiggleBack.uTime = 0;
 	wiggleBack.uSpeed = 1.6;
 	wiggleBack.uFrequency = 1.6;
 	wiggleBack.uWaveAmplitude = 0.011;
@@ -19,6 +20,7 @@ function postCreate() {
 	backTrees.shader = wiggleBack;
 
 	wiggleSchool = new CustomShader('wiggle');
+	wiggleSchool.uTime = 0;
 	wiggleSchool.uSpeed = 2;
 	wiggleSchool.uFrequency = 4;
 	wiggleSchool.uWaveAmplitude = 0.017;
@@ -26,6 +28,7 @@ function postCreate() {
 	school.shader = wiggleSchool;
 
 	wiggleGround = new CustomShader('wiggle');
+	wiggleGround.uTime = 0;
 	wiggleGround.uSpeed = 2;
 	wiggleGround.uFrequency = 4;
 	wiggleGround.uWaveAmplitude = 0.007;
@@ -33,6 +36,7 @@ function postCreate() {
 	street.shader = wiggleGround;
 
 	wiggleTrees = new CustomShader('wiggle');
+	wiggleTrees.uTime = 0;
 	wiggleTrees.uSpeed = 2;
 	wiggleTrees.uFrequency = 4;
 	wiggleTrees.uWaveAmplitude = 0.007;
@@ -45,6 +49,13 @@ function postCreate() {
 }
 
 function postUpdate(elapsed:Float) {
+	if (
+		wiggleBack == null ||
+		wiggleSchool == null ||
+		wiggleGround == null ||
+		wiggleTrees == null
+	) return;
+
 	wiggleBack.uTime = wiggleBack.uTime + elapsed;
 	wiggleSchool.uTime = wiggleBack.uTime + elapsed;
 	wiggleGround.uTime = wiggleBack.uTime + elapsed;

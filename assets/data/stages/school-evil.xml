@@ -3,7 +3,7 @@
 	<use-extension script="pixel"/>
 
 	<box x="-500" y="-1000" width="2400" height="2000" color="#000000" scroll="0"/>
-	<sprite name="backTrees" x="-842" y="-80" sprite="evil/weekBackTrees" scroll="0.5"/>
+	<sprite name="backTrees" x="-842" y="-80" sprite="evil/weebBackTrees" scroll="0.5"/>
 	<sprite name="school" x="-816" y="-38" sprite="evil/weebSchool" scroll="0.75"/>
 	<sprite name="street" x="-662" y="6" sprite="evil/weebStreet"/>
 	<sprite name="trees" x="-662" y="6" sprite="evil/weebTrees"/>
