@@ -23,7 +23,7 @@ import sys.io.File;
 class CharacterEditor extends UIState {
 	static var __character:String;
 	public var character:CharacterGhost;
-	public var ghostCharacter:CharacterGhost = null;
+	public var extraGhost:Character = null;
 
 	public static var instance(get, never):CharacterEditor;
 
@@ -46,6 +46,7 @@ class CharacterEditor extends UIState {
 
 	public var characterPropertiesWindow:CharacterPropertiesWindow;
 	public var characterAnimsWindow:CharacterAnimsWindow;
+	public var characterExtraGhostWindow:CharacterExtraGhostWindow;
 
 	public var charCamera:FlxCamera;
 	public var gizmosCamera:FlxCamera;
@@ -319,15 +320,10 @@ class CharacterEditor extends UIState {
 		characterAnimsWindow = new CharacterAnimsWindow((FlxG.width-(500-16)-16), characterPropertiesWindow.y+224+16, character);
 		uiGroup.add(characterPropertiesWindow.animsWindow = characterAnimsWindow);
 
-		add(uiGroup);
-		
-		var ghostText:UITextBox = new UITextBox(16, 16, "", 200);
-		uiGroup.add(ghostText);
+		characterExtraGhostWindow = new CharacterExtraGhostWindow(16, (FlxG.height - CharacterExtraGhostWindow.objsHeight - 16), extraGhost);
+		uiGroup.add(characterExtraGhostWindow);
 
-		var ghostButton:UIButton = new UIButton(ghostText.x + 210, ghostText.y, "Load Ghost", function() {
-			spawnGhostCharacter(ghostText.label.text);
-		});
-		uiGroup.add(ghostButton);
+		add(uiGroup);
 
 		playAnimation(character.getAnimOrder()[0]);
 		changeStage("characteradjuster");
@@ -344,33 +340,6 @@ class CharacterEditor extends UIState {
 		}
 
 		DiscordUtil.call("onEditorLoaded", ["Character Editor", __character]);
-	}
-
-	function spawnGhostCharacter(name:String) {
-		if (ghostCharacter != null) {
-			remove(ghostCharacter);
-			ghostCharacter.destroy();
-			ghostCharacter = null;
-		}
-
-		if (name == null || name.trim() == "") return;
-
-		var ghostPath = Paths.xml('characters/$name');
-		if (!Assets.exists(ghostPath)) {
-			trace('Ghost character "$name" does not exist.');
-			return;
-		}
-
-		ghostCharacter = new CharacterGhost(0, 0, name, character.isPlayer, false);
-		ghostCharacter.alpha = 0.4;
-		ghostCharacter.debugMode = true;
-		ghostCharacter.camera = charCamera;
-		add(ghostCharacter);
-
-		if (stage != null && stage.characterPoses.exists(stagePosition))
-			stage.applyCharStuff(ghostCharacter, stagePosition, 0);
-
-		trace('Ghost character "$name" loaded.');
 	}
 
 	override function destroy() {

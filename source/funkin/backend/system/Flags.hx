@@ -267,6 +267,7 @@ class Flags {
 	public static var DEFAULT_CHARTER_SUSTAINDELETE_SOUND:String = "editors/charter/sustainDelete";
 	public static var DEFAULT_CHARACTER_GHOSTDISABLE_SOUND:String = "editors/character/ghostDisable";
 	public static var DEFAULT_CHARACTER_GHOSTENABLE_SOUND:String = "editors/character/ghostEnable";
+	public static var DEFAULT_CHARACTER_EXTRAGHOST_ALPHA:Float = 0.7;
 
 	public static var DEFAULT_GLSL_VERSION:String = "120";
 	@:also(funkin.backend.utils.HttpUtil.userAgent)
