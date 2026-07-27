@@ -35,6 +35,7 @@ class UISlider extends UISprite {
 
 	public var valueStepper:UINumericStepper;
 	public var onChange:Float->Void;
+	public var onFinishChange:Float->Void;
 
 	public function new(x:Float, y:Float, width:Int = 120, value:Float, segments:Array<SliderSegment>, centered:Bool) {
 		this.segments = segments;
@@ -112,7 +113,12 @@ class UISlider extends UISprite {
 			var mousePos = FlxG.mouse.getScreenPosition(__lastDrawCameras[0], FlxPoint.get());
 			__barProgress = CoolUtil.bound(mousePos.x-x, 0, barWidth)/barWidth;
 			mousePos.put();
-			if (FlxG.mouse.justReleased) isSliding = false;
+			if (FlxG.mouse.justReleased) {
+				isSliding = false;
+				
+				if (onFinishChange != null) onFinishChange(@:bypassAccessor value = __calcValue(__barProgress));
+				valueStepper.value = value;
+			}
 		}
 
 		if (__barProgress != lastBarProgress) {
