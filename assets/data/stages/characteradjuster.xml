@@ -1,6 +1,6 @@
 <!DOCTYPE codename-engine-stage>
 <stage zoom="0.9" name="characteradjuster">
-	<box name="bg" x="-960" y="-540" width="1920" height="1080" color="#AADDAA"/>
+	<box name="bg" width="1280" height="720" color="#AADDAA" scroll="0" zoomfactor="0"/>
 	<box name="dad_feet" x="-505" y="-5" width="10" height="10" color="#FF00FF"/>
 	<box name="bf_feet" x="495" y="-5" width="10" height="10" color="#0080FF"/>
 	<box name="gf_feet" x="-5" y="-5" width="10" height="10" color="#FF0020"/>
