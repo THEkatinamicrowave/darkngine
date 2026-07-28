@@ -536,7 +536,7 @@ class FreeplaySonglist {
      *
      * returns true if literally everything failed
      */
-    public function getSongsFromSource(source:AssetSource, useTxt:Bool = true):Bool {
+    public function getSongsFromSource(source:AssetSource, useTxt:Bool = true, unlockAll:Bool = false):Bool {
         var xmlPath = Paths.xml("config/freeplaySonglist");
         var txtPath = Paths.txt("config/freeplaySonglist");
         var legacyTxtPath = Paths.txt("freeplaySonglist");
@@ -546,7 +546,7 @@ class FreeplaySonglist {
         if (Paths.assetsTree.existsSpecific(xmlPath, "TEXT", source)) {
 			var xml:Access = new Access(Xml.parse(Assets.getText(xmlPath)).firstElement());
             if (xml != null) {
-                loadFromXML(xml, source);
+                loadFromXML(xml, source, unlockAll);
                 return false;
             }
         }
@@ -577,7 +577,7 @@ class FreeplaySonglist {
         return true;
     }
 
-    private function loadFromXML(xml:Access, source:AssetSource) {
+    private function loadFromXML(xml:Access, source:AssetSource, unlockAll:Bool = false) {
 		var songList:Array<ChartMetaData> = [];
 
 		var evaluate = function(target:String, value:String):Bool {
@@ -656,7 +656,7 @@ class FreeplaySonglist {
 			var nodeName:String = data.name.toLowerCase();
 			switch (nodeName) {
 				case "song":
-					if (checkConditions(data)) attemptAddSong(data.getAtt('name').trim());
+					if (checkConditions(data) || unlockAll) attemptAddSong(data.getAtt('name').trim());
 
 				case "week":
 					var weekName = data.getAtt('name').trim();
@@ -665,12 +665,13 @@ class FreeplaySonglist {
 
 					var exclusions:Map<String, Access> = [];
 
-					for (child in data.elements) {
-						if (child.name == "exclude") {
-							var songName = child.getAtt("name").trim();
-							exclusions.set(songName, child);
+					if (!unlockAll)
+						for (child in data.elements) {
+							if (child.name == "exclude") {
+								var songName = child.getAtt("name").trim();
+								exclusions.set(songName, child);
+							}
 						}
-					}
 
 					for (song in week.songs) {
 						var songName:String = song.name.toLowerCase();
@@ -681,7 +682,7 @@ class FreeplaySonglist {
 							if (checkConditions(excludeNode)) continue;
 						}
 
-						if (checkConditions(data))
+						if (checkConditions(data) || unlockAll)
 							attemptAddSong(song.name);
 					}
 
@@ -692,21 +693,21 @@ class FreeplaySonglist {
 		songs = songList;
     }
 
-    public static function get(useTxt:Bool = true) {
+    public static function get(useTxt:Bool = true, unlockAll:Bool = false) {
         var songList = new FreeplaySonglist();
 
         switch (Flags.SONGS_LIST_MOD_MODE) {
             case "prepend":
-                songList.getSongsFromSource(MODS, useTxt);
-                songList.getSongsFromSource(SOURCE, useTxt);
+                songList.getSongsFromSource(MODS, useTxt, unlockAll);
+                songList.getSongsFromSource(SOURCE, useTxt, unlockAll);
 
             case "append":
-                songList.getSongsFromSource(SOURCE, useTxt);
-                songList.getSongsFromSource(MODS, useTxt);
+                songList.getSongsFromSource(SOURCE, useTxt, unlockAll);
+                songList.getSongsFromSource(MODS, useTxt, unlockAll);
 
             default: // override
-                if (songList.getSongsFromSource(MODS, useTxt))
-                    songList.getSongsFromSource(SOURCE, useTxt);
+                if (songList.getSongsFromSource(MODS, useTxt, unlockAll))
+                    songList.getSongsFromSource(SOURCE, useTxt, unlockAll);
         }
 
         return songList;
