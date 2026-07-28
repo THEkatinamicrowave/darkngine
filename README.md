@@ -6,14 +6,15 @@ DarkNgine is a fork of [Codename Engine](https://github.com/CodenameCrew/Codenam
 
 <details>
   <summary><h2>Changes</h2></summary>
-- Optimize menu backgrounds with MenuBG class
+- Optimize Menu Backgrounds with MenuBG Class
 - Ported V-Slice Sound Tray
 - Markup Effect for Alphabet
 - BGSprite Property Implemented for Week XMLs
-- FreeplaySonglist XML file support for more accessible Freeplay Songlist stuff (TODO: documentation)
-- Ported V-Slice stages
-- Moved Character Offsets to Proper Feet Position [ NOT DONE ]
-- Added helper ghost to Character Editor [ NOT DONE ]
+- FreeplaySonglist XML File Support (for more accessible Freeplay Songlist stuff) (TODO: documentation)
+- Ported V-Slice stages [ NOT DONE ]
+- Moved Character Offsets to Proper Feet Position
+- Added Helper Ghost to Character Editor [ NOT DONE ]
+- Added V-Slice Pixel Icons
 </details>
 
 <details>
