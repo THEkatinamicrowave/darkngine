@@ -1,5 +1,5 @@
 <!DOCTYPE codename-engine-character>
-<character x="-80" y="-380" scale="6" antialiasing="false" camx="-150" icon="gf-pixel" color="#C70660">
+<character x="-56" y="-350" scale="6" antialiasing="false" camx="-150" camy="50" color="#C70660">
 	<anim name="danceLeft" anim="GF IDLE" indices="0..14"/>
 	<anim name="danceRight" anim="GF IDLE" indices="15..30"/>
 </character>
