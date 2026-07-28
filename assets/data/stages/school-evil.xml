@@ -8,7 +8,7 @@
 	<sprite name="street" x="-662" y="6" sprite="evil/weebStreet"/>
 	<sprite name="trees" x="-662" y="6" sprite="evil/weebTrees"/>
 
-	<girlfriend x="724" y="823"/>
-	<dad x="0" y="648" camxoffset="440" camyoffset="270"/>
-	<boyfriend x="1168" y="900" camxoffset="-200" camyoffset="-94"/>
+	<girlfriend x="706" y="787"/>
+	<dad x="270" y="822" camxoffset="150" camyoffset="100"/>
+	<boyfriend x="1204" y="822" camxoffset="-150" camyoffset="-100"/>
 </stage>
