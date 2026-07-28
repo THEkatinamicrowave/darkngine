@@ -6,7 +6,7 @@
 	<sprite name="evilTree" x="300" y="-300" sprite="evilTree" scroll="0.2"/>
 	<sprite name="evilSnow" x="-500" y="700" sprite="evilSnow" />
 
-	<girlfriend x="829.5" y="782"/>
-	<dad x="290.5" y="869" camxoffset="150" camyoffset="-100"/>
-	<boyfriend x="1297.5" y="871" camxoffset="-100" camyoffset="-100"/>
+	<girlfriend x="755" y="782"/>
+	<dad x="265" y="815" camxoffset="150" camyoffset="-100"/>
+	<boyfriend x="1245" y="805" camxoffset="-150" camyoffset="-100"/>
 </stage>
