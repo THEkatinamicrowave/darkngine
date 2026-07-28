@@ -127,8 +127,8 @@ class FunkinSoundTray extends FlxSoundTray
 			showTray();
 
 		screenCenter();
-		y = CoolUtil.fpsLerp(y, targetY, 0.3);
-		alpha = CoolUtil.fpsLerp(alpha, targetAlpha, 0.2);
+		y = CoolUtil.fpsLerp(y, targetY, 0.08);
+		alpha = CoolUtil.fpsLerp(alpha, targetAlpha, 0.08);
 
 		soundtrayScript.call("postUpdate", [elapsed]);
 	}
