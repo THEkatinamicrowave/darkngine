@@ -1,8 +1,12 @@
+//
 import flixel.addons.effects.FlxTrail;
 
 var self = this;
 var trail:FlxTrail;
+
 function postCreate() {
+	if (PlayState.instance == null) disableScript();
+	
 	trail = new FlxTrail(self, null, 4, 24, 0.3, 0.069);
 }
 
