@@ -1,5 +1,5 @@
 <!DOCTYPE codename-engine-character>
-<character x="-245" y="-815" camy="50" icon="mom" color="#D8558E">
+<character x="-145" y="-760" camx="-200" camy="125" icon="mom" color="#D8558E">
 	<anim name="idle" anim="Mom Idle"/>
 	<anim name="singUP" anim="Mom Up Pose" x="-1" y="81"/>
 	<anim name="singDOWN" anim="MOM DOWN POSE" x="-12" y="-160"/>
