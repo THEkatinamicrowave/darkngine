@@ -1,5 +1,5 @@
 <!DOCTYPE codename-engine-character>
-<character x="-63" y="-550" scale="6" antialiasing="false" camx="-20" camy="-50" icon="senpai" color="#FFAA6F" interval="2">
+<character x="-50" y="-435" scale="6" antialiasing="false" camx="-160" camy="50" icon="senpai" color="#FFAA6F" interval="2">
 	<anim name="danceLeft" anim="Senpai Idle instance" indices="0..15"/>
 	<anim name="danceRight" anim="Senpai Idle instance" indices="16..31"/>
 	<anim name="singLEFT" anim="SENPAI LEFT NOTE" x="4"/>
