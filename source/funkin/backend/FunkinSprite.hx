@@ -164,13 +164,8 @@ class FunkinSprite extends FlxSkewedSprite implements IBeatReceiver implements I
 		}
 	}
 
-	public function stepHit(curBeat:Int)
-	{
-	}
-
-	public function measureHit(curMeasure:Int)
-	{
-	}
+	public function stepHit(curBeat:Int) {}
+	public function measureHit(curMeasure:Int) {}
 
 	// ANIMATE ATLAS DRAWING
 	#if REGION
