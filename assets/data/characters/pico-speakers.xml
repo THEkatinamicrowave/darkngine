@@ -1,9 +1,9 @@
 <!DOCTYPE codename-engine-character>
-<character x="-360" y="-730" camx="195" camy="360" icon="pico" color="#B7D855">
-	<anim name="idle1" anim="Pico shoot 1" indices="4..24"/>
-	<anim name="idle2" anim="Pico shoot 2" indices="4..24"/>
-	<anim name="idle3" anim="Pico shoot 3" indices="4..24"/>
-	<anim name="idle4" anim="Pico shoot 4" indices="4..24"/>
+<character x="-349" y="-721" camx="195" camy="360" icon="pico" color="#B7D855">
+	<anim name="idle1" anim="Pico shoot 1" loop="true" indices="4..24"/>
+	<anim name="idle2" anim="Pico shoot 2" loop="true" indices="4..24"/>
+	<anim name="idle3" anim="Pico shoot 3" loop="true" indices="4..24"/>
+	<anim name="idle4" anim="Pico shoot 4" loop="true" indices="4..24"/>
 	<anim name="shoot1" anim="Pico shoot 1" indices="0..3"/>
 	<anim name="shoot2" anim="Pico shoot 2" indices="0..3"/>
 	<anim name="shoot3" anim="Pico shoot 3" indices="0..3"/>
