@@ -663,7 +663,7 @@ class FreeplaySonglist {
 					var week:WeekData = Week.loadWeek(weekName, false);
 					if (week == null) continue;
 
-					var exclusions:Map<String, Access> = new Map();
+					var exclusions:Map<String, Access> = [];
 
 					for (child in data.elements) {
 						if (child.name == "exclude") {
