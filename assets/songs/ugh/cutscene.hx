@@ -1,15 +1,17 @@
-import funkin.system.FunkinSprite;
-
+//
 var tankman:FunkinSprite;
-var tankTalk1, tankTalk2, bfBeep, distorto:FlxSound;
+var tankTalk1:FlxSound,
+	tankTalk2:FlxSound,
+	bfBeep:FlxSound,
+	distorto:FlxSound;
 var timers:Array<FlxTimer> = [];
 var destroyDistorto:Bool = true;
 
 function create() {
-	FlxTween.tween(FlxG.camera, {zoom: 1}, 0.7, {ease: FlxEase.quadInOut});
+	FlxTween.tween(game.camGame, { zoom: 1 }, 0.7, { ease: FlxEase.quadInOut });
 	game.camHUD.visible = false;
 
-	tankman = new FunkinSprite(game.dad.x + game.dad.globalOffset.x + 520, game.dad.y + game.dad.globalOffset.y + 225);
+	tankman = new FunkinSprite(game.dad.x + game.dad.globalOffset.x + 418, game.dad.y + game.dad.globalOffset.y + 225);
 	tankman.antialiasing = true;
 	tankman.loadSprite(Paths.image('game/cutscenes/tank/ugh-tankman'));
 	tankman.animateAtlas.anim.addBySymbol('1', 'TANK TALK 1 P1', 0, false);
@@ -35,25 +37,28 @@ function create() {
 	tankman.playAnim('1');
 	tankTalk1.play();
 
-	timer(3, function() {
+	timer(3, () -> {
 		focusOn(game.boyfriend);
+	});
 
-		timer(1.5, function() {
-			game.boyfriend.playAnim("singUP");
-			bfBeep.play();
+	timer(4.5, () -> {
+		game.boyfriend.playAnim("singUP");
 
-			timer(1.5, function() {
-				focusOn(game.dad);
-				tankTalk2.play();
-				tankman.playAnim('2');
+		bfBeep.play();
+	});
 
-				timer(6.1, function() {
-					destroyDistorto = false;
-					distorto.fadeOut((Conductor.crochet / 1000) * 5, 0);
-					close();
-				});
-			});
-		});
+	timer(6, () -> {
+		focusOn(game.dad);
+
+		tankTalk2.play();
+		tankman.playAnim('2');
+	});
+
+	timer(12.1, () -> {
+		destroyDistorto = false;
+		distorto.fadeOut((Conductor.crochet / 1000) * 5, 0);
+
+		close();
 	});
 }
 
@@ -64,7 +69,7 @@ function timer(duration:Float, callBack:Void->Void) {
 	}));
 }
 
-function focusOn(char) {
+function focusOn(char:Character) {
 	var camPos = char.getCameraPosition();
 	game.camFollow.setPosition(camPos.x, camPos.y);
 	camPos.put();
@@ -74,7 +79,7 @@ function destroy() {
 	game.remove(tankman);
 	game.camHUD.visible = true;
 	game.dad.visible = true;
-	for(timer in timers) timer.cancel();
-	for(thing in [tankTalk1, tankTalk2, bfBeep, tankman]) thing.destroy();
-	if(destroyDistorto) distorto.destroy();
+	for (timer in timers) timer.cancel();
+	for (thing in [tankTalk1, tankTalk2, bfBeep, tankman]) thing.destroy();
+	if (destroyDistorto) distorto.destroy();
 }

@@ -1,15 +1,16 @@
 import funkin.system.FunkinSprite;
 
 var tankman:FunkinSprite;
-var tankTalk, distorto:FlxSound;
+var tankTalk:FlxSound,
+	distorto:FlxSound;
 var timers:Array<FlxTimer> = [];
 var destroyDistorto:Bool = true;
 
 function create() {
-	FlxTween.tween(FlxG.camera, {zoom: 1}, 0.7, {ease: FlxEase.quadInOut});
+	FlxTween.tween(game.camGame, { zoom: 1 }, 0.7, { ease: FlxEase.quadInOut });
 	game.camHUD.visible = false;
 
-	tankman = new FunkinSprite(game.dad.x + game.dad.globalOffset.x + 520, game.dad.y + game.dad.globalOffset.y + 225);
+	tankman = new FunkinSprite(game.dad.x + game.dad.globalOffset.x + 418, game.dad.y + game.dad.globalOffset.y + 225);
 	tankman.antialiasing = true;
 	tankman.loadSprite(Paths.image('game/cutscenes/tank/guns-tankman'));
 	tankman.animateAtlas.anim.addBySymbol('tank', 'TANK TALK 2', 0, false);
@@ -30,16 +31,17 @@ function create() {
 	tankman.playAnim('tank');
 	tankTalk.play();
 
-	timer(4.1, function()
-	{
-		FlxTween.tween(FlxG.camera, {zoom: game.defaultCamZoom * 1.4}, 0.4, {ease: FlxEase.quadOut});
-		FlxTween.tween(FlxG.camera, {zoom: game.defaultCamZoom * 1.3}, 0.7, {ease: FlxEase.quadInOut, startDelay: 0.45});
+	timer(4.1, () -> {
+		FlxTween.tween(game.camGame, {zoom: game.defaultCamZoom * 1.4}, 0.4, {ease: FlxEase.quadOut});
+		FlxTween.tween(game.camGame, {zoom: game.defaultCamZoom * 1.3}, 0.7, {ease: FlxEase.quadInOut, startDelay: 0.45});
+
 		game.gf.playAnim('sad', false, "DANCE");
 	});
 
-	timer(11, function() {
+	timer(11, () -> {
 		destroyDistorto = false;
 		distorto.fadeOut((Conductor.crochet / 1000) * 5, 0);
+
 		close();
 	});
 }
@@ -61,8 +63,9 @@ function destroy() {
 	game.remove(tankman);
 	game.camHUD.visible = true;
 	game.dad.visible = true;
-	for(timer in timers) timer.cancel();
-	for(thing in [tankman, tankTalk]) thing.destroy();
-	if(destroyDistorto) distorto.destroy();
-	FlxTween.tween(FlxG.camera, {zoom: game.defaultCamZoom}, 0.7, {ease: FlxEase.quadInOut, startDelay: 0});
+	for (timer in timers) timer.cancel();
+	for (thing in [tankman, tankTalk]) thing.destroy();
+	if (destroyDistorto) distorto.destroy();
+
+	FlxTween.tween(game.camGame, { zoom: game.defaultCamZoom }, 0.7, { ease: FlxEase.quadInOut, startDelay: 0 });
 }
