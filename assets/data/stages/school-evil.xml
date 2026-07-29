@@ -9,6 +9,6 @@
 	<sprite name="trees" x="-662" y="6" sprite="evil/weebTrees"/>
 
 	<girlfriend x="706" y="787"/>
-	<dad x="270" y="822" camxoffset="200" camyoffset="100"/>
+	<dad x="270" y="822" camxoffset="200"/>
 	<boyfriend x="1204" y="822" camxoffset="-200" camyoffset="-100"/>
 </stage>

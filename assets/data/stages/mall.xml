@@ -10,7 +10,7 @@
 	<sprite name="fgSnow" x="-1150" y="680" sprite="fgSnow"/>
 
 	<girlfriend x="829" y="782"/>
-	<dad x="95" y="820" camxoffset="-50" camyoffset="-100"/>
+	<dad x="95" y="820" camxoffset="50" camyoffset="-100"/>
 	<boyfriend x="1177" y="871" camxoffset="-300" camyoffset="-200"/>
 
 	<sprite name="santa" x="-840" y="150" sprite="santa" type="onbeat" beatInterval="1"/>
