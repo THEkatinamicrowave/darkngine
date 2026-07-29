@@ -1,5 +1,5 @@
 <!DOCTYPE codename-engine-character>
-<character x="-349" y="-721" camx="195" camy="360" icon="pico" color="#B7D855">
+<character x="-349" y="-721" camx="195" camy="500" icon="pico" color="#B7D855">
 	<anim name="idle1" anim="Pico shoot 1" loop="true" indices="4..24"/>
 	<anim name="idle2" anim="Pico shoot 2" loop="true" indices="4..24"/>
 	<anim name="idle3" anim="Pico shoot 3" loop="true" indices="4..24"/>

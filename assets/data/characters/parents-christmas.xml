@@ -1,5 +1,5 @@
 <!DOCTYPE codename-engine-character>
-<character x="-475" y="-720" camx="50" camy="75" icon="parents-christmas" color="#C45EAE">
+<character x="-475" y="-720" camx="-50" camy="75" color="#C45EAE">
 	<anim name="idle" anim="Parent Christmas Idle"/>
 	<anim name="singUP" anim="Parent Up Note Dad" x="-47" y="25"/>
 	<anim name="singDOWN" anim="Parent Down Note Dad" x="-33" y="-25"/>

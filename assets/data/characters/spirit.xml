@@ -1,5 +1,5 @@
 <!DOCTYPE codename-engine-character>
-<character x="-70" y="-450" scale="6" antialiasing="false" camx="-120" camy="120" color="#FF3C6E">
+<character x="-70" y="-450" scale="6" antialiasing="false" camx="-140" camy="130" icon="spirit" color="#FF3C6E">
 	<anim name="idle" anim="idle spirit"/>
 	<anim name="singLEFT" anim="left" x="4" y="-1"/>
 	<anim name="singDOWN" anim="spirit down" x="66" y="64"/>

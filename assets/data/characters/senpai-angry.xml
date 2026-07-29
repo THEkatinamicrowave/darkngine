@@ -1,5 +1,5 @@
 <!DOCTYPE codename-engine-character>
-<character x="-55" y="-435" sprite="senpai" scale="6" antialiasing="false" camx="-160" camy="50" icon="senpai" color="#FFAA6F">
+<character x="-55" y="-435" sprite="senpai" scale="6" antialiasing="false" camx="-170" camy="120" icon="senpai" color="#FFAA6F">
 	<anim name="idle" anim="Angry Senpai Idle"/>
 	<anim name="singLEFT" anim="Angry Senpai LEFT NOTE" x="3"/>
 	<anim name="singDOWN" anim="Angry Senpai DOWN NOTE" x="-1"/>
