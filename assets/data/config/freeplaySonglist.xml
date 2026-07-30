@@ -17,4 +17,5 @@
 		<exclude name="thorns" unlessWeek="week6"/>
 	</week>
 	<week name="week7" ifWeek="week6"/>
+	<week name="weekend1" ifWeek="week7"/>
 </freeplaySonglist>
