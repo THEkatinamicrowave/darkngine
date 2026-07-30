@@ -17,9 +17,10 @@ DarkNgine is a fork of [Codename Engine](https://github.com/CodenameCrew/Codenam
 
   <summary><h2>Actively In Progress</h2></summary>
 - Add Helper Ghost to Character Editor
+- Port V-Slice Weekend 1
 
   <summary><h2>Todo</h2></summary>
-- Port V-Slice Weekend 1 and Spaghetti and Pico mixes
+- Port V-Slice Spaghetti and Pico mixes
 - Port V-Slice sprites that are cool and awesome
 - Add whatever seems cool for editors
 - Update stage editor
