@@ -307,7 +307,7 @@ class FreeplayState extends MusicBeatState
 		}
 
 		#if sys
-		if (FlxG.keys.justPressed.EIGHT && Sys.args().contains("-livereload"))
+		if (FlxG.keys.justPressed.EIGHT)
 			convertChart();
 		#end
 
