@@ -1,0 +1,40 @@
+<!DOCTYPE codename-engine-stage>
+<stage name="streets" folder="stages/streets/" zoom="0.77" startCamPosX="1000" startCamPosY="600">
+	<box name="solid" width="1280" height="720" color="#8E9191" scroll="0" zoomfactor="0"/>
+	<spr name="phillySkyline" sprite="streets/phillySkyline" x="-545" y="-273" scroll="0.2"/>
+	<spr name="phillyForegroundCity2" sprite="streets/phillyForegroundCity" x="1865" y="220" scroll="0.3" angle="5" flipX="true"/>
+	<spr name="phillyConstruction" sprite="streets/phillyConstruction" x="1800" y="364" scrollx="0.7"/>
+	<spr name="phillyHighwayLights" sprite="streets/phillyHighwayLights" x="122" y="201" scroll="0.8"/>
+	<spr name="phillyHighwayLights_lightmap" sprite="streets/phillyHighwayLights_lightmap" x="122" y="201" alpha="0.6" scroll="0.8">
+		<property name="blend" type="int" value="0"/>
+	</spr>
+	<spr name="phillyHighway" sprite="streets/phillyHighway" x="-23" y="105" scroll="0.8"/>
+	<spr name="phillySmog" sprite="streets/phillySmog" x="-6" y="305" scrollx="0.8"/>
+
+	<spr name="phillyCars2" sprite="streets/phillyCars" x="1200" y="818" scrollx="0.9" flipX="true">
+		<anim name="car1" anim="car1"/>
+		<anim name="car2" anim="car2"/>
+		<anim name="car3" anim="car3"/>
+		<anim name="car4" anim="car4"/>
+	</spr>
+	<spr name="phillyCars" sprite="streets/phillyCars" x="1200" y="818" scrollx="0.9">
+		<anim name="car1" anim="car1"/>
+		<anim name="car2" anim="car2"/>
+		<anim name="car3" anim="car3"/>
+		<anim name="car4" anim="car4"/>
+	</spr>
+
+	<spr name="phillyTraffic" sprite="streets/phillyTraffic" x="1840" y="608" scrollx="0.9">
+		<anim name="togreen" anim="redtogreen"/>
+		<anim name="tored" anim="greentored"/>
+	</spr>
+	<spr name="phillyTraffic_lightmap" sprite="streets/phillyTraffic_lightmap" x="1840" y="608" alpha="0.6" scrollx="0.9">
+		<property name="blend" type="int" value="0"/>
+	</spr>
+	<spr name="phillyForeground" sprite="streets/phillyForeground" x="88" y="317"/>
+
+	<girlfriend x="1453" y="1100"/>
+	<dad x="920" y="1310" camxoffset="200" camyoffset="-100"/>
+	<spr name="spraycanPile" sprite="SpraycanPile" x="920" y="1045"/>
+	<boyfriend x="2151" y="1228" camxoffset="-200" camyoffset="-100"/>
+</stage>
