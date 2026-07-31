@@ -25,7 +25,7 @@ function postCreate() {
 	rainShader.uTime = 0;
 	rainShader.uSpriteMode = false;
 	rainShader.uRainColor = [0.4, 0.5, 0.8];
-	FlxG.camera.addShader(rainShader);
+	PlayState.instance.camGame.addShader(rainShader);
 	
     skyAdditive.blend = "add";
     skyAdditive.visible = false;
@@ -46,14 +46,14 @@ function postCreate() {
 }
 
 function onGameOver(event:GameOverEvent) {
-    FlxG.camera.filters = [];
+	PlayState.instance.camGame.removeShader(rainShader);
 }
 
 function postUpdate(elapsed:Float) {
-    rainShader.updateViewInfo(FlxG.width, FlxG.height, FlxG.camera);
-    rainShader.update(elapsed * rainTimeScale);
+	rainShader.uCameraBounds = [FlxG.camera.viewLeft, FlxG.camera.viewTop, FlxG.camera.viewRight, FlxG.camera.viewBottom];
+	rainShader.uTime = rainShader.uTime + (elapsed * rainTimeScale);
 
-    rainTimeScale = MathUtil.smoothLerpPrecision(rainTimeScale, 0.02, elapsed, 1.535);
+	rainTimeScale = FlxMath.lerp(0.02, rainTimeScale, Math.pow(2, -elapsed / 1.535));
 
     if (scrollingSky != null) scrollingSky.scrollX -= FlxG.elapsed * 35;
 
@@ -113,7 +113,7 @@ public override function onSongEnd() {
     lightningActive = false;
 }
 
-function cleanupLightning(tween:FlxTween) {
+function cleanupLightning() {
     skyAdditive.visible = foregroundMultiply.visible = additionalLighten.visible = lightning.visible = false;
 }
 
