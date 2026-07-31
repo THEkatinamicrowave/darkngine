@@ -1,0 +1,17 @@
+{
+	"customValues": {},
+	"color": "#7F5FAF",
+	"opponentModeAllowed": true,
+	"icon": "darnell",
+	"difficulties": [
+		"EASY",
+		"NORMAL",
+		"HARD"
+	],
+	"coopAllowed": true,
+	"stepsPerBeat": 4,
+	"displayName": "Blazin'",
+	"beatsPerMeasure": 4,
+	"needsVoices": false,
+	"bpm": 180
+}
