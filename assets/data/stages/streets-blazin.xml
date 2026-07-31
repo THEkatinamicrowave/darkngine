@@ -1,0 +1,14 @@
+<!DOCTYPE codename-engine-stage>
+<stage name="streets-blazin" folder="stages/streets/blazin" zoom="0.75" startCamPosX="1000" startCamPosY="600">
+	<spr name="skyAdditive" sprite="skyBlur" x="-600" y="-175" scroll="0" scale="1.75" updateHitbox="true"/>
+	<spr name="lightning" sprite="lightning" x="50" y="300" scroll="0" scale="1.75" updateHitbox="true">
+		<anim name="strike" anim="lightning0"/>
+	</spr>
+	<spr name="phillyForegroundCity" sprite="streetBlur" x="-600" y="-175" scroll="0" scale="1.75" updateHitbox="true"/>
+	<spr name="foregroundMultiply" sprite="streetBlur" x="-600" y="-175" scroll="0" scale="1.75" updateHitbox="true"/>
+	<box name="additionalLighten" width="1280" height="720" scroll="0" zoomfactor="0"/>
+
+	<girlfriend x="1353" y="1125"/>
+	<dad x="-237" y="150" scale="1.75"/>
+	<boyfriend x="-237" y="150" scale="1.75"/>
+</stage>
