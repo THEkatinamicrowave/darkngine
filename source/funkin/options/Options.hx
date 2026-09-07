@@ -129,7 +129,7 @@ class Options
 	public static var P1_VOLUME_UP:Array<FlxKey> = [PLUS];
 	public static var P1_VOLUME_DOWN:Array<FlxKey> = [MINUS];
 	public static var P1_VOLUME_MUTE:Array<FlxKey> = [ZERO];
-	public static var P1_FPS_COUNTER:Array<FlxKey> = [#if web NUMBER_3 #else F3 #end]; // 3 on web or F3 on windows, linux and other things that runs code
+	public static var P1_FPS_COUNTER:Array<FlxKey> = [#if web THREE #else F3 #end]; // 3 on web or F3 on windows, linux and other things that runs code
 
 	// Debugs
 	public static var P1_DEV_ACCESS:Array<FlxKey> = [SEVEN];
