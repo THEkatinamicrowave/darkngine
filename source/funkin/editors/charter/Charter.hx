@@ -45,6 +45,7 @@ class Charter extends UIState {
 		return FlxG.state is Charter ? cast FlxG.state : null;
 
 	public var charterBG:FunkinSprite;
+	public var charterBookmarksGroup:FlxTypedGroup<FlxSprite> = new FlxTypedGroup<FlxSprite>();
 	public var uiGroup:FlxTypedGroup<FlxSprite> = new FlxTypedGroup<FlxSprite>();
 
 	public var topMenu:Array<UIContextMenuOption>;
@@ -463,7 +464,7 @@ class Charter extends UIState {
 		noteHoverer = new CharterNoteHoverer();
 		noteDeleteAnims = new CharterDeleteAnim();
 
-		selectionBox.cameras = notesGroup.cameras = gridBackdrops.cameras =
+		charterBookmarksGroup.cameras = notesGroup.cameras = gridBackdrops.cameras =
 		noteHoverer.cameras = noteDeleteAnims.cameras = [charterCamera];
 
 		topMenuSpr = new UITopMenu(topMenu);
@@ -552,6 +553,7 @@ class Charter extends UIState {
 		add(noteDeleteAnims);
 		add(notesGroup);
 		add(selectionBox);
+		add(charterBookmarksGroup);
 		add(strumlineInfoBG);
 		add(strumlineLockButton);
 		add(strumlineAddButton);
@@ -572,6 +574,8 @@ class Charter extends UIState {
 
 		if (Options.editorsResizable)
 			UIState.setResolutionAware();
+
+		updateBookmarks();
 
 		// ! IF YOU EVER WANNA VIEW IN THE FUTURE, JUST USE A FLXSPRITE :D -lunar
 		/*var dataDisplay:FlxSprite = new FlxSprite().loadGraphic(waveformHandler.waveDatas.get("Voices.ogg"));
@@ -1916,12 +1920,12 @@ class Charter extends UIState {
 			if (bars != null) {
 				for (spr in bars) {
 					if (spr == null) continue;
-					remove(spr);
+					charterBookmarksGroup.remove(spr);
 					spr.kill();
 				}
 			}
 			if (text != null) {
-				remove(text);
+				charterBookmarksGroup.remove(text);
 				text.kill();
 			}
 		}
@@ -1942,15 +1946,13 @@ class Charter extends UIState {
 			{
 				var bookmarkspr = new FlxSprite(str.x, (b.time * 40)).makeSolid(str.keyCount * 40, 4, bookmarkcolor);
 				bookmarkspr.updateHitbox();
-				bookmarkspr.camera = charterCamera;
-				add(bookmarkspr);
+				charterBookmarksGroup.add(bookmarkspr);
 				sprites.push(bookmarkspr);
 			}
 
 			var bookmarkText = new UIText(strumLines.members[0].x + 4, 0, 400, b.name, 15, bookmarkcolor, true);
 			bookmarkText.y = sprites[0].y - (bookmarkText.height + 2);
-			bookmarkText.camera = charterCamera;
-			add(bookmarkText);
+			charterBookmarksGroup.add(bookmarkText);
 
 			if (luminance < 0.5)
 				bookmarkText.borderColor = 0x88FFFFFF;
