@@ -60,7 +60,7 @@ class GlyphInfoWindow extends UIWindow {
 
 		xBox = new UINumericStepper(prefixBox.x, prefixBox.y + prefixBox.bHeight + itemMargin + labelOffset, 0, 1, 2, null, null, 80);
 		xBox.onChange = valueSet.bind(xBox, function(val) { // kinda dumb but blame cne ui
-			compon.x = val;
+			compon.x = -val;
 		});
 		members.push(xBox);
 
@@ -121,7 +121,7 @@ class GlyphInfoWindow extends UIWindow {
 		members.push(colorModeDrop);
 		addLabelOn(colorModeDrop, "Color Mode");
 
-		outlineCheck = new UICheckbox(colorModeDrop.x + colorModeDrop.bWidth + itemMargin * 2, colorModeDrop.y + 4, "Use Outline?");
+		outlineCheck = new UICheckbox(colorModeDrop.x + colorModeDrop.bWidth + itemMargin * 2, colorModeDrop.y + 10, "Use Outline?");
 		outlineCheck.onChecked = function(val) {
 			targetPercent = val ? 1 : 0;
 
@@ -156,10 +156,12 @@ class GlyphInfoWindow extends UIWindow {
 				};
 
 				data.components.insert(AlphabetEditor.instance.outlineIdx, newOutline);
+				++AlphabetEditor.instance.outlineIdx;
 				++data.startIndex;
 			} else {
 				compon.outIndex = null;
 				data.components.splice(AlphabetEditor.instance.outlineIdx - 1, 1);
+				--AlphabetEditor.instance.outlineIdx;
 				--data.startIndex;
 			}
 		}
@@ -254,7 +256,7 @@ class GlyphInfoWindow extends UIWindow {
 		}
 
 		prefixBox.label.text = com.anim;
-		xBox.value = com.x;
+		xBox.value = -com.x;
 		yBox.value = com.y;
 		scaleXBox.value = com.scaleX;
 		scaleYBox.value = com.scaleY;
@@ -277,11 +279,11 @@ class GlyphInfoWindow extends UIWindow {
 			targetPercent = 1;
 		}
 
-		for (item in members) {
-			if (item is UISprite)
-				cast(item, UISprite).selectable = true;
-		}
-		colorModeDrop.dropButton.selectable = true;
+		for (item in [prefixBox, scaleXBox, scaleYBox, angleBox, flipXBox, flipYBox])
+			item.selectable = true;
+		for (item in [xBox, yBox, colorModeDrop, outlineCheck, outlineBox, outlineXBox, outlineYBox])
+			item.selectable = !data.isDefault;
+		colorModeDrop.dropButton.selectable = colorModeDrop.selectable;
 	}
 
 	function valueSet(item:UINumericStepper, func:Dynamic, text:String) {
