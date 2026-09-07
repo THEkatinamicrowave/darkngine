@@ -165,7 +165,7 @@ class KeybindsOptions extends MusicBeatSubstate {
 			-80
 		);
 		coloredBG = MenuBG.makeSprite(MenuBGColorPresets.DESAT_ONE, MenuBGColorPresets.DESAT_TWO);
-		for(bg in [bg, coloredBG]) {
+		for (bg in [bg, coloredBG]) {
 			bg.scrollFactor.set();
 			bg.scale.set(1.15, 1.15);
 			bg.updateHitbox();
@@ -202,7 +202,7 @@ class KeybindsOptions extends MusicBeatSubstate {
 			add(title);
 
 			k++;
-			for(e in category.settings) {
+			for (e in category.settings) {
 				var sparrowIcon:String = null;
 				var sparrowAnim:String = null;
 				if (e.sparrowIcon != null) sparrowIcon = e.sparrowIcon;
