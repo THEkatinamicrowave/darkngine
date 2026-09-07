@@ -133,7 +133,7 @@ class PauseSubState extends MusicBeatSubstate
 	{
 		super.update(elapsed);
 
-		if (pauseMusic.volume < 0.5)
+		if (pauseMusic != null && pauseMusic.volume < 0.5)
 			pauseMusic.volume += 0.01 * elapsed;
 
 		pauseScript.call("update", [elapsed]);
