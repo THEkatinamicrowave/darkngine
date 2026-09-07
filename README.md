@@ -2,7 +2,7 @@
 
 ## Cliffnotes
 
-DarkNgine is a fork of [Codename Engine](https://github.com/CodenameCrew/CodenameEngine) (made by the [Codename Crew](https://github.com/CodenameCrew)) which was originally designed for the **17 Fandom Funks mod** to support fandom packs. These are just basically mods, but it's cooler because you don't need to like switch them out in the main menu. However, I ended up transforming it into my own cool thing with more features. Hell, most of these will probably be added to Codename at some point.
+DarkNgine is a fork of [Codename Engine](https://github.com/CodenameCrew/CodenameEngine) v1.0.1 [ACTIVELY BEING MOVED TO V1.1.0RC2] (made by the [Codename Crew](https://github.com/CodenameCrew)) which was originally designed for the **17 Fandom Funks mod** to support fandom packs. These are just basically mods, but it's cooler because you don't need to like switch them out in the main menu. However, I ended up transforming it into my own cool thing with more features. Hell, most of these will probably be added to Codename at some point.
 
 <details>
   <summary><h2>Changes</h2></summary>
