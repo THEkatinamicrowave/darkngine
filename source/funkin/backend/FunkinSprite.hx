@@ -126,7 +126,7 @@ class FunkinSprite extends FlxSkewedSprite implements IBeatReceiver implements I
 		// hate how it looks like but hey at least its optimized and fast  - Nex
 		if (!debugMode && isAnimFinished()) {
 			var name = getAnimName() + '-loop';
-			if (hasAnimation(name))
+			if (hasAnim(name))
 				playAnim(name, null, lastAnimContext);
 		}
 	}
@@ -302,7 +302,7 @@ class FunkinSprite extends FlxSkewedSprite implements IBeatReceiver implements I
 
 	public function playAnim(AnimName:String, ?Force:Null<Bool>, Context:PlayAnimContext = NONE, Reversed:Bool = false, Frame:Int = 0):Void
 	{
-		if (AnimName == null)
+		if (AnimName == null || (!hasAnim(AnimName) && !debugMode))
 			return;
 
 		if (Force == null) {
@@ -313,16 +313,10 @@ class FunkinSprite extends FlxSkewedSprite implements IBeatReceiver implements I
 		if (animateAtlas != null)
 		{
 			@:privateAccess
-			// if (!animateAtlas.anim.animsMap.exists(AnimName) && !animateAtlas.anim.symbolDictionary.exists(AnimName)) return;
 			animateAtlas.anim.play(AnimName, Force, Reversed, Frame);
 			atlasPlayingAnim = AnimName;
 		}
-		else
-		{
-			if (!animation.exists(AnimName) && !debugMode)
-				return;
-			animation.play(AnimName, Force, Reversed, Frame);
-		}
+		else animation.play(AnimName, Force, Reversed, Frame);
 
 		var daOffset = getAnimOffset(AnimName);
 		frameOffset.set(daOffset.x, daOffset.y);
@@ -409,9 +403,9 @@ class FunkinSprite extends FlxSkewedSprite implements IBeatReceiver implements I
 	}
 
 	// Backwards compat (the names used to be all different and it sucked, please lets use the same format in the future)  - Nex
-	public inline function hasAnimation(AnimName:String) return hasAnim(AnimName);
-	public inline function removeAnimation(name:String) return removeAnim(name);
-	public inline function stopAnimation() return stopAnim();
+	@:dox(hide) public inline function hasAnimation(AnimName:String) return hasAnim(AnimName);
+	@:dox(hide) public inline function removeAnimation(name:String) return removeAnim(name);
+	@:dox(hide) public inline function stopAnimation() return stopAnim();
 	#end
 
 	// Getter / Setters
