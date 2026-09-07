@@ -205,7 +205,7 @@ final class NoteHitEvent extends CancellableEvent {
 	private inline function get_legacyJudge():Bool {
 		if (_explicitLegacyJudge != null)
 			return _explicitLegacyJudge;
-		return Flags.CURRENT_API_VERSION == 1;
+		return Flags.MOD_API_VERSION == 1;
 	}
 	private function set_legacyJudge(value:Bool):Bool {
 		_explicitLegacyJudge = value;
