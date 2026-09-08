@@ -23,10 +23,6 @@ import openfl.text.TextFormat;
 import openfl.utils.AssetLibrary;
 import sys.FileSystem;
 import sys.io.File;
-
-#if ALLOW_MULTITHREADING
-import sys.thread.Thread;
-#end
 #if android
 import android.content.Context;
 import android.os.Build;
@@ -109,10 +105,6 @@ class Main extends Sprite
 		MemoryUtil.init();
 		@:privateAccess
 		FlxG.game.getTimer = getTimer;
-		#if ALLOW_MULTITHREADING
-		for(i in 0...4)
-			gameThreads.push(Thread.createWithEventLoop(function() {Thread.current().events.promise();}));
-		#end
 		FunkinCache.init();
 		Paths.assetsTree = new AssetsLibraryList();
 
