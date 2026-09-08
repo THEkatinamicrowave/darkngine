@@ -87,14 +87,6 @@ class NativeAudioSource {
 
 	inline private static function getFloat(x:Int64):Float return x.high * 4294967296. + (x.low >> 0);
 
-	inline private static function gc() {
-		#if neko
-		neko.vm.Gc.run(false);
-		#elseif cpp
-		cpp.vm.Gc.run(false);
-		#end
-	}
-
 	// Backward Compatibility Variables
 	var handle(get, set):ALSource; inline function get_handle() return source; inline function set_handle(v) return source = v;
 	var timer(get, set):Timer; inline function get_timer() return completeTimer; inline function set_timer(v) return completeTimer = v;
@@ -493,14 +485,13 @@ class NativeAudioSource {
 				if ((process = (v = STREAM_MAX_BUFFERS - source.requestBuffers) > process ? process : v) > 0) source.fillBuffers(process);
 			}
 			streamMutex.release();
-			gc();
 		}
 
 		threadRunning = false;
 	}
 
 	static function streamUpdate(_:Int) {
-		final acquired = streamMutex.tryAcquire();
+		if (!streamMutex.tryAcquire()) return;
 
 		var i = queuedStreamSources.length, source:NativeAudioSource;
 		while (i-- > 0) streamSources.push(queuedStreamSources[i]);
@@ -508,33 +499,25 @@ class NativeAudioSource {
 
 		i = streamSources.length;
 		while (i-- > 0) {
-			if ((source = streamSources[i]).streamRemove) {
-				if (acquired) source.removeStream();
-				else continue;
-			}
-			else if (source.source == null) {
-				if (acquired) source.removeStream();
-				else source.stopStream();
-			}
+			if ((source = streamSources[i]).streamRemove || source.source == null) source.removeStream();
 			else {
-				if (acquired) source.skipBuffers(AL.getSourcei(source.source, AL.BUFFERS_PROCESSED));
+				source.skipBuffers(AL.getSourcei(source.source, AL.BUFFERS_PROCESSED));
 				source.flushBuffers();
 				if (AL.getSourcei(source.source, AL.SOURCE_STATE) == AL.STOPPED) {
 					AL.sourcePlay(source.source);
 					source.updateCompleteTimer();
 				}
+				if (source.streamEnded && source.requestBuffers == source.queuedBuffers) source.removeStream();
 			}
 		}
 
-		if (acquired) {
-			streamMutex.release();
-			if (streamSources.length == 0) {
-				Application.current.onUpdate.remove(streamUpdate);
-				if (threadRunning) streamThread.sendMessage(0);
-			}
-			else if (threadRunning || (threadRunning = (streamThread = Thread.create(streamThreadRun)) != null))
-				streamThread.sendMessage(streamSources.length);
+		streamMutex.release();
+		if (streamSources.length == 0) {
+			Application.current.onUpdate.remove(streamUpdate);
+			if (threadRunning) streamThread.sendMessage(0);
 		}
+		else if (threadRunning || (threadRunning = (streamThread = Thread.create(streamThreadRun)) != null))
+			streamThread.sendMessage(streamSources.length);
 	}
 
 	function removeStream() {
