@@ -468,16 +468,16 @@ class NativeAudioSource {
 		var i:Int, source:NativeAudioSource, process:Int;
 
 		while ((i = Thread.readMessage(true)) != 0) {
+			streamMutex.acquire();
 			while (i-- > 0) {
 				if ((source = streamSources[i]).parent.buffer == null) {
 					source.stopStream();
 					continue;
 				}
-				streamMutex.acquire();
 				process = source.requestBuffers < STREAM_MIN_BUFFERS ? STREAM_MIN_BUFFERS - source.requestBuffers : 0;
 				source.fillBuffers(STREAM_PROCESS_BUFFERS > process ? STREAM_PROCESS_BUFFERS : process);
-				streamMutex.release();
 			}
+			streamMutex.release();
 		}
 
 		threadRunning = false;
