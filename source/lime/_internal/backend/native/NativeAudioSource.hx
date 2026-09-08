@@ -6,7 +6,6 @@ import sys.thread.Mutex;
 import haxe.Timer;
 import haxe.Int64;
 
-import lime.app.Application;
 import lime.media.openal.AL;
 import lime.media.openal.ALBuffer;
 import lime.media.openal.ALSource;
@@ -129,6 +128,7 @@ class NativeAudioSource {
 
 	static var streamMutex:Mutex = new Mutex();
 	static var streamThread:Thread;
+	static var streamTimer:Timer;
 
 	var streamRemove:Bool;
 
@@ -490,7 +490,7 @@ class NativeAudioSource {
 		threadRunning = false;
 	}
 
-	static function streamUpdate(_:Int) {
+	static function streamUpdate() {
 		if (!streamMutex.tryAcquire()) return;
 
 		var i = queuedStreamSources.length, source:NativeAudioSource;
@@ -513,7 +513,7 @@ class NativeAudioSource {
 
 		streamMutex.release();
 		if (streamSources.length == 0) {
-			Application.current.onUpdate.remove(streamUpdate);
+			streamTimer.stop();
 			if (threadRunning) streamThread.sendMessage(0);
 		}
 		else if (threadRunning || (threadRunning = (streamThread = Thread.create(streamThreadRun)) != null))
@@ -535,7 +535,7 @@ class NativeAudioSource {
 		streamRemove = false;
 		if (!queuedStreamSources.contains(this) && !streamSources.contains(this)) {
 			queuedStreamSources.push(this);
-			if (!Application.current.onUpdate.has(streamUpdate)) Application.current.onUpdate.add(streamUpdate);
+			if (streamTimer == null || !streamTimer.mRunning) streamTimer = resetTimer(streamTimer, 0, streamUpdate);
 		}
 	}
 
