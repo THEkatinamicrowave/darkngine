@@ -470,7 +470,7 @@ final class AudioAnalyzer {
 
 		// TODO: Wrap it with try until i figured it out an effective way to do this...
 		// So... sometimes it just uses the decoder even if it looks good?? please help
-		var i = backend.bufferLengths.length - backend.queuedBuffers - 1, time:Float;
+		var i = backend.bufferLengths.length - backend.requestedBuffers - 1, time:Float;
 		while (++i < backend.bufferLengths.length) if (startPos >= (time = backend.bufferTimes[i] * 1000)) {
 			var pos = Math.floor((startPos - time) * __toBits), buf = backend.bufferDatas[i].buffer, size = backend.bufferLengths[i], c = 0;
 			var pos = Math.floor((startPos - time) * __toBits), buf = backend.bufferDatas[i].buffer, size = backend.bufferSizes[i], c = 0;
