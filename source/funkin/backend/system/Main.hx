@@ -13,6 +13,7 @@ import funkin.backend.assets.ModsFolder;
 import funkin.backend.system.framerate.Framerate;
 import funkin.backend.system.framerate.SystemInfo;
 import funkin.backend.system.modules.*;
+import funkin.backend.utils.ThreadUtil;
 import funkin.editors.SaveWarning;
 import funkin.options.PlayerSettings;
 import openfl.Assets;
@@ -60,10 +61,6 @@ class Main extends Sprite
 
 	// You can pretty much ignore everything from here on - your code should go in your states.
 
-	#if ALLOW_MULTITHREADING
-	public static var gameThreads:Array<Thread> = [];
-	#end
-
 	public static function preInit() {
 		funkin.backend.utils.NativeAPI.registerAsDPICompatible();
 		funkin.backend.system.CommandLineHandler.parseCommandLine(Sys.args());
@@ -99,16 +96,8 @@ class Main extends Sprite
 		#end;
 	public static var startedFromSource:Bool = #if TEST_BUILD true #else false #end;
 
-
-	private static var __threadCycle:Int = 0;
-	public static function execAsync(func:Void->Void) {
-		#if ALLOW_MULTITHREADING
-		var thread = gameThreads[(__threadCycle++) % gameThreads.length];
-		thread.events.run(func);
-		#else
-		func();
-		#end
-	}
+	// DEPRECATED
+	@:dox(hide) public static function execAsync(func:Void->Void) ThreadUtil.execAsync(func);
 
 	private static function getTimer():Int {
 		return time = Lib.getTimer();
