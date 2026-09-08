@@ -370,9 +370,7 @@ class StageEditor extends UIState {
 		// Play first anim, and make it the last frame
 		var animToPlay = char.getAnimOrder()[0];
 		char.playAnim(animToPlay, true, NONE);
-		var lastIndx = (char.animateAtlas != null) ?
-			char.animateAtlas.anim.length - 1 :
-			char.animation.curAnim.numFrames - 1;
+		var lastIndx = char.animation.curAnim.numFrames - 1;
 		char.playAnim(animToPlay, true, NONE, false, lastIndx);
 		char.stopAnimation();
 
@@ -558,9 +556,7 @@ class StageEditor extends UIState {
 		// Play first anim, and make it the last frame
 		var animToPlay = char.getAnimOrder()[0];
 		char.playAnim(animToPlay, true, NONE);
-		var lastIndx = (char.animateAtlas != null) ?
-			char.animateAtlas.anim.length - 1 :
-			char.animation.curAnim.numFrames - 1;
+		var lastIndx = char.animation.curAnim.numFrames - 1;
 		char.playAnim(animToPlay, true, NONE, false, lastIndx);
 		char.stopAnimation();
 
