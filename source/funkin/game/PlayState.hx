@@ -623,6 +623,18 @@ class PlayState extends MusicBeatState
 			curRating = event.rating;
 	}
 
+	private function onRatingChange(rating:Rating) {
+		if (!hits.exists(rating.name))
+			hits.set(rating.name, 0);
+
+		if (Options.ghostTapping) {
+			comboBreaks = false;
+			for (rating in ratingManager.ratingData)
+				comboBreaks = comboBreaks || rating.breaksCombo;
+		} else
+			comboBreaks = true;
+	}
+
 	private inline function set_health(v:Float)
 		return health = FlxMath.bound(v, 0, maxHealth);
 	private inline function set_maxHealth(v:Float) {
@@ -690,6 +702,14 @@ class PlayState extends MusicBeatState
 		detailsText = isStoryMode ? ("Story Mode: " + storyWeek.name) : "Freeplay";
 
 		for (rating in [for (i in ratingManager.ratingData) i.name]) hits.set(rating, 0); // Ensure all keys exist as to prevent null errors.
+		if (Options.ghostTapping) {
+			comboBreaks = false;
+			for (rating in ratingManager.ratingData)
+				comboBreaks = comboBreaks || rating.breaksCombo;
+		} else
+			comboBreaks = true;
+		ratingManager.onRatingAdded.add(onRatingChange);
+		ratingManager.onRatingRemoved.add(onRatingChange);
 
 		// Checks if cutscene files exists
 		var cutscenePath = Paths.script('songs/${SONG.meta.name}/cutscene');
@@ -1666,7 +1686,7 @@ class PlayState extends MusicBeatState
 					if (strLine.characters != null) // Alt anim Idle
 						for (character in strLine.characters) {
 							if (character == null) continue;
-							character.idleSuffix = event.params[1] ? "-alt" : "";
+							character.idleSuffix = event.params[1] ? strLine.defaultAnimSuffix : "";
 						}
 				}
 			case "Play Animation":
@@ -1675,6 +1695,8 @@ class PlayState extends MusicBeatState
 						if (char != null && char.hasAnim(event.params[1])) char.playAnim(event.params[1], event.params[2], event.params[3] == "NONE" ? null : event.params[3]);
 			case "Unknown": // nothing
 		}
+		
+		gameAndCharsEvent("onPostEvent", e);
 	}
 
 	@:dox(hide)
@@ -1946,9 +1968,9 @@ class PlayState extends MusicBeatState
 
 		var event:NoteHitEvent;
 		if (strumLine != null && !strumLine.cpu)
-			event = EventManager.get(NoteHitEvent).recycle(false, !note.isSustainNote, !note.isSustainNote, null, defaultDisplayRating, defaultDisplayCombo, note, strumLine.characters, true, note.noteType, note.animSuffix.getDefault(note.strumID < strumLine.members.length ? strumLine.members[note.strumID].animSuffix : strumLine.animSuffix), "game/score/", "", note.strumID, rating.score, note.isSustainNote ? null : rating.accuracy, 0.023, rating.name, Options.splashesEnabled && !note.isSustainNote && rating.splash, 0.5, true, 0.7, true, true, iconP1);
+			event = EventManager.get(NoteHitEvent).recycle(rating.breaksCombo, !note.isSustainNote, !note.isSustainNote, null, defaultDisplayRating, defaultDisplayCombo, note, strumLine.characters, true, note.noteType, note.animSuffix.getDefault(note.strumID < strumLine.members.length ? strumLine.members[note.strumID].animSuffix : strumLine.animSuffix), "game/score/", "", note.strumID, rating.score, note.isSustainNote ? null : rating.accuracy, rating.health, rating.name, Options.splashesEnabled && !note.isSustainNote && rating.splash, 0.5, true, 0.7, true, true, iconP1);
 		else
-			event = EventManager.get(NoteHitEvent).recycle(false, false, false, null, defaultDisplayRating, defaultDisplayCombo, note, strumLine.characters, false, note.noteType, note.animSuffix.getDefault(note.strumID < strumLine.members.length ? strumLine.members[note.strumID].animSuffix : strumLine.animSuffix), "game/score/", "", note.strumID, 0, null, 0, rating.name, false, 0.5, true, 0.7, true, true, iconP2);
+			event = EventManager.get(NoteHitEvent).recycle(rating.breaksCombo, false, false, null, defaultDisplayRating, defaultDisplayCombo, note, strumLine.characters, false, note.noteType, note.animSuffix.getDefault(note.strumID < strumLine.members.length ? strumLine.members[note.strumID].animSuffix : strumLine.animSuffix), "game/score/", "", note.strumID, 0, null, 0, rating.name, false, 0.5, true, 0.7, true, true, iconP2);
 		event.deleteNote = !note.isSustainNote; // work around, to allow sustain notes to be deleted
 		event = scripts.event(strumLine != null && !strumLine.cpu ? "onPlayerHit" : "onDadHit", event);
 		strumLine.onHit.dispatch(event);
@@ -1960,7 +1982,11 @@ class PlayState extends MusicBeatState
 			if (!note.isSustainNote) {
 				if (event.countScore) songScore += event.score;
 				if (event.accuracy != null) {
-					accuracyPressedNotes++;
+				if (event.misses) {
+					combo = 0;
+					misses++;
+				} else if (event.countAsCombo)
+					combo++;
 					totalAccuracyAmount += event.accuracy;
 					updateRating();
 				}

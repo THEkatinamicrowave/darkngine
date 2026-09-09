@@ -19,8 +19,10 @@ class Flags {
 
 	// -- Codename's Addon Config --
 	@:bypass public static var addonFlags:Map<String, Dynamic> = [];
-
 	public static var CURRENT_API_VERSION:Int = 2;
+
+	// -- Codename's ZipFolderLibrary Config --
+	public static var ALLOWED_ZIP_EXTENSIONS:Array<String> = ["zip"];
 
 	// -- Codename's Mod Config --
 	public static var MOD_NAME:String = "";
@@ -133,6 +135,9 @@ class Flags {
 	@:also(funkin.game.PlayState.opponentMode)
 	public static var DEFAULT_OPPONENT_MODE:Bool = false;
 
+	public static var EARLY_HIT_WINDOW_RANGE:Float = 1.0; // was 0.5 for easier early hitting, but now 1 to demotivate mashing and getting away with it.
+	public static var LATE_HIT_WINDOW_RANGE:Float = 1.0;
+	public static var SHITS_BREAK_COMBO:Bool = true;
 	public static var USE_LEGACY_TIMING:Null<Bool> = null;
 
 	public static var DEFAULT_NOTE_MS_LIMIT:Float = 1500;
@@ -166,6 +171,8 @@ class Flags {
 	// Font configuration
 	public static var DEFAULT_FONT:String = "vcr.ttf";
 	public static var DEFAULT_FONT_SIZE:Int = 16;
+	
+	public static var DEFAULT_ALT_ANIM_SUFFIX:String = "-alt";
 
 	// to translate these you need to convert them into ids
 	// Resume -> pause.resume

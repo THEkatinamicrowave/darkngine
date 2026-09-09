@@ -188,6 +188,7 @@
 					<str id="paste">Pegar</str>
 					<str id="cut">Cortar</str>
 					<str id="delete">Eliminar</str>
+					<str id="deletestacked">Eliminar Notas Apiladas</str>
 				</group>
 
 				<str id="topBar.chart">Chart</str>

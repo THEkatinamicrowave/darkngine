@@ -9,6 +9,17 @@ import haxe.ds.Map;
 
 class AssetsLibraryList extends AssetLibrary {
 	public var libraries:Array<AssetLibrary> = [];
+	public var cleanLibraries(get, never):Array<AssetLibrary>;
+	function get_cleanLibraries():Array<AssetLibrary> {
+		return [for (l in libraries) getCleanLibrary(l)];
+	}
+	
+	// is true if any library in `libraries` contains some kind of compressed library. 
+	public var hasCompressedLibrary(get, never):Bool;
+	function get_hasCompressedLibrary():Bool {
+		for (l in libraries) if (getCleanLibrary(l).isCompressed) return true;
+		return false;
+	}
 
 	@:allow(funkin.backend.system.Main)
 	@:allow(funkin.backend.system.MainState)

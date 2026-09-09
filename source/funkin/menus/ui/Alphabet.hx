@@ -281,7 +281,7 @@ class Alphabet extends FlxSprite {
 				var anim = getLetterAnim(letter, data, __component, i);
 				//if (cantrace)
 					//trace(anim.name + " | " + __component.anim + " | " + frames.frames[anim.frames[0]]);
-				advance = (Math.isNaN(advance)) ? getAdvance(letter, anim, data) : advance;
+				advance = (Math.isNaN(advance) && i >= data.startIndex) ? getAdvance(letter, anim, data) : advance;
 
 				if (anim == null || __renderData.alpha <= 0.0)
 					continue;

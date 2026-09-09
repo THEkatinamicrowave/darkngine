@@ -197,6 +197,7 @@
 				<str id="paste">Wklej</str>
 				<str id="cut">Wytnij</str>
 				<str id="delete">Usuń</str>
+				<str id="deletestacked">Usuń Notatki Ułożone w Stos</str>
 			</group>
 
 			<str id="topBar.chart">Mapa</str>
