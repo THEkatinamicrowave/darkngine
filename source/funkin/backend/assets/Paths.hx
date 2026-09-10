@@ -7,6 +7,7 @@ import lime.utils.AssetLibrary;
 import flixel.graphics.FlxGraphic;
 import flixel.graphics.frames.FlxAtlasFrames;
 import flixel.graphics.frames.FlxFramesCollection;
+import flixel.util.typeLimit.OneOfTwo;
 
 import animate.FlxAnimateFrames;
 
