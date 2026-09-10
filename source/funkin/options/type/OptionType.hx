@@ -10,6 +10,8 @@ import funkin.options.TreeMenu.ITreeOption;
  * Used in OptionsMenu.
 **/
 class OptionType extends FlxSpriteGroup implements ITreeOption {
+	public static var OPTION_VALUE_PREFIX:String = ': ';
+
 	public var selected:Bool = false;
 	public var locked(default, set):Bool;
 

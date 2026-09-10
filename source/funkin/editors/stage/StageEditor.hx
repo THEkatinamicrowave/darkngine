@@ -17,6 +17,7 @@ import haxe.xml.Access;
 import haxe.xml.Printer;
 import lime.ui.MouseCursor;
 import openfl.ui.Mouse;
+import openfl.display.BlendMode;
 
 using funkin.backend.utils.MatrixUtil;
 
@@ -260,6 +261,7 @@ class StageEditor extends UIState {
 					stageSpritesWindow.add(button);
 				} else if(sprite == null) {
 					var basic = new FlxBasic(); // prevent awkward layering
+					basic.exists = false;
 					insert(i, basic);
 					var button = new StageUnknownButton(0,0, basic, xml);
 					stageSpritesWindow.add(button);
@@ -308,8 +310,8 @@ class StageEditor extends UIState {
 				sprite.extra.set(exID("type"), node.name);
 				sprite.extra.set(exID("imageFile"), '${node.getAtt("sprite").getDefault(sprite.name)}');
 				sprite.extra.set(exID("parentNode"), parent);
-				sprite.extra.set(exID("highMemory"), parent.name == "highMemory");
-				sprite.extra.set(exID("lowMemory"), parent.name == "lowMemory");
+				sprite.extra.set(exID("highMemory"), parent.name == "high-memory");
+				sprite.extra.set(exID("lowMemory"), parent.name == "low-memory");
 				//sprite.active = false;
 			}
 			if(sprite is StageCharPos)
@@ -367,12 +369,11 @@ class StageEditor extends UIState {
 		}
 		char.name = charName;
 		char.debugMode = true;
-		// Play first anim, and make it the last frame
+		char.useRenderTexture = true;
+		// Play first anim, and make it the last frame by reversing and stopping.
 		var animToPlay = char.getAnimOrder()[0];
-		char.playAnim(animToPlay, true, NONE);
-		var lastIndx = char.animation.curAnim.numFrames - 1;
-		char.playAnim(animToPlay, true, NONE, false, lastIndx);
-		char.stopAnimation();
+		char.playAnim(animToPlay, true, NONE, true, 0);
+		char.stopAnim();
 
 		// Add it to the stage
 		char.visible = true;
@@ -385,8 +386,8 @@ class StageEditor extends UIState {
 		char.extra.set(exID("camY"), charPos.camyoffset);
 
 		char.extra.set(exID("parentNode"), parent);
-		char.extra.set(exID("highMemory"), parent.name == "highMemory");
-		char.extra.set(exID("lowMemory"), parent.name == "lowMemory");
+		char.extra.set(exID("highMemory"), parent.name == "high-memory");
+		char.extra.set(exID("lowMemory"), parent.name == "low-memory");
 
 		chars.push(char);
 		stage.applyCharStuff(char, charPos.name, 0);
@@ -545,6 +546,31 @@ class StageEditor extends UIState {
 		openSubState(substate);
 	}
 
+	function _solid_new(_) {
+		var node:Access = new Access(Xml.createElement("solid"));
+		stage.stageXML.x.addChild(node.x);
+		node.att.name = "solid_" + stageSpritesWindow.buttons.members.length;
+
+		var sprite:FunkinSprite = new FunkinSprite();
+		insert(members.indexOf(stage), sprite);
+		sprite.extra.set(exID("node"), node);
+		sprite.extra.set(exID("type"), node.name);
+		sprite.extra.set(exID("imageFile"), '');
+		sprite.extra.set(exID("parentNode"), stage.stageXML.x);
+		sprite.extra.set(exID("highMemory"), false);
+		sprite.extra.set(exID("lowMemory"), false);
+		sprite.antialiasing = true;
+		xmlMap.set(sprite, node);
+
+		var button:StageSpriteButton = new StageSolidButton(0, 0, sprite, node);
+		sprite.extra.set(exID("button"), button);
+		stageSpritesWindow.add(button);
+
+		var substate = new StageSpriteEditScreen(button, "layouts/stage/solidEditScreen");
+		substate.newSprite = true;
+		openSubState(substate);
+	}
+
 	function _character_new(_) {
 		var node:Access = new Access(Xml.createElement("char"));
 		stage.stageXML.x.addChild(node.x);
@@ -659,8 +685,11 @@ class StageEditor extends UIState {
 				if(sprite.spriteAnimType != LOOP)
 					spriteXML.set("type", sprite.spriteAnimType.toString());
 				saveToXml(spriteXML, "color", sprite.color.toWebString(), "#FFFFFF");
+				@:privateAccess saveToXml(spriteXML, "blend", sprite.blend.toString(), null);
 				// TODO: save custom parameters
 				//saveToXml(spriteXML, "flipX", sprite.flipX, false);
+				if (node.hasNode.anim) for (animNode in node.nodes.anim)
+					spriteXML.addChild(animNode.x);
 				newNode = spriteXML;
 			} else if(button is StageCharacterButton) {
 				var button:StageCharacterButton = cast button;
@@ -1149,7 +1178,9 @@ class StageEditor extends UIState {
 		}
 
 		mouseMode = (FlxG.mouse.justReleased) ? NONE : mouseMode;
-
+		if (prevMode != mouseMode)
+			call("mouseModeChanged", [sprite]);
+		
 		if (prevMode == NONE && mouseMode == NONE) return;
 
 		if (prevMode != NONE && mouseMode == NONE) {
