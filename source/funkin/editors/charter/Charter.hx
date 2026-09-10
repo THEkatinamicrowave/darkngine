@@ -1176,7 +1176,7 @@ class Charter extends UIState {
 	public function deleteSingleSelection(selected:ICharterSelectable, addToUndo:Bool = true):Null<ICharterSelectable> {
 		if (selected == null) return selected;
 
-		if (selected is CharterNote) 
+		if (selected is CharterNote) {
 			var note:CharterNote = cast selected;
 			note.strumLineID = strumLines.members.indexOf(note.strumLine);
 			note.strumLine = null; // For static undos :D
@@ -2123,12 +2123,12 @@ class Charter extends UIState {
 			null,
 			{
 				label: translate("song.addOpponentCamera"),
-				keybind: [[O], [O, SHIFT], [O, ALT]],
+				keybinds: [[O], [O, SHIFT], [O, ALT]],
 				onSelect: _opponent_camera_add
 			},
 			{
 				label: translate("song.addPlayerCamera"),
-				keybind: [[P], [P, SHIFT], [P, ALT]],
+				keybinds: [[P], [P, SHIFT], [P, ALT]],
 				onSelect: _player_camera_add
 			},
 			null,

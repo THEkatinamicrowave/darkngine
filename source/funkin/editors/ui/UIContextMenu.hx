@@ -247,8 +247,7 @@ class UIContextMenuOptionSpr extends UISliceSprite {
 		if (option.childs != null) optionType = SUBMENU;
 		if (option.slider != null) optionType = SLIDER;
 
-		switch(optionType) {
-
+		switch (optionType) {
 			case SUBMENU:
 				labelKeybind = new UIText(label.x + label.frameWidth + 10, 2, 0, ">");
 			case SLIDER:
@@ -286,13 +285,6 @@ class UIContextMenuOptionSpr extends UISliceSprite {
 
 					w = Std.int(labelKeybind.x + labelKeybind.frameWidth + 10);
 				}
-				textKeys.join("+");
-			} else {
-				option.keybindText;
-			}
-
-			labelKeybind = new UIText(label.x + label.frameWidth + 10, 2, 0, text);
-			labelKeybind.alpha = 0.75;
 		}
 
 		super(x, y, w, h, 'editors/ui/menu-item');

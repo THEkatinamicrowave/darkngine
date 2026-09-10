@@ -333,7 +333,7 @@ final class AudioAnalyzer {
 	 * @param frequencies The output for getting the frequencies, to avoid memory leaks (Optional).
 	 * @return Output of frequencies.
 	 */
-	public function getFrequencies(startPos:Float, ?volume:Float, ?frequencies:Array<Float>):Array<Float>
+	public function getFrequencies(?startPos:Float, ?volume:Float, ?frequencies:Array<Float>):Array<Float>
 		return inline getFrequenciesFromSamples(__freqSamples = getSamples(startPos != null ? startPos : sound.time, fftN, true, -1, volume, __freqSamples), fftN, useWindowingFFT, frequencies);
 
 	/**
@@ -470,7 +470,8 @@ final class AudioAnalyzer {
 
 		// TODO: Wrap it with try until i figured it out an effective way to do this...
 		// So... sometimes it just uses the decoder even if it looks good?? please help
-		var i = backend.bufferLengths.length - backend.requestedBuffers - 1, time:Float;
+		var n = Math.floor((endPos - startPos) * __toBits);
+		var i = backend.bufferLengths.length - backend.requestBuffers - 1, time:Float;
 		while (++i < backend.bufferLengths.length) if (startPos >= (time = backend.bufferTimes[i] * 1000)) {
 			var pos = Math.floor((startPos - time) * __toBits), buf = backend.bufferDatas[i].buffer, size = backend.bufferLengths[i], c = 0;
 			var pos = Math.floor((startPos - time) * __toBits), buf = backend.bufferDatas[i].buffer, size = backend.bufferSizes[i], c = 0;

@@ -100,7 +100,7 @@ class FunkinSave {
 		return safeGetHighscore(getSongEntry(name, diff, variation, changes));
 	}
 
-	public static inline function setSongHighscore(name:String, diff:String, ?variation:String, highscore:SongScore, ?changes:Array<HighscoreChange>), ?force:Bool {
+	public static inline function setSongHighscore(name:String, diff:String, ?variation:String, highscore:SongScore, ?changes:Array<HighscoreChange>, ?force:Bool) {
 		if (changes == null) changes = [];
 		if (safeRegisterHighscore(getSongEntry(name, diff, variation, changes), highscore, force)) {
 			flush();

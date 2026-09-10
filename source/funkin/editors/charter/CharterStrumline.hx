@@ -124,7 +124,7 @@ class CharterStrumline extends UISprite {
 		var dragScale:Float = FlxMath.lerp(draggingSprite.scale.x, draggable ? 1 : 0.8, 1 / 16);
 		draggingSprite.scale.set(dragScale, dragScale);
 		draggingSprite.updateHitbox();
-		draggingSprite.follow(this, ((keyCount*40)/2) - (draggingSprite.width/2), 6 + (__draggingYOffset = FlxMath.lerp(__draggingYOffset, draggable ? 3 : 0, 1/12)))
+		draggingSprite.follow(this, ((keyCount*40)/2) - (draggingSprite.width/2), 6 + (__draggingYOffset = FlxMath.lerp(__draggingYOffset, draggable ? 3 : 0, 1/12)));
 		button.follow(this, 0, 95);
 
 		super.update(elapsed);

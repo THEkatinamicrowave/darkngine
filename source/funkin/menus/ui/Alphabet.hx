@@ -913,7 +913,6 @@ class Alphabet extends FlxSprite {
 		this.sheets = from.sheets;
 		this.manualLetters = from.manualLetters;
 		this.failedLetters = from.failedLetters;
-		this.failedOutlines = from.failedOutlines;
 	}
 
 	override function destroy():Void {

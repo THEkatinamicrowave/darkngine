@@ -358,6 +358,8 @@ class Note extends FlxSprite
 				_frame = frame.copyTo(_frame);
 			dirty = true;
 		}
+
+		return rect;
 	}
 
 	public override function destroy() {
