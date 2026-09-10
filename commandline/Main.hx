@@ -174,8 +174,8 @@ class Main {
 		// shows help
 		Sys.println("Codename Engine Command Line utility");
 		Sys.println('Available commands (${commands.length}):\n');
-		for (line in commands) {
-			if (line.names.contains(null)) line.names.remove(null);
+		for(line in commands) {
+			if(line.names.contains(null)) line.names.remove(null);
 			Sys.println('${line.names.join(", ")} - ${line.doc}');
 		}
 	}

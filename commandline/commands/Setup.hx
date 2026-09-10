@@ -59,7 +59,7 @@ class Setup {
 			FileSystem.createDirectory('.haxelib');
 		}
 
-		var libFile = "./libs.xml";
+		var libFile = "./building/libs.xml";
 		if(args.existsOption("lib")) {
 			libFile = args.getOption("lib");
 			if(libFile == null) {
@@ -302,6 +302,7 @@ class Setup {
 			command("curl -# -O https://download.visualstudio.microsoft.com/download/pr/3105fcfe-e771-41d6-9a1c-fc971e7d03a7/8eb13958dc429a6e6f7e0d6704d43a55f18d02a253608351b6bf6723ffdaf24e/vs_Community.exe");
 			command("vs_Community.exe --add Microsoft.VisualStudio.Component.VC.Tools.x86.x64 --add Microsoft.VisualStudio.Component.Windows10SDK.19041 -p");
 			FileSystem.deleteFile("vs_Community.exe");
+
 			prettyPrint("Because of this component, if you want to compile, you need to restart the device.");
 			Sys.print("Do you wish to do it now [y/n]? ");
 			if(Sys.stdin().readLine().toLowerCase() == "y") command("shutdown /r /t 0 /f");
