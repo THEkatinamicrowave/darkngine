@@ -74,6 +74,19 @@
 		<exec>
 			self.windowSpr.bHeight -= 170;
 		</exec>
+
+	</section>
+
+	<section>
+		<label name="curCharLabel" text="Character (XML)" x="col(2)" y="curY - 52" size="15" />
+		 <exec>
+			import funkin.editors.ui.UIAutoCompleteTextBox;
+			import funkin.game.Character;
+
+			var curCharBox = new UIAutoCompleteTextBox(col(2), curY - 52, char.curCharacter, 148, 32);
+			curCharBox.suggestItems = Character.getList(false);
+			self.add(curCharBox);
+		 </exec>
 	</section>
 
 	<exec>

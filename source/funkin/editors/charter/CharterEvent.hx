@@ -106,9 +106,8 @@ class CharterEvent extends UISliceSprite implements ICharterSelectable {
 			var packData = getPackData(event.name);
 			if(packData != null) {
 				var scriptFile = packData[4];
-				if(scriptFile != null) {
-					script = Script.fromString(scriptFile, uiScript);
-				}
+				if (scriptFile != null)
+					script = Script.fromString(scriptFile, uiScript+'.hx');
 			}
 		}
 

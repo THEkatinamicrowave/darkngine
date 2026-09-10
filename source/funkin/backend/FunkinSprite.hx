@@ -56,10 +56,12 @@ class FunkinSprite extends FlxAnimate implements IBeatReceiver implements IOffse
 	public var beatAnims:Array<BeatAnim> = [];
 	public var name:String;
 	public var zoomFactor:Float = 1;
+	public var angleFactor:Float = 1;
 	public var debugMode:Bool = false;
 	public var animDatas:Map<String, AnimData> = [];
 	public var animEnabled:Bool = true;
 	public var zoomFactorEnabled:Bool = true;
+	public var angleFactorEnabled:Bool = true;
 
 	//Backwards compatibility
 	public var animateAtlas(get, never):FunkinSprite;
@@ -118,6 +120,7 @@ class FunkinSprite extends FlxAnimate implements IBeatReceiver implements IOffse
 				spr.skew.set(casted.skew.x, casted.skew.y);
 				spr.animOffsets = casted.animOffsets.copy();
 				spr.zoomFactor = casted.zoomFactor;
+				spr.angleFactor = casted.angleFactor;
 			}
 		}
 		return spr;
@@ -233,6 +236,13 @@ class FunkinSprite extends FlxAnimate implements IBeatReceiver implements IOffse
 		return camera.containsRect(bounds);
 	}
 
+	private inline function __shouldDoAngleFactor()
+		return angleFactorEnabled && angleFactor != 1;
+
+    private inline function __prepareAngleFactor(camera:FlxCamera):Float {
+		return FlxMath.lerp(-camera.angle, 0, angleFactor);
+	}
+
 	// OFFSETTING
 	#if REGION
 	public var animOffsets:Map<String, FlxPoint> = new Map<String, FlxPoint>();
@@ -291,6 +301,7 @@ class FunkinSprite extends FlxAnimate implements IBeatReceiver implements IOffse
 
 	public inline function removeAnim(name:String) {
 		animation.remove(name);
+	}
 
 	public function getAnim(name:String):OneOfTwo<FlxAnimation, FlxAnimateAnimation> {
 		return animation.getByName(name);
@@ -361,14 +372,22 @@ class FunkinSprite extends FlxAnimate implements IBeatReceiver implements IOffse
 	override function prepareDrawMatrix(matrix:FlxMatrix, camera:FlxCamera):Void {
 		super.prepareDrawMatrix(matrix, camera);
 
-		if (__shouldDoZoomFactor()) {
+		if (__shouldDoZoomFactor() || __shouldDoAngleFactor()) {
 			__prepareZoomFactor(_rect2, camera);
-			matrix.setTo(
-				matrix.a * _rect2.width, matrix.b * _rect2.height,
-				matrix.c * _rect2.width, matrix.d * _rect2.height,
-				(matrix.tx - _rect2.x) * _rect2.width + _rect2.x,
-				(matrix.ty - _rect2.y) * _rect2.height + _rect2.y,
-			);
+
+			if (__shouldDoZoomFactor()) {
+				matrix.setTo(
+					matrix.a * _rect2.width, matrix.b * _rect2.height,
+					matrix.c * _rect2.width, matrix.d * _rect2.height,
+					(matrix.tx - _rect2.x) * _rect2.width + _rect2.x,
+					(matrix.ty - _rect2.y) * _rect2.height + _rect2.y
+				);
+			}
+			if (__shouldDoAngleFactor()) {
+				matrix.translate(-_rect2.x, -_rect2.y);
+				matrix.rotate(FlxAngle.asRadians(__prepareAngleFactor(camera)));
+				matrix.translate(_rect2.x, _rect2.y);
+			}
 		}
 	}
 
