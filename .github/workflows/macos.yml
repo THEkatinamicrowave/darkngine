@@ -42,12 +42,12 @@ jobs:
       - name: Uploading artifact (executable)
         uses: actions/upload-artifact@v4
         with:
-          name: Codename Engine (Executable Only)
+          name: DarkNgine (Executable Only)
           path: export/release/macos/bin/DarkNgine.app/Contents/MacOS/DarkNgine
       - name: Uploading artifact (entire build)
         uses: actions/upload-artifact@v4
         with:
-          name: Codename Engine
+          name: DarkNgine
           path: DarkNgine.tar.gz
       - name: Clearing already existing cache
         uses: actions/github-script@v6
@@ -111,7 +111,7 @@ jobs:
       - name: Uploading artifact (entire build)
         uses: actions/upload-artifact@v4
         with:
-          name: Codename Engine Debug
+          name: DarkNgine Debug
           path: DarkNgine.tar.gz
       - name: Clearing already existing cache
         uses: actions/github-script@v6
