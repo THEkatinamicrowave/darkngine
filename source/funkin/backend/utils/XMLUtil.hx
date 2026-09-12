@@ -9,6 +9,8 @@ import funkin.game.Character;
 import funkin.backend.FunkinSprite.XMLAnimType;
 import flixel.util.FlxColor;
 import haxe.xml.Access;
+import flixel.graphics.frames.FlxFramesCollection;
+import flixel.graphics.frames.FlxAtlasFrames;
 import funkin.backend.scripting.Script;
 import funkin.backend.scripting.DummyScript;
 import funkin.backend.scripting.ScriptPack;
@@ -110,6 +112,41 @@ final class XMLUtil {
 	}
 
 	/**
+	 * Loads multiple sheets into 1 sprite,
+	 * for every `<spritesheet>characters/bf</spritesheet>` there is.
+	 * (Can also be spelled as `<sheet/>`, or `<spritesheet path="characters/bf" />`)
+	 * @param spr The sprite
+	 * @param node The XML node
+	 * @param parentFolder The parent folder
+	 */
+	public static function appendSpriteSheetsFromXML(spr:FunkinSprite, node:Access, ?parentFolder:String = ''):FlxFramesCollection {
+		if (spr == null) return null;
+		var defaultPath = '$parentFolder${node.getAtt("sprite").getDefault(spr.name)}';
+		if (!node.hasNode.spritesheet && !node.hasNode.sheet) {
+			spr.loadSprite(Paths.image(defaultPath, null, true));
+			return spr.frames;
+		}
+		var seenSheets:Array<String> = [defaultPath];
+		for (n in node.elements) {
+			if (n.name != 'spritesheet' && n.name != 'sheet') continue;
+			var path = n.x.get('path') ?? n.x.firstChild()?.nodeValue?.trim();
+			if (path == null) {
+				Logs.warn('Spritesheet node is missing text content or the path attribute. Skipping...');
+				continue;
+			}
+			if (seenSheets.contains(path)) {
+				Logs.warn('Spritesheet "${Paths.image(path)}" was already added. Skipping...');
+				continue;
+			}
+			if (!Paths.framesExists(path, true)) {
+				Logs.warn('Could not find a BitmapData asset with ID "${Paths.image(path)}". Skipping...');
+				continue;
+			}
+			seenSheets.push(path);
+		}
+		return spr.frames = Paths.getMultiFrames(seenSheets, false, false, null, false, null, spr.animateSettings);
+	}
+	/**
 	 * Sets the properties of a sprite based on a XML node.
 	 * @param spr The sprite
 	 * @param node The XML node
@@ -121,8 +158,9 @@ final class XMLUtil {
 
 		spr.name = node.getAtt("name");
 		spr.antialiasing = true;
-		if (loadGraphic)
-			spr.loadSprite(Paths.image('$parentFolder${node.getAtt("sprite").getDefault(spr.name)}', null, true));
+		if (loadGraphic) {
+			appendSpriteSheetsFromXML(spr, node, parentFolder);
+		}
 
 		spr.spriteAnimType = defaultAnimType;
 		if (node.has.type) {
@@ -285,6 +323,7 @@ final class XMLUtil {
 		if (anim.has.forced) animData.forced = anim.att.forced == "true";
 		if (anim.has.indices) animData.indices = CoolUtil.parseNumberRange(anim.att.indices);
 		if (anim.has.label) animData.label = anim.att.label == "true";
+		if (anim.has.isAnimate) animData.isAnimate = anim.att.isAnimate == "true";
 
 		return animData;
 	}
@@ -311,7 +350,7 @@ final class XMLUtil {
 		if (animData.name != null) {
 			if (animData.fps <= 0 #if web || animData.fps == null #end) animData.fps = 24;
 
-			if (sprite.frames is FlxAnimateFrames) {
+			if ((sprite.frames is FlxAnimateFrames) == (animData.isAnimate ?? true)) {
 				if(animData.anim == null)
 					return MISSING_PROPERTY;
 
@@ -485,6 +524,7 @@ typedef AnimData = {
 	var animType:XMLAnimType;
 	var label:Bool;
 	var ?forced:Bool;
+	var ?isAnimate:Bool;
 }
 
 typedef BeatAnim = {

@@ -314,10 +314,10 @@ class IntroText {
 		var state = cast(FlxG.state, TitleState);
 		state.deleteCoolText();
 		if (lines == null) return;
-		for(e in lines) {
+		for (e in lines) {
 			if (e is String) {
 				var text = cast(e, String);
-				for(k=>e in state.curWacky) text = text.replace('{introText${k+1}}', e);
+				for (k=>e in state.curWacky) text = text.replace('{introText${k+1}}', e.trim());
 				state.addMoreText(text);
 			} else if (e is Dynamic) {
 				var image:TitleStateImage = e;
@@ -326,7 +326,7 @@ class IntroText {
 				var scale:Float = image.scale.getDefault(1);
 
 				var yPos:Float = 200;
-				if(state.textGroup.members.length > 0) {
+				if (state.textGroup.members.length > 0) {
 					var lastLine:FlxSprite = cast state.textGroup.members[state.textGroup.members.length-1];
 					yPos = lastLine.y + lastLine.height + 10;
 				}
