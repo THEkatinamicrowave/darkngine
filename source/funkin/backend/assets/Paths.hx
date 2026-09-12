@@ -313,8 +313,13 @@ class Paths
 
 		if (frameCollections.length == 1 && !unique && (key == null || key == assetKey)) return frameCollections[0];
 
-		asset = new FlxAnimateFrames(FlxGraphic.fromFrame(FlxG.bitmap.whitePixel, unique, assetKey));
-		for (frames in frameCollections) asset.addAtlas(cast frames); // wont compile in hashlink because of mismatch type
+		// this has casting issues if no texture atlas is involved???
+		// cus somehow this crashes for 1.png method
+		//asset = new FlxAnimateFrames(FlxGraphic.fromFrame(FlxG.bitmap.whitePixel, unique, assetKey));
+		//for (frames in frameCollections) asset.addAtlas(cast frames); // wont compile in hashlink because of mismatch type
+		
+		// see FlxAnimateFrames#L495
+		asset = FlxAnimateFrames.combineAtlas(cast frameCollections);
 
 		if (!unique) tempFramesCache.set(assetKey, asset);
 		return asset;
