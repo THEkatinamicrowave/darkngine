@@ -10,6 +10,7 @@ import flixel.graphics.frames.FlxFramesCollection;
 import flixel.util.typeLimit.OneOfTwo;
 
 import animate.FlxAnimateFrames;
+import animate.FlxAnimateFrames.FlxAnimateSpritemapCollection;
 
 import funkin.backend.assets.ModsFolder;
 import funkin.backend.scripting.Script;
@@ -295,6 +296,7 @@ class Paths
 			var frames:FlxFramesCollection;
 			if (tempFramesCache.exists(key)) {
 				if ((frames = tempFramesCache.get(key)) != null && frames.parent != null && frames.parent.bitmap != null) {
+					if ((frames is FlxAnimateFrames) && asset == null) asset = cast frames;
 					frameCollections.push(frames);
 					continue;
 				}
@@ -308,18 +310,22 @@ class Paths
 				continue;
 			}
 
+			if ((frames is FlxAnimateFrames) && asset == null) asset = cast frames;
 			frameCollections.push(frames);
 		}
 
 		if (frameCollections.length == 1 && !unique && (key == null || key == assetKey)) return frameCollections[0];
 
-		// this has casting issues if no texture atlas is involved???
-		// cus somehow this crashes for 1.png method
-		//asset = new FlxAnimateFrames(FlxGraphic.fromFrame(FlxG.bitmap.whitePixel, unique, assetKey));
-		//for (frames in frameCollections) asset.addAtlas(cast frames); // wont compile in hashlink because of mismatch type
-		
-		// see FlxAnimateFrames#L495
-		asset = FlxAnimateFrames.combineAtlas(cast frameCollections);
+		if (asset == null) asset = new FlxAtlasFrames(FlxGraphic.fromFrame(FlxG.bitmap.whitePixel, unique, assetKey));
+		else {
+			@:privateAccess asset.parent.key = assetKey;
+			asset.parent.unique = unique;
+			//asset.parent.bitmap = FlxG.bitmap.whitePixel;
+			asset.parent.addFrameCollection(asset);
+			FlxG.bitmap.addGraphic(asset.parent);
+		}
+
+		for (frames in frameCollections) asset.addAtlas(cast frames); // wont compile in hashlink because of mismatch type
 
 		if (!unique) tempFramesCache.set(assetKey, asset);
 		return asset;

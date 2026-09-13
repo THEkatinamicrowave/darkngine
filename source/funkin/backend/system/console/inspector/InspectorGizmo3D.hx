@@ -1,7 +1,5 @@
 package funkin.backend.system.console.inspector;
 
-package funkin.backend.system.console.inspector;
-
 import flixel.math.FlxMatrix;
 import flixel.math.FlxPoint;
 import openfl.Lib;
