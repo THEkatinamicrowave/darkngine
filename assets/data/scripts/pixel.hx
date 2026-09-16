@@ -1,6 +1,5 @@
 //
 import funkin.game.HudCamera;
-import funkin.backend.scripting.events.NoteHitEvent;
 
 public var pixelNotesForBF = true;
 public var pixelNotesForDad = true;
@@ -9,7 +8,6 @@ public var enablePixelUI = true;
 public var enablePixelGameOver = true;
 public var enableCameraHacks = Options.week6PixelPerfect;
 public var enablePauseMenu = true;
-public var isSpooky = false;
 
 var oldStageQuality = FlxG.game.stage.quality;
 public var daPixelZoom = PlayState.daPixelZoom;

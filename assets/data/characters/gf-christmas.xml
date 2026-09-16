@@ -4,4 +4,5 @@
 	<anim name="danceRight" anim="GF Dancing Beat" indices="15..30"/>
 	<anim name="cheer" anim="GF Cheer"/>
 	<anim name="sad" anim="gf sad" x="-51" y="315" loop="true" indices="0..12"/>
+	<anim name="combo50" anim="GF Cheer"/>
 </character>
