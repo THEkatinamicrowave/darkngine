@@ -2017,15 +2017,14 @@ class PlayState extends MusicBeatState
 			if (!note.isSustainNote) {
 				if (event.countScore) songScore += event.score;
 				if (event.accuracy != null) {
+					totalAccuracyAmount += event.accuracy;
+					updateRating();
+				}
 				if (event.misses) {
 					combo = 0;
 					misses++;
 				} else if (event.countAsCombo)
 					combo++;
-					totalAccuracyAmount += event.accuracy;
-					updateRating();
-				}
-				if (event.countAsCombo) combo++;
 
 				if (event.showRating || (event.showRating == null && event.player))
 				{
