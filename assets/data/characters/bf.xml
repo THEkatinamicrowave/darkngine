@@ -1,18 +1,23 @@
 <!DOCTYPE codename-engine-character>
-<character x="-230" y="-350" flipX="true" camx="100" camy="100" isPlayer="true" icon="bf" color="#31B0D1">
-	<anim name="idle" anim="BF idle dance"/>
-	<anim name="singUP" anim="BF NOTE UP0" x="-35" y="27"/>
-	<anim name="singLEFT" anim="BF NOTE LEFT0" x="11" y="-7"/>
-	<anim name="singRIGHT" anim="BF NOTE RIGHT0" x="-43" y="-6"/>
-	<anim name="singDOWN" anim="BF NOTE DOWN0" x="-12" y="-50"/>
-	<anim name="singUPmiss" anim="BF NOTE UP MISS" x="-30" y="27"/>
-	<anim name="singLEFTmiss" anim="BF NOTE LEFT MISS" x="11" y="19"/>
-	<anim name="singRIGHTmiss" anim="BF NOTE RIGHT MISS" x="-39" y="22"/>
-	<anim name="singDOWNmiss" anim="BF NOTE DOWN MISS" x="-11" y="-19"/>
-	<anim name="hey" anim="BF HEY" x="2" y="6"/>
-	<anim name="scared" anim="BF idle shaking" x="-1" y="1" loop="true"/>
-	<anim name="hit" anim="BF hit" x="18" y="19"/>
-	<anim name="pre-attack" anim="bf pre attack" x="-42" y="-36"/>
-	<anim name="attack" anim="boyfriend attack" x="294" y="270"/>
-	<anim name="dodge" anim="boyfriend dodge" x="-3" y="-13"/>
+<character x="300" y="500" flipX="true" camx="100" camy="100" isPlayer="true" icon="bf" applyStageMatrix="true">
+	<anim name="idle" anim="Idle" label="true"/>
+	<anim name="singDOWN" anim="Down" label="true"/>
+	<anim name="singRIGHT" anim="Right" label="true"/>
+	<anim name="singLEFT" anim="Left" label="true"/>
+	<anim name="singUP" anim="Up" label="true"/>
+	<anim name="singDOWNmiss" anim="Down Miss" label="true"/>
+	<anim name="singRIGHTmiss" anim="Right Miss" label="true"/>
+	<anim name="singLEFTmiss" anim="Left Miss" label="true"/>
+	<anim name="singUPmiss" anim="Up Miss" label="true"/>
+	<anim name="hey" anim="Hey" label="true"/>
+	<anim name="scared" anim="Scared" label="true"/>
+	<anim name="cheer" anim="Cheer" label="true"/>
+	<anim name="firstDeath" anim="Death Intro" label="true" x="-22" y="-15"/>
+	<anim name="deathLoop" anim="Death Loop" label="true" x="-22" y="-15" loop="true"/>
+	<anim name="deathConfirm" anim="Death Confirm" label="true" x="-22" y="-15"/>
+	<anim name="fakeoutDeath" anim="fake out death BF" x="-266" y="-110"/>
+
+	<spritesheet>characters/bf</spritesheet>
+	<spritesheet>characters/bf-death</spritesheet>
+	<spritesheet>characters/bfFakeOut</spritesheet>
 </character>
