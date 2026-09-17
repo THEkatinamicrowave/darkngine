@@ -3,6 +3,7 @@ package funkin.menus;
 import haxe.xml.Access;
 import flixel.text.FlxText;
 import flixel.util.FlxColor;
+import funkin.backend.assets.AssetSource;
 import funkin.backend.chart.Chart;
 import funkin.backend.chart.ChartData.ChartMetaData;
 import funkin.backend.scripting.events.menu.MenuChangeEvent;
