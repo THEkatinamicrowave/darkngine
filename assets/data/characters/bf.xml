@@ -1,5 +1,5 @@
 <!DOCTYPE codename-engine-character>
-<character x="300" y="500" flipX="true" camx="100" camy="100" isPlayer="true" icon="bf" applyStageMatrix="true">
+<character x="-30" y="-151" flipX="true" camx="100" camy="100" isPlayer="true" applyStageMatrix="true" color="#7BD6F6">
 	<anim name="idle" anim="Idle" label="true"/>
 	<anim name="singDOWN" anim="Down" label="true"/>
 	<anim name="singRIGHT" anim="Right" label="true"/>
@@ -13,8 +13,10 @@
 	<anim name="scared" anim="Scared" label="true"/>
 	<anim name="cheer" anim="Cheer" label="true"/>
 	<anim name="firstDeath" anim="Death Intro" label="true" x="-22" y="-15"/>
+	<anim name="firstDeath-loop" anim="Death Intro" label="true" x="-22" y="-15" indices="57" loop="true"/>
 	<anim name="deathLoop" anim="Death Loop" label="true" x="-22" y="-15" loop="true"/>
 	<anim name="deathConfirm" anim="Death Confirm" label="true" x="-22" y="-15"/>
+	<anim name="deathConfirm-loop" anim="Death Confirm" label="true" x="-22" y="-15" indices="33" loop="true"/>
 	<anim name="fakeoutDeath" anim="fake out death BF" x="-266" y="-110"/>
 
 	<spritesheet>characters/bf</spritesheet>

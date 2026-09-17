@@ -36,6 +36,7 @@ class GameOverSubstate extends MusicBeatSubstate
 	var y:Float = 0;
 
 	public var lossSFX:FlxSound;
+	public var shouldntExit:Bool = false;
 
 	public function new(x:Float, y:Float, ?character:String, player:Bool = true, ?gameOverSong:String, ?lossSFX:String, ?retrySFX:String)
 	{
@@ -102,8 +103,10 @@ class GameOverSubstate extends MusicBeatSubstate
 		if (__cancelDefault)
 			return;
 
-		if (controls.ACCEPT) endBullshit();
-		if (controls.BACK) exit();
+		if (!shouldntExit) {
+			if (controls.ACCEPT) endBullshit();
+			if (controls.BACK) exit();
+		}
 
 		if (!isEnding && ((!lossSFX.playing) || (character.getAnimName() == "firstDeath" && character.isAnimFinished())) && (FlxG.sound.music == null || !FlxG.sound.music.playing))
 		{

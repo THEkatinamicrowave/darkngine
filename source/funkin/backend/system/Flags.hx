@@ -167,7 +167,7 @@ class Flags {
 	public static var CHANGE_WINDOW_TITLE_PLAYSTATE:Bool = true;
 
 	@:also(funkin.game.Character.FALLBACK_DEAD_CHARACTER)
-	public static var DEFAULT_GAMEOVER_CHARACTER:String = "bf-dead";
+	public static var DEFAULT_GAMEOVER_CHARACTER:String = "bf";
 
 	public static var DEFAULT_CAM_ZOOM_INTERVAL:Int = 1;
 	public static var DEFAULT_CAM_ZOOM_OFFSET:Float = 0;
