@@ -6,6 +6,7 @@ import funkin.backend.FunkinText;
 import funkin.backend.system.updating.UpdateUtil.UpdateCheckCallback;
 import funkin.backend.utils.MarkdownUtil;
 import funkin.menus.MainMenuState;
+import funkin.menus.ui.MenuBG;
 
 class UpdateAvailableScreen extends MusicBeatState {
 	public var bg:FlxSprite;
@@ -38,7 +39,7 @@ class UpdateAvailableScreen extends MusicBeatState {
 
 		FlxG.camera.flash(0xFF000000, 0.25);
 
-		bg = new FlxSprite().loadAnimatedGraphic(Paths.image("menus/menuDesat"));
+		bg = MenuBG.makeSprite(MenuBGColorPresets.DESAT_ONE, MenuBGColorPresets.DESAT_TWO);
 		bg.color = 0xFF181818;
 		bg.antialiasing = true;
 		bg.scrollFactor.set();

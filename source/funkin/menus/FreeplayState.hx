@@ -12,6 +12,7 @@ import funkin.backend.system.Conductor;
 import funkin.backend.week.Week;
 import funkin.backend.week.WeekData;
 import funkin.game.HealthIcon;
+import funkin.menus.ui.MenuBG;
 import funkin.savedata.FunkinSave;
 
 using StringTools;
@@ -141,7 +142,7 @@ class FreeplayState extends MusicBeatState
 
 		// LOAD CHARACTERS
 
-		bg = new FlxSprite(0, 0).loadAnimatedGraphic(Paths.image('menus/menuDesat'));
+		bg = MenuBG.makeSprite(MenuBGColorPresets.DESAT_ONE, MenuBGColorPresets.DESAT_TWO);
 		if (songs.length > 0)
 			bg.color = songs[0].color;
 		bg.antialiasing = true;
