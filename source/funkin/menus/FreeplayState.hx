@@ -9,6 +9,8 @@ import funkin.backend.chart.ChartData.ChartMetaData;
 import funkin.backend.scripting.events.menu.MenuChangeEvent;
 import funkin.backend.scripting.events.menu.freeplay.*;
 import funkin.backend.system.Conductor;
+import funkin.backend.week.Week;
+import funkin.backend.week.WeekData;
 import funkin.game.HealthIcon;
 import funkin.savedata.FunkinSave;
 
