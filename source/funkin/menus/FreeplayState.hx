@@ -1,5 +1,6 @@
 package funkin.menus;
 
+import haxe.xml.Access;
 import flixel.text.FlxText;
 import flixel.util.FlxColor;
 import funkin.backend.chart.Chart;
