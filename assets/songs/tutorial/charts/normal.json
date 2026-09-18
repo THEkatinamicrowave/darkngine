@@ -81,6 +81,8 @@
     "strumLines": [
         {
             "keyCount": 4,
+            "strumScale": 1,
+            "position": "girlfriend",
             "notes": [
                 {
                     "type": 0,
@@ -221,15 +223,23 @@
                     "id": 3
                 }
             ],
-            "position": "girlfriend",
             "characters": [
                 "gf"
             ],
+            "type": 0,
             "visible": true,
-            "type": 0
+            "strumSpacing": 1,
+            "strumPos": [
+                0,
+                50
+            ],
+            "strumLinePos": 0.25,
+            "vocalsSuffix": "-gf"
         },
         {
             "keyCount": 4,
+            "strumScale": 1,
+            "position": "boyfriend",
             "notes": [
                 {
                     "type": 0,
@@ -424,14 +434,21 @@
                     "id": 1
                 }
             ],
-            "position": "boyfriend",
             "characters": [
                 "bf"
             ],
+            "type": 1,
             "visible": true,
-            "type": 1
+            "strumSpacing": 1,
+            "strumPos": [
+                0,
+                50
+            ],
+            "strumLinePos": 0.75,
+            "vocalsSuffix": "-bf"
         }
     ],
+    "chartVersion": "1.6.0",
     "scrollSpeed": 1,
     "codenameChart": true,
     "noteTypes": []
