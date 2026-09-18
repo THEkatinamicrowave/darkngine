@@ -1,0 +1,22 @@
+<!DOCTYPE codename-engine-stage>
+<stage name="stageErect" folder="stages/stage/erect/" zoom="0.85" startCamPosX="1000" startCamPosY="600">
+	<box name="solid" x="-500" y="-1000" width="1280" height="720" scroll="0" color="#222026" zoomfactor="0"/>
+	<spr name="crowd" sprite="crowd" x="682" y="290" scroll="0.8" type="loop">
+		<anim name="idle" anim="idle0" fps="12" loop="true"/>
+	</spr>
+	<spr name="brightLightSmall" sprite="brightLightSmall" x="967" y="-103" scroll="1.2" blend="add"/>
+	<spr name="bg" sprite="bg" x="-765" y="-247"/>
+	<spr name="server" sprite="server" x="-991" y="205"/>
+
+	<spr name="lightgreen" sprite="lightgreen" x="-171" y="242" blend="add"/>
+	<spr name="lightred" sprite="lightred" x="-101" y="560" blend="add"/>
+
+	<spr name="orangeLight" sprite="orangeLight" x="189" y="-500" scaley="1700" updateHitbox="true" blend="add"/>
+
+	<girlfriend x="501.5" y="815"/>
+	<dad x="40" y="885" camxoffset="300" camyoffset="-100"/>
+	<boyfriend x="977.5" y="905" camxoffset="-250" camyoffset="-150"/>
+
+	<spr name="lights" sprite="lights" x="-847" y="-245" scroll="1.2"/>
+	<spr name="lightAbove" sprite="lightAbove" x="804" y="-117" blend="add"/>
+</stage>

@@ -1,71 +1,77 @@
 #pragma header
 
-// this shader is a slighly edited recreation of the Animate/Flash "Adjust Color" filter,
-// which was kindly provided and written by Rozebud https://github.com/ThatRozebudDude ( thank u rozebud :) )
-// Adapted from Andrey-Postelzhuks shader found here: https://forum.unity.com/threads/hue-saturation-brightness-contrast-shader.260649/
-// Hue rotation stuff is from here: https://www.w3.org/TR/filter-effects/#feColorMatrixElement
-
 uniform float hue;
+uniform float contrast;
 uniform float saturation;
 uniform float brightness;
-uniform float contrast;
 
-const vec3 lum_values = vec3(0.3098039215686275, 0.607843137254902, 0.0823529411764706);
-const float E = 2.718281828459045;
+float PI = 3.141592653589793;
 
-vec3 b(vec3 _color, float _brightness) {
-	return _color + (_brightness / 255.0);
-}
+mat3 properHue(float h) {
+	float properH = h * (PI / 180.0);
 
-vec3 h(vec3 _color, float _hue) {
-	float angle = radians(_hue);
+    float c = cos(properH);
+    float s = sin(properH);
 
-	mat3 grayMat = mat3(vec3(0.213), vec3(0.715), vec3(0.072));
-	mat3 cosMat = mat3(0.787, -0.213, -0.213, -0.715, 0.285, -0.715, -0.072, -0.072, 0.928);
-	mat3 sinMat = mat3(-0.213, 0.143, -0.787, -0.715, 0.140, 0.715, 0.928, -0.283, 0.072);
+    float wR = 0.299;
+    float wG = 0.587;
+    float wB = 0.114;
 
-	mat3 fullMat = grayMat + (cos(angle) * cosMat) + (sin(angle) * sinMat);
-	return fullMat * _color;
-}
-
-vec3 c(vec3 _color, float _contrast) {
-	_contrast = (1.0 + (_contrast / 100.0));
-	
-	if (_contrast > 1.0) {
-		_contrast = (((0.00852259 * pow(E, 4.76454 * (_contrast - 1.0))) * 1.01) - 0.0086078159) * 10.0; //Just roll with it...
-		_contrast += 1.0;
-	}
-	return clamp((_color - 0.25) * _contrast + 0.25, 0.0, 1.0);
-}
-
-vec3 s(vec3 _color, float _saturation) {
-	if (_saturation > 0.0) _saturation *= 3.0; 
-
-	_saturation = (1.0 + (_saturation / 100.0));
-	vec3 grayscale = vec3(dot(_color, lum_values));
-
-    return clamp(mix(grayscale, _color, _saturation), 0.0, 1.0);
-}
-
-vec3 adjustColors(vec3 _color) {
-	_color = h(
-		b(
-			c(
-				s(
-					_color, saturation
-				), contrast
-			), brightness
-		), hue
+    return mat3(
+		(wR + (1.0 - wR) * c - wR * s), (wG - wG * c - wG * s), (wB - wB * c + (1.0 - wB) * s),
+		(wR - wR * c + 0.143 * s), (wG + (1.0 - wG) * c + 0.140 * s), (wB - wB * c - 0.283 * s),
+		(wR - wR * c - (1.0 - wR) * s), (wG - wG * c + wG * s), (wB + (1.0 - wB) * c + wB * s)
 	);
+}
 
-	return _color;
+mat3 properSaturation(float s) {
+	float properS = s;
+	if (properS > 0.0) properS = properS * 3.0;
+	properS = 1.0 + (properS / 100.0);
+
+    float lr = 0.2126;
+    float lg = 0.7152;
+    float lb = 0.0722;
+
+    float inv = 1.0 - properS;
+
+    return mat3(
+      	(lr * inv + properS), (lg * inv), (lb * inv),
+    	(lr * inv), (lg * inv + properS), (lb * inv),
+        (lr * inv), (lg * inv), (lb * inv + properS)
+	);
+}
+
+float properBrightness(float b) {
+	return b / 255.0;
+}
+
+float properContrast(float c) {
+    float e = 2.718281828459045;
+
+	float newC = c;
+    newC = 1.0 + (newC / 100.0);
+    if (newC > 1.0) {
+		newC = (((0.00852259 * pow(e, 4.76454 * (newC - 1.0))) * 1.01) - 0.0086078159) * 10.0; // yeah I have no clue
+		newC += 1.0;
+    }
+
+	return newC;
+}
+
+vec3 applyHSBCEffect(vec3 color) {
+	vec3 bh = (properBrightness(brightness) + color) * properHue(hue);
+	vec3 c = (bh - 0.25) * properContrast(contrast) + 0.25;
+	vec3 s = c * properSaturation(saturation);
+
+	return s;
 }
 
 void main() {
-	vec4 textureColor = flixel_texture2D(bitmap, openfl_TextureCoordv);
-	vec3 unpremultipliedColor = (textureColor.a > 0.0) ? (textureColor.rgb / textureColor.a) : textureColor.rgb;
+	vec4 color4 = texture2D(bitmap, openfl_TextureCoordv);
+	vec3 color3 = (color4.a > 0.0) ? color4.rgb / color4.a : color4.rgb;
 
-	vec3 outColor = adjustColors(unpremultipliedColor);
+	color3 = applyHSBCEffect(color3);
 
-	gl_FragColor = vec4(outColor * textureColor.a, textureColor.a);
+	gl_FragColor = vec4(color3 * color4.a, color4.a);
 }
