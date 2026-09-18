@@ -1398,7 +1398,6 @@ class PlayState extends MusicBeatState
 	@:dox(hide)
 	override public function update(elapsed:Float)
 	{
-		scripts.call("update", [elapsed]);
 		_ONE_ARG[0] = elapsed;
 		scripts.call("update", _ONE_ARG);
 
