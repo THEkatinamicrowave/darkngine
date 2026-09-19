@@ -9,6 +9,8 @@ function postCreate() {
 		PlayState.instance.stage.applyCharStuff(normalChar, "girlfriend", 0); // temporarily just locking this to the dad position
 		PlayState.instance.insert(PlayState.instance.members.indexOf(this), normalChar);
 	}
+
+	useRenderTexture = true;
 }
 
 function postUpdate(elapsed:Float) {
