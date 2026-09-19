@@ -4,5 +4,8 @@
 	"icon": "dad",
 	"color": "#9271FD",
 	"coopAllowed": true,
+	"variants": [
+		"erect"
+	],
 	"opponentModeAllowed": true
 }

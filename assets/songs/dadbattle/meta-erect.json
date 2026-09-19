@@ -2,18 +2,16 @@
 	"opponentModeAllowed": true,
 	"icon": "dad",
 	"difficulties": [
-		"easy",
-		"normal",
-		"hard"
+		"erect",
+		"nightmare"
 	],
 	"color": "#9271FD",
 	"coopAllowed": true,
 	"stepsPerBeat": 4,
-	"displayName": "Bopeebo",
-	"beatsPerMeasure": 4,
+	"displayName": "Dadbattle (Erect)",
 	"needsVoices": true,
-	"variants": [
-		"erect"
-	],
-	"bpm": 100
+	"beatsPerMeasure": 4,
+	"bpm": 190,
+	"instSuffix": "-erect",
+	"vocalsSuffix": "-erect"
 }
