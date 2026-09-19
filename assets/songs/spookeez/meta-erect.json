@@ -1,0 +1,14 @@
+{
+	"displayName": "Spookeez (Erect)",
+	"bpm": 166.0,
+	"icon": "spooky",
+	"color": "#223344",
+	"difficulties": [
+		"erect",
+		"nightmare"
+	],
+	"coopAllowed": true,
+	"opponentModeAllowed": true,
+	"instSuffix": "-erect",
+	"vocalsSuffix": "-erect"
+}
