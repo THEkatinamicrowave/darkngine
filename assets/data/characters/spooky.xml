@@ -6,4 +6,5 @@
 	<anim name="singLEFT" anim="note sing left" x="119" y="-11"/>
 	<anim name="singRIGHT" anim="spooky sing right" x="-150" y="-11"/>
 	<anim name="singDOWN" anim="spooky DOWN note" x="-77" y="-136"/>
+	<anim name="cheer" anim="Spookiez YEAH cheer" x="47" y="27"/>
 </character>
