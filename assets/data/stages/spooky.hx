@@ -9,6 +9,12 @@ function postCreate() {
 	halloweenBG.playAnim('idle');
 }
 
+function beatHit(beat:Int) {
+    if (FlxG.random.bool(10) && (beat > (lightningStrikeBeat + lightningOffset))) {
+      	lightningStrikeShit(true, beat);
+    }
+}
+
 public function lightningStrikeShit(playSound:Bool, beat:Int) {
 	if (playSound) FlxG.sound.play(Paths.soundRandom('thunder_', 1, 2));
 	halloweenBG.playAnim('lightning');
@@ -16,18 +22,6 @@ public function lightningStrikeShit(playSound:Bool, beat:Int) {
 	lightningStrikeBeat = beat;
 	lightningOffset = FlxG.random.int(8, 24);
 
-	boyfriend.playAnim('scared', true, "SING"); // SING so that they don't get indefinitely looped
+	bf.playAnim('scared', true, "SING"); // SING so that they don't get indefinitely looped
 	gf.playAnim('scared', true, "SING");
-}
-
-function beatHit(beat:Int) {
-    if (PlayState.instance.SONG != null) {
-      	if ((beat == 4) && (PlayState.instance.SONG.meta.name.toLowerCase() == "spookeez")) {
-        	lightningStrikeShit(false, beat);
-      	}
-    }
-
-    if (FlxG.random.bool(10) && (beat > (lightningStrikeBeat + lightningOffset))) {
-      	lightningStrikeShit(true, beat);
-    }
 }

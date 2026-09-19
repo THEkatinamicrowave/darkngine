@@ -1,8 +1,8 @@
 <!DOCTYPE codename-engine-stage>
 <stage zoom="1" name="spooky" folder="stages/spooky/" startCamPosY="727" startCamPosX="686">
-	<sprite name="halloweenBG" x="-200" y="-100" sprite="halloween_bg" anim="idle" type="none">
-		<anim name="idle" anim="halloweem bg0" type="loop" />
-		<anim name="lightning" anim="halloweem bg lightning strike" loop="false"/>
+	<sprite name="halloweenBG" x="-200" y="-100" sprite="halloween_bg" anim="idle" type="none" applyStageMatrix="true">
+		<anim name="idle" anim="static" type="loop" label="true"/>
+		<anim name="lightning" anim="thunder" loop="false" label="true"/>
 	</sprite>
 
 	<girlfriend x="727" y="780"/>

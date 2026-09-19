@@ -1,0 +1,17 @@
+<!DOCTYPE codename-engine-stage>
+
+<stage name="spookyErect" folder="stages/spooky/erect" zoom="1">
+	<box name="solid" width="1280" height="720" scroll="0" zoomfactor="0"/>
+	<spr name="bgTrees" sprite="bgtrees" x="200" y="50" scroll="0.8" type="loop">
+		<anim name="idle" sprite="bgtrees" fps="5" loop="true"/>
+	</spr>
+	<spr name="bgDark" sprite="bgDark" x="-560" y="-220"/>
+	<spr name="bgLight" sprite="bgLight" x="-560" y="-220" alpha="0"/>
+	
+	<girlfriend x="727" y="780"/>
+	<dad x="398" y="830" camxoffset="200" camyoffset="-100"/>
+	<boyfriend x="1020" y="825" camxoffset="-200" camyoffset="-100"/>
+
+	<spr name="stairsDark" sprite="stairsDark" x="966" y="-225"/>
+	<spr name="stairsLight" sprite="stairsLight" x="966" y="-225" alpha="0"/>
+</stage>
