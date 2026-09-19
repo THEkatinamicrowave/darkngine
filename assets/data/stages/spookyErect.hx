@@ -27,12 +27,12 @@ function postUpdate(elapsed:Float) {
 }
 
 function beatHit(beat:Int) {
-    if (FlxG.random.bool(100) && (beat > lightningStrikeBeat + lightningStrikeOffset)) {
+    if (FlxG.random.bool(10) && (beat > lightningStrikeBeat + lightningStrikeOffset)) {
       	lightningStrikeShit(true, beat);
     }
 }
 
-function lightningStrikeShit(playSound:Bool, beat:Int) {
+public function lightningStrikeShit(playSound:Bool, beat:Int) {
 	if (playSound) FlxG.sound.play(Paths.soundRandom('thunder_', 1, 2));
 
 	bgLight.alpha = stairsLight.alpha = 1;
