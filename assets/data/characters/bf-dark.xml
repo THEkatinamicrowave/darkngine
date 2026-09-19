@@ -1,0 +1,12 @@
+<!DOCTYPE codename-engine-character>
+<character x="-30" y="-151" flipX="true" camx="100" camy="100" isPlayer="true" icon="bf" color="#7BD5F6" applyStageMatrix="true">
+	<anim name="idle" anim="Idle" label="true"/>
+	<anim name="singDOWN" anim="Down" label="true"/>
+	<anim name="singRIGHT" anim="Right" label="true"/>
+	<anim name="singLEFT" anim="Left" label="true"/>
+	<anim name="singUP" anim="Up" label="true"/>
+	<anim name="singDOWNmiss" anim="Down Miss" label="true"/>
+	<anim name="singRIGHTmiss" anim="Right Miss" label="true"/>
+	<anim name="singLEFTmiss" anim="Left Miss" label="true"/>
+	<anim name="singUPmiss" anim="Up Miss" label="true"/>
+</character>
