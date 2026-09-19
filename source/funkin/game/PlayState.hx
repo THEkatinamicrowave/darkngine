@@ -2016,6 +2016,7 @@ class PlayState extends MusicBeatState
 			if (!note.isSustainNote) {
 				if (event.countScore) songScore += event.score;
 				if (event.accuracy != null) {
+					accuracyPressedNotes++;
 					totalAccuracyAmount += event.accuracy;
 					updateRating();
 				}
