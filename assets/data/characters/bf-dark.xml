@@ -9,4 +9,7 @@
 	<anim name="singRIGHTmiss" anim="Right Miss" label="true"/>
 	<anim name="singLEFTmiss" anim="Left Miss" label="true"/>
 	<anim name="singUPmiss" anim="Up Miss" label="true"/>
+	<anim name="hey" anim="Hey" label="true"/>
+	<anim name="scared" anim="Scared" label="true"/>
+	<anim name="cheer" anim="Cheer" label="true"/>
 </character>
