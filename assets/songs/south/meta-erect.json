@@ -1,0 +1,17 @@
+{
+	"opponentModeAllowed": true,
+	"difficulties": [
+		"erect",
+		"nightmare"
+	],
+	"icon": "spooky",
+	"color": "#223344",
+	"coopAllowed": true,
+	"stepsPerBeat": 4,
+	"displayName": "South (Erect)",
+	"beatsPerMeasure": 4,
+	"needsVoices": true,
+	"instSuffix": "-erect",
+	"vocalsSuffix": "-erect",
+	"bpm": 177
+}
