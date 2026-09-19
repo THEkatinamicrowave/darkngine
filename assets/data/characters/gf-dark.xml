@@ -1,0 +1,9 @@
+<!DOCTYPE codename-engine-character>
+<character x="-200" y="-325" camx="50" camy="100" color="#A5004D" applyStageMatrix="true">
+	<anim name="cheer" anim="Cheer" label="true"/>
+	<anim name="danceLeft" anim="Idle" label="true" indices="0..14"/>
+	<anim name="danceRight" anim="Idle" label="true" indices="15..29"/>
+	<anim name="scared" anim="Fear" label="true" indices="0..3,0..3,0..3"/>
+	<anim name="sad" anim="Crying" label="true" indices="0..12"/>
+	<anim name="combo50" anim="Cheer" label="true"/>
+</character>
