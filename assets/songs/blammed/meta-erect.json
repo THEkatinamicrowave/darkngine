@@ -2,18 +2,16 @@
 	"opponentModeAllowed": true,
 	"icon": "pico",
 	"difficulties": [
-		"easy",
-		"normal",
-		"hard"
+		"erect",
+		"nightmare"
 	],
 	"color": "#941653",
 	"coopAllowed": true,
 	"stepsPerBeat": 4,
-	"displayName": "Blammed",
-	"beatsPerMeasure": 4,
+	"displayName": "Blammed (Erect)",
 	"needsVoices": true,
-	"variants": [
-		"erect"
-	],
-	"bpm": 165
+	"beatsPerMeasure": 4,
+	"bpm": 170,
+	"instSuffix": "-erect",
+	"vocalsSuffix": "-erect"
 }
