@@ -49,11 +49,17 @@ def fix_strumlines():
         print("Usage: python script_name.py path_to_chart.json")
         return
 
-    file_path = sys.argv[1]
-    output_path = file_path
+    songname = sys.argv[1]
+    songvariant = sys.argv[2]
+    songdiff = sys.argv[3]
+
+    if songvariant == "":
+        filepath = songname + "/charts/" + songdiff + ".json"
+    else:
+        filepath = songname + "/charts/" + songvariant + "/" + songdiff + ".json"
 
     # Load the JSON file
-    with open(file_path, "r", encoding="utf-8") as f:
+    with open(filepath, "r", encoding="utf-8") as f:
         data = json.load(f)
 
     # 1. BEFORE: Rename the keys
@@ -95,10 +101,10 @@ def fix_strumlines():
     shift_note_ids(data)
 
     # Save changes back to the same file
-    with open(output_path, "w", encoding="utf-8") as f:
+    with open(filepath, "w", encoding="utf-8") as f:
         json.dump(data, f, indent=4)
 
-    print(f"Successfully processed and updated {output_path}!")
+    print(f"Successfully processed and updated {filepath}!")
 
 
 if __name__ == "__main__":

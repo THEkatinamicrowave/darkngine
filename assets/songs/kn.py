@@ -7,7 +7,14 @@ def killit():
 		print("Error: your shit sucks bro")
 		return
 
-	filepath = sys.argv[1]
+	songname = sys.argv[1]
+	songvariant = sys.argv[2]
+	songdiff = sys.argv[3]
+
+	if songvariant == "":
+		filepath = songname + "/charts/" + songdiff + ".json"
+	else:
+		filepath = songname + "/charts/" + songvariant + "/" + songdiff + ".json"
 
 	with open(filepath, "r", encoding="utf-8") as f:
 		data = json.load(f)
