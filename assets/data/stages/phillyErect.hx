@@ -1,14 +1,16 @@
 //
 var lightColors:Array<FlxColor> = [
-	0xFF31A2FD,
-	0xFF31FD8C,
-	0xFFFB33F5,
-	0xFFFBA633,
-	0xFFFD4531
+	0xFFB66F43,
+	0xFF329A6D,
+	0xFF932C28,
+	0xFF2663AC,
+	0xFF502D64
 ];
 
 var lightShader:FunkinShader;
 var trainSound:FlxSound;
+
+var colorShader:FunkinShader;
 
 var trainEnabled:Bool = true;
 var trainMoving:Bool = false;
@@ -21,6 +23,15 @@ var startedMoving:Bool = false;
 function postCreate() {
 	trainEnabled = true;
     trainSound = FlxG.sound.load(Paths.sound('train_passes'));
+
+	colorShader = FunkinShader.fromFile(Paths.fragShader('adjustColor'));
+	colorShader.hue = -26;
+	colorShader.saturation = -16;
+	colorShader.contrast = 0;
+	colorShader.brightness = -5;
+
+	dad.shader = bf.shader = gf.shader = train.shader = colorShader;
+	for (char in [dad, bf, gf]) char.useRenderTexture = true;
 
 	lightShader = FunkinShader.fromFile(Paths.fragShader('phillyBuildings'));
 	lightShader.alphaShit = 1.0;
