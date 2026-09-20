@@ -65,8 +65,8 @@ function beatHit(beat:Int) {
     if (beat % 4 == 0) {
       	lightShader.alphaShit = 0;
 
-		curLight = FlxG.random.int(0, colors.length - 1);
-		lights.color = colors[curLight];
+		curLight = FlxG.random.int(0, lightColors.length - 1);
+		lights.color = lightColors[curLight];
     }
 }
 
