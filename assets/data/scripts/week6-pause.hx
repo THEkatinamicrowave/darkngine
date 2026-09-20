@@ -104,7 +104,7 @@ function enterOption() if (canDoShit) {
 	switch(option) {
 		case "Resume", "Exit to menu":
 			canDoShit = false;
-			for(t in texts) t.visible = false;
+			for (t in texts) t.visible = false;
 			hand.visible = songText.visible = false;
 			FlxTween.tween(bg.scale, {y: 0}, 0.125, {ease: FlxEase.cubeOut, onComplete: selectOption});
 		default: selectOption();

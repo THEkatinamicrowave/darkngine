@@ -23,12 +23,12 @@ function postCreate() {
 
 var finished:Bool = false;
 function close(event) {
-	if(finished) return;
+	if (finished) return;
 	else event.cancelled = true;
 	cutscene.canProceed = false;
 
 	cutscene.curMusic?.fadeOut(1, 0);
-	for(c in cutscene.charMap) c.visible = false;
+	for (c in cutscene.charMap) c.visible = false;
 
 	loopedTimer.cancel();
 	loopedTimer = new FlxTimer().start(0.2, function(tmr:FlxTimer)
@@ -47,7 +47,7 @@ function close(event) {
 
 var time:Float = 0;
 function update(elapsed:Float) {
-	if(hand.visible = dialogueEnded) {
+	if (hand.visible = dialogueEnded) {
 		hand.x = 1060 + Math.sin((time += elapsed) * Math.PI * 2) * 12;
 		hand.x -= hand.x % hand.scale.x;
 		hand.y -= hand.y % hand.scale.y;
@@ -56,6 +56,6 @@ function update(elapsed:Float) {
 
 function postPlayBubbleAnim() {
 	cutscene.remove(hand);
-	if(active && visible)
+	if (active && visible)
 		cutscene.add(hand);
 }

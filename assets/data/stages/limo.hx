@@ -9,7 +9,7 @@ function postCreate() {
     sunOverlay.setGraphicSize(Std.int(sunOverlay.width * 2));
     sunOverlay.updateHitbox();
 	
-	var skyOverlay:CustomShader = new CustomShader('overlayBlend');
+	var skyOverlay:FunkinShader = FunkinShader.fromFile(Paths.fragShader(('overlayBlend')));
     skyOverlay.olayPixels = sunOverlay.pixels;
     limoSunset.shader = skyOverlay;
 

@@ -87,7 +87,7 @@
 				self.winTitle = self.titleSpr.text = translate('win-sprite-title', [nameTextBox.label.text]);
 			prevID = nameTextBox.label.text;
 
-			/*if(previewSprite == null) return;
+			/*if (previewSprite == null) return;
 			previewSprite.color = 0xFFFFFFFF; // TODO: Color Wheel
 			previewSprite.blend = BlendMode.fromString(blendMode.value);
 			previewSprite.skew.x = skewXStepper.value;
@@ -121,7 +121,7 @@
 				obj.x = x.value;
 				obj.y = y.value;
 
-				if(x.value == y.value)
+				if (x.value == y.value)
 					button.xml.set(name, x.value);
 				else {
 					button.xml.set(name + "x", x.value);

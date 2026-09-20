@@ -103,7 +103,7 @@ function update(elapsed:Float) {
 
 			pico.animation.finishCallback = pico.playAnim("idle");
 
-			if(stressCutscene.time > 31500) {
+			if (stressCutscene.time > 31500) {
 				focusOn(game.boyfriend, true);
 				game.camGame.zoom = game.defaultCamZoom * 1.4;
 				FlxTween.tween(game.camGame, { zoom: game.camGame.zoom + 0.1 }, 0.5, { ease: FlxEase.elasticOut });

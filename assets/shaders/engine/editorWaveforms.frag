@@ -45,9 +45,9 @@ float getAmplitude(vec2 pixel) {
 	vec4 waveData = texture2D(waveformTexture, wavePixel / waveformSize);
 
 	int id = int(mod(wavePixel.x, 3.0));
-	if(id == 0) return waveData.r;
-	if(id == 1) return waveData.g;
-	if(id == 2) return waveData.b;
+	if (id == 0) return waveData.r;
+	if (id == 1) return waveData.g;
+	if (id == 2) return waveData.b;
 	return 0.0;
 }
 

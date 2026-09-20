@@ -39,11 +39,11 @@ class AssetsLibraryList extends AssetLibrary {
 			#if TRANSLATIONS_SUPPORT
 			// TODO: improve this code
 			for(k=>l in libraries) {
-				if(l == null) continue;
-				if(l is TranslatedAssetLibrary) {
+				if (l == null) continue;
+				if (l is TranslatedAssetLibrary) {
 					var tlib = cast(l, TranslatedAssetLibrary);
 					var lib:Dynamic = lib;
-					if(tlib.forLibrary == lib) {
+					if (tlib.forLibrary == lib) {
 						libraries.remove(tlib);
 						break;
 					}
@@ -275,9 +275,9 @@ class AssetsLibraryList extends AssetLibrary {
 		if (tag != null) lib.tag = tag;
 		else if (lib.tag == null) lib.tag = MODS;
 		#if TRANSLATIONS_SUPPORT
-		if(addTransLib) {
+		if (addTransLib) {
 			var cleanLib = getCleanLibrary(lib);
-			if(cleanLib != null && (cleanLib is IModsAssetLibrary)) {
+			if (cleanLib != null && (cleanLib is IModsAssetLibrary)) {
 				var transLib = new TranslatedAssetLibrary(cast(cleanLib, IModsAssetLibrary));
 				transLib.tag = cleanLib.tag;
 				libraries.insert(0, transLib);

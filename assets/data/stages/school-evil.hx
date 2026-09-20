@@ -1,8 +1,8 @@
 //
-var wiggleBack:CustomShader;
-var wiggleSchool:CustomShader;
-var wiggleGround:CustomShader;
-var wiggleTrees:CustomShader;
+var wiggleBack:FunkinShader;
+var wiggleSchool:FunkinShader;
+var wiggleGround:FunkinShader;
+var wiggleTrees:FunkinShader;
 
 function postCreate() {
 	for (stageShit in [backTrees, school, street, trees]) {
@@ -11,7 +11,7 @@ function postCreate() {
 		stageShit.updateHitbox();
 	}
 
-	wiggleBack = new CustomShader('wiggle');
+	wiggleBack = FunkinShader.fromFile(Paths.fragShader('wiggle'));
 	wiggleBack.uTime = 0;
 	wiggleBack.uSpeed = 1.6;
 	wiggleBack.uFrequency = 1.6;
@@ -19,7 +19,7 @@ function postCreate() {
 	wiggleBack.effectType = 0;
 	backTrees.shader = wiggleBack;
 
-	wiggleSchool = new CustomShader('wiggle');
+	wiggleSchool = FunkinShader.fromFile(Paths.fragShader('wiggle'));
 	wiggleSchool.uTime = 0;
 	wiggleSchool.uSpeed = 2;
 	wiggleSchool.uFrequency = 4;
@@ -27,7 +27,7 @@ function postCreate() {
 	wiggleSchool.effectType = 0;
 	school.shader = wiggleSchool;
 
-	wiggleGround = new CustomShader('wiggle');
+	wiggleGround = FunkinShader.fromFile(Paths.fragShader('wiggle'));
 	wiggleGround.uTime = 0;
 	wiggleGround.uSpeed = 2;
 	wiggleGround.uFrequency = 4;
@@ -35,7 +35,7 @@ function postCreate() {
 	wiggleGround.effectType = 0;
 	street.shader = wiggleGround;
 
-	wiggleTrees = new CustomShader('wiggle');
+	wiggleTrees = FunkinShader.fromFile(Paths.fragShader('wiggle'));
 	wiggleTrees.uTime = 0;
 	wiggleTrees.uSpeed = 2;
 	wiggleTrees.uFrequency = 4;

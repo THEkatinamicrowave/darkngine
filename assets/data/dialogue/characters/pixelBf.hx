@@ -1,3 +1,3 @@
 function postHide() {
-	if(curTween != null) curTween.percent = 1;
+	if (curTween != null) curTween.percent = 1;
 }

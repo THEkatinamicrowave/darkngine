@@ -136,7 +136,7 @@ class ZipFolderLibrary extends AssetLibrary implements IModsAssetLibrary {
 	}
 
 	public override function exists(asset:String, type:String):Bool {
-		if(!__parseAsset(asset)) return false;
+		if (!__parseAsset(asset)) return false;
 
 		return assets[_parsedAsset] != null;
 	}
@@ -157,7 +157,7 @@ class ZipFolderLibrary extends AssetLibrary implements IModsAssetLibrary {
 		@:privateAccess
 		for(k=>e in lowerCaseAssets) {
 			if (k.toLowerCase().startsWith(checkPath)) {
-				if(nameMap.exists(k))
+				if (nameMap.exists(k))
 					k = nameMap.get(k);
 				var fileName = k.substr(_parsedAsset.length);
 				if (!fileName.contains("/") && fileName.length > 0)
@@ -178,7 +178,7 @@ class ZipFolderLibrary extends AssetLibrary implements IModsAssetLibrary {
 		@:privateAccess
 		for(k=>e in lowerCaseAssets) {
 			if (k.toLowerCase().startsWith(checkPath)) {
-				if(nameMap.exists(k))
+				if (nameMap.exists(k))
 					k = nameMap.get(k);
 				var fileName = k.substr(_parsedAsset.length);
 				var index = fileName.indexOf("/");

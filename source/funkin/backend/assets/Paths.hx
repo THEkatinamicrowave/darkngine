@@ -434,7 +434,7 @@ class Paths
 	// Used in Script.hx
 	@:noCompletion public static function getFilenameFromLibFile(path:String) {
 		var file = new haxe.io.Path(path);
-		if(file.file.startsWith("LIB_")) {
+		if (file.file.startsWith("LIB_")) {
 			return file.dir + "." + file.ext;
 		}
 		return path;
@@ -442,7 +442,7 @@ class Paths
 
 	@:noCompletion public static function getLibFromLibFile(path:String) {
 		var file = new haxe.io.Path(path);
-		if(file.file.startsWith("LIB_")) {
+		if (file.file.startsWith("LIB_")) {
 			return file.file.substr(4);
 		}
 		return "";

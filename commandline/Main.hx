@@ -140,7 +140,7 @@ class Main {
 		else
 			commandName = "help";
 
-		for(c in commands) {
+		for (c in commands) {
 			if (c.names.contains(commandName)) {
 				curCommand = c;
 				c.func(args);
@@ -155,7 +155,7 @@ class Main {
 			cmdName = cmdName.toLowerCase();
 
 			var matchingCommand = null;
-			for(c in commands) if (c.names.contains(cmdName)) {
+			for (c in commands) if (c.names.contains(cmdName)) {
 				matchingCommand = c;
 				break;
 			}
@@ -174,7 +174,7 @@ class Main {
 		// shows help
 		Sys.println("Codename Engine Command Line utility");
 		Sys.println('Available commands (${commands.length}):\n');
-		for(line in commands) {
+		for (line in commands) {
 			if(line.names.contains(null)) line.names.remove(null);
 			Sys.println('${line.names.join(", ")} - ${line.doc}');
 		}

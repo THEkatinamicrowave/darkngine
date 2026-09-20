@@ -51,8 +51,8 @@ class ModsFolder {
 	 * Initializes `mods` folder.
 	 */
 	public static function init() {
-		if(!getModsList().contains(Options.lastLoadedMod)) {
-			if(Options.lastLoadedMod != null)
+		if (!getModsList().contains(Options.lastLoadedMod)) {
+			if (Options.lastLoadedMod != null)
 				Logs.warn("Mod \"" + Options.lastLoadedMod + "\" not found in mods list, switching to base game!");
 			Options.lastLoadedMod = null;
 		}
@@ -65,7 +65,7 @@ class ModsFolder {
 	public static function switchMod(mod:String) {
 		Options.lastLoadedMod = currentModFolder = mod;
 		reloadMods();
-		if(mod == null) {
+		if (mod == null) {
 			mod = "(default)";
 		}
 		Logs.traceColored([
@@ -142,7 +142,7 @@ class ModsFolder {
 		for (i in Paths.assetsTree.libraries) {
 			var l = AssetsLibraryList.getCleanLibrary(i);
 			#if TRANSLATIONS_SUPPORT
-			if(skipTranslated && (l is TranslatedAssetLibrary)) continue;
+			if (skipTranslated && (l is TranslatedAssetLibrary)) continue;
 			#end
 			// No need to check for it being a `ScriptedAssetLibrary`, if `ScriptedAssetLibrary` extends ModsFolderLibrary, which implements `IModsAssetLibrary`
 			// If you have to revert this change then uhhhhh wasn't me, trust 🙏

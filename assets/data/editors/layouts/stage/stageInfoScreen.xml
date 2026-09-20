@@ -20,8 +20,8 @@
 			return MARGIN + (170 + XOFFSET) * c;
 		}
 
-		for(prop =&gt; val in stage.extra) {
-			if(!StringTools.startsWith(prop, "stageEditor.")) {
+		for (prop =&gt; val in stage.extra) {
+			if (!StringTools.startsWith(prop, "stageEditor.")) {
 				storedProps.push(prop);
 				oldInfo.attrib.set(prop, val);
 			}
@@ -74,7 +74,7 @@
 				//	if (!defaultAttribs.contains(i))
 				//		buttonList.add(new PropertyButton(i, stage.stageXML.get(i), buttonList, width, height, 150, 220, 25));
 				//}
-				for(key =&gt; val in stage.extra)
+				for (key =&gt; val in stage.extra)
 					buttonList.add(new PropertyButton(key, val, buttonList, width, height, 150, 220, 25));
 			</code>
 		</buttonlist>
@@ -88,7 +88,7 @@
 			stage.stageName = nameTextBox.label.text;
 			stage.spritesParentFolder = spritePathTextBox.label.text;
 
-			for(prop in storedProps)
+			for (prop in storedProps)
 				stage.extra.remove(prop);
 
 			var newInfo = {
@@ -99,7 +99,7 @@
 				zoom: stage.defaultZoom,
 				attrib: new StringMap()
 			};
-			for(prop in attributesList.buttons.members) {
+			for (prop in attributesList.buttons.members) {
 				stage.extra.set(prop.propertyText.label.text, prop.valueText.label.text);
 				newInfo.attrib.set(prop.propertyText.label.text, prop.valueText.label.text);
 			}

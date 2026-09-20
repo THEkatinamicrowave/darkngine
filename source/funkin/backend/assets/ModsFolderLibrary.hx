@@ -105,7 +105,7 @@ class ModsFolderLibrary extends AssetLibrary implements IModsAssetLibrary {
 	}
 
 	public override function exists(asset:String, type:String):Bool {
-		if(!__parseAsset(asset)) return false;
+		if (!__parseAsset(asset)) return false;
 		return FileSystem.exists(getAssetPath());
 	}
 
@@ -138,11 +138,11 @@ class ModsFolderLibrary extends AssetLibrary implements IModsAssetLibrary {
 	private function __parseAsset(asset:String):Bool {
 		if (!asset.startsWith(prefix)) return false;
 		_parsedAsset = asset.substr(prefix.length);
-		if(ModsFolder.useLibFile) {
+		if (ModsFolder.useLibFile) {
 			var file = new haxe.io.Path(_parsedAsset);
-			if(file.file.startsWith("LIB_")) {
+			if (file.file.startsWith("LIB_")) {
 				var library = file.file.substr(4);
-				if(library != modName) return false;
+				if (library != modName) return false;
 
 				_parsedAsset = file.dir + "." + file.ext;
 			}

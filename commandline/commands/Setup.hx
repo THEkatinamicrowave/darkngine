@@ -9,7 +9,7 @@ import sys.FileSystem;
 
 class Setup {
 	private static function recursiveDelete(path:String) {
-		for(file in FileSystem.readDirectory(path)) {
+		for (file in FileSystem.readDirectory(path)) {
 			var p = '$path/$file';
 			if(FileSystem.isDirectory(p))
 				recursiveDelete(p);
@@ -124,7 +124,7 @@ class Setup {
 							lines: {
 								if(Lambda.count(libNode.nodes.line) > 0)
 								[
-									for(line in libNode.nodes.line)
+									for (line in libNode.nodes.line)
 										line.innerData
 								];
 								else
@@ -166,7 +166,7 @@ class Setup {
 					return;
 				}
 
-				for(child in libNode.elements) {
+				for (child in libNode.elements) {
 					parse(child);
 				}
 			} else {
@@ -188,7 +188,7 @@ class Setup {
 			Sys.command(cmd);
 		}
 
-		for(event in events) {
+		for (event in events) {
 			switch(event.type) {
 				case INSTALL:
 					var lib:Library = event.data;
@@ -254,7 +254,7 @@ class Setup {
 							}
 						}
 					}
-					for(line in cmd.lines) {
+					for (line in cmd.lines) {
 						final line = StringTools.replace(line, "$PLATFORM", platform);
 						//Sys.println(line);
 						command(line);
@@ -275,9 +275,9 @@ class Setup {
 			final haxeVer = proc.stdout.readLine();
 
 			// check for outdated haxe
-			final curHaxeVer = [for(v in haxeVer.split(".")) Std.parseInt(v)];
+			final curHaxeVer = [for (v in haxeVer.split(".")) Std.parseInt(v)];
 			final minumumVersion = [4, 3, 7];
-			for(i in 0...minumumVersion.length) {
+			for (i in 0...minumumVersion.length) {
 				if (curHaxeVer[i] > minumumVersion[i]) break;
 				if (curHaxeVer[i] < minumumVersion[i]) {
 					prettyPrint([
@@ -312,15 +312,15 @@ class Setup {
 	public static function prettyPrint(text:String) {
 		final lines = text.split("\n");
 		var length = -1;
-		for(line in lines)
+		for (line in lines)
 			if(line.length > length)
 				length = line.length;
 		var header = "══════";
-		for(i in 0...length)
+		for (i in 0...length)
 			header += "═";
 		Sys.println("");
 		Sys.println('╔$header╗');
-		for(line in lines) {
+		for (line in lines) {
 			Sys.println('║   ${centerText(line, length)}   ║');
 		}
 		Sys.println('╚$header╝');
@@ -336,7 +336,7 @@ class Setup {
 
 	public static inline function repeat(ch:String, amt:Int) {
 		var str = "";
-		for(i in 0...amt)
+		for (i in 0...amt)
 			str += ch;
 		return str;
 	}

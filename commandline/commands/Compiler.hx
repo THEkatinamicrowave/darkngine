@@ -20,7 +20,7 @@ class Compiler {
 	private static function __runLime(args:Array<String>, arg:Array<String>) {
 		arg.insert(0, "lime");
 		arg.insert(0, "run");
-		for(a in args)
+		for (a in args)
 			arg.push(a);
 		Sys.command("haxelib", arg);
 	}

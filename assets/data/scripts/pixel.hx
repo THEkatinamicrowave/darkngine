@@ -112,9 +112,9 @@ function postCreate() {
 
 	var pixelSwagWidth = Note.swagWidth + (daPixelZoom - (Note.swagWidth % daPixelZoom));
 
-	for(p in strumLines) {
+	for (p in strumLines) {
 		var i = 0;
-		for(str in p.members) {
+		for (str in p.members) {
 			str.x = (FlxG.width * strumOffset) + (pixelSwagWidth * (i - 2));
 			str.x -= str.x % daPixelZoom;
 			i++;
@@ -128,11 +128,11 @@ function postCreate() {
  */
 public function makeCameraPixely(cam) {
 	cam.pixelPerfectRender = true;
-	if(!enableCameraHacks) return;
+	if (!enableCameraHacks) return;
 
 	cam.zoom /= Math.min(FlxG.scaleMode.scale.x, FlxG.scaleMode.scale.y) * daPixelZoom;
 
-	var shad = new CustomShader('pixelZoomShader');
+	var shad = FunkinShader.fromFile(Paths.fragShader('pixelZoomShader'));
 	cam.addShader(shad);
 
 	pixellyCameras.push(cam);
@@ -158,7 +158,7 @@ function postUpdate() {
 
 	if (enableCameraHacks) for (p in strumLines) {
 		p.notes.forEach(function(n) {
-			if(n.isSustainNote) return; // hacky fix for hold
+			if (n.isSustainNote) return; // hacky fix for hold
 			n.y -= n.y % daPixelZoom;
 			n.x -= n.x % daPixelZoom;
 		});

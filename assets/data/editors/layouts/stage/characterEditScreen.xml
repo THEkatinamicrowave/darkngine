@@ -8,7 +8,7 @@
 			return 20 + (150 + XOFFSET) * c;
 		}
 		previewSprite = null;
-		if(!char.isAnimate) {
+		if (!char.isAnimate) {
 			previewSprite = new FunkinSprite(0, 0);
 			previewSprite.frame = char.frame;
 
@@ -102,7 +102,7 @@
 
 	<exec>
 		function onUpdate() {
-			if(previewSprite == null) return;
+			if (previewSprite == null) return;
 			previewSprite.skew.x = skewXStepper.value;
 			previewSprite.skew.y = skewYStepper.value;
 			previewSprite.angle = angleStepper.value;
@@ -110,7 +110,7 @@
 			var ratio = char.frameWidth / char.frameHeight;
 			previewSprite.setGraphicSize(145 * scaleXStepper.value * ratio, 145 * scaleYStepper.value);
 			previewSprite.updateHitbox();
-			if(flipXCheckbox.checked != char.playerOffsets)
+			if (flipXCheckbox.checked != char.playerOffsets)
 				previewSprite.scale.x *= -1;
 
 			previewSprite.x = 30;
@@ -161,7 +161,7 @@
 				button.xml.remove(name + "x");
 				button.xml.remove(name + "y");
 
-				if(x.value == y.value)
+				if (x.value == y.value)
 					button.xml.set(name, x.value);
 				else {
 					button.xml.set(name + "x", x.value);

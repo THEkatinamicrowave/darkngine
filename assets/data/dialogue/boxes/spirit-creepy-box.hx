@@ -1,13 +1,15 @@
 import flixel.tweens.FlxTweenType;
 
-var aberration:CustomShader = null;
+var aberration:FunkinShader = null;
 var spirit:FlxSprite;
+
 function postCreate() {
 	spirit = new FlxSprite(320, 170).loadGraphic(Paths.image('game/cutscenes/weeb/spiritFaceForward'));
 	spirit.setGraphicSize(Std.int(spirit.width * 6));
-	if(Options.gameplayShaders) {
-		spirit.shader = new CustomShader('chromaticAberration');
-		FlxTween.num(-0.003, 0.003, 3, {ease: FlxEase.sineInOut, type: FlxTweenType.PINGPONG}, function(num) { if(aberration == null) return; aberration.redOff = [0, -num]; aberration.blueOff = [0, num]; });
+
+	if (Options.gameplayShaders) {
+		spirit.shader = FunkinShader.fromFile(Paths.fragShader('chromaticAberration'));
+		FlxTween.num(-0.003, 0.003, 3, {ease: FlxEase.sineInOut, type: FlxTweenType.PINGPONG}, function(num) { if (aberration == null) return; aberration.redOff = [0, -num]; aberration.blueOff = [0, num]; });
 	}
 	cutscene.add(spirit);
 
@@ -17,19 +19,19 @@ function postCreate() {
 
 var finished:Bool = false;
 function close(event) {
-	if(finished) return;
+	if (finished) return;
 	else event.cancelled = true;
 	cutscene.canProceed = false;
 
 	cutscene.curMusic?.fadeOut(1, 0);
-	for(c in cutscene.charMap) c.visible = false;
+	for (c in cutscene.charMap) c.visible = false;
 
 	spirit.destroy();
 	spirit.shader = null;
 	new FlxTimer().start(0.4, function(swagTimer:FlxTimer) {
 		cutscene.dialogueCamera.alpha -= 0.15;
 
-		if(cutscene.dialogueCamera.alpha > 0) swagTimer.reset();
+		if (cutscene.dialogueCamera.alpha > 0) swagTimer.reset();
 		else {
 			finished = true;
 			cutscene.close();
@@ -38,6 +40,6 @@ function close(event) {
 }
 
 function popupChar(event) {
-	if(!active || event.char.positionName != "left") return;
+	if (!active || event.char.positionName != "left") return;
 	event.char.color = FlxColor.BLACK;
 }

@@ -65,7 +65,7 @@ var sShkv = 50; // shake range
 var sSpeed = 240;
 
 function update(elapsed:Float) {
-	if(scream?.time > 2350) {
+	if (scream?.time > 2350) {
 		sVal += sSpeed * elapsed;
 
 		var vx = sShkv * FlxSimplex.simplexOctaves(sVal, seed, 0.07, 0.25, 4);

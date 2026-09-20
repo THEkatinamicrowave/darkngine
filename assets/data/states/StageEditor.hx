@@ -39,11 +39,11 @@ function genericScale(sprite, relative, doX, doY) {
 
 	var width = sprite.frameWidth * storedScale.x;
 	var height = sprite.frameHeight * storedScale.y;
-	if(doX) width -= relative.x;
-	if(doY) height -= relative.y;
+	if (doX) width -= relative.x;
+	if (doY) height -= relative.y;
 	CoolUtil.setGraphicSizeFloat(sprite, width, height);
 
-	if(FlxG.keys.pressed.SHIFT) {
+	if (FlxG.keys.pressed.SHIFT) {
 		var nscale = Math.max(sprite.scale.x, sprite.scale.y);
 		sprite.scale.set(nscale, nscale);
 	}
@@ -52,7 +52,7 @@ function genericScale(sprite, relative, doX, doY) {
 	if (FlxG.keys.pressed.ALT) {
 		sprite.x = storedPos.x;
 		sprite.y = storedPos.y;
-		if(updatedHitbox) {
+		if (updatedHitbox) {
 			sprite.x += (sprite.frameWidth * (storedScale.x - sprite.scale.x) * 0.5);
 			sprite.y += (sprite.frameHeight * (storedScale.y - sprite.scale.y) * 0.5);
 		}
@@ -62,15 +62,15 @@ function genericScale(sprite, relative, doX, doY) {
 }
 
 function genericOppositeScale(sprite, relative, scaleX, scaleY, repositionX, repositionY) {
-	if(repositionX) relative.x *= -1;
-	if(repositionY) relative.y *= -1;
+	if (repositionX) relative.x *= -1;
+	if (repositionY) relative.y *= -1;
 	var repositioned = genericScale(sprite, relative, scaleX, scaleY);
 	if (!repositioned) {
-		if(repositionX) sprite.x = storedPos.x + (sprite.frameWidth * (storedScale.x - sprite.scale.x));
-		if(repositionY) sprite.y = storedPos.y + (sprite.frameHeight * (storedScale.y - sprite.scale.y));
+		if (repositionX) sprite.x = storedPos.x + (sprite.frameWidth * (storedScale.x - sprite.scale.x));
+		if (repositionY) sprite.y = storedPos.y + (sprite.frameHeight * (storedScale.y - sprite.scale.y));
 	} else if (!FlxG.keys.pressed.ALT) {
-		if(repositionX) sprite.x += (sprite.frameWidth * (storedScale.x - sprite.scale.x));
-		if(repositionY) sprite.y += (sprite.frameHeight * (storedScale.y - sprite.scale.y));
+		if (repositionX) sprite.x += (sprite.frameWidth * (storedScale.x - sprite.scale.x));
+		if (repositionY) sprite.y += (sprite.frameHeight * (storedScale.y - sprite.scale.y));
 	}
 }
 
@@ -276,7 +276,7 @@ function ROTATE(sprite, relative) {
 	var dx:Float = _point.x - p.x;
 	var dy:Float = _point.y - p.y;
 	var angle = FlxAngle.angleFromOrigin(dx, dy, true) + angleOffset;
-	if(FlxG.keys.pressed.SHIFT) angle = Std.int(angle / 45) * 45;
+	if (FlxG.keys.pressed.SHIFT) angle = Std.int(angle / 45) * 45;
 	sprite.angle = angle;
 }
 

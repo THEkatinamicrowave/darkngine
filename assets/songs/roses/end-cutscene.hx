@@ -15,7 +15,7 @@ function create() {
 
 	playDadUpdate = true;
 	dad.animation.finishCallback = (name:String) -> {
-		if(name == "idle") {
+		if (name == "idle") {
 			dad.animation.finishCallback = null;
 			playDadUpdate = false;
 
@@ -24,10 +24,10 @@ function create() {
 				camHUD.alpha -= 0.15;
 				var c = FlxMath.lerp(255, 0, red.alpha);
 				dad.color = FlxColor.fromRGB(c, c, c, 255);
-				if(red.alpha < 1) swagTimer.reset();
+				if (red.alpha < 1) swagTimer.reset();
 				else {
 					if (Options.gameplayShaders) {
-						aberration = new CustomShader('chromaticAberration');
+						aberration = FunkinShader.fromFile(Paths.fragShader('chromaticAberration'));
 						camGame.addShader(aberration);
 						change = true;
 					}
@@ -41,22 +41,23 @@ function create() {
 			});
 		}
 	}
-	if(dad.animation.curAnim.name != "idle")
+	if (dad.animation.curAnim.name != "idle")
 		dad.playAnim("idle", true);
-	else if(dad.animation.curAnim.finished)
+	else if (dad.animation.curAnim.finished)
 		dad.animation.finishCallback("idle");
 }
 
 var playDadUpdate = false;
 function postUpdate(elapsed) {
-	if(playDadUpdate)
+	if (playDadUpdate)
 		dad.update(elapsed);
 }
 
 var change:Bool = false;
-var aberration:CustomShader = null;
+var aberration:FunkinShader = null;
+
 function update(elapsed:Float) {
-	if(change && intens < (Options.week6PixelPerfect ? 0.005 : 0.005)) setGeneralIntensity(intens + 0.00001);
+	if (change && intens < (Options.week6PixelPerfect ? 0.005 : 0.005)) setGeneralIntensity(intens + 0.00001);
 }
 
 var intens:Float = 0;

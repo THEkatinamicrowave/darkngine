@@ -21,14 +21,14 @@ class ScriptedAssetLibrary extends ModsFolderLibrary {
 	private static var nullValue:Dynamic = {};
 
 	public function new(scriptName:String, args:Array<Dynamic> = null, basePath:String="./assets/", libName:String="assets", ?modName:String) {
-		if(modName == null) modName = scriptName;
+		if (modName == null) modName = scriptName;
 		super(basePath, libName, modName);
 		this.scriptName = scriptName;
 		script = Script.create(Paths.script("data/library/" + scriptName));
 		script.setParent(this);
 		script.set("NULL", nullValue); // hackyway
 		script.load();
-		if(args == null) args = [];
+		if (args == null) args = [];
 		script.call("create", args);
 	}
 
@@ -39,7 +39,7 @@ class ScriptedAssetLibrary extends ModsFolderLibrary {
 	#if MOD_SUPPORT
 	public override function getEditedTime(asset:String):Null<Float> {
 		var result:Dynamic = script.call("getEditedTime", [asset]);
-		if(result != null) {
+		if (result != null) {
 			return result == nullValue ? null : result;
 		}
 		return super.getEditedTime(asset);
@@ -47,7 +47,7 @@ class ScriptedAssetLibrary extends ModsFolderLibrary {
 
 	public override function getAudioBuffer(id:String):AudioBuffer {
 		var result:Dynamic = script.call("getAudioBuffer", [id]);
-		if(result != null) {
+		if (result != null) {
 			return result == nullValue ? null : result;
 		}
 		return super.getAudioBuffer(id);
@@ -55,7 +55,7 @@ class ScriptedAssetLibrary extends ModsFolderLibrary {
 
 	public override function getBytes(id:String):Bytes {
 		var result:Dynamic = script.call("getBytes", [id]);
-		if(result != null) {
+		if (result != null) {
 			return result == nullValue ? null : result;
 		}
 		return super.getBytes(id);
@@ -63,7 +63,7 @@ class ScriptedAssetLibrary extends ModsFolderLibrary {
 
 	public override function getFont(id:String):Font {
 		var result:Dynamic = script.call("getFont", [id]);
-		if(result != null) {
+		if (result != null) {
 			return result == nullValue ? null : result;
 		}
 		return super.getFont(id);
@@ -71,7 +71,7 @@ class ScriptedAssetLibrary extends ModsFolderLibrary {
 
 	public override function getImage(id:String):Image {
 		var result:Dynamic = script.call("getImage", [id]);
-		if(result != null) {
+		if (result != null) {
 			return result == nullValue ? null : result;
 		}
 		return super.getImage(id);
@@ -79,7 +79,7 @@ class ScriptedAssetLibrary extends ModsFolderLibrary {
 
 	public override function getPath(id:String):String {
 		var result:Dynamic = script.call("getPath", [id]);
-		if(result != null) {
+		if (result != null) {
 			return result == nullValue ? null : result;
 		}
 		return super.getPath(id);
@@ -87,7 +87,7 @@ class ScriptedAssetLibrary extends ModsFolderLibrary {
 
 	public override function __getFiles(folder:String, folders:Bool = false) {
 		var result:Dynamic = script.call("__getFiles", [folder, folders]);
-		if(result != null) {
+		if (result != null) {
 			return result == nullValue ? null : result;
 		}
 		return super.__getFiles(folder, folders);
@@ -95,7 +95,7 @@ class ScriptedAssetLibrary extends ModsFolderLibrary {
 
 	public override function exists(asset:String, type:String):Bool {
 		var result:Dynamic = script.call("exists", [asset, type]);
-		if(result != null) {
+		if (result != null) {
 			return result == nullValue ? false : result;
 		}
 		return super.exists(asset, type);
@@ -103,7 +103,7 @@ class ScriptedAssetLibrary extends ModsFolderLibrary {
 
 	private override function getAssetPath() {
 		var result:Dynamic = script.call("getAssetPath", []);
-		if(result != null) {
+		if (result != null) {
 			return result == nullValue ? null : result;
 		}
 		return super.getAssetPath();
@@ -111,7 +111,7 @@ class ScriptedAssetLibrary extends ModsFolderLibrary {
 
 	public override function list(type:String) {
 		var result:Dynamic = script.call("list", [type]);
-		if(result != null) {
+		if (result != null) {
 			return result == nullValue ? null : result;
 		}
 		return super.list(type);
@@ -119,7 +119,7 @@ class ScriptedAssetLibrary extends ModsFolderLibrary {
 
 	private override function __isCacheValid(cache:Map<String, Dynamic>, asset:String, isLocalCache:Bool = false) {
 		var result:Dynamic = script.call("__isCacheValid", [cache, asset, isLocalCache]);
-		if(result != null) {
+		if (result != null) {
 			return result == nullValue ? false : result;
 		}
 		return super.__isCacheValid(cache, asset, isLocalCache);
@@ -127,7 +127,7 @@ class ScriptedAssetLibrary extends ModsFolderLibrary {
 
 	private override function __parseAsset(asset:String):Bool {
 		var result:Dynamic = script.call("__parseAsset", [asset]);
-		if(result != null) {
+		if (result != null) {
 			return result == nullValue ? false : result;
 		}
 		return super.__parseAsset(asset);
