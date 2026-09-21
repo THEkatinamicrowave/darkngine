@@ -49,7 +49,7 @@ function postCreate() {
     mist1 = new FlxBackdrop(Paths.image('stages/limo/erect/mistMid'), 0x01);
     mist1.setPosition(-650, -100);
     mist1.scrollFactor.set(1.1, 1.1);
-    mist1.blend = "add";
+    mist1.blend = 0;
     mist1.color = 0xFFc6bfde;
     mist1.alpha = 0.4;
     mist1.velocity.x = 1700;
@@ -58,7 +58,7 @@ function postCreate() {
     mist2 = new FlxBackdrop(Paths.image('stages/limo/erect/mistBack'), 0x01);
     mist2.setPosition(-650, -100);
     mist2.scrollFactor.set(1.2, 1.2);
-    mist2.blend = "add";
+    mist2.blend = 0;
     mist2.color = 0xFF6a4da1;
     mist2.alpha = 1;
     mist2.velocity.x = 2100;
@@ -68,7 +68,7 @@ function postCreate() {
     mist3 = new FlxBackdrop(Paths.image('stages/limo/erect/mistMid'), 0x01);
     mist3.setPosition(-650, -100);
     mist3.scrollFactor.set(0.8, 0.8);
-    mist3.blend = "add";
+    mist3.blend = 0;
     mist3.color = 0xFFa7d9be;
     mist3.alpha = 0.5;
     mist3.velocity.x = 900;
@@ -78,24 +78,24 @@ function postCreate() {
     mist4 = new FlxBackdrop(Paths.image('stages/limo/erect/mistBack'), 0x01);
     mist4.setPosition(-650, -380);
     mist4.scrollFactor.set(0.6, 0.6);
-    mist4.blend = "add";
+    mist4.blend = 0;
     mist4.color = 0xFF9c77c7;
     mist4.alpha = 1;
     mist4.velocity.x = 700;
     mist4.scale.set(1.5, 1.5);
 	PlayState.instance.insert(PlayState.instance.members.indexOf(gf), mist4);
 
-    mist5 = new FlxBackdrop(Paths.image('limo/erect/mistMid'), 0x01);
+    mist5 = new FlxBackdrop(Paths.image('stages/limo/erect/mistMid'), 0x01);
     mist5.setPosition(-650, -400);
     mist5.scrollFactor.set(0.2, 0.2);
-    mist5.blend = "add";
+    mist5.blend = 0;
     mist5.color = 0xFFE7A480;
     mist5.alpha = 1;
     mist5.velocity.x = 100;
     mist5.scale.set(1.5, 1.5);
 	PlayState.instance.insert(PlayState.instance.members.indexOf(shootingStar), mist5);
     
-    shootingStar.blend = "add";
+    shootingStar.blend = 0;
 
     resetFastCar();
 }
@@ -131,9 +131,9 @@ function beatHit(beat:Int) {
 function resetFastCar() {
     if (fastCar == null) return;
 
+    fastCar.moves = true;
     fastCar.setPosition(-12600, FlxG.random.int(350, 380));
     fastCar.velocity.x = 0;
-    fastCar.active = true;
 
     fastCarCanDrive = true;
 }

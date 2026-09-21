@@ -24,9 +24,9 @@ function beatHit(beat:Int) {
 function resetFastCar() {
     if (fastCar == null) return;
 
+    fastCar.moves = true;
     fastCar.setPosition(-12600, FlxG.random.int(140, 250));
     fastCar.velocity.x = 0;
-    fastCar.active = true;
 
     fastCarCanDrive = true;
 }
