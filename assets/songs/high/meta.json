@@ -4,5 +4,8 @@
 	"icon": "mom",
 	"color": "#FC96D7",
 	"coopAllowed": true,
-	"opponentModeAllowed": true
+	"opponentModeAllowed": true,
+	"variants": [
+		"-erect"
+	]
 }

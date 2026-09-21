@@ -1,0 +1,359 @@
+{
+  "events": [
+    {
+      "time": 0,
+      "name": "Camera Movement",
+      "params": [0]
+    },
+    {
+      "time": 1777,
+      "name": "Camera Movement",
+      "params": [1]
+    },
+    {
+      "time": 3777,
+      "name": "Camera Movement",
+      "params": [0]
+    },
+    {
+      "time": 7333,
+      "name": "Camera Movement",
+      "params": [1]
+    },
+    {
+      "time": 10888,
+      "name": "Camera Movement",
+      "params": [0]
+    },
+    {
+      "time": 14222,
+      "name": "Camera Movement",
+      "params": [1]
+    },
+    {
+      "time": 17777,
+      "name": "Camera Movement",
+      "params": [0]
+    },
+    {
+      "time": 21333,
+      "name": "Camera Movement",
+      "params": [1]
+    },
+    {
+      "time": 24888,
+      "name": "Camera Movement",
+      "params": [0]
+    },
+    {
+      "time": 28444,
+      "name": "Camera Movement",
+      "params": [1]
+    },
+    {
+      "time": 32222,
+      "name": "Camera Movement",
+      "params": [0]
+    },
+    {
+      "time": 35777,
+      "name": "Camera Movement",
+      "params": [1]
+    },
+    {
+      "time": 39111,
+      "name": "Camera Movement",
+      "params": [2, true, 32, "expo", "Out", -100, 210]
+    },
+    {
+      "time": 39111.1111111111,
+      "name": "Camera Zoom",
+      "params": [true, 0.95, "camGame", 32, "expo", "Out", "stage", false]
+    },
+    {
+      "time": 42666,
+      "name": "Camera Zoom",
+      "params": [true, 1, "camGame", 32, "smoothStep", "InOut", "stage", false]
+    },
+    {
+      "time": 42666.6666666667,
+      "name": "Camera Movement",
+      "params": [1, true, 32, "smoothStep", "InOut", 60, 0]
+    },
+    {
+      "time": 44444,
+      "name": "Camera Zoom",
+      "params": [true, 1.1, "camGame", 6, "quad", "Out", "stage", false]
+    },
+    {
+      "time": 45333,
+      "name": "Camera Zoom",
+      "params": [true, 1.2, "camGame", 6, "quad", "Out", "stage", false]
+    },
+    {
+      "time": 46222,
+      "name": "Camera Zoom",
+      "params": [true, 1, "camGame", 8, "quad", "Out", "stage", false]
+    },
+    {
+      "time": 47999,
+      "name": "Camera Zoom",
+      "params": [true, 1.1, "camGame", 32, "expo", "Out", "stage", false]
+    },
+    {
+      "time": 48888,
+      "name": "Camera Zoom",
+      "params": [true, 1, "camGame", 32, "expo", "Out", "stage", false]
+    },
+    {
+      "time": 51555,
+      "name": "Camera Zoom",
+      "params": [true, 1.1, "camGame", 32, "expo", "Out", "stage", false]
+    },
+    {
+      "time": 52444,
+      "name": "Camera Zoom",
+      "params": [true, 1, "camGame", 32, "expo", "Out", "stage", false]
+    },
+    {
+      "time": 53333,
+      "name": "Camera Movement",
+      "params": [2, true, 32, "expo", "Out", -100, 210]
+    },
+    {
+      "time": 53333.3333333333,
+      "name": "Camera Zoom",
+      "params": [true, 0.95, "camGame", 32, "expo", "Out", "stage", false]
+    },
+    {
+      "time": 55111,
+      "name": "Camera Zoom",
+      "params": [true, 1.05, "camGame", 32, "expo", "Out", "stage", false]
+    },
+    {
+      "time": 55999,
+      "name": "Camera Zoom",
+      "params": [true, 0.95, "camGame", 32, "expo", "Out", "stage", false]
+    },
+    {
+      "time": 58666,
+      "name": "Camera Zoom",
+      "params": [true, 1.05, "camGame", 32, "expo", "Out", "stage", false]
+    },
+    {
+      "time": 59554,
+      "name": "Camera Zoom",
+      "params": [true, 0.95, "camGame", 32, "expo", "Out", "stage", false]
+    },
+    {
+      "time": 60444,
+      "name": "Camera Zoom",
+      "params": [true, 1, "camGame", 32, "expo", "Out", "stage", false]
+    },
+    {
+      "time": 60666,
+      "name": "Camera Movement",
+      "params": [0]
+    },
+    {
+      "time": 63999,
+      "name": "Camera Movement",
+      "params": [1]
+    },
+    {
+      "time": 65777,
+      "name": "Camera Zoom",
+      "params": [true, 1.1, "camGame", 32, "expo", "Out", "stage", false]
+    },
+    {
+      "time": 66666,
+      "name": "Camera Zoom",
+      "params": [true, 1, "camGame", 32, "expo", "Out", "stage", false]
+    },
+    {
+      "time": 67555,
+      "name": "Camera Movement",
+      "params": [2, true, 32, "expo", "Out", -100, 210]
+    },
+    {
+      "time": 67555.5555555555,
+      "name": "Camera Zoom",
+      "params": [true, 0.95, "camGame", 32, "expo", "Out", "stage", false]
+    },
+    {
+      "time": 71110,
+      "name": "Camera Zoom",
+      "params": [true, 1, "camGame", 32, "smoothStep", "InOut", "stage", false]
+    },
+    {
+      "time": 71111.1111111111,
+      "name": "Camera Movement",
+      "params": [1, true, 32, "smoothStep", "InOut", 60, 0]
+    },
+    {
+      "time": 72888,
+      "name": "Camera Zoom",
+      "params": [true, 1.1, "camGame", 6, "quad", "Out", "stage", false]
+    },
+    {
+      "time": 73777,
+      "name": "Camera Zoom",
+      "params": [true, 1.2, "camGame", 6, "quad", "Out", "stage", false]
+    },
+    {
+      "time": 74666,
+      "name": "Camera Zoom",
+      "params": [true, 1, "camGame", 8, "quad", "Out", "stage", false]
+    },
+    {
+      "time": 76444,
+      "name": "Camera Zoom",
+      "params": [true, 1.1, "camGame", 32, "expo", "Out", "stage", false]
+    },
+    {
+      "time": 78222,
+      "name": "Camera Zoom",
+      "params": [true, 1, "camGame", 32, "expo", "Out", "stage", false]
+    },
+    {
+      "time": 79999,
+      "name": "Camera Zoom",
+      "params": [true, 1.05, "camGame", 32, "expo", "Out", "stage", false]
+    },
+    {
+      "time": 80333,
+      "name": "Camera Zoom",
+      "params": [true, 1.1, "camGame", 32, "expo", "Out", "stage", false]
+    },
+    {
+      "time": 80888,
+      "name": "Camera Zoom",
+      "params": [true, 1, "camGame", 32, "expo", "Out", "stage", false]
+    },
+    {
+      "time": 81777,
+      "name": "Camera Movement",
+      "params": [2, true, 32, "expo", "Out", -100, 210]
+    },
+    {
+      "time": 81777.7777777778,
+      "name": "Camera Zoom",
+      "params": [true, 0.95, "camGame", 32, "expo", "Out", "stage", false]
+    },
+    {
+      "time": 83555,
+      "name": "Camera Zoom",
+      "params": [true, 1.05, "camGame", 32, "expo", "Out", "stage", false]
+    },
+    {
+      "time": 85333,
+      "name": "Camera Zoom",
+      "params": [true, 0.95, "camGame", 32, "expo", "Out", "stage", false]
+    },
+    {
+      "time": 87111,
+      "name": "Camera Zoom",
+      "params": [true, 1, "camGame", 32, "expo", "Out", "stage", false]
+    },
+    {
+      "time": 87444,
+      "name": "Camera Zoom",
+      "params": [true, 1.05, "camGame", 32, "expo", "Out", "stage", false]
+    },
+    {
+      "time": 87999,
+      "name": "Camera Zoom",
+      "params": [true, 0.95, "camGame", 32, "expo", "Out", "stage", false]
+    },
+    {
+      "time": 90666,
+      "name": "Camera Zoom",
+      "params": [true, 1.05, "camGame", 32, "expo", "Out", "stage", false]
+    },
+    {
+      "time": 91554,
+      "name": "Camera Zoom",
+      "params": [true, 0.95, "camGame", 32, "expo", "Out", "stage", false]
+    },
+    {
+      "time": 92444,
+      "name": "Camera Zoom",
+      "params": [true, 1, "camGame", 32, "smoothStep", "InOut", "stage", false]
+    },
+    {
+      "time": 92444.4444444444,
+      "name": "Camera Movement",
+      "params": [1, true, 32, "smoothStep", "InOut", 60, 0]
+    },
+    {
+      "time": 94222,
+      "name": "Camera Zoom",
+      "params": [true, 1.1, "camGame", 6, "quad", "Out", "stage", false]
+    },
+    {
+      "time": 94666,
+      "name": "Camera Zoom",
+      "params": [true, 1.2, "camGame", 6, "quad", "Out", "stage", false]
+    },
+    {
+      "time": 95111,
+      "name": "Camera Zoom",
+      "params": [true, 1.3, "camGame", 6, "quad", "Out", "stage", false]
+    },
+    {
+      "time": 95999,
+      "name": "Camera Movement",
+      "params": [2, true, 32, "expo", "Out", -100, 210]
+    },
+    {
+      "time": 96000,
+      "name": "Camera Zoom",
+      "params": [true, 0.95, "camGame", 32, "expo", "Out", "stage", false]
+    },
+    {
+      "time": 97777,
+      "name": "Camera Zoom",
+      "params": [true, 1.05, "camGame", 32, "expo", "Out", "stage", false]
+    },
+    {
+      "time": 98665,
+      "name": "Camera Zoom",
+      "params": [true, 0.95, "camGame", 32, "expo", "Out", "stage", false]
+    },
+    {
+      "time": 101333,
+      "name": "Camera Zoom",
+      "params": [true, 1.05, "camGame", 32, "expo", "Out", "stage", false]
+    },
+    {
+      "time": 102221,
+      "name": "Camera Zoom",
+      "params": [true, 0.95, "camGame", 32, "expo", "Out", "stage", false]
+    },
+    {
+      "time": 103111,
+      "name": "Camera Movement",
+      "params": [0]
+    },
+    {
+      "time": 103111.111111111,
+      "name": "Camera Zoom",
+      "params": [true, 1, "camGame", 32, "expo", "Out", "stage", false]
+    },
+    {
+      "time": 104888,
+      "name": "Camera Movement",
+      "params": [1]
+    },
+    {
+      "time": 106666,
+      "name": "Camera Movement",
+      "params": [0]
+    },
+    {
+      "time": 108444,
+      "name": "Camera Movement",
+      "params": [1]
+    }
+  ]
+}
