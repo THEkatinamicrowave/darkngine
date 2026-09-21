@@ -1,0 +1,48 @@
+<!DOCTYPE codename-engine-stage>
+<stage zoom="0.9" name="limoErect" folder="stages/limo/erect" startCamPosY="400">
+	<sprite name="limoSunset" x="-180" y="-80" sprite="limoSunset" scroll="0.1"/>
+	<sprite name="shootingStar" sprite="shooting star" x="200" scroll="0.12">
+		<anim name="shooting star" anim="shooting star"/>
+	</sprite>
+	<sprite name="bgLimo" x="-200" y="480" sprite="bgLimo" scroll="0.4"/>
+
+	<sprite name="limoDancer1" x="100" y="100" sprite="henchmen" scroll="0.4" type="onbeat" beatInterval="1">
+		<anim name="danceLeft" anim="hench dancing" loop="false" indices="0,1,2,3,4,5,6,7,8,9,10,11,12,13,14"/>
+		<anim name="danceRight" anim="hench dancing" loop="false" indices="15,16,17,18,19,20,21,22,23,24,25,26,27,28,29"/>
+		<anim name="hit1" anim="hench hit 1" loop="false" x="-350"/>
+		<anim name="hit2" anim="hench hit 2" loop="false" x="-250" y="-100"/>
+	</sprite>
+	<sprite name="limoDancer2" x="400" y="100" sprite="henchmen" scroll="0.4" type="onbeat" beatInterval="1">
+		<anim name="danceLeft" anim="hench dancing" loop="false" indices="0,1,2,3,4,5,6,7,8,9,10,11,12,13,14"/>
+		<anim name="danceRight" anim="hench dancing" loop="false" indices="15,16,17,18,19,20,21,22,23,24,25,26,27,28,29"/>
+		<anim name="hit1" anim="hench hit 1" loop="false" x="-350"/>
+		<anim name="hit2" anim="hench hit 2" loop="false" x="-250" y="-100"/>
+	</sprite>
+	<sprite name="limoDancer3" x="700" y="100" sprite="henchmen" scroll="0.4" type="onbeat" beatInterval="1">
+		<anim name="danceLeft" anim="hench dancing" loop="false" indices="0,1,2,3,4,5,6,7,8,9,10,11,12,13,14"/>
+		<anim name="danceRight" anim="hench dancing" loop="false" indices="15,16,17,18,19,20,21,22,23,24,25,26,27,28,29"/>
+		<anim name="hit1" anim="hench hit 1" loop="false" x="-350"/>
+		<anim name="hit2" anim="hench hit 2" loop="false" x="-250" y="-100"/>
+	</sprite>
+	<sprite name="limoDancer4" x="1000" y="100" sprite="henchmen" scroll="0.4" type="onbeat" beatInterval="1">
+		<anim name="danceLeft" anim="hench dancing" loop="false" indices="0,1,2,3,4,5,6,7,8,9,10,11,12,13,14"/>
+		<anim name="danceRight" anim="hench dancing" loop="false" indices="15,16,17,18,19,20,21,22,23,24,25,26,27,28,29"/>
+		<anim name="hit1" anim="hench hit 1" loop="false" x="-350"/>
+		<anim name="hit2" anim="hench hit 2" loop="false" x="-250" y="-100"/>
+	</sprite>
+	<sprite name="limoDancer5" x="1300" y="100" sprite="henchmen" scroll="0.4" type="onbeat" beatInterval="1">
+		<anim name="danceLeft" anim="hench dancing" loop="false" indices="0,1,2,3,4,5,6,7,8,9,10,11,12,13,14"/>
+		<anim name="danceRight" anim="hench dancing" loop="false" indices="15,16,17,18,19,20,21,22,23,24,25,26,27,28,29"/>
+		<anim name="hit1" anim="hench hit 1" loop="false" x="-350"/>
+		<anim name="hit2" anim="hench hit 2" loop="false" x="-250" y="-100"/>
+	</sprite>
+
+	<girlfriend x="710" y="779"/>
+
+	<sprite name="limo" x="-120" y="520" sprite="limoDrive"/>
+
+	<dad x="200" y="840" camxoffset="150"/>
+	<boyfriend x="1217" y="535" camxoffset="-300" camyoffset="-100"/>
+
+	<sprite name="fastCar" x="-12600" y="160" sprite="fastCarLol"/>
+</stage>

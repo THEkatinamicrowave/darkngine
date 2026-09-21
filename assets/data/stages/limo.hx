@@ -5,11 +5,11 @@ function postCreate() {
     for (sound in ['carPass0', 'carPass1'])
       	FlxG.sound.load(Paths.sound(sound));
 
-    var sunOverlay:FlxSprite = new FlxSprite().loadGraphic(Paths.image('stages/limo/limoOverlay'));
+	var sunOverlay:FlxSprite = new FlxSprite().loadGraphic(Paths.image('stages/limo/limoOverlay'));
     sunOverlay.setGraphicSize(Std.int(sunOverlay.width * 2));
     sunOverlay.updateHitbox();
 	
-	var skyOverlay:FunkinShader = FunkinShader.fromFile(Paths.fragShader(('overlayBlend')));
+	var skyOverlay:FunkinShader = FunkinShader.fromFile(Paths.fragShader('overlayBlend'));
     skyOverlay.olayPixels = sunOverlay.pixels;
     limoSunset.shader = skyOverlay;
 

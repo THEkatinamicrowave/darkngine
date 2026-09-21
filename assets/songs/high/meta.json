@@ -6,6 +6,6 @@
 	"coopAllowed": true,
 	"opponentModeAllowed": true,
 	"variants": [
-		"-erect"
+		"erect"
 	]
 }
