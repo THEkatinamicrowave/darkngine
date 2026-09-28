@@ -143,6 +143,8 @@ class Flags {
 	public static var DEFAULT_COOP_ALLOWED:Bool = false;
 	public static var DEFAULT_OPPONENT_MODE_ALLOWED:Bool = false;
 
+	public static var ALLOW_CENTERED_FIELDS:Bool = true; // Whether or not, `Options.centeredFields` (AKA "Middlescroll") will have an effect.
+
 	@:also(funkin.game.PlayState.coopMode)
 	public static var DEFAULT_COOP_MODE:Bool = false; // used in playstate if it doesn't find it
 	@:also(funkin.game.PlayState.opponentMode)

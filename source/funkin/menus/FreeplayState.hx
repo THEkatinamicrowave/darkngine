@@ -210,6 +210,7 @@ class FreeplayState extends MusicBeatState
 		if (Math.abs(lerpScore - intendedScore) <= 10)
 			lerpScore = intendedScore;
 
+		var selectedAnotherSong:Bool = false;
 		if (canSelect) {
 			changeSelection((controls.UP_P ? -1 : 0) + (controls.DOWN_P ? 1 : 0) - FlxG.mouse.wheel);
 			changeDiff((controls.LEFT_P ? -1 : 0) + (controls.RIGHT_P ? 1 : 0));
@@ -220,6 +221,7 @@ class FreeplayState extends MusicBeatState
 				for (index => sprite in grpSongs.members) {
 					if (curSelected != index && FlxG.mouse.overlaps(sprite)) {
 						changeSelection(index - curSelected);
+						selectedAnotherSong = true;
 						break;
 					}
 				}
@@ -250,7 +252,7 @@ class FreeplayState extends MusicBeatState
 			convertChart();
 		#end
 
-		if ((controls.ACCEPT || (FlxG.mouse.justPressed && grpSongs?.members[curSelected] != null
+		if ((controls.ACCEPT || (!selectedAnotherSong && FlxG.mouse.justPressed && grpSongs?.members[curSelected] != null
 			&& FlxG.mouse.overlaps(grpSongs.members[curSelected]))))
 		{
 			select();
