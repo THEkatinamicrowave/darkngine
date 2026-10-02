@@ -2,11 +2,8 @@ package funkin.menus.ui;
 
 import flixel.graphics.FlxGraphic;
 import flixel.util.FlxColor;
-import flixel.util.typeLimit.OneOfTwo;
 import openfl.display.BitmapData;
 import openfl.geom.ColorTransform;
-import openfl.geom.Point;
-import lime.utils.Assets;
 
 class MenuBG extends FlxGraphic
 {
@@ -16,7 +13,7 @@ class MenuBG extends FlxGraphic
         super("MenuBG_" + color1 + "_" + color2, bmp);
     }
 
-	public static function makeSprite(color1:FlxColor, color2:FlxColor, funkin:Bool = false, x:Float = 0, y:Float = 0):OneOfTwo<FlxSprite, FunkinSprite>
+	public static function makeSprite(color1:FlxColor, color2:FlxColor, funkin:Bool = false, x:Float = 0, y:Float = 0):FlxSprite
 	{
 		var spr = funkin ? new FunkinSprite(x, y) : new FlxSprite(x, y);
 		spr.loadGraphic(new MenuBG(color1, color2));
@@ -26,33 +23,18 @@ class MenuBG extends FlxGraphic
 
     private function generateBitmap(color1:FlxColor, color2:FlxColor):BitmapData
 	{
-		function getMergedChannel(shift:Int, mixAmount:Float):Int
-		{
-			var c1 = (color1 >> shift) & 0xFF;
-			var c2 = (color2 >> shift) & 0xFF;
-			return Std.int(c2 + (c1 - c2) * mixAmount);
-		}
+        var src = BitmapData.fromImage(LimeAssets.getImage(Paths.image("menus/bg")));
+        var out = src.clone();
 
-		var src = BitmapData.fromImage(Assets.getImage(Paths.image("menus/bg")));
-		var w = src.width;
-		var h = src.height;
+        var tint1 = colToVec3(color1);
+        var tint2 = colToVec3(color2);
+        var transform = new ColorTransform(
+            (tint1[0] - tint2[0]), (tint1[1] - tint2[1]), (tint1[2] - tint2[2]), 1,
+            tint2[0] * 255, tint2[1] * 255, tint2[2] * 255, 0
+        );
+        out.colorTransform(out.rect, transform);
 
-		var out = new BitmapData(w, h, true, 0x00000000);
-
-		for (y in 0...h) for (x in 0...w)
-		{
-			var px = src.getPixel32(x, y);
-			var brightness = (px & 0xFF) / 255; // it's black and white; we don't need rgba shit
-
-			var alpha = getMergedChannel(24, brightness);
-			var red = getMergedChannel(16, brightness);
-			var green = getMergedChannel(8, brightness);
-			var blue = getMergedChannel(0, brightness);
-
-			out.setPixel32(x, y, (alpha << 24) | (red << 16) | (green << 8) | blue);
-		}
-
-		return out;
+        return out;
 	}
 }
 
