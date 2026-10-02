@@ -2,6 +2,7 @@ package funkin.menus.ui;
 
 import flixel.graphics.FlxGraphic;
 import flixel.util.FlxColor;
+import flixel.util.typeLimit.OneOfTwo;
 import openfl.display.BitmapData;
 import openfl.geom.ColorTransform;
 
@@ -13,7 +14,7 @@ class MenuBG extends FlxGraphic
         super("MenuBG_" + color1 + "_" + color2, bmp);
     }
 
-	public static function makeSprite(color1:FlxColor, color2:FlxColor, funkin:Bool = false, x:Float = 0, y:Float = 0):FlxSprite
+	public static function makeSprite(color1:FlxColor, color2:FlxColor, funkin:Bool = false, x:Float = 0, y:Float = 0):OneOfTwo<FlxSprite, FunkinSprite>
 	{
 		var spr = funkin ? new FunkinSprite(x, y) : new FlxSprite(x, y);
 		spr.loadGraphic(new MenuBG(color1, color2));
@@ -26,11 +27,12 @@ class MenuBG extends FlxGraphic
         var src = BitmapData.fromImage(LimeAssets.getImage(Paths.image("menus/bg")));
         var out = src.clone();
 
-        var tint1 = colToVec3(color1);
-        var tint2 = colToVec3(color2);
+		var red1:Float = color1.redFloat, green1:Float = color1.greenFloat, blue1:Float = color1.blueFloat, alpha1:Float = color1.alphaFloat;
+		var red2:Float = color2.redFloat, green2:Float = color2.greenFloat, blue2:Float = color2.blueFloat, alpha2:Float = color2.alphaFloat;
+
         var transform = new ColorTransform(
-            (tint1[0] - tint2[0]), (tint1[1] - tint2[1]), (tint1[2] - tint2[2]), 1,
-            tint2[0] * 255, tint2[1] * 255, tint2[2] * 255, 0
+            red1 - red2, green1 - green2, blue1 - blue2, alpha1 - alpha2,
+            red2 * 255, green2 * 255, blue2 * 255, alpha2 * 255
         );
         out.colorTransform(out.rect, transform);
 

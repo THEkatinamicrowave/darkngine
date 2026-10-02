@@ -13,6 +13,9 @@ import funkin.game.PlayState;
 import funkin.backend.scripting.EventManager;
 
 import openfl.utils.Assets;
+#if lime
+import lime.utils.Assets as LimeAssets;
+#end
 
 import flixel.FlxSprite;
 import flixel.FlxG;
