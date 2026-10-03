@@ -75,6 +75,7 @@ function onCountdown(event) {
 
 function onRatingsShown(event:RatingsShowEvent) {
 	if (!enablePixelUI) return;
+
 	event.ratingPrefix = "stages/school/ui/";
 	event.ratingScale = daPixelZoom * 0.7;
 	event.ratingAntialiasing = false;
@@ -104,24 +105,6 @@ function postCreate() {
 		retrySFX = "pixel/gameOverEnd";
 	}
 }
-
-/*function onStartCountdown() {
-	var newNoteCamera = new HudCamera();
-	newNoteCamera.bgColor = 0; // transparent
-	FlxG.cameras.add(newNoteCamera, false);
-
-	var pixelSwagWidth = Note.swagWidth + (daPixelZoom - (Note.swagWidth % daPixelZoom));
-
-	for (p in strumLines) {
-		var i = 0;
-		for (str in p.members) {
-			str.x = (FlxG.width * strumOffset) + (pixelSwagWidth * (i - 2));
-			str.x -= str.x % daPixelZoom;
-			i++;
-		}
-	}
-	makeCameraPixely(newNoteCamera);
-}*/
 
 /**
  * Use this to make any camera pixelly (you wont be able to zoom with it anymore!)
@@ -153,7 +136,7 @@ var pixellyCameras = [];
 var pixellyShaders = [];
 
 function postUpdate() {
-	for (e in pixellyCameras) if (Std.isOfType(e, HudCamera))
+	for (e in pixellyCameras) if (e is HudCamera)
 		e.downscroll = camHUD.downscroll;
 
 	if (enableCameraHacks) for (p in strumLines) {
