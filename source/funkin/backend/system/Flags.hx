@@ -366,10 +366,10 @@ class Flags {
 
 
 		if(MOD_ICON == null && MOD_ICON16 == null && MOD_ICON24 == null && MOD_ICON32 == null){ //theres probably a better way to do this
-			MOD_ICON = "art/iconOG";
-			MOD_ICON16 = "art/icon16";
-			MOD_ICON24 = "art/icon16";
-			MOD_ICON32 = "art/icon32";
+			MOD_ICON = "iconOG";
+			MOD_ICON16 = "icon16";
+			MOD_ICON24 = "icon16";
+			MOD_ICON32 = "icon32";
 		}
 
 		var temp:String;
