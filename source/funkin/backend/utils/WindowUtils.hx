@@ -66,8 +66,8 @@ final class WindowUtils {
 			else if (metric <= 24) path = Flags.MOD_ICON24;
 			else if (metric <= 32) path = Flags.MOD_ICON32;
 			else {
-				return;
 				//path = Flags.MOD_ICON;
+				path = null;
 			}
 
 			if (Assets.exists(path)) {
