@@ -1,17 +1,17 @@
 <!DOCTYPE codename-engine-character>
-<character x="-230" y="-350" flipX="true" camx="120" camy="125" isPlayer="true" icon="bf" color="#31B0D1">
-	<anim name="idle" anim="BF idle dance"/>
-	<anim name="singUP" anim="BF NOTE UP0" x="-24" y="27"/>
-	<anim name="singLEFT" anim="BF NOTE LEFT0" x="17" y="-6"/>
-	<anim name="singRIGHT" anim="BF NOTE RIGHT0" x="-33" y="-7"/>
-	<anim name="singDOWN" anim="BF NOTE DOWN0" x="-5" y="-50"/>
-	<anim name="singUPmiss" anim="BF NOTE UP MISS" x="-24" y="27"/>
-	<anim name="singLEFTmiss" anim="BF NOTE LEFT MISS" x="17" y="24"/>
-	<anim name="singRIGHTmiss" anim="BF NOTE RIGHT MISS" x="-25" y="21"/>
-	<anim name="singDOWNmiss" anim="BF NOTE DOWN MISS" x="-6" y="-19"/>
-	<anim name="idle-loop" anim="BF idle dance" loop="true" indices="10..13"/>
-	<anim name="singUP-loop" anim="BF NOTE UP0" x="-24" y="27" loop="true" indices="11..14"/>
-	<anim name="singLEFT-loop" anim="BF NOTE LEFT0" x="17" y="-6" loop="true" indices="12..15"/>
-	<anim name="singRIGHT-loop" anim="BF NOTE RIGHT0" x="-33" y="-7" loop="true" indices="58..61"/>
-	<anim name="singDOWN-loop" anim="BF NOTE DOWN0" x="-5" y="-50" loop="true" indices="26..29"/>
+<character x="-30" y="-151" flipX="true" camx="120" camy="125" isPlayer="true" icon="bf" color="#31B0D1" applyStageMatrix="true">
+	<anim name="idle" anim="Idle" label="true"/>
+	<anim name="singUP" anim="Up" label="true"/>
+	<anim name="singLEFT" anim="Left" label="true"/>
+	<anim name="singRIGHT" anim="Right" label="true"/>
+	<anim name="singDOWN" anim="Down" label="true"/>
+	<anim name="singUPmiss" anim="Up Miss" label="true"/>
+	<anim name="singLEFTmiss" anim="Left Miss" label="true"/>
+	<anim name="singRIGHTmiss" anim="Right Miss" label="true"/>
+	<anim name="singDOWNmiss" anim="Down Miss" label="true"/>
+	<anim name="idle-loop" anim="Idle" label="true" loop="true" indices="10..13"/>
+	<anim name="singUP-loop" anim="Up" label="true" loop="true" indices="10..13"/>
+	<anim name="singLEFT-loop" anim="Left" label="true" loop="true" indices="10..13"/>
+	<anim name="singRIGHT-loop" anim="Right" label="true" loop="true" indices="10..13"/>
+	<anim name="singDOWN-loop" anim="Down" label="true" loop="true" indices="10..13"/>
 </character>

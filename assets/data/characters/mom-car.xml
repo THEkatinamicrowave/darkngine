@@ -1,13 +1,13 @@
 <!DOCTYPE codename-engine-character>
-<character x="-145" y="-760" camx="-200" camy="125" icon="mom" color="#D8558E">
-	<anim name="idle" anim="Mom Idle"/>
-	<anim name="singUP" anim="Mom Up Pose" x="-1" y="81"/>
-	<anim name="singDOWN" anim="MOM DOWN POSE" x="-12" y="-160"/>
-	<anim name="singLEFT" anim="Mom Left Pose" x="250" y="-23"/>
-	<anim name="singRIGHT" anim="Mom Pose Left" x="-15" y="-55"/>
-	<anim name="idle-loop" anim="Mom Idle" loop="true" indices="10..13"/>
-	<anim name="singUP-loop" anim="Mom Up Pose" x="-1" y="81" loop="true" indices="11..14"/>
-	<anim name="singDOWN-loop" anim="MOM DOWN POSE" x="-12" y="-160" loop="true" indices="11..14"/>
-	<anim name="singLEFT-loop" anim="Mom Left Pose" x="250" y="-23" loop="true" indices="6..9"/>
-	<anim name="singRIGHT-loop" anim="Mom Pose Left" x="-15" y="-55" loop="true" indices="6..9"/>
+<character x="70" y="-340" sprite="momCar" camx="-200" camy="30" icon="mom" color="#D8558E" applyStageMatrix="true">
+	<anim name="idle" anim="Mom Idle" label="true"/>
+	<anim name="singUP" anim="Mom Up Pose" label="true" x="-4" y="66"/>
+	<anim name="singDOWN" anim="MOM DOWN POSE" label="true" x="17" y="-88"/>
+	<anim name="singLEFT" anim="Mom Left Pose" label="true" x="209" y="-17"/>
+	<anim name="singRIGHT" anim="Mom Pose Left" label="true" x="-69" y="-33"/>
+	<anim name="idle-loop" anim="Mom Idle" label="true" loop="true" indices="10..12"/>
+	<anim name="singUP-loop" anim="Mom Up Pose" label="true" x="-4" y="66" loop="true" indices="1..13"/>
+	<anim name="singDOWN-loop" anim="MOM DOWN POSE" label="true" x="17" y="-88" loop="true" indices="2..13"/>
+	<anim name="singLEFT-loop" anim="Mom Left Pose" label="true" x="209" y="-17" loop="true" indices="2..8"/>
+	<anim name="singRIGHT-loop" anim="Mom Pose Left" label="true" x="-69" y="-33" loop="true" indices="2..8"/>
 </character>

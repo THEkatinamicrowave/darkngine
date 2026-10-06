@@ -1,15 +1,15 @@
 <!DOCTYPE codename-engine-character>
-<character x="-200" y="-325" camx="50" camy="100" centercam="false" color="#A5004D" applyStageMatrix="true">
+<character x="-200" y="-325" camx="50" icon="gf" color="#A5004D" applyStageMatrix="true">
 	<anim name="cheer" anim="Cheer" label="true"/>
 	<anim name="singUP" anim="Up" label="true"/>
 	<anim name="singLEFT" anim="Left" label="true"/>
 	<anim name="singRIGHT" anim="Right" label="true"/>
 	<anim name="singDOWN" anim="Down" label="true"/>
-	<anim name="danceLeft" anim="Idle" indices="0..14" label="true"/>
-	<anim name="danceRight" anim="Idle" indices="15..29" label="true"/>
-	<anim name="hairBlow" anim="Idle (Hair blowing)" loop="true" indices="0..3" label="true"/>
-	<anim name="hairFall" anim="Hair landing" indices="0..11" label="true"/>
-	<anim name="scared" anim="Fear" indices="0..3, 0..3, 0..3" label="true"/>
-	<anim name="sad" anim="Crying" indices="0..12" label="true"/>
+	<anim name="danceLeft" anim="Idle" label="true" indices="0..14"/>
+	<anim name="danceRight" anim="Idle" label="true" indices="15..29"/>
+	<anim name="hairBlow" anim="Idle (Hair blowing)" label="true" loop="true" indices="0..3"/>
+	<anim name="hairFall" anim="Hair landing" label="true" indices="0..11"/>
+	<anim name="scared" anim="Fear" label="true" indices="0..3,0..3,0..3"/>
+	<anim name="sad" anim="Crying" label="true" indices="0..12"/>
 	<anim name="combo50" anim="Cheer" label="true"/>
 </character>
