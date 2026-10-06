@@ -1,8 +1,8 @@
 <!DOCTYPE codename-engine-character>
-<character x="-300" y="-659" camx="-70" camy="70" icon="monster" color="#F3FF6E">
-	<anim name="idle" anim="monster idle"/>
-	<anim name="singUP" anim="monster up note" x="-26" y="57"/>
-	<anim name="singRIGHT" anim="Monster left note" x="-34" y="10"/>
-	<anim name="singLEFT" anim="Monster Right note" x="-41" y="5"/>
-	<anim name="singDOWN" anim="monster down" x="-50" y="-92"/>
+<character x="-200" y="-825" sprite="monster" camx="530" camy="600" icon="monster" color="#F3FF6E" applyStageMatrix="true">
+	<anim name="idle" anim="Idle" label="true"/>
+	<anim name="singDOWN" anim="Down" label="true"/>
+	<anim name="singRIGHT" anim="Up" label="true"/>
+	<anim name="singLEFT" anim="Left" label="true"/>
+	<anim name="singUP" anim="Up" label="true"/>
 </character>
