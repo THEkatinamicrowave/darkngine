@@ -59,8 +59,8 @@ class Framerate extends Sprite {
 
 		isLoaded = true;
 
-		x = 10;
-		y = 2;
+		x = 10 + offset.x * FlxG.scaleMode.scale.x;
+		y = 2 + offset.y * FlxG.scaleMode.scale.y;
 
 		if (__bitmap == null)
 			__bitmap = new BitmapData(1, 1, 0xFF000000);
