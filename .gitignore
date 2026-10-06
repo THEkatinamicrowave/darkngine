@@ -15,3 +15,5 @@ addons/*
 dev-libs/
 *.sum
 .vs/
+
+assets/UNPORTED/
