@@ -185,12 +185,12 @@
 	<library name="assets"    preload="false" if="NO_PRELOAD_ALL" />
 
 	<section unless="TEST_BUILD">
-		<assets path="assets/"    rename="assets"	exclude="*.ogg, UNPORTED/**" if="web"/>
-		<assets path="assets/"    rename="assets"	exclude="*.mp3, UNPORTED/**" unless="web"/>
+        <assets path="assets/"    rename="assets"   exclude="*.ogg|UNPORTED/**" if="web"/>
+        <assets path="assets/"    rename="assets"   exclude="*.mp3|UNPORTED/**" unless="web"/>
 
-		<!-- TODO: make it copy this manually, instead of using assets node, so it doesn't manually check for fonts -->
-		<assets path='mods' rename='mods' embed='false' />
-	</section>
+        <!-- TODO: make it copy this manually, instead of using assets node, so it doesn't manually check for fonts -->
+        <assets path='mods' rename='mods' embed='false' />
+    </section>
 
 	<assets path='art/readme.txt' rename='MAYBE readme.txt' />
 
