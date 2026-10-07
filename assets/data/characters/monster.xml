@@ -4,5 +4,5 @@
 	<anim name="singDOWN" anim="Down" label="true"/>
 	<anim name="singRIGHT" anim="Up" label="true"/>
 	<anim name="singLEFT" anim="Left" label="true"/>
-	<anim name="singUP" anim="Up" label="true"/>
+	<anim name="singUP" anim="Right" label="true"/>
 </character>
