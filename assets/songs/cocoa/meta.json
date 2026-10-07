@@ -11,6 +11,9 @@
 	"stepsPerBeat": 4,
 	"displayName": "Cocoa",
 	"beatsPerMeasure": 4,
-	"needsVoices": false,
+	"needsVoices": true,
+	"variants": [
+		"erect"
+	],
 	"bpm": 100
 }

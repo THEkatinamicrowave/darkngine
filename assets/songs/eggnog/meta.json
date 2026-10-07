@@ -7,9 +7,13 @@
 		"hard"
 	],
 	"coopAllowed": false,
+	"color": "#9271FD",
 	"stepsPerBeat": 4,
 	"displayName": "Eggnog",
-	"needsVoices": false,
 	"beatsPerMeasure": 4,
+	"needsVoices": true,
+	"variants": [
+		"erect"
+	],
 	"bpm": 150
 }

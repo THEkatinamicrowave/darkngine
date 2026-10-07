@@ -1,0 +1,20 @@
+<!DOCTYPE codename-engine-stage>
+<stage zoom="0.8" name="mallErect" folder="stages/mall/erect/" startCamPosY="450" startCamPosX="500">
+	<sprite name="bgWalls" x="-726" y="-566" sprite="bgWalls" scale="0.9" scroll="0.2" updateHitbox="true"/>
+	<sprite name="upperBoppers" x="-374" y="-98" sprite="upperBop" scale="0.85" scroll="0.28" type="onbeat" beatInterval="1" updateHitbox="true"/>
+	<sprite name="bgEscalator" x="-1100" y="-540" sprite="bgEscalator" scroll="0.3" scale="0.9" updateHitbox="true"/>
+	<sprite name="tree" x="370" y="-250" sprite="christmasTree" scroll="0.4"/>
+	<sprite name="fog" x="-1000" y="100" sprite="white" scale="0.9" scroll="0.85" updateHitbox="true"/>
+	<sprite name="bottomBoppers" x="-300" y="-200" sprite="bottomBop" scroll="0.9" type="onbeat" beatInterval="1">
+		<anim name="idle" anim="BOPPERS_EXPORT"/>
+	</sprite>
+
+	<box name="snowUnder" x="-1300" y="800" width="5400" height="3000" color="#F3F4F5"/>
+	<sprite name="fgSnow" x="-1150" y="680" sprite="../fgSnow" scalex="1.1" updateHitbox="true"/>
+
+	<girlfriend x="829" y="782"/>
+	<dad x="95" y="820" camxoffset="50" camyoffset="-100"/>
+	<boyfriend x="1177" y="871" camxoffset="-300" camyoffset="-200"/>
+
+	<sprite name="santa" x="-840" y="150" sprite="../santa" type="onbeat" beatInterval="1"/>
+</stage>
