@@ -1,5 +1,5 @@
 <!DOCTYPE codename-engine-character>
-<character x="-50" y="-335" antialiasing="false" camx="-50" camy="75" color="#C45EAE" applyStageMatrix="true">
+<character x="-50" y="-335" camx="-50" camy="75" color="#C45EAE" applyStageMatrix="true">
 	<anim name="idle" anim="Parent Christmas Idle" label="true"/>
 	<anim name="singUP" anim="Parent Up Note Dad" label="true" x="-10" y="13"/>
 	<anim name="singDOWN" anim="Parent Down Note Dad" label="true" x="-28" y="-8"/>
