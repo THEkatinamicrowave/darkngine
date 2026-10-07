@@ -1,0 +1,2 @@
+function onNoteHit(event) if (event.noteType == "Censor Anim Note") event.animSuffix = "-censor";
+function onPlayerMiss(event) if (event.noteType == "Censor Anim Note") event.animSuffix = "miss-censor";

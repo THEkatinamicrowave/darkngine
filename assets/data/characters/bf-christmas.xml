@@ -1,13 +1,17 @@
 <!DOCTYPE codename-engine-character>
-<character x="-230" y="-350" flipX="true" camx="100" camy="100" isPlayer="true" icon="bf" color="#31B0D1">
+<character x="-229" y="-351" flipX="true" camx="100" camy="100" isPlayer="true" icon="bf" color="#31B0D1">
+	<spritesheet path="characters/bfChristmas"/>
+	<spritesheet path="characters/bfChristmas_Censored"/>
 	<anim name="idle" anim="BF idle dance"/>
-	<anim name="singUP" anim="BF NOTE UP0" x="-34" y="27"/>
-	<anim name="singLEFT" anim="BF NOTE LEFT0" x="11" y="-7"/>
-	<anim name="singRIGHT" anim="BF NOTE RIGHT0" x="-43" y="-6"/>
-	<anim name="singDOWN" anim="BF NOTE DOWN0" x="-12" y="-50"/>
+	<anim name="singUP" anim="BF NOTE UP0" x="-39" y="29"/>
+	<anim name="singLEFT" anim="BF NOTE LEFT0" x="9" y="-6"/>
+	<anim name="singRIGHT" anim="BF NOTE RIGHT0" x="-48" y="-6"/>
+	<anim name="singDOWN" anim="BF NOTE DOWN0" x="-12" y="-53"/>
 	<anim name="singUPmiss" anim="BF NOTE UP MISS" x="-30" y="27"/>
 	<anim name="singLEFTmiss" anim="BF NOTE LEFT MISS" x="11" y="19"/>
 	<anim name="singRIGHTmiss" anim="BF NOTE RIGHT MISS" x="-39" y="22"/>
 	<anim name="singDOWNmiss" anim="BF NOTE DOWN MISS" x="-11" y="-19"/>
 	<anim name="hey" anim="BF HEY" x="2" y="6"/>
+	<anim name="singRIGHT-censor" anim="bf swear right" x="-48" y="-6"/>
+	<anim name="singDOWN-censor" anim="bf swear down" x="-12" y="-53"/>
 </character>

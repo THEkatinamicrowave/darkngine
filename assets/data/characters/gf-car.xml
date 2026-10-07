@@ -1,5 +1,5 @@
 <!DOCTYPE codename-engine-character>
-<character x="-200" y="-325" sprite="gfCar" camx="50" camy="0" centercam="false" icon="gf" color="#A5004D" applyStageMatrix="true">
+<character x="-220" y="-325" sprite="gfCar" camx="50" camy="0" centercam="false" icon="gf" color="#A5004D" applyStageMatrix="true">
 	<anim name="danceLeft" anim="Idle" indices="0..14" label="true"/>
 	<anim name="danceLeft-hold" anim="Idle" indices="10..12,25..27" label="true"/>
 	<anim name="danceRight" anim="Idle" indices="15..29" label="true"/>

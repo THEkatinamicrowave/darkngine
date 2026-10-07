@@ -1,21 +1,21 @@
 <!DOCTYPE codename-engine-character>
-<character x="-475" y="-720" camx="-50" camy="75" color="#C45EAE">
-	<anim name="idle" anim="Parent Christmas Idle"/>
-	<anim name="singUP" anim="Parent Up Note Dad" x="-47" y="25"/>
-	<anim name="singDOWN" anim="Parent Down Note Dad" x="-33" y="-25"/>
-	<anim name="singLEFT" anim="Parent Left Note Dad" x="-28" y="20"/>
-	<anim name="singRIGHT" anim="Parent Right Note Dad" y="-20"/>
-	<anim name="idle-loop" anim="Parent Christmas Idle" loop="true" indices="11,11..13"/>
-	<anim name="singUP-loop" anim="Parent Up Note Dad" x="-47" y="25" loop="true" indices="10..13"/>
-	<anim name="singDOWN-loop" anim="Parent Down Note Dad" x="-33" y="-25" loop="true" indices="11..14"/>
-	<anim name="singLEFT-loop" anim="Parent Left Note Dad" x="-28" y="20" loop="true" indices="12..15"/>
-	<anim name="singRIGHT-loop" anim="Parent Right Note Dad" y="-20" loop="true" indices="12..15"/>
-	<anim name="singUP-alt" anim="Parent Up Note Mom" x="-47" y="28"/>
-	<anim name="singDOWN-alt" anim="Parent Down Note Mom" x="-33" y="-25"/>
-	<anim name="singLEFT-alt" anim="Parent Left Note Mom" x="-28" y="19"/>
-	<anim name="singRIGHT-alt" anim="Parent Right Note Mom" y="-19"/>
-	<anim name="singUP-alt-loop" anim="Parent Up Note Mom" x="-47" y="28" loop="true" indices="10..13"/>
-	<anim name="singDOWN-alt-loop" anim="Parent Down Note Mom" x="-33" y="-25" loop="true" indices="11..14"/>
-	<anim name="singLEFT-alt-loop" anim="Parent Left Note Mom" x="-28" y="19" loop="true" indices="11..14"/>
-	<anim name="singRIGHT-alt-loop" anim="Parent Right Note Mom" y="-19" loop="true" indices="11..14"/>
+<character x="-50" y="-335" antialiasing="false" camx="-50" camy="75" color="#C45EAE" applyStageMatrix="true">
+	<anim name="idle" anim="Parent Christmas Idle" label="true"/>
+	<anim name="singUP" anim="Parent Up Note Dad" label="true" x="-10" y="13"/>
+	<anim name="singDOWN" anim="Parent Down Note Dad" label="true" x="-28" y="-8"/>
+	<anim name="singLEFT" anim="Parent Left Note Dad" label="true" x="14" y="16"/>
+	<anim name="singRIGHT" anim="Parent Right Note Dad" label="true" x="-37" y="-9"/>
+	<anim name="idle-loop" anim="Parent Christmas Idle" label="true" loop="true" indices="10..12"/>
+	<anim name="singUP-loop" anim="Parent Up Note Dad" label="true" x="-10" y="13" loop="true" indices="4..12"/>
+	<anim name="singDOWN-loop" anim="Parent Down Note Dad" label="true" x="-28" y="-8" loop="true" indices="4..13"/>
+	<anim name="singLEFT-loop" anim="Parent Left Note Dad" label="true" x="14" y="16" loop="true" indices="4..14"/>
+	<anim name="singRIGHT-loop" anim="Parent Right Note Dad" label="true" x="-37" y="-9" loop="true" indices="4..14"/>
+	<anim name="singUP-alt" anim="Parent Up Note Mom" label="true" x="-10" y="15"/>
+	<anim name="singDOWN-alt" anim="Parent Down Note Mom" label="true" x="-28" y="-8"/>
+	<anim name="singLEFT-alt" anim="Parent Left Note Mom" label="true" x="14" y="15"/>
+	<anim name="singRIGHT-alt" anim="Parent Right Note Mom" label="true" x="-37" y="-9"/>
+	<anim name="singUP-alt-loop" anim="Parent Up Note Mom" label="true" x="-10" y="15" loop="true" indices="4..12"/>
+	<anim name="singDOWN-alt-loop" anim="Parent Down Note Mom" label="true" x="-28" y="-8" loop="true" indices="4..13"/>
+	<anim name="singLEFT-alt-loop" anim="Parent Left Note Mom" label="true" x="14" y="15" loop="true" indices="4..13"/>
+	<anim name="singRIGHT-alt-loop" anim="Parent Right Note Mom" label="true" x="-37" y="-9" loop="true" indices="4..13"/>
 </character>

@@ -1,5 +1,5 @@
 <!DOCTYPE codename-engine-character>
-<character x="-200" y="-825" camx="530" camy="600" color="#F3FF6E" applyStageMatrix="true">
+<character x="-700" y="-825" camx="530" camy="600" color="#F3FF6E" applyStageMatrix="true">
 	<anim name="idle" anim="Idle" label="true"/>
 	<anim name="singDOWN" anim="Down" label="true"/>
 	<anim name="singRIGHT" anim="Up" label="true"/>
