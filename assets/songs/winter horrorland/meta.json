@@ -1,0 +1,15 @@
+{
+	"opponentModeAllowed": false,
+	"icon": "monster",
+	"difficulties": [
+		"easy",
+		"normal",
+		"hard"
+	],
+	"coopAllowed": false,
+	"stepsPerBeat": 4,
+	"displayName": "Winter Horrorland",
+	"needsVoices": false,
+	"beatsPerMeasure": 4,
+	"bpm": 159
+}

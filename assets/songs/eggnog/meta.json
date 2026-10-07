@@ -1,0 +1,15 @@
+{
+	"opponentModeAllowed": false,
+	"icon": "parents-christmas",
+	"difficulties": [
+		"easy",
+		"normal",
+		"hard"
+	],
+	"coopAllowed": false,
+	"stepsPerBeat": 4,
+	"displayName": "Eggnog",
+	"needsVoices": false,
+	"beatsPerMeasure": 4,
+	"bpm": 150
+}
