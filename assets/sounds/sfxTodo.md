@@ -12,22 +12,6 @@ Putting this txt in here so others can edit and commit this to suggest or add mi
 
 # Editor SFX
 
-## Global:
-- Opening/Closing Pop-up Windows [x]
-- Mouse Click [x]
-- UI Button being clicked [x]
-- Focusing/Unfocusing a text field [x]
-- Typing in a text field [x]
-- Deleting from text field [x]
-- Saving [x]
-- Auto-Saving [x]
-- Copying [x]
-- Pasting [x]
-- Cutting [x]
-- Undoing [x]
-- Redoing [x]
-- Deleting (more specifically using "delete" buttons) [x]
-
 ## Chart Editor:
 - Placing Notes [x]
 - Deleting Notes [x]
@@ -44,9 +28,3 @@ Putting this txt in here so others can edit and commit this to suggest or add mi
 - Locking Strums [x]
 - Unlocking Strums [x]
 - Creating Strum []
-
-## Character/Stage Editor
-- Changing Offset (via `Arrows`, `WASD`, or `Mouse Drag`) [x]
-- Enabling/Disabling Ghost Animation [x]
-
-
