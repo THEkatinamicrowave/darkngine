@@ -2216,7 +2216,7 @@
 				}
 			],
 			"position": "dad",
-			"vocalsSuffix": "-parents-christmas-eggnog-chart-erect",
+			"vocalsSuffix": "-parents-erect",
 			"type": 0,
 			"characters": [
 				"parents-christmas"
@@ -4902,7 +4902,7 @@
 				}
 			],
 			"position": "boyfriend",
-			"vocalsSuffix": "-bf-christmas-eggnog-chart-erect",
+			"vocalsSuffix": "-bf-erect",
 			"type": 1,
 			"characters": [
 				"bf-christmas"
