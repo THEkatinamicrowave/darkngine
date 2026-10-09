@@ -5,7 +5,7 @@ var santaSound:FlxSound;
 var shootSound:FlxSound;
 
 function create() {
-	switch (variation) {
+	switch (PlayState.variation) {
 		default:
 			close();
 		case null, "":
