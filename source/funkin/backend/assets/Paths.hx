@@ -61,9 +61,9 @@ class Paths
 					if (nullFail) return tempPathsCache[keyCache] = null;
 					else fixedPath += i == n ? part : part + "/";
 				}
+			}
 
 			return tempPathsCache[keyCache] = fixedPath;
-			}
 		}
 		else if (!nullFail) return fixedPath;
 		#else
@@ -231,19 +231,19 @@ class Paths
 		return FlxAnimateFrames.fromAnimate(key, null, null, null, unique, settings);
 
 	inline static public function getSparrowAtlasAlt(key:String, ?ext:OneOfTwo<String, Array<String>>)
-		return FlxAtlasFrames.fromSparrow(getPath(key, null, ext != null ? ext : Flags.IMAGE_EXTS), '$key.xml');
+		return FlxAtlasFrames.fromSparrow('$key.${ext != null ? ext : Flags.IMAGE_EXTS[0]}', '$key.xml');
 
 	inline static public function getPackerAtlas(key:String, ?library:String, ?ext:OneOfTwo<String, Array<String>>)
 		return FlxAtlasFrames.fromSpriteSheetPacker(image(key, library, ext), file('images/$key.txt', library));
 
 	inline static public function getPackerAtlasAlt(key:String, ?ext:OneOfTwo<String, Array<String>>)
-		return FlxAtlasFrames.fromSpriteSheetPacker(getPath(key, null, ext != null ? ext : Flags.IMAGE_EXTS), '$key.txt');
+		return FlxAtlasFrames.fromSpriteSheetPacker('$key.${ext != null ? ext : Flags.IMAGE_EXTS[0]}', '$key.txt');
 
 	inline static public function getAsepriteAtlas(key:String, ?library:String, ?ext:OneOfTwo<String, Array<String>>)
 		return FlxAtlasFrames.fromAseprite(image(key, library, ext), file('images/$key.json', library));
 
 	inline static public function getAsepriteAtlasAlt(key:String, ?ext:OneOfTwo<String, Array<String>>)
-		return FlxAtlasFrames.fromAseprite(getPath(key, null, ext != null ? ext : Flags.IMAGE_EXTS), '$key.json');
+		return FlxAtlasFrames.fromAseprite('$key.${ext != null ? ext : Flags.IMAGE_EXTS[0]}', '$key.json');
 
 	static public function getAssetsRoot():String {
 		return if (ModsFolder.currentModFolder != null) '${ModsFolder.modsPath}${ModsFolder.currentModFolder}';
@@ -367,7 +367,7 @@ class Paths
 			return true;
 		return false;
 	}
-
+	
 	/**
 	 * Unintended for future normal usage, use getMultiFrames or loadMultiFrames instead.
 	 * 
@@ -400,7 +400,7 @@ class Paths
 			return Paths.getAnimateAtlasAlt(noExt, animateSettings, Unique);
 		}
 
-		var graph:FlxGraphic = FlxG.bitmap.add(getPath(noExt, null, ext != null ? ext : Flags.IMAGE_EXTS), Unique, Key);
+		var graph:FlxGraphic = FlxG.bitmap.add('$noExt.$ext', Unique, Key);
 		if (graph == null) return null;
 
 		if (Assets.exists('$noExt.xml'))
