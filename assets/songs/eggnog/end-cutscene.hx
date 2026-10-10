@@ -25,7 +25,7 @@ function create() {
 			var normalSanta = game.stage.stageSprites.get('santa');
 			normalSanta.visible = false;
 
-			var santaDead:FunkinSprite = new FunkinSprite(-1300, 100).loadSprite('stages/mall/santa_speaks_assets');
+			var santaDead:FunkinSprite = new FunkinSprite(-1300, 100).loadSprite(Paths.image('stages/mall/santa_speaks_assets'));
 			santaDead.shader = normalSanta.shader;
 			game.insert(game.members.indexOf(normalSanta), santaDead);
 			santaDead.addAnim('cutscene', 'santa whole scene');
@@ -33,7 +33,7 @@ function create() {
 
 			game.dad.visible = false;
 
-			var parentsShoot:FunkinSprite = new FunkinSprite(-602, -3.5).loadSprite('stages/mall/parents_shoot_assets');
+			var parentsShoot:FunkinSprite = new FunkinSprite(-602, -3.5).loadSprite(Paths.image('stages/mall/parents_shoot_assets'));
 			parentsShoot.shader = normalSanta.shader;
 			game.insert(game.members.indexOf(santaDead), parentsShoot);
 			parentsShoot.addAnim('cutscene', 'parents whole scene');
