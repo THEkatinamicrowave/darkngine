@@ -123,7 +123,10 @@ class StrumLine extends FlxTypedGroup<Strum> {
 		if (vocalPrefix != "")
 			vocals = FlxG.sound.load(Options.streamedVocals ? v : flixel.sound.FlxSoundData.fromAssetKey(v, false));
 		else
-			vocals.alive = (vocals = FlxG.sound.list.recycle(FlxSound)).exists = true;
+		{
+			vocals = FlxG.sound.list.recycle(FlxSound);
+			vocals.alive = vocals.exists = true;
+		}
 	}
 
 	/**
