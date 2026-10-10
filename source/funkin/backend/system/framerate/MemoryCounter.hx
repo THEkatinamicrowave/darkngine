@@ -62,7 +62,7 @@ class MemoryCounter extends Sprite {
 			memory = mem;
 			memoryPeakText.visible = true;
 			memoryText.text = CoolUtil.getSizeString(memory);
-			memoryPeakText.text = ' / ${CoolUtil.getSizeString(memoryPeak)}';
+			memoryPeakText.text = ' | ${CoolUtil.getSizeString(osMem)}';
 		} else {
 			if (legacy != usingLegacy) usingLegacy = legacy;
 

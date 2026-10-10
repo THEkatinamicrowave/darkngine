@@ -403,6 +403,7 @@ class FreeplayState extends MusicBeatState
 		}
 
 		changeDiff(0, true);
+		changeCoopMode(0, true);
 
 		coopText.visible = curSong.coopAllowed || curSong.opponentModeAllowed;
 	}
