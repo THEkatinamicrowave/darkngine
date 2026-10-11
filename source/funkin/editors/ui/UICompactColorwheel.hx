@@ -60,7 +60,7 @@ class UICompactColorwheel extends UISliceSprite {
 	}
 
 	public function updateColor(checkChanged:Bool = true) {
-		if(checkChanged) colorChanged = true;
+		if (checkChanged) colorChanged = true;
 		setColor(FlxColor.fromHSB(hue, 1, 1));
 
 		updateColorSliderPickerSelector();

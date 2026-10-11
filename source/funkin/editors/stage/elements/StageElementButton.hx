@@ -105,8 +105,8 @@ class StageElementButton extends UIButton {
 		super.update(elapsed);
 		field.x += 12;
 
-		if(hasAdvancedEdit) {
-			if(FlxG.keys.pressed.SHIFT) {
+		if (hasAdvancedEdit) {
+			if (FlxG.keys.pressed.SHIFT) {
 				setEditAdvanced();
 			} else {
 				setEditNormal();
@@ -119,8 +119,8 @@ class StageElementButton extends UIButton {
 	//private var _lastHovered:Bool = false;
 
 	public override function draw() {
-		//if(_lastHovered != (_lastHovered = hovered && !pressed)) {
-		if(_lastSelected != (_lastSelected = selected)) {
+		//if (_lastHovered != (_lastHovered = hovered && !pressed)) {
+		if (_lastSelected != (_lastSelected = selected)) {
 			updateColorTransform();
 		}
 		super.draw();
@@ -128,15 +128,15 @@ class StageElementButton extends UIButton {
 
 	/*public override function setFrameOffset() {
 		var _frameOffset = 0;
-		if(selected) _frameOffset = 9;
-		if(hovered && pressed) _frameOffset = 18;
+		if (selected) _frameOffset = 9;
+		if (hovered && pressed) _frameOffset = 18;
 		framesOffset = _frameOffset;
 	}*/
 
 	public override function updateColorTransform() {
 		super.updateColorTransform();
 
-		if(selected) {
+		if (selected) {
 			useColorTransform = true;
 			colorTransform.setOffsets(70, 70, 70, 0);
 		} else {
@@ -220,7 +220,7 @@ class StageElementButton extends UIButton {
 		var pos = getPos();
 		var text = '${getName()} (${CoolUtil.quantize(pos.x, 100)}, ${CoolUtil.quantize(pos.y, 100)})';
 		var sprite = getSprite();
-		if(sprite != null) {
+		if (sprite != null) {
 			var scaleText = TU.getRaw("stageElement.scale");
 			var scrollText = TU.getRaw("stageElement.scroll");
 			text += '\n${scaleText.format([CoolUtil.quantize(sprite.scale.x, 100), CoolUtil.quantize(sprite.scale.y, 100)])}';

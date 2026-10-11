@@ -100,7 +100,7 @@ class StageSpriteButton extends StageElementButton {
 	}
 
 	public override function onEdit() {
-		if(!FlxG.keys.pressed.SHIFT) {
+		if (!FlxG.keys.pressed.SHIFT) {
 			FlxG.state.openSubState(new StageSpriteEditScreen(this));
 		} else {
 			FlxG.state.openSubState(new StageXMLEditScreen(this.xml, updateInfo, "Sprite"));

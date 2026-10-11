@@ -12,7 +12,7 @@ class UIButton extends UISliceSprite {
 	public override function new(x:Float, y:Float, text:String, callback:Void->Void, w:Int = 120, h:Int = 32) {
 		super(x, y, w, h, 'editors/ui/button');
 		this.callback = callback;
-		if(text != null) {
+		if (text != null) {
 			members.push(field = new UIText(x, y, w, text));
 			field.alignment = CENTER;
 			field.fieldWidth = w;
@@ -43,7 +43,7 @@ class UIButton extends UISliceSprite {
 		if (!hovered && hasBeenPressed && FlxG.mouse.justReleased) hasBeenPressed = false;
 		if (autoAlpha) {
 			alpha = selectable ? 1 : 0.4;
-			if(field != null) field.alpha = alpha;
+			if (field != null) field.alpha = alpha;
 		}
 		super.update(elapsed);
 	}

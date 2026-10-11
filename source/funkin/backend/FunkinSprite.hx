@@ -159,7 +159,7 @@ class FunkinSprite extends FlxAnimate implements IBeatReceiver implements IOffse
 	private var countedBeat = 0;
 	public function beatHit(curBeat:Int)
 	{
-		if(!animEnabled) return;
+		if (!animEnabled) return;
 		if (lastAnimContext != LOCK && beatAnims.length > 0 && (curBeat + beatOffset) % beatInterval == 0)
 		{
 			// TODO: find a solution without countedBeat
@@ -174,13 +174,13 @@ class FunkinSprite extends FlxAnimate implements IBeatReceiver implements IOffse
 
 	public override function draw() {
 		// re-implementing the `onDraw` functionality from `FlxSprite` since `FlxAnimate` didn't have this, so we have to add it back in ourselves
-	    if (this.isAnimate && this.__drawOverrided) {
-	        this.__drawOverrided = false;
-	        this.onDraw(this);
-	        this.__drawOverrided = true;
+		if (this.isAnimate && this.__drawOverrided) {
+			this.__drawOverrided = false;
+			this.onDraw(this);
+			this.__drawOverrided = true;
 			return;
-	    }
-	    super.draw();
+		}
+		super.draw();
 	}
 
 	// ANIMATE ATLAS DRAWING
@@ -317,7 +317,7 @@ class FunkinSprite extends FlxAnimate implements IBeatReceiver implements IOffse
 	@:noCompletion
 	@:deprecated("`FunkinSprite.animateAtlas` is deprecated, just use `FunkinSprite` instead")
 	public function get_animateAtlas():FunkinSprite
-    	return isAnimate ? this : null;
+		return isAnimate ? this : null;
 
 	@:noCompletion private inline function get_globalCurFrame()
 		return animation.curAnim?.curFrame ?? 0;

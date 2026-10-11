@@ -94,6 +94,6 @@ class SpriteAnimEditScreen extends UISoftcodedWindow
 
 	override function saveData() {
 		super.saveData();
-		if(saveCallback != null) saveCallback();
+		if (saveCallback != null) saveCallback();
 	}
 }

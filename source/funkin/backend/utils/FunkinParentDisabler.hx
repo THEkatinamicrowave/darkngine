@@ -18,7 +18,7 @@ class FunkinParentDisabler extends FlxBasic {
 	var __cameras:Array<FlxCamera>;
 	var __timers:Array<FlxTimer>;
 	var __sounds:Array<FlxSound>;
-    var __excludeList:Array<ParentDisableable>;
+	var __excludeList:Array<ParentDisableable>;
 	var __replaceUponDestroy:Bool;
 	var __restoreUponDestroy:Bool;
 

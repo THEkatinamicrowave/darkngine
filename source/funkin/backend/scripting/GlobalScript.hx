@@ -18,7 +18,7 @@ class GlobalScript {
 	private static var _lastAllow_Reload:Bool = false;
 
 	public static function init() {
-		if(initialized) return;
+		if (initialized) return;
 		initialized = true;
 		#if MOD_SUPPORT
 		ModsFolder.onModSwitch.add(onModSwitch);

@@ -16,7 +16,7 @@ class FlixelInfo extends FramerateCategory {
 			var c:Int = Lambda.count(FlxG.bitmap._cache);
 			var buf = new StringBuf();
 
-			if((FlxG.state is ModState)) {
+			if ((FlxG.state is ModState)) {
 				var state:ModState = cast FlxG.state;
 				StringMacro.addLine(buf, 'Mod State: ${state.scriptName}');
 			} else {
@@ -27,7 +27,7 @@ class FlixelInfo extends FramerateCategory {
 			StringMacro.addLine(buf, '\nBitmaps Count: ${c}');
 			StringMacro.addLine(buf, '\nSounds Count: ${FlxG.sound.list.length}');
 			StringMacro.addLine(buf, '\nFlxG.game Childs Count: ${FlxG.game.numChildren}');
-			if(FlxG.renderBlit) {
+			if (FlxG.renderBlit) {
 				StringMacro.addLine(buf, '\nBlitting Render: true');
 			}
 			#if FLX_POINT_POOL

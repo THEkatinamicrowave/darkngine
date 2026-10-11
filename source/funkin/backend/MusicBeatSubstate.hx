@@ -179,20 +179,20 @@ class MusicBeatSubstate extends FlxSubState implements IBeatCancellableReceiver
 	}
 	public function call(name:String, ?args:Array<Dynamic>, ?defaultVal:Dynamic):Dynamic {
 		// calls the function on the assigned script
-		if(stateScripts != null)
+		if (stateScripts != null)
 			return stateScripts.call(name, args);
 		return defaultVal;
 	}
 
 	public function callOne(name:String, arg:Dynamic, ?defaultVal:Dynamic):Dynamic {
 		// calls the function on the assigned script with a single argument
-		if(stateScripts != null)
+		if (stateScripts != null)
 			return stateScripts.callOne(name, arg);
 		return defaultVal;
 	}
 
 	public function event<T:CancellableEvent>(name:String, event:T):T {
-		if(stateScripts != null)
+		if (stateScripts != null)
 			stateScripts.event(name, event);
 		return event;
 	}

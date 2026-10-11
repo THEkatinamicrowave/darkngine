@@ -12,7 +12,7 @@ class UIWarningSubstate extends MusicBeatSubstate {
 	var camShaders:Array<FlxCamera> = [];
 	var blurShader:CustomShader = {
 		var _ = new CustomShader(Options.intensiveBlur ? "engine/editorBlur" : "engine/editorBlurFast");
-		if(!Options.intensiveBlur) {
+		if (!Options.intensiveBlur) {
 			var noiseTexture:ShaderInput<openfl.display.BitmapData> = _.data.noiseTexture;
 			noiseTexture.input = Assets.getBitmapData("assets/shaders/noise256.png");
 			noiseTexture.wrap = REPEAT;
@@ -43,22 +43,22 @@ class UIWarningSubstate extends MusicBeatSubstate {
 	public override function create() {
 		for(c in FlxG.cameras.list) {
 			// Prevent adding a shader if it already has one
-			@:privateAccess if(c._filters != null) {
+			@:privateAccess if (c._filters != null) {
 				var shouldSkip = false;
 				for(filter in c._filters) {
-					if(filter is ShaderFilter) {
+					if (filter is ShaderFilter) {
 						var filter:ShaderFilter = cast filter;
-						if(filter.shader is CustomShader) {
+						if (filter.shader is CustomShader) {
 							var shader:CustomShader = cast filter.shader;
 
-							if(shader.path == blurShader.path) {
+							if (shader.path == blurShader.path) {
 								shouldSkip = true;
 								break;
 							}
 						}
 					}
 				}
-				if(shouldSkip)
+				if (shouldSkip)
 					continue;
 			}
 			camShaders.push(c);
@@ -86,7 +86,7 @@ class UIWarningSubstate extends MusicBeatSubstate {
 		spr.color = isError ? 0xFFFF0000 : 0xFFFFFF00;
 		add(spr);
 
-		if(title != null) {
+		if (title != null) {
 			add(titleSpr = new UIText(spr.x + 25, spr.y, spr.bWidth - 50, title, 15, -1));
 			titleSpr.y = spr.y + ((30 - titleSpr.height) / 2);
 		}

@@ -42,7 +42,7 @@ class UIRadioButton extends UISprite {
 		animation.play(hovered ? (pressed ? "pressed" : "hover") : "normal");
 
 		// CHECKMARK HANDLING
-		if(autoAlpha)
+		if (autoAlpha)
 			check.alpha = checked ? 1 : 0;
 		check.scale.x = CoolUtil.fpsLerp(check.scale.x, targetScale, 0.25);
 		check.scale.y = CoolUtil.fpsLerp(check.scale.y, targetScale, 0.25);
@@ -74,12 +74,12 @@ class UIRadioButton extends UISprite {
 			if (Options.editorSFX)
 				CoolUtil.playMenuSFX(checked ? CHECKED : UNCHECKED, 0.5);
 
-			if(parent != null) {
+			if (parent != null) {
 				var members = (parent is UIWindow) ? (cast(parent, UIWindow)).members : (cast(parent, UISubstateWindow)).members;
 				var radios:Array<UIRadioButton> = cast members.filter((o) -> o is UIRadioButton && o != this);
 				//trace(radios);
 				for(radio in radios) {
-					if(radio.forID != null && radio.forID == forID) {
+					if (radio.forID != null && radio.forID == forID) {
 						radio.checked = false;
 						radio.targetScale = 0;
 					}

@@ -89,15 +89,15 @@ final class DrawUtil {
 	}
 
 	public static function destroyDrawers() {
-		if(dot != null) {
+		if (dot != null) {
 			dot.destroy();
 			dot = null;
 		}
-		if(line != null) {
+		if (line != null) {
 			line.destroy();
 			line = null;
 		}
-		if(square != null) {
+		if (square != null) {
 			square.destroy();
 			square = null;
 		}

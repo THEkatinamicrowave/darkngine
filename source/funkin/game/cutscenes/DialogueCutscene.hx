@@ -104,7 +104,7 @@ class DialogueCutscene extends ScriptedCutscene {
 				if (node.has.textSound) line.textSound = FlxG.sound.load(Paths.sound(node.att.textSound));
 				else if (!useDef) {
 					var char:DialogueCharacter = charMap[line.char];
-					if(char != null && char.charData != null && char.charData.has.textSound)
+					if (char != null && char.charData != null && char.charData.has.textSound)
 						line.textSound = FlxG.sound.load(Paths.sound(char.charData.att.textSound));
 				}
 
@@ -133,8 +133,8 @@ class DialogueCutscene extends ScriptedCutscene {
 
 	public override function update(elapsed:Float) {
 		super.update(elapsed);
-		if(controls.ACCEPT) {
-			if(dialogueBox.dialogueEnded) next();
+		if (controls.ACCEPT) {
+			if (dialogueBox.dialogueEnded) next();
 			else dialogueBox.text.skip();
 		}
 	}
@@ -147,10 +147,10 @@ class DialogueCutscene extends ScriptedCutscene {
 	public function next(playFirst:Bool = false) {
 		var event = EventManager.get(DialogueNextLineEvent).recycle(playFirst);
 		dialogueScript.call("next", [event]);
-		if(event.cancelled || !canProceed) return;
+		if (event.cancelled || !canProceed) return;
 
 		if ((curLine = dialogueLines.shift()) == null) {
-			if(lastLine != null && dialogueBox.hasAnimation(lastLine.bubble + "-close")) {
+			if (lastLine != null && dialogueBox.hasAnimation(lastLine.bubble + "-close")) {
 				dialogueBox.playBubbleAnim(lastLine.bubble, "-close");
 				dialogueBox.animation.finishCallback = (_) -> close();
 			} else {
@@ -170,20 +170,20 @@ class DialogueCutscene extends ScriptedCutscene {
 		var char = charMap[curLine.char];
 		if (char != null) {
 			var force:Bool;
-			if(force = (curLine.changeDefAnim != null)) char.defaultAnim = curLine.changeDefAnim;
+			if (force = (curLine.changeDefAnim != null)) char.defaultAnim = curLine.changeDefAnim;
 			dialogueBox.popupChar(char, force);
 		}
 
 		var finalSuffix:String = event.playFirst && dialogueBox.hasAnimation(curLine.bubble + "-firstOpen") ? "-firstOpen" : dialogueBox.hasAnimation(curLine.bubble + "-open") ? "-open" : "";
 		dialogueBox.playBubbleAnim(curLine.bubble, finalSuffix, curLine.text, curLine.format, curLine.speed, curLine.nextSound, curLine.textSound != null ? [curLine.textSound] : null, finalSuffix == "-firstOpen" || finalSuffix == "-open", !event.playFirst);
 
-		if(curLine.playSound != null) curLine.playSound.play();
-		if(curLine.changeMusic != null) {
-			if(curMusic != null) curMusic.destroy();
+		if (curLine.playSound != null) curLine.playSound.play();
+		if (curLine.changeMusic != null) {
+			if (curMusic != null) curMusic.destroy();
 			curMusic = curLine.changeMusic;
 			curMusic.play();
 			curMusic.fadeIn(1, 0, curMusic.volume);
-		} else if(curLine.musicVolume != null && curMusic != null) curMusic.volume = curLine.musicVolume;
+		} else if (curLine.musicVolume != null && curMusic != null) curMusic.volume = curLine.musicVolume;
 
 		dialogueScript.call("postNext", [event]);
 	}

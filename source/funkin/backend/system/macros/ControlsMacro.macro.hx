@@ -201,7 +201,7 @@ class ControlsMacro
 		for (name in _allControls)
 		{
 			var expr = _currentGamepadControls.get(name);
-			if(expr == null) continue;
+			if (expr == null) continue;
 			map.push(macro @:pos(expr.pos) Control.$name => ${expr});
 		}
 

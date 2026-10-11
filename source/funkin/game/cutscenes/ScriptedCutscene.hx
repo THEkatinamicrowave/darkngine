@@ -29,7 +29,7 @@ class ScriptedCutscene extends Cutscene {
 		super.create();
 		script.call("create");
 
-		if(Std.isOfType(script, DummyScript))
+		if (Std.isOfType(script, DummyScript))
 			onErrorScriptLoading();
 	}
 
@@ -56,25 +56,25 @@ class ScriptedCutscene extends Cutscene {
 	{
 		var event = new CancellableEvent();
 		script.call("pauseCutscene", [event]);
-		if(!event.cancelled) super.pauseCutscene();
+		if (!event.cancelled) super.pauseCutscene();
 	}
 
 	public override function onSkipCutscene(event:NameEvent)
 	{
 		script.call("onSkipCutscene", [event]);
-		if(!event.cancelled) super.onSkipCutscene(event);
+		if (!event.cancelled) super.onSkipCutscene(event);
 	}
 
 	public override function onRestartCutscene(event:NameEvent)
 	{
 		script.call("onRestartCutscene", [event]);
-		if(!event.cancelled) super.onRestartCutscene(event);
+		if (!event.cancelled) super.onRestartCutscene(event);
 	}
 
 	public override function onResumeCutscene(event:NameEvent)
 	{
 		script.call("onResumeCutscene", [event]);
-		if(!event.cancelled) super.onResumeCutscene(event);
+		if (!event.cancelled) super.onResumeCutscene(event);
 	}
 
 	public override function measureHit(curMeasure:Int)

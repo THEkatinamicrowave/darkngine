@@ -258,16 +258,16 @@ class CrashOverlay extends Sprite {
 	var dismissing:Bool = false;
 	var disposed:Bool = false;
 	var keyStage:Stage;
-    var scrollY:Float = 0;
-    var maxScroll:Float = 0;
-    var viewHeight:Float = 0;
-    var infoScrollRect:Rectangle;
+	var scrollY:Float = 0;
+	var maxScroll:Float = 0;
+	var viewHeight:Float = 0;
+	 infoScrollRect:Rectangle;
 	public function new(report:String) {
 		super();
 		fullText = report;
 		mouseEnabled = true;
 		mouseChildren = false;
-        infoScrollRect = new Rectangle();
+		infoScrollRect = new Rectangle();
 		lastStamp = Timer.stamp();
 		build();
 		addEventListener(Event.ADDED_TO_STAGE, onAdded);
@@ -332,7 +332,7 @@ class CrashOverlay extends Sprite {
 		if (keyStage != null) {
 			keyStage.addEventListener(Event.RESIZE, onResize);
 			keyStage.addEventListener(KeyboardEvent.KEY_DOWN, onKey, true, 1000);
-            keyStage.addEventListener(MouseEvent.MOUSE_WHEEL, onWheel);
+			keyStage.addEventListener(MouseEvent.MOUSE_WHEEL, onWheel);
 		}
 		place();
 	}
@@ -386,14 +386,14 @@ class CrashOverlay extends Sprite {
 				label.setFormat(Paths.font("MPLUS1Code-Regular.ttf"), size, 0xFFFFFFFF, FlxTextAlign.LEFT, FlxTextBorderStyle.OUTLINE, 0xFF000000);
 				label.borderSize = 2;
 				label.antialiasing = false;
-                var textHeight = label.height;
-                var tooTall = textHeight > maxH && size > 14;
+				var textHeight = label.height;
+				var tooTall = textHeight > maxH && size > 14;
 
-                if ((!tooTall || size <= 14) && label.graphic != null && label.graphic.bitmap != null)
-                    result = label.graphic.bitmap.clone();
-                label.destroy();
-                if (!tooTall || size <= 14) break;
-                size -= 2;
+				if ((!tooTall || size <= 14) && label.graphic != null && label.graphic.bitmap != null)
+					result = label.graphic.bitmap.clone();
+				label.destroy();
+				if (!tooTall || size <= 14) break;
+				size -= 2;
 			}
 		} catch (err:Dynamic) {
 			trace('Could not draw crash text: $err');
@@ -461,28 +461,28 @@ class CrashOverlay extends Sprite {
 			var previous = info.bitmapData;
 			info.bitmapData = bake(textW, maxH);
 			if (previous != null) previous.dispose();
-            if (info.bitmapData != null) {
-                viewHeight = Math.min(maxH, info.bitmapData.height);
-                maxScroll = Math.max(0, info.bitmapData.height - viewHeight);
-            } else {
-                viewHeight = maxH;
-                maxScroll = 0;
-            }
-            scrollY = 0;
+			if (info.bitmapData != null) {
+				viewHeight = Math.min(maxH, info.bitmapData.height);
+				maxScroll = Math.max(0, info.bitmapData.height - viewHeight);
+			} else {
+				viewHeight = maxH;
+				maxScroll = 0;
+			}
+			scrollY = 0;
 		}
 
-        var hover = Math.sin(elapsed * 1.5) * 5;
-        info.alpha = ease;
-        info.x = (w - info.width) / 2;
+		var hover = Math.sin(elapsed * 1.5) * 5;
+		info.alpha = ease;
+		info.x = (w - info.width) / 2;
 
-        if (maxScroll > 0) {
-            info.y = (h - viewHeight) / 2 + hover;
-            infoScrollRect.setTo(0, scrollY, info.width, viewHeight);
-            info.scrollRect = infoScrollRect;
-        } else {
-            info.y = (h - info.height) / 2 + hover;
-            info.scrollRect = null;
-        }
+		if (maxScroll > 0) {
+			info.y = (h - viewHeight) / 2 + hover;
+			infoScrollRect.setTo(0, scrollY, info.width, viewHeight);
+			info.scrollRect = infoScrollRect;
+		} else {
+			info.y = (h - info.height) / 2 + hover;
+			info.scrollRect = null;
+		}
 
 		var buttonsY = info.y + (maxScroll > 0 ? viewHeight : info.height) + 24;
 		if (buttonsY + quitButton.height > h - 16) buttonsY = h - quitButton.height - 16;
@@ -503,7 +503,7 @@ class CrashOverlay extends Sprite {
 		if (keyStage != null) {
 			keyStage.removeEventListener(Event.RESIZE, onResize);
 			keyStage.removeEventListener(KeyboardEvent.KEY_DOWN, onKey, true);
-            keyStage.removeEventListener(MouseEvent.MOUSE_WHEEL, onWheel);
+			keyStage.removeEventListener(MouseEvent.MOUSE_WHEEL, onWheel);
 			keyStage = null;
 		}
 		if (parent != null) parent.removeChild(this);

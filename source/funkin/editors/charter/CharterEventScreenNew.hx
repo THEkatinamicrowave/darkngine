@@ -169,7 +169,7 @@ class CharterEventScreenNew extends MusicBeatSubstate {
 					case TDropDown(options):
 						addLabel();
 						var optionIndex = options.indexOf(cast value);
-						if(optionIndex < 0) {
+						if (optionIndex < 0) {
 							optionIndex = 0;
 						}
 						var dropdown = new UIDropDown(eventName.x+6, winHeight, 320, 32, options, optionIndex);

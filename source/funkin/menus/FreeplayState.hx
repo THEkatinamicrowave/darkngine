@@ -467,19 +467,19 @@ class FreeplaySonglist {
 	}
 
 	public function getSongsFromSource(source:funkin.backend.assets.AssetSource, useTxt:Bool = true, unlockAll:Bool = false, ?startDir:String = 'songs/', ?flatten:Bool = true) {
-        var xmlPath = Paths.xml("config/freeplaySonglist");
-        var txtPath = Paths.txt("config/freeplaySonglist");
-        var legacyTxtPath = Paths.txt("freeplaySonglist");
+		var xmlPath = Paths.xml("config/freeplaySonglist");
+		var txtPath = Paths.txt("config/freeplaySonglist");
+		var legacyTxtPath = Paths.txt("freeplaySonglist");
 
 		var songsFound:Array<String> = null;
 
-        if (Paths.assetsTree.existsSpecific(xmlPath, "TEXT", source)) {
+		if (Paths.assetsTree.existsSpecific(xmlPath, "TEXT", source)) {
 			var xml:Access = new Access(Xml.parse(Assets.getText(xmlPath)).firstElement());
-            if (xml != null) {
-                loadFromXML(xml, source, unlockAll);
-                return false;
-            }
-        }
+			if (xml != null) {
+				loadFromXML(xml, source, unlockAll);
+				return false;
+			}
+		}
 
 		if (useTxt) {
 			if (Paths.assetsTree.existsSpecific(txtPath, "TEXT", source)) songsFound = CoolUtil.coolTextFile(txtPath);
@@ -519,7 +519,7 @@ class FreeplaySonglist {
 		return true;
 	}
 
-    private function loadFromXML(xml:Access, source:AssetSource, unlockAll:Bool = false) {
+	private function loadFromXML(xml:Access, source:AssetSource, unlockAll:Bool = false) {
 		var songList:Array<ChartMetaData> = [];
 
 		var evaluate = function(target:String, value:String):Bool {
@@ -633,7 +633,7 @@ class FreeplaySonglist {
 		}
 
 		songs = songList;
-    }
+	}
 
 	public static function get(useTxt:Bool = true, ?startDir:String = 'songs/', ?flatten:Bool = true) {
 		var songList = new FreeplaySonglist();

@@ -106,7 +106,7 @@ class EditorPicker extends MusicBeatSubstate {
 		}
 
 		if (controls.ACCEPT || FlxG.mouse.justReleased) {
-			if(options[curSelected].onClick != null)
+			if (options[curSelected].onClick != null)
 				options[curSelected].onClick();
 			else if (options[curSelected].state != null) {
 				selected = true;
@@ -178,7 +178,7 @@ class EditorPickerOption extends FlxTypedSpriteGroup<FlxSprite> {
 
 		FlxG.mouse.visible = true;
 		iconSpr = new FlxSprite();
-		if(iconID != null)
+		if (iconID != null)
 			iconSpr.loadGraphic(Paths.image('editors/icons/$iconID'));
 		else
 			iconSpr.exists = false;

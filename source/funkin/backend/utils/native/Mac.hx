@@ -13,7 +13,7 @@ final class Mac
 	int64_t value = 0;
 	size_t length = sizeof(value);
 
-	if(-1 == sysctl(mib, 2, &value, &length, NULL, 0))
+	if (-1 == sysctl(mib, 2, &value, &length, NULL, 0))
 		return -1; // An error occurred
 
 	return value / 1024 / 1024;

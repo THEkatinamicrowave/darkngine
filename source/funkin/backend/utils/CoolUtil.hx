@@ -141,12 +141,12 @@ final class CoolUtil
 		#if sys
 		try {
 			addMissingFolders(Path.directory(path));
-			if(content is Bytes) sys.io.File.saveBytes(path, content);
+			if (content is Bytes) sys.io.File.saveBytes(path, content);
 			else sys.io.File.saveContent(path, content);
 		} catch(e) {
 			var errMsg:String = 'Error while trying to save the file: ${Std.string(e).replace('\n', ' ')}';
 			Logs.error(errMsg);
-			if(showErrorBox) funkin.backend.utils.NativeAPI.showMessageBox("DarkNgine Warning", errMsg, MSG_WARNING);
+			if (showErrorBox) funkin.backend.utils.NativeAPI.showMessageBox("DarkNgine Warning", errMsg, MSG_WARNING);
 		}
 		#end
 	}
@@ -163,7 +163,7 @@ final class CoolUtil
 		addMissingFolders(Path.directory(path));
 
 		var result = NativeAPI.getFileAttributes(path, useAbsolute);
-		if(result.isNothing) Logs.trace('The file where it has been tried to get the attributes from, might be corrupted or inexistent (code: ${result.getValue()})', WARNING);
+		if (result.isNothing) Logs.trace('The file where it has been tried to get the attributes from, might be corrupted or inexistent (code: ${result.getValue()})', WARNING);
 		return result;
 		#else
 		return new FileAttributeWrapper(0);
@@ -184,7 +184,7 @@ final class CoolUtil
 		addMissingFolders(Path.directory(path));
 
 		var result = NativeAPI.setFileAttributes(path, attrib, useAbsolute);
-		if(result == 0) Logs.trace('Failed to set attributes to $path with a code of: $result', WARNING);
+		if (result == 0) Logs.trace('Failed to set attributes to $path with a code of: $result', WARNING);
 		return result;
 		#else
 		return 0;
@@ -224,7 +224,7 @@ final class CoolUtil
 		addMissingFolders(Path.directory(path));
 
 		var result = NativeAPI.removeFileAttributes(path, attrib, useAbsolute);
-		if(result == 0) Logs.trace('Failed to remove attributes to $path with a code of: $result', WARNING);
+		if (result == 0) Logs.trace('Failed to remove attributes to $path with a code of: $result', WARNING);
 		return result;
 		#else
 		return 0;
@@ -736,7 +736,7 @@ final class CoolUtil
 			var start = i;
 			var end = i + format.text.length;
 			i = end;
-			if(Reflect.fields(fmtt).length == 0) continue;
+			if (Reflect.fields(fmtt).length == 0) continue;
 			var fmt = new FlxTextFormat();
 
 			fmt.format.color = Reflect.hasField(fmtt, "color") ? FlxColor.fromString(fmtt.color) : text.color;
@@ -747,16 +747,16 @@ final class CoolUtil
 			fmt.borderColor = Reflect.hasField(fmtt, "borderColor") ? FlxColor.fromString(fmtt.borderColor) : text.borderColor;
 			fmt.format.align = Reflect.hasField(fmtt, "align") ? TextFormatAlign.fromString(fmtt.align) : FlxTextAlign.toOpenFL(text.alignment);
 
-			if(Reflect.hasField(fmtt, "leading")) fmt.format.leading = Std.parseInt(fmtt.leading);
-			if(Reflect.hasField(fmtt, "kerning")) fmt.format.kerning = fmtt.kerning == "true";
-			if(Reflect.hasField(fmtt, "blockIndent")) fmt.format.blockIndent = Std.parseInt(fmtt.blockIndent);
-			if(Reflect.hasField(fmtt, "bullet")) fmt.format.bullet = fmtt.bullet == "true";
-			if(Reflect.hasField(fmtt, "indent")) fmt.format.indent = Std.parseInt(fmtt.indent);
-			if(Reflect.hasField(fmtt, "leftMargin")) fmt.format.leftMargin = Std.parseInt(fmtt.leftMargin);
-			if(Reflect.hasField(fmtt, "letterSpacing")) fmt.format.letterSpacing = Std.parseFloat(fmtt.letterSpacing);
-			if(Reflect.hasField(fmtt, "rightMargin")) fmt.format.rightMargin = Std.parseInt(fmtt.rightMargin);
-			if(Reflect.hasField(fmtt, "tabStops")) fmt.format.tabStops = [for(x in cast(fmtt.tabStops, String).split(",")) Std.parseInt(x)];
-			if(Reflect.hasField(fmtt, "underline")) fmt.format.underline = fmtt.underline == "true";
+			if (Reflect.hasField(fmtt, "leading")) fmt.format.leading = Std.parseInt(fmtt.leading);
+			if (Reflect.hasField(fmtt, "kerning")) fmt.format.kerning = fmtt.kerning == "true";
+			if (Reflect.hasField(fmtt, "blockIndent")) fmt.format.blockIndent = Std.parseInt(fmtt.blockIndent);
+			if (Reflect.hasField(fmtt, "bullet")) fmt.format.bullet = fmtt.bullet == "true";
+			if (Reflect.hasField(fmtt, "indent")) fmt.format.indent = Std.parseInt(fmtt.indent);
+			if (Reflect.hasField(fmtt, "leftMargin")) fmt.format.leftMargin = Std.parseInt(fmtt.leftMargin);
+			if (Reflect.hasField(fmtt, "letterSpacing")) fmt.format.letterSpacing = Std.parseFloat(fmtt.letterSpacing);
+			if (Reflect.hasField(fmtt, "rightMargin")) fmt.format.rightMargin = Std.parseInt(fmtt.rightMargin);
+			if (Reflect.hasField(fmtt, "tabStops")) fmt.format.tabStops = [for(x in cast(fmtt.tabStops, String).split(",")) Std.parseInt(x)];
+			if (Reflect.hasField(fmtt, "underline")) fmt.format.underline = fmtt.underline == "true";
 			text.addFormat(fmt, start, end);
 		}
 		return text;
@@ -1048,7 +1048,7 @@ final class CoolUtil
 	 */
 	public static function sortAlphabetically(array:Array<String>, ?lowercase:Bool=false) {
 		array.sort(function(a1, a2):Int {
-			if(lowercase) {
+			if (lowercase) {
 				a1 = a1.toLowerCase();
 				a2 = a2.toLowerCase();
 			}
@@ -1138,7 +1138,7 @@ final class CoolUtil
 				var start = Std.parseInt(part.substring(0, idx).trim());
 				var end = Std.parseInt(part.substring(idx + 2).trim());
 
-				if(start == null || end == null) {
+				if (start == null || end == null) {
 					continue;
 				}
 
@@ -1187,7 +1187,7 @@ final class CoolUtil
 				}
 			}
 
-			if(direction != 0) {
+			if (direction != 0) {
 				while (i + 1 < numbers.length && (numbers[i + 1] == end + direction)) {
 					end = numbers[i + 1];
 					i++;
@@ -1215,8 +1215,8 @@ final class CoolUtil
 	 * @param result Result array
 	 */
 	public static function deepFlatten(arr:Array<Dynamic>, ?result:Array<Dynamic>):Array<Dynamic> {
-		if(arr == null) return [];
-		if(result == null) result = [];
+		if (arr == null) return [];
+		if (result == null) result = [];
 		for (e in arr) {
 			if (Std.isOfType(e, Array)) {
 				deepFlatten(e, result);
@@ -1297,13 +1297,13 @@ final class CoolUtil
 
 		@:privateAccess var collections = cast (animate.frames, FlxAnimateFrames).addedCollections;
 		collections.push(cast animate.frames);
-		for(col in collections){
+		for(col in collections) {
 			for(l in col.timeline.layers)
-				for(f in l.frames){
-					 if(f.name != "")
+				for(f in l.frames) {
+					 if (f.name != "")
 						animsList.push(f.name);
 
-					 for(e in f.elements){
+					 for(e in f.elements) {
 						var element = e.toSymbolInstance();
 
 						if (element != null && element.symbolName != null)
@@ -1330,7 +1330,7 @@ final class CoolUtil
 	}
 
 	public static function getAnimsListFromSprite(spr:FunkinSprite):Array<String> {
-		if(spr.frames is FlxAnimateFrames)
+		if (spr.frames is FlxAnimateFrames)
 			return getAnimsListFromAnimate(spr);
 		else
 			return getAnimsListFromFrames(spr.frames);
@@ -1453,7 +1453,7 @@ final class CoolUtil
 
 	public static function parseProperty(target:Dynamic, fields:OneOfTwo<String, Array<OneOfTwo<String, Int>>>):Dynamic {
 		var fields:Array<OneOfTwo<String, Int>> = {
-			if((fields is String)) CoolUtil.parsePropertyString(fields);
+			if ((fields is String)) CoolUtil.parsePropertyString(fields);
 			else fields;
 		}
 
@@ -1477,7 +1477,7 @@ final class CoolUtil
 
 	public static function cloneProperty(toTarget:Dynamic, fields:OneOfTwo<String, Array<OneOfTwo<String, Int>>>, fromTarget:Dynamic):Dynamic {
 		var fields:Array<OneOfTwo<String, Int>> = {
-			if((fields is String)) CoolUtil.parsePropertyString(fields);
+			if ((fields is String)) CoolUtil.parsePropertyString(fields);
 			else fields;
 		}
 

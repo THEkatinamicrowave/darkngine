@@ -55,7 +55,7 @@ class AlphabetSelectionScreen extends EditorTreeMenuScreen {
 	public function getAlphabetList(folder:String = 'data/alphabet/'):Array<String> {
 		var list:Array<String> = [];
 		for (path in Paths.getFolderDirectories(folder, true, BOTH)) {
-			if(!path.endsWith("/")) path += "/";
+			if (!path.endsWith("/")) path += "/";
 			list.push(path);
 		}
 		for (path in Paths.getFolderContent(folder, true, BOTH))

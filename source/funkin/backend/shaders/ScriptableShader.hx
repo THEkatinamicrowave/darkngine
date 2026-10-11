@@ -23,11 +23,11 @@ class ScriptableShader extends FlxBasic implements IHScriptCustomBehaviour {
 	public function new(shader:FunkinShader, ?scriptName:String, ?parentScriptPack:ScriptPack) {
 		super();
 
-		if(parentScriptPack == null && PlayState.instance != null)
+		if (parentScriptPack == null && PlayState.instance != null)
 			parentScriptPack = PlayState.instance.scripts;
 
-		if(scriptName == null)
-			if((shader is CustomShader)) scriptName = cast(shader, CustomShader).fileName;
+		if (scriptName == null)
+			if ((shader is CustomShader)) scriptName = cast(shader, CustomShader).fileName;
 			else throw "Missing name for shader script, please provide a scriptName, or use CustomShader";
 
 		this.shader = shader;
@@ -48,11 +48,11 @@ class ScriptableShader extends FlxBasic implements IHScriptCustomBehaviour {
 			};
 			registerField(name, get, set);
 			var gg = script.get(name);
-			if(gg != null) {
+			if (gg != null) {
 				shader.hset(shaderField, gg);
 			}
 		});
-		if(parentScriptPack != null)
+		if (parentScriptPack != null)
 			script.setPublicMap(parentScriptPack.publicVariables);
 		script.load();
 		script.call("create");
@@ -76,7 +76,7 @@ class ScriptableShader extends FlxBasic implements IHScriptCustomBehaviour {
 	public function processGLData(source:String, storageType:String) {
 		var event = EventManager.get(ShaderProcessEvent).recycle(source, storageType);
 		script.call("processGLData", [event]);
-		if(event.cancelled)
+		if (event.cancelled)
 			shader.__cancelNextProcessGLData = true;
 		script.call("processGLDataPost", [event]);
 	}
@@ -84,7 +84,7 @@ class ScriptableShader extends FlxBasic implements IHScriptCustomBehaviour {
 	public override function destroy() {
 		shader.onGLUpdate.remove(updateGL);
 		shader.onProcessGLData.remove(processGLData);
-		if(script != null) {
+		if (script != null) {
 			script.call("destroy");
 			script.destroy();
 		}
@@ -93,7 +93,7 @@ class ScriptableShader extends FlxBasic implements IHScriptCustomBehaviour {
 	}
 
 	public function hget(name:String):Dynamic {
-		if(fields.exists(name))
+		if (fields.exists(name))
 			return fields.get(name).get();
 		if (__instanceFields.contains(name) || __instanceFields.contains('get_${name}'))
 			return Reflect.getProperty(this, name);

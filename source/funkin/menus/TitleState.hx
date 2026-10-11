@@ -249,7 +249,7 @@ class TitleState extends MusicBeatState
 							default:
 								titleScreenSprites.add(spr);
 						}
-						if(node.has.name) titleSprites[node.att.name] = spr;
+						if (node.has.name) titleSprites[node.att.name] = spr;
 					}
 				}
 				for(text in xml.node.intro.nodes.text) {

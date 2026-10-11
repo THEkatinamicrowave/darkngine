@@ -1022,7 +1022,7 @@ class PlayState extends MusicBeatState
 		var dialogue = Paths.file('songs/$songName/${prefix}dialogue.xml');
 		persistentUpdate = true;
 		var toCall:Void->Void = function() {
-			if(checkSeen) seenCutscene = true;
+			if (checkSeen) seenCutscene = true;
 			callback();
 		}
 
@@ -1064,7 +1064,7 @@ class PlayState extends MusicBeatState
 		vocals.prepare(time);
 		for (strumLine in strumLines.members) strumLine.vocals.prepare(time);
 
-		if(introLength > 0) {
+		if (introLength > 0) {
 			var swagCounter:Int = 0;
 			startTimer = new FlxTimer().start(Conductor.crochet / 1000, (tmr:FlxTimer) -> {
 				countdown(swagCounter++);
@@ -2044,7 +2044,7 @@ class PlayState extends MusicBeatState
 			for(char in event.characters) {
 				if (char == null) continue;
 
-				if(event.stunned) char.stunned = true;
+				if (event.stunned) char.stunned = true;
 				char.playSingAnim(directionID, event.animSuffix, MISS, event.forceAnim);
 			}
 		}
@@ -2066,7 +2066,7 @@ class PlayState extends MusicBeatState
 	 */
 	public function goodNoteHit(strumLine:StrumLine, note:Note):Void
 	{
-		if(note == null || note.wasGoodHit) return;
+		if (note == null || note.wasGoodHit) return;
 
 		note.wasGoodHit = true;
 
@@ -2524,7 +2524,7 @@ class CamPosData {
 	 * Puts the position back into the pool, making it reusable.
 	**/
 	public function put() {
-		if(pos == null) return;
+		if (pos == null) return;
 		pos.put();
 		pos = null;
 	}

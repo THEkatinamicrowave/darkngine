@@ -100,18 +100,18 @@ class CharterEvent extends UISliceSprite implements ICharterSelectable {
 	@:dox(hide) public static function getUIScript(event:ChartEvent, caller:String):Script {
 		var uiScript = Paths.script('data/events/${event.name}.ui');
 		var script:Script = null;
-		if(Assets.exists(uiScript)) {
+		if (Assets.exists(uiScript)) {
 			script = Script.create(uiScript);
 		} else {
 			var packData = getPackData(event.name);
-			if(packData != null) {
+			if (packData != null) {
 				var scriptFile = packData[4];
 				if (scriptFile != null)
 					script = Script.fromString(scriptFile, uiScript+'.hx');
 			}
 		}
 
-		if(script != null && !(script is DummyScript)) {
+		if (script != null && !(script is DummyScript)) {
 			// classes and functions
 			script.set("EventIconGroup", EventIconGroup); // automatically imported
 			script.set("EventNumber", EventNumber); // automatically imported
@@ -142,13 +142,13 @@ class CharterEvent extends UISliceSprite implements ICharterSelectable {
 		var isBase64:Bool = false;
 		var path:String = Paths.image('editors/charter/event-icons/$name');
 		var defaultPath = Paths.image('editors/charter/event-icons/Unknown');
-		if(!Assets.exists(path)) {
+		if (!Assets.exists(path)) {
 			path = defaultPath;
 
 			var packData = getPackData(name);
-			if(packData != null) {
+			if (packData != null) {
 				var packImg = packData[3];
-				if(packImg != null && packImg.length > 0) {
+				if (packImg != null && packImg.length > 0) {
 					isBase64 = !packImg.startsWith("assets/");
 					path = packImg;
 				}
@@ -164,7 +164,7 @@ class CharterEvent extends UISliceSprite implements ICharterSelectable {
 			defaultPath;
 		}
 
-		if(!isBase64) {
+		if (!isBase64) {
 			if (!Assets.exists(graphic))
 				graphic = defaultPath;
 		}
@@ -211,18 +211,18 @@ class CharterEvent extends UISliceSprite implements ICharterSelectable {
 
 	public static function generateEventIcon(event:ChartEvent, inMenu:Bool = true):FlxSprite {
 		var script = getUIScript(event, "event-icon");
-		if(script != null && !(script is DummyScript)) {
+		if (script != null && !(script is DummyScript)) {
 			script.set("inMenu", inMenu);
-			if(script.get("generateIcon") != null) {
+			if (script.get("generateIcon") != null) {
 				var res:FlxSprite = script.call("generateIcon");
-				if(res != null)
+				if (res != null)
 					return res;
 			}
 		}
 
 		switch(event.name) {
 			case "Time Signature Change":
-				if(event.params != null && (event.params[0] >= 0 || event.params[1] >= 0)) {
+				if (event.params != null && (event.params[0] >= 0 || event.params[1] >= 0)) {
 					var group = new EventIconGroup();
 					group.add(generateDefaultIcon(event.name));
 					group.add({ // top
@@ -239,7 +239,7 @@ class CharterEvent extends UISliceSprite implements ICharterSelectable {
 					return group;
 				}
 			case "Continuous BPM Change":
-				if(event.params != null && event.params[1] != null) {
+				if (event.params != null && event.params[1] != null) {
 					var group = new EventIconGroup();
 					group.add(generateDefaultIcon("BPM Change Start"));
 					if (!inMenu) {
@@ -253,7 +253,7 @@ class CharterEvent extends UISliceSprite implements ICharterSelectable {
 					return generateDefaultIcon("BPM Change Start");
 				}
 			case "BPM Change":
-				if(event.params != null && event.params[0] != null) {
+				if (event.params != null && event.params[0] != null) {
 					var group = new EventIconGroup();
 					group.add(generateDefaultIcon(event.name));
 					if (!inMenu) {
@@ -265,7 +265,7 @@ class CharterEvent extends UISliceSprite implements ICharterSelectable {
 				}
 
 			case "Scroll Speed Change":
-				if(event.params != null && !inMenu) {
+				if (event.params != null && !inMenu) {
 					var group = new EventIconGroup();
 					group.add(generateDefaultIcon(event.name));
 					if (event.params[0]) generateEventIconDurationArrow(group, event.params[2]);
@@ -284,7 +284,7 @@ class CharterEvent extends UISliceSprite implements ICharterSelectable {
 				
 				if (icon == null) icon = generateDefaultIcon(event.name);
 				
-				if(event.params != null && shouldDoArrow && !inMenu) {
+				if (event.params != null && shouldDoArrow && !inMenu) {
 					var group = new EventIconGroup();
 					group.add(icon);
 					group.members[0].x -= 8;
@@ -299,7 +299,7 @@ class CharterEvent extends UISliceSprite implements ICharterSelectable {
 				if (event.params != null)
 					shouldDoArrow = event.params[2] && event.params[4] != "CLASSIC"; // is Tweened and isnt Lerped
 
-				if(event.params != null && shouldDoArrow && !inMenu) {
+				if (event.params != null && shouldDoArrow && !inMenu) {
 					var group = new EventIconGroup();
 					group.add(generateDefaultIcon(event.name));
 					generateEventIconDurationArrow(group, event.params[3]);
@@ -311,7 +311,7 @@ class CharterEvent extends UISliceSprite implements ICharterSelectable {
 				if (event.params != null)
 					shouldDoArrow = event.params[0] && event.params[4] != "CLASSIC";
 
-				if(event.params != null && shouldDoArrow && !inMenu) {
+				if (event.params != null && shouldDoArrow && !inMenu) {
 					var group = new EventIconGroup();
 					group.add(generateDefaultIcon(event.name));
 					generateEventIconDurationArrow(group, event.params[3]);
@@ -523,7 +523,7 @@ class EventNumber extends FlxSprite {
 	override function draw() {
 		var baseX = x;
 		var offsetX = 0.0;
-		if(align == ALIGN_CENTER) offsetX = -(digits.length - 1) * spacing * Math.abs(scale.x) / 2;
+		if (align == ALIGN_CENTER) offsetX = -(digits.length - 1) * spacing * Math.abs(scale.x) / 2;
 
 		x = baseX + offsetX;
 		for (i in 0...digits.length) {

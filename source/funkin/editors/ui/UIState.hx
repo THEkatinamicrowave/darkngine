@@ -90,7 +90,7 @@ class UIState extends MusicBeatState {
 	}
 
 	public function updateRectButtonHandler(spr:UISprite, rect:FlxRect, buttonHandler:Void->Void) {
-		if(isOverlapping(spr, rect)) {
+		if (isOverlapping(spr, rect)) {
 			spr.hoveredByChild = true;
 			this.hoveredSprite = spr;
 			this.buttonHandler = buttonHandler;
@@ -150,7 +150,7 @@ class UIState extends MusicBeatState {
 
 	public function closeCurrentContextMenu() {
 		playEditorSound(Flags.DEFAULT_EDITOR_WINDOWCLOSE_SOUND);
-		if(curContextMenu != null) {
+		if (curContextMenu != null) {
 			curContextMenu.close();
 			curContextMenu = null;
 		}

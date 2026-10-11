@@ -25,7 +25,7 @@ class AssetTreeInfo extends FramerateCategory {
 		lastUpdateTime = 0;
 
 		var text = "Not initialized yet\n";
-		if (Paths.assetsTree != null){
+		if (Paths.assetsTree != null) {
 			text = "";
 			var buf = new StringBuf();
 			for(l in Paths.assetsTree.libraries) {

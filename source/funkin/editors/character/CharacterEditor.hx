@@ -333,7 +333,7 @@ class CharacterEditor extends UIState {
 
 		_view_focus_character(null);
 
-		if(Framerate.isLoaded) {
+		if (Framerate.isLoaded) {
 			Framerate.fpsCounter.alpha = 0.4;
 			Framerate.memoryCounter.alpha = 0.4;
 			Framerate.codenameBuildField.alpha = 0.4;
@@ -348,7 +348,7 @@ class CharacterEditor extends UIState {
 		clipboard.put();
 
 		super.destroy();
-		if(Framerate.isLoaded) {
+		if (Framerate.isLoaded) {
 			Framerate.fpsCounter.alpha = 1;
 			Framerate.memoryCounter.alpha = 1;
 			Framerate.codenameBuildField.alpha = 1;
@@ -362,7 +362,7 @@ class CharacterEditor extends UIState {
 	public var draggingCharacter:Bool = false;
 	public var draggingOffset:FlxPoint = new FlxPoint();
 	public override function update(elapsed:Float) {
-		if(FlxG.keys.justPressed.ANY && currentFocus == null)
+		if (FlxG.keys.justPressed.ANY && currentFocus == null)
 			UIUtil.processShortcuts(topMenu);
 
 		if (cameraHoverDummy.hovered && !draggingCharacter) {
@@ -527,7 +527,7 @@ class CharacterEditor extends UIState {
 					try {
 						var paths:Array<ImageSaveData> = [];
 
-						for(file in FileSystem.readDirectory(cneisdPath)){
+						for(file in FileSystem.readDirectory(cneisdPath)) {
 							var cneisdData:String = File.getContent(cneisdPath + file);
 							var imageSaveData:ImageSaveData = UIImageExplorer.deserializeSaveDataGlobal(cneisdData);
 
@@ -608,7 +608,7 @@ class CharacterEditor extends UIState {
 					try {
 						var paths:Array<ImageSaveData> = [];
 
-						for(file in FileSystem.readDirectory(cneisdPath)){
+						for(file in FileSystem.readDirectory(cneisdPath)) {
 							var cneisdData:String = File.getContent(cneisdPath + file);
 							var imageSaveData:ImageSaveData = UIImageExplorer.deserializeSaveDataGlobal(cneisdData);
 

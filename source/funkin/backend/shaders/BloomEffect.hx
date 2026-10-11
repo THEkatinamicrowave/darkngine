@@ -718,23 +718,23 @@ void main(void) {
 	vec4 bloom = texture2D(openfl_Texture, textureCoords.zw);
 
 	vec4 result;
-	if(uBlendMode == 0)
+	if (uBlendMode == 0)
 		result = src + bloom;
-	else if(uBlendMode == 1)
+	else if (uBlendMode == 1)
 		result = blendAlpha(src, bloom);
-	else if(uBlendMode == 5)
+	else if (uBlendMode == 5)
 		result = blendOverlay(src, bloom);
-	else if(uBlendMode == 8)
+	else if (uBlendMode == 8)
 		result = blendLighten(src, bloom);
-	else if(uBlendMode == 9)
+	else if (uBlendMode == 9)
 		result = blendMultiply(src, bloom);
-	else if(uBlendMode == 11)
+	else if (uBlendMode == 11)
 		result = blendOverlay(src, bloom);
-	else if(uBlendMode == 12)
+	else if (uBlendMode == 12)
 		result = blendScreen(src, bloom);
-	else if(uBlendMode == 15)
+	else if (uBlendMode == 15)
 		result = blendColorDodge(src, bloom);
-	else if(uBlendMode == 17)
+	else if (uBlendMode == 17)
 		result = blendSoftLight(src, bloom);
 	else
 		result = src + bloom;

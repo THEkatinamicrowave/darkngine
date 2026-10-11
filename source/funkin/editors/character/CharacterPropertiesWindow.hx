@@ -177,13 +177,13 @@ class CharacterPropertiesWindow extends UISliceSprite {
 		var hasMultiSprite:Bool = false;
 
 		for(e in character.xml.elements)
-			if(e.name == "spritesheet" || e.name == "sheet"){ 
+			if (e.name == "spritesheet" || e.name == "sheet") { 
 				hasMultiSprite = true; break;
 			}
 
-		if(hasMultiSprite){
+		if (hasMultiSprite) {
 			for(e in character.xml.elements)
-				if(e.name == "spritesheet" || e.name == "sheet")
+				if (e.name == "spritesheet" || e.name == "sheet")
 					paths.push(e.x.get('path'));
 		} else {
 			paths = ['characters/${character.sprite}'];
@@ -198,10 +198,10 @@ class CharacterPropertiesWindow extends UISliceSprite {
 		var paths:Array<String> = [];
 
 		for(e in character.xml.elements)
-			if(e.name == "spritesheet" || e.name == "sheet") 
+			if (e.name == "spritesheet" || e.name == "sheet") 
 				character.xml.x.removeChild(e.x);
 
-		if(imageSaveDatas.length == 1){ 
+		if (imageSaveDatas.length == 1) { 
 			var imgData = imageSaveDatas[0];
 			character.sprite = '${imgData.directory.length > 0 ? '${imgData.directory}/' : ""}' + imgData.imageName;
 
@@ -209,7 +209,7 @@ class CharacterPropertiesWindow extends UISliceSprite {
 		} else {
 			character.sprite = null;
 
-			for(data in imageSaveDatas){
+			for(data in imageSaveDatas) {
 				var sheetElement = Xml.createElement("spritesheet");
 				var path = 'characters/${data.directory.length > 0 ? '${data.directory}/' : ""}' + data.imageName;
 

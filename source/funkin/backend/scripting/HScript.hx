@@ -42,7 +42,7 @@ class HScript extends Script {
 		interp = new Interp();
 
 		try {
-			if(Assets.exists(rawPath)) code = Assets.getText(rawPath);
+			if (Assets.exists(rawPath)) code = Assets.getText(rawPath);
 		} catch(e) Logs.error('Error while reading $path: ${Std.string(e)}');
 
 		parser = getParser();
@@ -81,7 +81,7 @@ class HScript extends Script {
 	}
 
 	private function importFailedCallback(cl:Array<String>, ?asName:String):Bool {
-		if(_importFailedCallback(cl, "source/") || _importFailedCallback(cl, "")) {
+		if (_importFailedCallback(cl, "source/") || _importFailedCallback(cl, "")) {
 			return true;
 		}
 		return false;
@@ -119,7 +119,7 @@ class HScript extends Script {
 	private function _errorHandler(error:Error) {
 		var fileName = error.origin;
 		var oldfn = '$fileName:${error.line}: ';
-		if(remappedNames.exists(fileName))
+		if (remappedNames.exists(fileName))
 			fileName = remappedNames.get(fileName);
 		var fn = '$fileName:${error.line}: ';
 		var err = error.toString();
@@ -137,7 +137,7 @@ class HScript extends Script {
 	private function _warnHandler(error:Error) {
 		var fileName = error.origin;
 		var oldfn = '$fileName:${error.line}: ';
-		if(remappedNames.exists(fileName))
+		if (remappedNames.exists(fileName))
 			fileName = remappedNames.get(fileName);
 		var fn = '$fileName:${error.line}: ';
 		var err = error.toString();

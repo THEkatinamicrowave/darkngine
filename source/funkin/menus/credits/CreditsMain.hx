@@ -85,7 +85,7 @@ class CreditsMain extends TreeMenu {
 
 				switch(node.name) {
 					case "credit":
-						var opt:PortraitOption = new PortraitOption(name, desc, function() if(node.has.url) CoolUtil.openURL(node.att.url),
+						var opt:PortraitOption = new PortraitOption(name, desc, function() if (node.has.url) CoolUtil.openURL(node.att.url),
 							node.has.icon && Paths.assetsTree.existsSpecific(Paths.image('credits/${node.att.icon}'), "IMAGE", source) ?
 							FlxG.bitmap.add(Paths.image('credits/${node.att.icon}')) : null, node.has.size ? Std.parseInt(node.att.size) : 96,
 							node.has.portrait ? node.att.portrait.toLowerCase() == "false" ? false : true : true

@@ -242,7 +242,7 @@ class VSliceParser {
 				noteStyle: addVars.noteStyle != null ? addVars.noteStyle : Flags.VSLICE_DEFAULT_NOTE_STYLE,
 				album: addVars.album != null ? addVars.album : Flags.VSLICE_DEFAULT_ALBUM_ID,
 				previewStart: addVars.previewStart != null ? addVars.previewStart : Flags.VSLICE_DEFAULT_PREVIEW_START,
-    			previewEnd: addVars.previewEnd != null ? addVars.previewEnd : Flags.VSLICE_DEFAULT_PREVIEW_END
+				previewEnd: addVars.previewEnd != null ? addVars.previewEnd : Flags.VSLICE_DEFAULT_PREVIEW_END
 			},
 		};
 

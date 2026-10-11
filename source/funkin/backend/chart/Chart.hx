@@ -33,7 +33,7 @@ enum abstract ChartFormat(Int) {
 		str = StringTools.replace(str, "_", "");
 		str = StringTools.replace(str, ".", "");
 
-		if(StringTools.startsWith(str, "psychv1") || StringTools.startsWith(str, "psych1"))
+		if (StringTools.startsWith(str, "psychv1") || StringTools.startsWith(str, "psych1"))
 			return PSYCH_NEW;
 
 		return switch(str) {
@@ -244,7 +244,7 @@ class Chart {
 		 * Set defaults on strum lines
 		*/
 		for(strumLine in base.strumLines) {
-			if(strumLine.keyCount == null)
+			if (strumLine.keyCount == null)
 				strumLine.keyCount = 4;
 		}
 

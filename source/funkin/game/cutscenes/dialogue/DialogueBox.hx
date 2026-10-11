@@ -30,17 +30,17 @@ class DialogueBox extends FunkinSprite {
 
 		var event = EventManager.get(DialogueBoxStructureEvent).recycle(name, textTypeSFX, null);
 		dialogueBoxScript.call('create', [event]);
-		if(event.cancelled) return;  // No idea the pyscho that would do this but hey, it can happen  - Nex
+		if (event.cancelled) return;  // No idea the pyscho that would do this but hey, it can happen  - Nex
 
 		try {
 			event.dialogueBoxData = new Access(Xml.parse(Assets.getText(Paths.xml(defPath + event.name))).firstElement());
 			dialogueBoxScript.call('structureLoaded', [event]);
-			if(event.cancelled) return;
+			if (event.cancelled) return;
 			name = event.name;
 			textTypeSFX = event.textTypeSFX;
 			dialogueBoxData = event.dialogueBoxData;
 
-			if(!dialogueBoxData.has.sprite) dialogueBoxData.x.set("sprite", name);
+			if (!dialogueBoxData.has.sprite) dialogueBoxData.x.set("sprite", name);
 			XMLUtil.loadSpriteFromXML(this, dialogueBoxData, defPath, NONE);
 			visible = false;
 
@@ -48,8 +48,8 @@ class DialogueBox extends FunkinSprite {
 			screenCenter(X); x += preX;
 			y += FlxG.height - height;
 
-			if(dialogueBoxData.has.textSound) textTypeSFX = Paths.sound(dialogueBoxData.att.textSound);
-			if(dialogueBoxData.has.nextSound) nextSFX = Paths.sound(dialogueBoxData.att.nextSound);
+			if (dialogueBoxData.has.textSound) textTypeSFX = Paths.sound(dialogueBoxData.att.textSound);
+			if (dialogueBoxData.has.nextSound) nextSFX = Paths.sound(dialogueBoxData.att.nextSound);
 
 			for(pos in dialogueBoxData.nodes.charpos) {
 				if (!pos.has.name) continue;
@@ -71,7 +71,7 @@ class DialogueBox extends FunkinSprite {
 			text.size = Std.parseInt(textNode.att.size).getDefault(20);
 			text.font = Paths.font(textNode.getAtt("font").getDefault("vcr.ttf"));
 			text.antialiasing = textNode.getAtt("antialiasing").getDefault("false") == "true";
-			if(textNode.has.borderStyle) {
+			if (textNode.has.borderStyle) {
 				text.borderStyle = switch(textNode.att.borderStyle.trim().toLowerCase()) {
 					case "none": NONE;
 					case "shadow": SHADOW;
@@ -99,7 +99,7 @@ class DialogueBox extends FunkinSprite {
 	public override function playAnim(AnimName:String, ?Force:Bool, Context:PlayAnimContext = NONE, Reversed:Bool = false, Frame:Int = 0) {
 		var event = EventManager.get(PlayAnimEvent).recycle(AnimName, Force, Reversed, Frame, Context);
 		dialogueBoxScript.call("onPlayAnim", [event]);
-		if(event.cancelled) return;
+		if (event.cancelled) return;
 
 		super.playAnim(event.animName, event.force, event.context, event.reverse, event.startingFrame);
 	}
@@ -129,22 +129,22 @@ class DialogueBox extends FunkinSprite {
 	public function playBubbleAnim(bubble:String, suffix:String = '', text:String = '', ?format:Array<XMLUtil.TextFormat>, speed:Float = 0.05, ?customSFX:FlxSound, ?customTypeSFX:Array<FlxSound>, setTextAfter:Bool = false, allowDefault:Bool = true) {
 		var event = EventManager.get(DialogueBoxPlayBubbleEvent).recycle(bubble, suffix, text, format, speed, customSFX, customTypeSFX, setTextAfter, allowDefault);
 		dialogueBoxScript.call("playBubbleAnim", [event]);
-		if(event.cancelled) return;
+		if (event.cancelled) return;
 
-		if(event.customSFX != null) event.customSFX.play();
-		else if(event.allowDefault) FlxG.sound.play(nextSFX);
+		if (event.customSFX != null) event.customSFX.play();
+		else if (event.allowDefault) FlxG.sound.play(nextSFX);
 		var idk:Void->Void = () -> {
-			if(text != null && text.trim().length > 0) startText(event.text, event.format, event.speed, event.customTypeSFX);
+			if (text != null && text.trim().length > 0) startText(event.text, event.format, event.speed, event.customTypeSFX);
 			else dialogueEnded = true;
 		}
 
 		dialogueEnded = false;
 		resetText();
 		var anim:String = event.bubble + event.suffix;
-		if(hasAnimation(anim)) playAnim(anim, true);
-		if(!event.setTextAfter) idk();
+		if (hasAnimation(anim)) playAnim(anim, true);
+		if (!event.setTextAfter) idk();
 		else animation.finishCallback = (name:String) -> {
-			if(name != anim) return;
+			if (name != anim) return;
 			playAnim(event.bubble);
 			idk(); animation.finishCallback = null;
 		}
@@ -154,12 +154,12 @@ class DialogueBox extends FunkinSprite {
 	}
 
 	public function resetText(text:String = '', ?formats:Array<XMLUtil.TextFormat>, ?event:DialogueBoxSetTextEvent) {
-		if(event == null) event = EventManager.get(DialogueBoxSetTextEvent).recycle(text, formats, null, null);
+		if (event == null) event = EventManager.get(DialogueBoxSetTextEvent).recycle(text, formats, null, null);
 		dialogueBoxScript.call("resetText", [event]);
-		if(event.cancelled) return;
+		if (event.cancelled) return;
 
 		this.text.clearFormats();
-		if(formats != null)
+		if (formats != null)
 			this.text.autoSetFormat(formats);
 
 		this.text.resetText(event.text);
@@ -169,7 +169,7 @@ class DialogueBox extends FunkinSprite {
 	public function startText(text:String = '', ?format:Array<XMLUtil.TextFormat>, speed:Float = 0.05, ?customTypeSFX:Array<FlxSound>) {
 		var event = EventManager.get(DialogueBoxSetTextEvent).recycle(text, format, speed, customTypeSFX);
 		dialogueBoxScript.call("startText", [event]);
-		if(event.cancelled) return;
+		if (event.cancelled) return;
 
 		resetText(event.text, event.format, event);
 		this.text.sounds = event.customTypeSFX != null ? event.customTypeSFX : defaultTextTypeSFX;

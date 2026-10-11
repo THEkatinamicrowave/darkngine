@@ -143,7 +143,7 @@ class EventsData {
 		hscriptInterp.variables.set("ColorWheel", TColorWheel);
 		hscriptInterp.variables.set("DropDown", Reflect.makeVarArgs(function(args:Array<Dynamic>):EventParamType {
 			var flatArgs = CoolUtil.deepFlatten(args);
-			if(flatArgs.length == 0) return TDropDown(["null"]);
+			if (flatArgs.length == 0) return TDropDown(["null"]);
 			return TDropDown([for (arg in flatArgs) Std.string(arg)]);
 		}));
 		hscriptInterp.variables.set("Character", TCharacter);

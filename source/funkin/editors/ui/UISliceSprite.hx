@@ -58,7 +58,7 @@ class UISliceSprite extends UISprite {
 	}
 
 	function set_framesOffset(value:Int) {
-		if(value != framesOffset) {
+		if (value != framesOffset) {
 			framesOffset = value;
 			calculateFrames();
 		}
@@ -66,7 +66,7 @@ class UISliceSprite extends UISprite {
 	}
 
 	function calculateFrames() {
-		if(frames == null) return;
+		if (frames == null) return;
 		topleft = frames.frames[framesOffset];
 		top = frames.frames[framesOffset + 1];
 		topright = frames.frames[framesOffset + 2];
@@ -127,7 +127,7 @@ class UISliceSprite extends UISprite {
 			// TOP
 			if (drawTop) {
 				// TOP LEFT
-				if(topAlpha != null) alpha = topAlpha;
+				if (topAlpha != null) alpha = topAlpha;
 				frame = topLeft;
 				setPosition(x, y);
 				__setSize(
@@ -159,7 +159,7 @@ class UISliceSprite extends UISprite {
 
 			// MIDDLE
 			if (drawMiddle && bHeight > topMiddle.frame.height + bottomMiddle.frame.height) {
-				if(middleAlpha != null) alpha = middleAlpha;
+				if (middleAlpha != null) alpha = middleAlpha;
 				var middleHeight:Float = bHeight - topLeftHeight - bottomLeftHeight;
 
 				// MIDDLE LEFT
@@ -185,7 +185,7 @@ class UISliceSprite extends UISprite {
 
 			// BOTTOM
 			if (drawBottom) {
-				if(bottomAlpha != null) alpha = bottomAlpha;
+				if (bottomAlpha != null) alpha = bottomAlpha;
 				// BOTTOM LEFT
 				frame = bottomLeft;
 				setPosition(x, y + bHeight - (bottomLeftHeight));

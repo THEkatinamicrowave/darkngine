@@ -56,9 +56,9 @@ class Macros {
 			"haxe.remoting.Proxy",
 		];
 
-		if(Context.defined("sys")) {
+		if (Context.defined("sys")) {
 			for(inc in ["sys", "openfl.net", "funkin.backend.system.net"]) {
-				if(!isHl) Compiler.include(inc, compathx4);
+				if (!isHl) Compiler.include(inc, compathx4);
 				else {
 
 					// TODO: Hashlink

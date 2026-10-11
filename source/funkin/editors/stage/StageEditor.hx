@@ -258,7 +258,7 @@ class StageEditor extends UIState {
 					var button:StageElementButton = (type == "box" || type == "solid") ? new StageSolidButton(0,0, sprite, xml) : new StageSpriteButton(0,0, sprite, xml);
 					sprite.extra.set(exID("button"), button);
 					stageSpritesWindow.add(button);
-				} else if(sprite == null) {
+				} else if (sprite == null) {
 					var basic = new FlxBasic(); // prevent awkward layering
 					basic.exists = false;
 					insert(i, basic);
@@ -273,7 +273,7 @@ class StageEditor extends UIState {
 		add(uiGroup);
 		add(axisGizmo);
 
-		if(Framerate.isLoaded) {
+		if (Framerate.isLoaded) {
 			Framerate.fpsCounter.alpha = 0.4;
 			Framerate.memoryCounter.alpha = 0.4;
 			Framerate.codenameBuildField.alpha = 0.4;
@@ -288,7 +288,7 @@ class StageEditor extends UIState {
 			return elems;
 		}
 		stage.onNodeFinished = function(node:Access, sprite:Dynamic) {
-			if(sprite is FlxSprite) {
+			if (sprite is FlxSprite) {
 				sprite.moves = false;
 			}
 			if (sprite is FunkinSprite) {
@@ -300,10 +300,10 @@ class StageEditor extends UIState {
 			var parent = new Access(node.x.parent);
 			//var name = "";
 			//trace(node, sprite);
-			if(sprite is FlxSprite) {
+			if (sprite is FlxSprite) {
 				//sprite.forceIsOnScreen = true; // hack
 			}
-			if(sprite is FunkinSprite) {
+			if (sprite is FunkinSprite) {
 				var sprite:FunkinSprite = cast sprite;
 				//name = sprite.name;
 				sprite.extra.set(exID("node"), node);
@@ -314,7 +314,7 @@ class StageEditor extends UIState {
 				sprite.extra.set(exID("lowMemory"), parent.name == "low-memory");
 				//sprite.active = false;
 			}
-			if(sprite is StageCharPos)
+			if (sprite is StageCharPos)
 				sprite = prepareCharacter(cast sprite, node);
 			order.push(sprite);
 			orderNodes.push(node);
@@ -404,7 +404,7 @@ class StageEditor extends UIState {
 	override function destroy() {
 		super.destroy();
 		nextScroll = FlxDestroyUtil.destroy(nextScroll);
-		if(Framerate.isLoaded) {
+		if (Framerate.isLoaded) {
 			Framerate.fpsCounter.alpha = 1;
 			Framerate.memoryCounter.alpha = 1;
 			Framerate.codenameBuildField.alpha = 1;
@@ -421,7 +421,7 @@ class StageEditor extends UIState {
 		super.update(elapsed);
 
 		if (true) {
-			if(FlxG.keys.justPressed.ANY)
+			if (FlxG.keys.justPressed.ANY)
 				UIUtil.processShortcuts(topMenu);
 		}
 
@@ -440,9 +440,9 @@ class StageEditor extends UIState {
 			var prevMode = mouseMode;
 
 			// TODO: make this work with multiple selections
-			if(selection.length == 1) {
+			if (selection.length == 1) {
 				for(sprite in selection) {
-					if(sprite is FunkinSprite) {
+					if (sprite is FunkinSprite) {
 						handleSelection(cast sprite);
 					}
 				}
@@ -468,7 +468,7 @@ class StageEditor extends UIState {
 						var sprites = getRealSprites();
 						for (i in 0...sprites.length) {
 							var sprite = sprites[sprites.length - i - 1];
-							//if(sprite.animateAtlas != null) continue;
+							//if (sprite.animateAtlas != null) continue;
 
 							calcSpriteBounds(sprite);
 							//trace("Sprite: " + sprite);
@@ -611,14 +611,14 @@ class StageEditor extends UIState {
 	}
 
 	function saveToXml(xml:Xml, name:String, value:Dynamic, ?defaultValue:Dynamic) {
-		if(value == null || value == defaultValue) return xml;
+		if (value == null || value == defaultValue) return xml;
 		xml.set(name, Std.string(value));
 		return xml;
 	}
 	function savePointToXml(xml:Xml, name:String, point:FlxPoint, ?defaultValueX:Float, ?defaultValueY:Float) {
 		if (point == null) return xml;
-		if(defaultValueY == null) defaultValueY = defaultValueX;
-		if(point.x == point.y) {
+		if (defaultValueY == null) defaultValueY = defaultValueX;
+		if (point.x == point.y) {
 			saveToXml(xml, name, point.x, defaultValueX);
 		} else {
 			saveToXml(xml, name + "x", point.x, defaultValueX);
@@ -643,7 +643,7 @@ class StageEditor extends UIState {
 		xml.attributeOrder = ["name", "folder", "zoom", "startCamPosX", "startCamPosY"];
 
 		for(prop in stage.extra.keys())
-			if(!Stage.DEFAULT_ATTRIBUTES.contains(prop) && !prop.startsWith("stageEditor."))
+			if (!Stage.DEFAULT_ATTRIBUTES.contains(prop) && !prop.startsWith("stageEditor."))
 				saveToXml(xml, prop, stage.extra.get(prop));
 
 		var group:Xml = null;
@@ -654,7 +654,7 @@ class StageEditor extends UIState {
 			var sprite:FunkinSprite = button.getSprite();
 			var newNode:Xml = button.xml.x;
 
-			if(newNode != null && sprite != null) {
+			if (newNode != null && sprite != null) {
 				var groupName = (sprite == null ? null : 
 					(
 						(sprite.extra.get(exID("lowMemory")) == true) ? "low-memory" :
@@ -662,11 +662,11 @@ class StageEditor extends UIState {
 					)
 				);
 
-				if(group != null && groupName != curGroup) {
+				if (group != null && groupName != curGroup) {
 					xml.addChild(group);
 					group = null;
 				}
-				if(groupName != null)
+				if (groupName != null)
 					(group = (group == null ? Xml.createElement(curGroup = groupName) : group)).addChild(newNode);
 				else
 					xml.addChild(newNode);
@@ -760,11 +760,11 @@ class StageEditor extends UIState {
 	}
 
 	public function selectSprite(_sprite:FunkinSprite) {
-		if(!UIUtil.getKeyState(CONTROL, PRESSED))
+		if (!UIUtil.getKeyState(CONTROL, PRESSED))
 			_select_deselect(null, false);
 
-		if(_sprite is FunkinSprite) {
-			if(selection.contains(_sprite))
+		if (_sprite is FunkinSprite) {
+			if (selection.contains(_sprite))
 				selection.remove(_sprite);
 			else
 				selection.push(_sprite);
@@ -783,7 +783,7 @@ class StageEditor extends UIState {
 		var sprites = getRealSprites();
 		// Unselect all
 		for(sprite in sprites) {
-			if(sprite is FunkinSprite) {
+			if (sprite is FunkinSprite) {
 				var sprite:FunkinSprite = cast sprite;
 				sprite.extra.set(exID("selected"), false);
 				sprite.extra.get(exID("button")).selected = false;
@@ -791,7 +791,7 @@ class StageEditor extends UIState {
 		}
 		// Mark selected as selected
 		for(sprite in selection) {
-			if(sprite is FunkinSprite) {
+			if (sprite is FunkinSprite) {
 				var sprite:FunkinSprite = cast sprite;
 				sprite.extra.set(exID("selected"), true);
 				sprite.extra.get(exID("button")).selected = true;
@@ -804,12 +804,12 @@ class StageEditor extends UIState {
 		_select_deselect(null, false);
 		var sprites = getRealSprites();
 		selection = new Selection(sprites);
-		if(checkSelection) updateSelection();
+		if (checkSelection) updateSelection();
 	}
 
 	function _select_deselect(_, checkSelection:Bool = true) {
 		selection = new Selection();
-		if(checkSelection) updateSelection();
+		if (checkSelection) updateSelection();
 	}
 
 	function _select_inverse(_, checkSelection:Bool = true) {
@@ -818,7 +818,7 @@ class StageEditor extends UIState {
 		for(sprite in oldSelection) {
 			selection.remove(sprite);
 		}
-		if(checkSelection) updateSelection();
+		if (checkSelection) updateSelection();
 	}
 
 	var zoom(default, set):Float = 0;
@@ -886,11 +886,11 @@ class StageEditor extends UIState {
 		super.draw();
 
 		for(sprite in selection)
-			if(sprite is FunkinSprite) drawGuides(cast sprite);
+			if (sprite is FunkinSprite) drawGuides(cast sprite);
 	}
 
 	function drawGuides(sprite:FunkinSprite) {
-		if(sprite == null || sprite.offset == null) return; // destroyed
+		if (sprite == null || sprite.offset == null) return; // destroyed
 
 		var corners:Array<FlxPoint> = calcSpriteBounds(sprite);
 		var transformedCorners:Array<FlxPoint> = [for (corner in corners) corner.clone()];
@@ -920,14 +920,14 @@ class StageEditor extends UIState {
 		final ANGLE_INDEX = StageEditorEdge.ROTATE_CIRCLE.toInt();
 		final CENTER_INDEX = StageEditorEdge.CENTER_CIRCLE.toInt();
 
-		if(sprite.extra.exists(exID("buttonBoxes"))) {
+		if (sprite.extra.exists(exID("buttonBoxes"))) {
 			var oldButtonBoxes:Array<FlxPoint> = cast sprite.extra.get(exID("buttonBoxes"));
-			if(oldButtonBoxes != null)
+			if (oldButtonBoxes != null)
 				for(point in oldButtonBoxes) point.put();
 		}
 
 		var buttonBoxes:Array<FlxPoint> = [];
-		if(sprite != null) sprite.extra.set(exID("buttonBoxes"), buttonBoxes);
+		if (sprite != null) sprite.extra.set(exID("buttonBoxes"), buttonBoxes);
 
 		DrawUtil.dot.color = 0xFFBBE4EA; DrawUtil.dot.animation.play("default");
 		for(i in 0...transformedCorners.length) {
@@ -990,7 +990,7 @@ class StageEditor extends UIState {
 			FlxPoint.get(0.5, -0.5), // angle
 			FlxPoint.get(1, 0) // rotate corner
 		], sprite.camera, sprite.frameWidth, sprite.frameHeight);
-		//if(sprite.animateAtlas != null) {
+		//if (sprite.animateAtlas != null) {
 		//	trace("Corners: " + corners);
 		//}
 		@:privateAccess corners[corners.length - 1].add(
@@ -1000,7 +1000,7 @@ class StageEditor extends UIState {
 
 		//Logs.trace("Guide at " + corners[0].x + ", " + corners[0].y + " sprite at " + sprite.x + ", " + sprite.y);
 
-		if(sprite is FunkinSprite) {
+		if (sprite is FunkinSprite) {
 			var sprite:FunkinSprite = cast sprite;
 			var corner0 = corners[0];
 			var corner1 = corners[1];
@@ -1011,7 +1011,7 @@ class StageEditor extends UIState {
 			var minX = MathUtil.minSmart(corner0.x, corner1.x, corner2.x, corner3.x);
 			var minY = MathUtil.minSmart(corner0.y, corner1.y, corner2.y, corner3.y);
 
-			if(!sprite.extra.exists(exID("bounds"))) {
+			if (!sprite.extra.exists(exID("bounds"))) {
 				sprite.extra.set(exID("bounds"), new FlxRect());
 			}
 			cast(sprite.extra.get(exID("bounds")), FlxRect).set(minX, minY, maxX - minX, maxY - minY);
@@ -1047,13 +1047,13 @@ class StageEditor extends UIState {
 	}
 
 	function handleSelection(sprite:FunkinSprite) {
-		if(!sprite.extra.exists(exID("buttonBoxes"))) return;
+		if (!sprite.extra.exists(exID("buttonBoxes"))) return;
 		var buttonBoxes:Array<FlxPoint> = cast sprite.extra.get(exID("buttonBoxes"));
 
 		dotCheckSize = DrawUtil.dot.frameWidth / 0.7/stageCamera.zoom; // basically adjust it to the zoom.
 
 		var prevMode = mouseMode;
-		if(FlxG.mouse.justPressed) {
+		if (FlxG.mouse.justPressed) {
 			for (i in StageEditorMouseMode.SKEW_TOP...(StageEditorMouseMode.SKEW_BOTTOM + 1)) {
 				var cappedI1 = CoolUtil.maxInt(i - StageEditorMouseMode.SKEW_TOP - 1, 0);
 				var cappedI2 = CoolUtil.minInt(i - StageEditorMouseMode.SKEW_TOP + 1, 3);
@@ -1070,7 +1070,7 @@ class StageEditor extends UIState {
 			}
 
 			for(i=>edge in edges) {
-				if(checkDot(buttonBoxes[i])) {
+				if (checkDot(buttonBoxes[i])) {
 					mouseMode = switch(edge) {
 						case TOP_LEFT: SCALE_TOP_LEFT;
 						case TOP_MIDDLE: SCALE_TOP;
@@ -1097,14 +1097,14 @@ class StageEditor extends UIState {
 					storedAngle = sprite.angle;
 				}
 				
-				if(mouseMode == MOVE_CENTER){
+				if (mouseMode == MOVE_CENTER) {
 					trace(mouseMode);
 					storedPos.set(sprite.x, sprite.y);
 				}
 			}
 		}
 		for(i=>edge in edges) {
-			if(checkDot(buttonBoxes[i])) {
+			if (checkDot(buttonBoxes[i])) {
 				// TODO: make it show both sided arrows when resizing, unless its at minimum size then show only one
 				// TODO: make this rotate with the sprite
 				currentCursor = switch(edge) {
@@ -1160,7 +1160,7 @@ class StageEditor extends UIState {
 			}));
 		}
 
-		if(mouseMode == NONE) return;
+		if (mouseMode == NONE) return;
 
 		var relative = clickPoint.subtractNew(mousePoint);
 		call(mouseMode.toString(), [sprite, relative]);
@@ -1171,7 +1171,7 @@ class StageEditor extends UIState {
 	public static var dotCheckSize:Float = 53;
 
 	function checkDot(point:FlxPoint):Bool {
-		if(point!=null){
+		if (point!=null) {
 			var rect = new FlxRect(point.x - dotCheckSize/2, point.y - dotCheckSize/2, dotCheckSize, dotCheckSize);
 			return rect.containsPoint(mousePoint);
 		}
@@ -1357,6 +1357,6 @@ class StageXMLEditScreen extends UISoftcodedWindow {
 
 	override function saveData() {
 		super.saveData();
-		if(saveCallback != null) saveCallback();
+		if (saveCallback != null) saveCallback();
 	}
 }

@@ -120,7 +120,7 @@ class MusicBeatState extends FlxState implements IBeatCancellableReceiver
 		super();
 		this.scriptsAllowed = #if SOFTCODED_STATES scriptsAllowed #else false #end;
 
-		if(lastStateName != (lastStateName = Type.getClassName(Type.getClass(this)))) {
+		if (lastStateName != (lastStateName = Type.getClassName(Type.getClass(this)))) {
 			lastScriptName = null;
 		}
 		this.scriptName = scriptName != null ? scriptName : lastScriptName;
@@ -183,7 +183,7 @@ class MusicBeatState extends FlxState implements IBeatCancellableReceiver
 		super.createPost();
 		persistentUpdate = true;
 		call("postCreate");
-		if(!Flags.DISABLE_TRANSITIONS) {
+		if (!Flags.DISABLE_TRANSITIONS) {
 			if (!skipTransIn)
 				startTransition(null);
 			skipTransIn = false;
@@ -218,20 +218,20 @@ class MusicBeatState extends FlxState implements IBeatCancellableReceiver
 
 	public function call(name:String, ?args:Array<Dynamic>, ?defaultVal:Dynamic):Dynamic {
 		// calls the function on the assigned script
-		if(stateScripts != null)
+		if (stateScripts != null)
 			return stateScripts.call(name, args);
 		return defaultVal;
 	}
 
 	public function callOne(name:String, arg:Dynamic, ?defaultVal:Dynamic):Dynamic {
 		// calls the function on the assigned script with a single argument
-		if(stateScripts != null)
+		if (stateScripts != null)
 			return stateScripts.callOne(name, arg);
 		return defaultVal;
 	}
 
 	public function event<T:CancellableEvent>(name:String, event:T):T {
-		if(stateScripts != null)
+		if (stateScripts != null)
 			stateScripts.event(name, event);
 		return event;
 	}
@@ -340,7 +340,7 @@ class MusicBeatState extends FlxState implements IBeatCancellableReceiver
 		if (e.cancelled)
 			return false;
 
-		if(Flags.DISABLE_TRANSITIONS)
+		if (Flags.DISABLE_TRANSITIONS)
 			return true;
 
 		if (skipTransOut || (subState is MusicBeatTransition && cast(subState, MusicBeatTransition).newState != null))

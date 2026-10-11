@@ -93,11 +93,11 @@ class PauseSubState extends MusicBeatSubstate
 		levelDifficulty = new FunkinText(20, 15, 0, TU.translateDiff(PlayState.difficulty).toUpperCase(), 32, false);
 		deathCounter = new FunkinText(20, 15, 0, TU.translate("pause.deathCounter", [PlayState.deathCounter]), 32, false);
 		multiplayerText = null;
-		if(multiplayerInfo != null)
+		if (multiplayerInfo != null)
 			multiplayerText = new FunkinText(20, 15, 0, TU.translate(multiplayerInfo), 32, false);
 
 		for(k=>label in [levelInfo, levelDifficulty, deathCounter, multiplayerText]) {
-			if(label == null) continue;
+			if (label == null) continue;
 			label.scrollFactor.set();
 			label.alpha = 0;
 			label.x = FlxG.width - (label.width + 20);
@@ -193,14 +193,14 @@ class PauseSubState extends MusicBeatSubstate
 	}
 	override function destroy()
 	{
-		if(camera != FlxG.camera && _cameras != null) {
-			if(FlxG.cameras.list.contains(camera))
+		if (camera != FlxG.camera && _cameras != null) {
+			if (FlxG.cameras.list.contains(camera))
 				FlxG.cameras.remove(camera, true);
 		}
 		pauseScript.call("destroy");
 		pauseScript.destroy();
 
-		if(pauseMusic != null) {
+		if (pauseMusic != null) {
 			@:privateAccess
 			FlxG.sound.destroySound(pauseMusic);
 		}

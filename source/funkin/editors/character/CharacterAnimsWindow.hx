@@ -139,9 +139,9 @@ class CharacterAnimsWindow extends UIButtonList<CharacterAnimButton> {
 
 		var newAnimCount:Int = 0;
 		while (animNames.indexOf(animName) != -1) {
-            newAnimCount++;
-            animName = '$newAnim - $newAnimCount';
-        }
+			newAnimCount++;
+			animName = '$newAnim - $newAnimCount';
+		}
 
 		if (__autoCompleteAnims.length <= 0)
 			setAnimAutoComplete(CoolUtil.getAnimsListFromSprite(character));

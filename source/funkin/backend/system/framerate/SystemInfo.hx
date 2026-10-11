@@ -103,7 +103,7 @@ class SystemInfo extends FramerateCategory {
 			Logs.error('Unable to grab CPU Name: $e');
 		}
 
-		@:privateAccess if(FlxG.renderTile) { // Blit doesn't enable the gpu. Idk if we should fix this
+		@:privateAccess if (FlxG.renderTile) { // Blit doesn't enable the gpu. Idk if we should fix this
 			if (flixel.FlxG.stage.context3D != null && flixel.FlxG.stage.context3D.gl != null) {
 				gpuName = Std.string(flixel.FlxG.stage.context3D.gl.getParameter(flixel.FlxG.stage.context3D.gl.RENDERER)).split("/")[0].trim();
 				#if !flash
@@ -111,7 +111,7 @@ class SystemInfo extends FramerateCategory {
 				gpuMaxSize = size+"x"+size;
 				#end
 
-				if(openfl.display3D.Context3D.__glMemoryTotalAvailable != -1) {
+				if (openfl.display3D.Context3D.__glMemoryTotalAvailable != -1) {
 					var vRAMBytes:Int = cast flixel.FlxG.stage.context3D.gl.getParameter(openfl.display3D.Context3D.__glMemoryTotalAvailable);
 					if (vRAMBytes == 1000 || vRAMBytes == 1 || vRAMBytes <= 0)
 						Logs.trace('Unable to grab GPU VRAM', ERROR, RED);
@@ -149,12 +149,12 @@ class SystemInfo extends FramerateCategory {
 			var gpuNameKnown = gpuName != "Unknown" && gpuName != cpuName;
 			var vramKnown = vRAM != "Unknown";
 
-			if(gpuNameKnown || vramKnown) buf.add("\n");
-			if(gpuNameKnown) {
+			if (gpuNameKnown || vramKnown) buf.add("\n");
+			if (gpuNameKnown) {
 				StringMacro.addLine(buf, 'GPU: ${gpuName}');
 			}
-			if(gpuNameKnown && vramKnown) buf.add(" | ");
-			if(vramKnown) {
+			if (gpuNameKnown && vramKnown) buf.add(" | ");
+			if (vramKnown) {
 				StringMacro.addLine(buf, 'VRAM: ${vRAM}');
 			}
 		}

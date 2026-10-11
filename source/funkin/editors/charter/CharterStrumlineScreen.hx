@@ -92,7 +92,7 @@ class CharterStrumlineScreen extends UISubstateWindow {
 
 		usesChartScrollSpeed = new UICheckbox(typeDropdown.x + 104, typeDropdown.y + 135, TU.translate("charterStrumLine.useChartScrollSpeed"), strumLine.scrollSpeed == null);
 		usesChartScrollSpeed.onChecked = function(b) {
-			if(b)
+			if (b)
 			{
 				scrollSpeedStepper.value = PlayState.SONG.scrollSpeed;
 				scrollSpeedStepper.selectable = false;
@@ -103,7 +103,7 @@ class CharterStrumlineScreen extends UISubstateWindow {
 		add(usesChartScrollSpeed);
 
 		scrollSpeedStepper = new UINumericStepper(typeDropdown.x, typeDropdown.y + 128, usesChartScrollSpeed.checked ? PlayState.SONG.scrollSpeed : strumLine.scrollSpeed, 0.1, 2, 0, 10, 82);
-		if(usesChartScrollSpeed.checked)
+		if (usesChartScrollSpeed.checked)
 		{
 			scrollSpeedStepper.selectable = false;
 		} else {
@@ -223,7 +223,7 @@ class CharterStrumlineScreen extends UISubstateWindow {
 			vocalsSuffix: vocalsSuffixDropDown.options[vocalsSuffixDropDown.index] != "NONE" ? vocalsSuffixDropDown.options[vocalsSuffixDropDown.index] : "",
 			keyCount: Std.int(keyCountStepper.value)
 		};
-		if(!usesChartScrollSpeed.checked) newStrumLine.scrollSpeed = scrollSpeedStepper.value;
+		if (!usesChartScrollSpeed.checked) newStrumLine.scrollSpeed = scrollSpeedStepper.value;
 		if (onSave != null) onSave(newStrumLine);
 	}
 

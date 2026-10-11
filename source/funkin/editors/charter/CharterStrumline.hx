@@ -61,7 +61,7 @@ class CharterStrumline extends UISprite {
 		scrollFactor.set(1, 0);
 		alpha = 0;
 
-		if(strumLine.visible == null) strumLine.visible = true;
+		if (strumLine.visible == null) strumLine.visible = true;
 
 		var icons = strumLine.characters != null ? strumLine.characters : [];
 

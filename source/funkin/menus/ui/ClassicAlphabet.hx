@@ -53,7 +53,7 @@ class ClassicAlphabet extends FlxSpriteGroup
 		AlphaCharacter.__alphaPath = Paths.getAssetsRoot() + path;
 		try {
 			var file = Assets.getText(path);
-			if(file == null) return;
+			if (file == null) return;
 			var xml = new Access(Xml.parse(file).firstElement());
 			AlphaCharacter.boldAnims = [];
 			AlphaCharacter.letterAnims = [];
@@ -249,7 +249,7 @@ class AlphaCharacter extends FlxSprite
 
 	public function createBold(letter:String)
 	{
-		if(!boldAnims.exists(letter))
+		if (!boldAnims.exists(letter))
 			letter = letter.toUpperCase();
 		if (!boldAnims.exists(letter)) {
 			visible = false;

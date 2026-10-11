@@ -188,13 +188,13 @@ class VideoCutscene extends Cutscene {
 	public override function update(elapsed:Float) {
 		super.update(elapsed);
 
-		if(loadingBackdrop != null) return;
+		if (loadingBackdrop != null) return;
 
 		@:privateAccess
 		var time:Int64 = video.bitmap.time;
 		var time:Float = FPHelper.i64ToDouble(time.low, time.high);
 
-		if(curSubtitle < subtitles.length && subtitles[curSubtitle].time < time) {
+		if (curSubtitle < subtitles.length && subtitles[curSubtitle].time < time) {
 			setSubtitle(subtitles[curSubtitle]);
 			curSubtitle++;
 		}

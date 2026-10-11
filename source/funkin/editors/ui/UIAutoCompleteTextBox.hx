@@ -30,7 +30,7 @@ class UIAutoCompleteTextBox extends UITextBox {
 			//case RETURN:
 			//	focused = false;
 			case TAB:
-				if(_suggestions.length > 0) {
+				if (_suggestions.length > 0) {
 					label.text = suggestionText.text;
 					position = label.text.length;
 					updateSuggestion(true);
@@ -51,21 +51,21 @@ class UIAutoCompleteTextBox extends UITextBox {
 	var _suggestions:Array<String> = [];
 
 	public function updateSuggestion(refreshSuggestions:Bool = true) {
-		if(refreshSuggestions) {
+		if (refreshSuggestions) {
 			var text = label.text;
 			_suggestions = [];
-			if(text.length > 0) {
-				// for(i in suggestItems) if(i.startsWith(text)) _suggestions.pushOnce(i);
-				for(i in suggestItems) if(!_suggestions.contains(i) && i.startsWith(text)) _suggestions.push(i);
+			if (text.length > 0) {
+				// for(i in suggestItems) if (i.startsWith(text)) _suggestions.pushOnce(i);
+				for(i in suggestItems) if (!_suggestions.contains(i) && i.startsWith(text)) _suggestions.push(i);
 
 				// Clean up suggestions
-				if(suggestItems.contains(text)) {_suggestions = [];}
+				if (suggestItems.contains(text)) {_suggestions = [];}
 				if (_suggestions.length > 0) _suggestions.sort(function(a, b) return a.length - b.length);
 			}
 		}
 
-		if(suggestionText.visible = (_suggestions.length != 0)) {
-			if(suggestIndex >= _suggestions.length)
+		if (suggestionText.visible = (_suggestions.length != 0)) {
+			if (suggestIndex >= _suggestions.length)
 				suggestIndex = 0;
 			suggestIndex = FlxMath.wrap(suggestIndex, 0, _suggestions.length - 1);
 

@@ -118,11 +118,11 @@ class CharacterInfoScreen extends UISubstateWindow {
 	public function saveCharacterInfo() {
 		UIUtil.confirmUISelections(this);
 
-		if (defaultAimFPS.value != oldDefFPS){
+		if (defaultAimFPS.value != oldDefFPS) {
 			var daIDForButton:Int = 0;
-			for (anim in character.getAnimOrder()){
+			for (anim in character.getAnimOrder()) {
 				var animName = character.animDatas.get(anim);
-				if (animName.fps == oldDefFPS){
+				if (animName.fps == oldDefFPS) {
 					var poop:CharacterAnimButton = CharacterEditor.instance.characterAnimsWindow.buttons.members[daIDForButton];
 					trace(poop);
 					poop.changeFPS(defaultAimFPS.value);

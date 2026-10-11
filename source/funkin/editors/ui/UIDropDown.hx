@@ -32,8 +32,8 @@ class UIDropDown extends UISliceSprite {
 
 		var _items:Array<DropDownItem> = [];
 
-		if(_options.length > 0) {
-			if(_options[0] is String) {
+		if (_options.length > 0) {
+			if (_options[0] is String) {
 				_items = getItems(_options);
 			} else {
 				_items = cast _options;

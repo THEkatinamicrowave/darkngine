@@ -396,7 +396,7 @@ uniform vec2 openfl_TextureSize;";
 	public static final vertBodyBackCompat:String = "openfl_Alphav = openfl_Alpha;
 openfl_TextureCoordv = openfl_TextureCoord;
 
-if(openfl_HasColorTransform) {
+if (openfl_HasColorTransform) {
 	openfl_ColorMultiplierv = openfl_ColorMultiplier;
 	openfl_ColorOffsetv = openfl_ColorOffset / 255.0;
 }

@@ -69,7 +69,7 @@ class CreditsDarkNgine extends funkin.options.TreeMenuScreen {
 
 	public function checkUpdate():Bool {
 		var curTime:Float = Date.now().getTime();
-		if(Options.lastUpdated != null && curTime < Options.lastUpdated + 120000) return false;  // Fuck you Github rate limits  - Nex
+		if (Options.lastUpdated != null && curTime < Options.lastUpdated + 120000) return false;  // Fuck you Github rate limits  - Nex
 		Options.lastUpdated = curTime;
 
 		error = false;
@@ -79,8 +79,8 @@ class CreditsDarkNgine extends funkin.options.TreeMenuScreen {
 			Logs.error(errMsg.replace('\n', ' '));
 			funkin.backend.utils.NativeAPI.showMessageBox("DarkNgine Warning", errMsg, MSG_WARNING);
 		});
-		if(error) return false;
-		if((idk is Array)) {
+		if (error) return false;
+		if ((idk is Array)) {
 			var contributors:Array<CreditsGitHubContributor> = [];
 			for(e in idk) contributors.push({
 				login: e.login,

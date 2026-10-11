@@ -211,7 +211,7 @@ class UITextBox extends UISliceSprite implements IUIFocusable {
 
 				// if we are not holding ctrl, ignore
 				if (!modifier.ctrlKey) {
-				    UIState.playEditorSound(Flags.DEFAULT_EDITOR_TEXTTYPE_SOUND);
+					UIState.playEditorSound(Flags.DEFAULT_EDITOR_TEXTTYPE_SOUND);
 					return;
 				}
 
@@ -224,7 +224,7 @@ class UITextBox extends UISliceSprite implements IUIFocusable {
 			case C:
 				// if we are not holding ctrl, ignore
 				if (!modifier.ctrlKey) {
-				    UIState.playEditorSound(Flags.DEFAULT_EDITOR_TEXTTYPE_SOUND);
+					UIState.playEditorSound(Flags.DEFAULT_EDITOR_TEXTTYPE_SOUND);
 					return;
 				}
 
@@ -235,7 +235,7 @@ class UITextBox extends UISliceSprite implements IUIFocusable {
 			case X:
 				// if we are not holding ctrl, ignore
 				if (!modifier.ctrlKey) {
-				    UIState.playEditorSound(Flags.DEFAULT_EDITOR_TEXTTYPE_SOUND);
+					UIState.playEditorSound(Flags.DEFAULT_EDITOR_TEXTTYPE_SOUND);
 					return;
 				}
 

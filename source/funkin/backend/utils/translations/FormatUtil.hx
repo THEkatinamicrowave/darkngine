@@ -14,7 +14,7 @@ final class FormatUtil {
 			return cache.get(id);
 
 		var fi:IFormatInfo = ParamFormatInfo.returnOnlyIfValid(id);
-		if(fi == null) fi = new StrFormatInfo(id);
+		if (fi == null) fi = new StrFormatInfo(id);
 		cache.set(id, fi);
 		return fi;
 	}

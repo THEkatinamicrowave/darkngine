@@ -114,7 +114,7 @@ class ScriptPack extends Script {
 	 */
 	public inline function event<T:CancellableEvent>(func:String, event:T):T {
 		for(e in scripts) {
-			if(!e.active) continue;
+			if (!e.active) continue;
 
 			__eventArgs[0] = event; // set per-script so nested event dispatch on the same pack can't clobber it
 			e.call(func, __eventArgs);

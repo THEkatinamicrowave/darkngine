@@ -87,7 +87,7 @@ class Character extends FunkinSprite implements IBeatReceiver implements IOffset
 
 		xml = getXMLFromCharName(this);
 
-		if(!disableScripts)
+		if (!disableScripts)
 			script = Script.create(Paths.script(Path.withoutExtension(Paths.xml('characters/$curCharacter')), null, true));
 		if (script == null)
 			script = new DummyScript(curCharacter);
@@ -158,7 +158,7 @@ class Character extends FunkinSprite implements IBeatReceiver implements IOffset
 	private var danced:Bool = false;
 
 	public function dance() {
-		if(debugMode) return;
+		if (debugMode) return;
 
 		var event = EventManager.get(DanceEvent).recycle(danced);
 		scripts.event("onDance", event);
@@ -321,7 +321,7 @@ class Character extends FunkinSprite implements IBeatReceiver implements IOffset
 	}
 
 	public override function destroy() {
-		if(scripts != null) {
+		if (scripts != null) {
 			scripts.call('destroy');
 			scripts.destroy();
 		}
@@ -426,7 +426,7 @@ class Character extends FunkinSprite implements IBeatReceiver implements IOffset
 		for(node in xml.elements) {
 			switch(node.name) {
 				case "anim":	
-					if (defaultAimFPS != 24){
+					if (defaultAimFPS != 24) {
 						if (!node.x.exists("fps")) {
 							node.x.set('fps', Std.string(defaultAimFPS));
 						} 
@@ -503,7 +503,7 @@ class Character extends FunkinSprite implements IBeatReceiver implements IOffset
 		}
 
 		for(e in this.xml.elements)
-			if(e.name == "spritesheet" || e.name == "sheet") 
+			if (e.name == "spritesheet" || e.name == "sheet") 
 				xml.addChild(e.x);
 
 		var anims:Array<AnimData> = [];
@@ -551,7 +551,7 @@ class Character extends FunkinSprite implements IBeatReceiver implements IOffset
 		return (icon != null) ? icon : curCharacter;
 
 	public function getAnimOrder()
-		return [for(a in xml.nodes.anim) if(a.has.name) a.att.name];
+		return [for(a in xml.nodes.anim) if (a.has.name) a.att.name];
 
 	@:noCompletion private function set_stunned(b:Bool) {
 		__stunnedTime = 0;
@@ -573,12 +573,12 @@ class Character extends FunkinSprite implements IBeatReceiver implements IOffset
 		if (scripts == null) (scripts = new ScriptPack("Character")).setParent(this);
 
 		var lastIndex = scripts.scripts.indexOf(this.script);
-		if(lastIndex >= 0) {
-			if(script == null) // last != null && new == null
+		if (lastIndex >= 0) {
+			if (script == null) // last != null && new == null
 				scripts.scripts.splice(lastIndex, 1);
 			else // last != null && new != null
 				scripts.scripts[lastIndex] = script;
-		} else if(script != null) // last == null
+		} else if (script != null) // last == null
 			scripts.insert(0, script);
 
 		return this.script = script;
@@ -622,8 +622,8 @@ class Character extends FunkinSprite implements IBeatReceiver implements IOffset
 	}
 
 	public static function getIconFromCharName(?character:String, ?defaultIcon:String = null) {
-		if(character == null) return Flags.DEFAULT_HEALTH_ICON;
-		if(defaultIcon == null) defaultIcon = character;
+		if (character == null) return Flags.DEFAULT_HEALTH_ICON;
+		if (defaultIcon == null) defaultIcon = character;
 		var icon:String = defaultIcon;
 
 		var xml:Access = getXMLFromCharName(character);
@@ -638,7 +638,7 @@ class Character extends FunkinSprite implements IBeatReceiver implements IOffset
 		var list:Array<String> = [];
 		if (includeFolders || recursive) {
 			for (path in Paths.getFolderDirectories(folder, true, mods ? MODS : BOTH)) {
-				if(!path.endsWith("/")) path += "/";
+				if (!path.endsWith("/")) path += "/";
 				if (recursive) {
 					list = list.concat(Character.getList(mods, includeFolders, path, recursive));
 				} else {

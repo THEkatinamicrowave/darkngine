@@ -86,11 +86,11 @@ final class TranslationUtil
 	 */
 	public static function setLanguage(?name:String):Void {
 		#if TRANSLATIONS_SUPPORT
-		if(name == null) name = curLanguage;
-		if(!langConfigs.exists(name)) name = Flags.DEFAULT_LANGUAGE;
-		if(!langConfigs.exists(name)) name = foundLanguages[0];
+		if (name == null) name = curLanguage;
+		if (!langConfigs.exists(name)) name = Flags.DEFAULT_LANGUAGE;
+		if (!langConfigs.exists(name)) name = foundLanguages[0];
 
-		if(curLanguage != name) {
+		if (curLanguage != name) {
 			Logs.traceColored([
 				Logs.getPrefix("Language"),
 				Logs.logText("Changing saved language to: "),
@@ -109,7 +109,7 @@ final class TranslationUtil
 		}
 
 		for(mod in ModsFolder.getLoadedModsLibs(false))
-			if(mod is TranslatedAssetLibrary)
+			if (mod is TranslatedAssetLibrary)
 				cast(mod, TranslatedAssetLibrary).langFolder = name;
 
 		config = getConfig(name);
@@ -146,12 +146,12 @@ final class TranslationUtil
 			return map.get(id);
 		#end
 
-		if(def != null)
+		if (def != null)
 			return FormatUtil.get(def);
 
 		return FormatUtil.getStr("{" + id + "}");
 
-		/*if(curLanguage == Flags.DEFAULT_LANGUAGE) {
+		/*if (curLanguage == Flags.DEFAULT_LANGUAGE) {
 			return FormatUtil.getStr("{" + id + "}");
 		} else {
 
@@ -199,14 +199,14 @@ final class TranslationUtil
 			var path:String = Path.join([mainPath, lang, "config.ini"]);
 			var config = getDefaultConfig(lang);
 
-			if(Assets.exists(path)) {
+			if (Assets.exists(path)) {
 				var c = IniUtil.parseAsset(path);
 				for (i => v in c)
 					for (key => value in v)
 						config[key] = value;
 			} else { // if there was no config.ini, use the file name as the language name
 				for(file in Paths.getFolderContent(mainPath + lang).sortAlphabetically()) {
-					if(Path.extension(file) == "xml") {
+					if (Path.extension(file) == "xml") {
 						config["name"] = Path.withoutExtension(file);
 						break;
 					}
@@ -220,10 +220,10 @@ final class TranslationUtil
 
 		// Ensure that the default language is always first
 		var defaultName = Flags.DEFAULT_LANGUAGE + "/" + getLanguageName(Flags.DEFAULT_LANGUAGE);
-		if(foundLanguages.contains(defaultName)) foundLanguages.remove(defaultName);
+		if (foundLanguages.contains(defaultName)) foundLanguages.remove(defaultName);
 		foundLanguages.insert(0, defaultName);
 
-		if(!nameMap.exists(curLanguage)) curLanguage = Flags.DEFAULT_LANGUAGE;
+		if (!nameMap.exists(curLanguage)) curLanguage = Flags.DEFAULT_LANGUAGE;
 		Logs.trace("Found languages: " + foundLanguages.join(", "), "Language");
 		#end
 	}
@@ -244,7 +244,7 @@ final class TranslationUtil
 			for(node in xml.elements) {
 				if (node.name == "group") // Cosmetic name
 					parseXml(node, prefix + (node.has.prefix ? node.att.prefix : ""));
-				else if(NODE_NAMES.contains(node.name))
+				else if (NODE_NAMES.contains(node.name))
 					translations.push({
 						prefix: prefix,
 						node: node
@@ -255,7 +255,7 @@ final class TranslationUtil
 		// todo make it load the default languages in a second string map
 
 		for(mod in ModsFolder.getLoadedModsLibs(true)) for(file in mod.getFiles("assets/" + mainPath).sortAlphabetically().map((v)->'$mainPath/$v')) {
-			if(Path.extension(file).toLowerCase() != "xml") continue;
+			if (Path.extension(file).toLowerCase() != "xml") continue;
 
 			// Parse the XML
 			var xml:Access = null;
@@ -288,9 +288,9 @@ final class TranslationUtil
 
 			var id = prefix + node.att.id;
 
-			if(leMap.exists(id)) continue;
+			if (leMap.exists(id)) continue;
 			var value:String = node.has.string ? node.att.string : node.innerData;
-			if(node.getAtt("notrim").getDefault("true") != "true") value = value.trim();
+			if (node.getAtt("notrim").getDefault("true") != "true") value = value.trim();
 			// make it so you can escape the backslash
 			value = value.replace("\\n", "\n").replace("\r", ""); // remove stupid windows line breaks and convert newline literals to newlines
 			leMap.set(id, FormatUtil.get(value));

@@ -88,7 +88,7 @@ class UIAudioPlayer extends UIButton {
 			playingSprite.animation.play(sound.playing ? "playing" : "paused");
 			timeText.text = '${FlxStringUtil.formatTime(sound.time/1000, true)} / ${FlxStringUtil.formatTime(sound.length/1000)}';
 
-			if(timeBarPlayer.rawClipRect == null)
+			if (timeBarPlayer.rawClipRect == null)
 				timeBarPlayer.rawClipRect = new FlxRect(0, 0, timeBarPlayer.frameWidth, timeBarPlayer.frameHeight);
 
 			timeBarPlayer.rawClipRect.x = timeBarPlayer.frameWidth * (sound.time/sound.length);

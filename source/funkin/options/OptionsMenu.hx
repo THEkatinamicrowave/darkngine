@@ -71,7 +71,7 @@ class OptionsMenu extends TreeMenu {
 
 				if (o.substate is MusicBeatSubstate)
 					openSubState(o.substate);
-				else if(Reflect.isFunction(o.substate)) {
+				else if (Reflect.isFunction(o.substate)) {
 					var substate:(name:String, desc:String) -> MusicBeatSubstate = o.substate;
 					openSubState(substate(o.name, o.desc));
 				}
@@ -196,7 +196,7 @@ class OptionsMenu extends TreeMenu {
 						optionDisplayOptions.push(choice.att.name);
 					}
 
-					if(optionOptions.length > 0)
+					if (optionOptions.length > 0)
 						options.push(new ArrayOption(name, desc, optionOptions, optionDisplayOptions, node.att.id, null, FlxG.save.data));
 				case 'radio':
 					if (!node.has.id) {

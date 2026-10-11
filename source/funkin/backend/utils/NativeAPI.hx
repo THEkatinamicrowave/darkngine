@@ -34,7 +34,7 @@ class NativeAPI {
 	 */
 	public static function getFileAttributesRaw(path:String, useAbsolute:Bool = true):Int {
 		#if windows
-		if(useAbsolute) path = sys.FileSystem.absolutePath(path);
+		if (useAbsolute) path = sys.FileSystem.absolutePath(path);
 		return Windows.getFileAttributes(path);
 		#else
 		return -1;
@@ -53,7 +53,7 @@ class NativeAPI {
 	 */
 	public static function setFileAttributes(path:String, attrib:OneOfThree<NativeAPI.FileAttribute, FileAttributeWrapper, Int>, useAbsolute:Bool = true):Int {
 		#if windows
-		if(useAbsolute) path = sys.FileSystem.absolutePath(path);
+		if (useAbsolute) path = sys.FileSystem.absolutePath(path);
 		return Windows.setFileAttributes(path, attrib is FileAttributeWrapper ? cast(attrib, FileAttributeWrapper).getValue() : cast(attrib, Int));
 		#else
 		return 0;
@@ -91,7 +91,7 @@ class NativeAPI {
 	 */
 	public static function setDarkMode(title:String, enable:Bool) {
 		#if windows
-		if(title == null) title = lime.app.Application.current.window.title;
+		if (title == null) title = lime.app.Application.current.window.title;
 		Windows.setDarkMode(title, enable);
 		#end
 	}
@@ -105,7 +105,7 @@ class NativeAPI {
 	 */
 	public static function setWindowBorderColor(title:String, color:FlxColor, setHeader:Bool = true, setBorder:Bool = true) {
 		#if windows
-		if(title == null) title = lime.app.Application.current.window.title;
+		if (title == null) title = lime.app.Application.current.window.title;
 		Windows.setWindowBorderColor(title, [color.red, color.green, color.blue, color.alpha], setHeader, setBorder);
 		#end
 	}
@@ -117,7 +117,7 @@ class NativeAPI {
 	**/
 	public static function resetWindowBorderColor(title:String, setHeader:Bool = true, setBorder:Bool = true) {
 		#if windows
-		if(title == null) title = lime.app.Application.current.window.title;
+		if (title == null) title = lime.app.Application.current.window.title;
 		Windows.setWindowBorderColor(title, [-1, -1, -1, -1], setHeader, setBorder);
 		#end
 	}
@@ -129,7 +129,7 @@ class NativeAPI {
 	 */
 	public static function setWindowTitleColor(title:String, color:FlxColor) {
 		#if windows
-		if(title == null) title = lime.app.Application.current.window.title;
+		if (title == null) title = lime.app.Application.current.window.title;
 		Windows.setWindowTitleColor(title, [color.red, color.green, color.blue, color.alpha]);
 		#end
 	}
@@ -141,7 +141,7 @@ class NativeAPI {
 	**/
 	public static function resetWindowTitleColor(title:String) {
 		#if windows
-		if(title == null) title = lime.app.Application.current.window.title;
+		if (title == null) title = lime.app.Application.current.window.title;
 		Windows.setWindowTitleColor(title, [-1, -1, -1, -1]);
 		#end
 	}
@@ -177,13 +177,13 @@ class NativeAPI {
 	 * Sets the console colors
 	 */
 	public static function setConsoleColors(foregroundColor:ConsoleColor = NONE, ?backgroundColor:ConsoleColor = NONE) {
-		if(Main.noTerminalColor) return;
+		if (Main.noTerminalColor) return;
 
 		#if sys
 		Sys.print("\x1b[0m");
-		if(foregroundColor != NONE)
+		if (foregroundColor != NONE)
 			Sys.print("\x1b[" + Std.int(consoleColorToANSI(foregroundColor)) + "m");
-		if(backgroundColor != NONE)
+		if (backgroundColor != NONE)
 			Sys.print("\x1b[" + Std.int(consoleColorToANSI(backgroundColor) + 10) + "m");
 		#end
 	}

@@ -83,16 +83,16 @@ class Stage extends FlxBasic implements IBeatReceiver {
 		var elems:Array<Access> = [];
 		if (xml != null) {
 			var parsed:Null<Float>;
-			if((parsed = Std.parseFloat(xml.getAtt("startCamPosX"))).isNotNull()) startCam.x = parsed;
-			if((parsed = Std.parseFloat(xml.getAtt("startCamPosY"))).isNotNull()) startCam.y = parsed;
-			if((parsed = Std.parseFloat(xml.getAtt("zoom"))).isNotNull()) defaultZoom = parsed;
+			if ((parsed = Std.parseFloat(xml.getAtt("startCamPosX"))).isNotNull()) startCam.x = parsed;
+			if ((parsed = Std.parseFloat(xml.getAtt("startCamPosY"))).isNotNull()) startCam.y = parsed;
+			if ((parsed = Std.parseFloat(xml.getAtt("zoom"))).isNotNull()) defaultZoom = parsed;
 
 			stageName = xml.getAtt("name").getDefault(stageFile);
 
 			if (PlayState.instance == state) {
-				if(xml.has.startCamPosX) PlayState.instance.camFollow.x = startCam.x;
-				if(xml.has.startCamPosY) PlayState.instance.camFollow.y = startCam.y;
-				if(xml.has.zoom) PlayState.instance.defaultCamZoom = defaultZoom;
+				if (xml.has.startCamPosX) PlayState.instance.camFollow.x = startCam.x;
+				if (xml.has.startCamPosY) PlayState.instance.camFollow.y = startCam.y;
+				if (xml.has.zoom) PlayState.instance.defaultCamZoom = defaultZoom;
 			}
 			if (xml.has.folder) {
 				spritesParentFolder = xml.att.folder;
@@ -101,7 +101,7 @@ class Stage extends FlxBasic implements IBeatReceiver {
 
 			// Load custom attributes
 			for(att in xml.x.attributes())
-				if(!DEFAULT_ATTRIBUTES.contains(att))
+				if (!DEFAULT_ATTRIBUTES.contains(att))
 					extra.set(att, xml.x.get(att));
 
 			// some way to tag that the sprites are from the group
@@ -115,7 +115,7 @@ class Stage extends FlxBasic implements IBeatReceiver {
 				event = EventManager.get(StageXMLEvent).recycle(this, stageXML, elems);
 				elems = PlayState.instance.gameAndCharsEvent("onStageXMLParsed", event).elems;
 			}
-			if(onXMLLoaded != null) {
+			if (onXMLLoaded != null) {
 				elems = onXMLLoaded(xml, elems);
 			}
 
@@ -182,10 +182,10 @@ class Stage extends FlxBasic implements IBeatReceiver {
 					default: null;
 				}
 
-				if(PlayState.instance == state) {
+				if (PlayState.instance == state) {
 					sprite = PlayState.instance.gameAndCharsEvent("onStageNodeParsed", EventManager.get(StageNodeEvent).recycle(this, node, sprite, node.name)).sprite;
 				}
-				if(onNodeLoaded != null) {
+				if (onNodeLoaded != null) {
 					sprite = onNodeLoaded(node, sprite);
 				}
 
@@ -194,7 +194,7 @@ class Stage extends FlxBasic implements IBeatReceiver {
 						XMLUtil.applyXMLProperty(sprite, e);
 				}
 
-				if(onNodeFinished != null) {
+				if (onNodeFinished != null) {
 					onNodeFinished(node, sprite);
 				}
 			}
@@ -230,7 +230,7 @@ class Stage extends FlxBasic implements IBeatReceiver {
 				script.destroy();
 			}
 		}
-		if(onXMLPostLoaded != null) {
+		if (onXMLPostLoaded != null) {
 			elems = onXMLPostLoaded(xml, elems);
 		}
 	}
@@ -333,7 +333,7 @@ class Stage extends FlxBasic implements IBeatReceiver {
 
 	function addSprite<T:FlxObject>(sprite:T):T {
 		state.add(sprite);
-		if(onAddSprite != null) onAddSprite(sprite);
+		if (onAddSprite != null) onAddSprite(sprite);
 		return sprite;
 	}
 
@@ -402,9 +402,9 @@ class Stage extends FlxBasic implements IBeatReceiver {
 		var extensions:Array<String> = ["xml"];
 		if (!xmlOnly) extensions.push("hx");
 
-		if(includeFolders) {
+		if (includeFolders) {
 			for (path in Paths.getFolderDirectories(folder, true, mods ? MODS : BOTH)) {
-				if(!path.endsWith("/")) path += "/";
+				if (!path.endsWith("/")) path += "/";
 				list.push(path);
 			}
 		}
@@ -479,7 +479,7 @@ class StageCharPos extends FlxObject {
 	}
 
 	public function revertCharacter(char:Character) {
-		if(oldInfo == null) return;
+		if (oldInfo == null) return;
 		for(field in Reflect.fields(oldInfo)) {
 			switch(field) {
 				case "scrollX": char.scrollFactor.x = oldInfo.scrollX;

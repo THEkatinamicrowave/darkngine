@@ -268,7 +268,7 @@ class UIContextMenuOptionSpr extends UISliceSprite {
 				}
 
 				if (option.keybinds != null || option.keybindText != null) {
-					var text = if(option.keybindText == null) {
+					var text = if (option.keybindText == null) {
 						var textKeys:Array<String> = [];
 						for (o in option.keybinds[0]) {
 							if (Std.int(o) > 0) {

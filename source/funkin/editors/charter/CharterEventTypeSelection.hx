@@ -47,7 +47,7 @@ class CharterEventTypeSelection extends UISubstateWindow {
 		for(k=>eventName in EventsData.eventsList) {
 			var visualName = eventName;
 			var tuId = "charter.events." + TU.raw2Id(eventName);
-			if(TU.exists(tuId))
+			if (TU.exists(tuId))
 				visualName = TU.translate(tuId);
 			var button = new UIButton(0, (32 * k), visualName, function() {
 				close();
@@ -121,7 +121,7 @@ class CharterEventTypeSelection extends UISubstateWindow {
 	override function destroy() {
 		super.destroy();
 
-		if(buttonCameras != null) {
+		if (buttonCameras != null) {
 			if (FlxG.cameras.list.contains(buttonCameras))
 				FlxG.cameras.remove(buttonCameras);
 			buttonCameras = null;

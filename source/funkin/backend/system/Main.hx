@@ -162,7 +162,7 @@ class Main extends Sprite
 
 		FlxG.mouse.useSystemCursor = true;
 		#if DARK_MODE_WINDOW
-		if(funkin.backend.utils.NativeAPI.hasVersion("Windows 10")) funkin.backend.utils.NativeAPI.redrawWindowHeader();
+		if (funkin.backend.utils.NativeAPI.hasVersion("Windows 10")) funkin.backend.utils.NativeAPI.redrawWindowHeader();
 		#end
 
 		ModsFolder.init();
@@ -207,10 +207,10 @@ class Main extends Sprite
 		var daSndTray = Type.createInstance(game._customSoundTray = funkin.menus.ui.FunkinSoundTray, []);
 		var index:Int = game.numChildren - 1;
 
-		if(game.soundTray != null)
+		if (game.soundTray != null)
 		{
 			var newIndex:Int = game.getChildIndex(game.soundTray);
-			if(newIndex != -1) index = newIndex;
+			if (newIndex != -1) index = newIndex;
 			game.removeChild(game.soundTray);
 			game.soundTray.__cleanup();
 		}

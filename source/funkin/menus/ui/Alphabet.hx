@@ -362,7 +362,7 @@ class Alphabet extends FlxSprite {
 			_matrix.scale(__drawScale.x * (__component.flipX ? -1 : 1), __drawScale.y * (__component.flipY ? -1 : 1));
 		else
 			_matrix.scale(__component.scaleX * (__component.flipX ? -1 : 1), __component.scaleY * (__component.flipY ? -1 : 1));
-		if(__component.shouldRotate)
+		if (__component.shouldRotate)
 			_matrix.rotateWithTrig(__component.cos, __component.sin);
 		_matrix.translate(_frame.frame.width * 0.5, _frame.frame.height * 0.5);
 
@@ -505,7 +505,7 @@ class Alphabet extends FlxSprite {
 	final function defaultsIndexOf(data:AlphabetLetterData):Int {
 		//while(i < defaults.length) {
 		for(i in 0...3) {
-			if(defaults[i] == data)
+			if (defaults[i] == data)
 				return i;
 		}
 		return -1;
@@ -582,7 +582,7 @@ class Alphabet extends FlxSprite {
 
 				defaults[idx] = res;
 			case "composite":
-				if(!node.exists("char")) {
+				if (!node.exists("char")) {
 					Logs.error("<composite> must have a char attribute", "Alphabet");
 					return;
 				}
@@ -592,7 +592,7 @@ class Alphabet extends FlxSprite {
 				var advance:Float = Std.parseFloat(node.get("advance"));
 				var components:Array<AlphabetComponent> = [];
 				for (component in node.elementsNamed("component")) {
-					if(!component.exists("anim")) {
+					if (!component.exists("anim")) {
 						Logs.error('Character $char: <component> must have a anim attribute', "Alphabet");
 						return;
 					}
@@ -667,7 +667,7 @@ class Alphabet extends FlxSprite {
 				});
 				manualLetters.push(char);
 			case "anim":
-				if(!node.exists("char")) {
+				if (!node.exists("char")) {
 					Logs.error("<anim> must have a char attribute", "Alphabet");
 					return;
 				}
@@ -742,7 +742,7 @@ class Alphabet extends FlxSprite {
 				});
 				manualLetters.push(char);
 			case "languageSection": // used to only parse characters if a specific language is selected
-				if(!node.exists("langs")) {
+				if (!node.exists("langs")) {
 					Logs.error("<languageSection> must have a langs attribute", "Alphabet");
 					return;
 				}
@@ -933,7 +933,7 @@ class Alphabet extends FlxSprite {
 		return textWidth;
 	}
 	function set_textWidth(value:Float):Float {
-		if(!__queueResize)
+		if (!__queueResize)
 			__queueResize = __forceWidth != value;
 		return __forceWidth = value;
 	}
@@ -952,7 +952,7 @@ class Alphabet extends FlxSprite {
 	}
 
 	function set_text(value:String):String {
-		if(!__queueResize)
+		if (!__queueResize)
 			__queueResize = text != value;
 		return text = value;
 	}

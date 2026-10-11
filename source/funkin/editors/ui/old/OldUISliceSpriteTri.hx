@@ -42,7 +42,7 @@ class OldUISliceSpriteTri extends UISprite {
 	public var drawBottom(default, set):Bool = true;
 
 	private function set_drawTop(value:Bool):Bool {
-		if(value != drawTop) {
+		if (value != drawTop) {
 			drawTop = value;
 			__meshDirty = true;
 		}
@@ -50,7 +50,7 @@ class OldUISliceSpriteTri extends UISprite {
 	}
 
 	private function set_drawMiddle(value:Bool):Bool {
-		if(value != drawMiddle) {
+		if (value != drawMiddle) {
 			drawMiddle = value;
 			__meshDirty = true;
 		}
@@ -58,7 +58,7 @@ class OldUISliceSpriteTri extends UISprite {
 	}
 
 	private function set_drawBottom(value:Bool):Bool {
-		if(value != drawBottom) {
+		if (value != drawBottom) {
 			drawBottom = value;
 			__meshDirty = true;
 		}
@@ -87,7 +87,7 @@ class OldUISliceSpriteTri extends UISprite {
 	}
 
 	function set_framesOffset(value:Int) {
-		if(value != framesOffset) {
+		if (value != framesOffset) {
 			framesOffset = value;
 			__framesDirty = true;
 		}
@@ -95,7 +95,7 @@ class OldUISliceSpriteTri extends UISprite {
 	}
 
 	function calculateFrames() {
-		if(frames == null) return;
+		if (frames == null) return;
 		topleft = frames.frames[framesOffset];
 		top = frames.frames[framesOffset + 1];
 		topright = frames.frames[framesOffset + 2];
@@ -153,7 +153,7 @@ class OldUISliceSpriteTri extends UISprite {
 	var __meshDirty:Bool = false;
 
 	private function set_bWidth(value:Int):Int {
-		if(value != bWidth) {
+		if (value != bWidth) {
 			bWidth = value;
 			__meshDirty = true;
 		}
@@ -161,7 +161,7 @@ class OldUISliceSpriteTri extends UISprite {
 	}
 
 	private function set_bHeight(value:Int):Int {
-		if(value != bHeight) {
+		if (value != bHeight) {
 			bHeight = value;
 			__meshDirty = true;
 		}
@@ -290,7 +290,7 @@ class OldUISliceSpriteTri extends UISprite {
 	private function __genSliceQuad(x:Float, y:Float, width:Float, height:Float, frame:FlxFrame, leftSlice:Quad, topSlice:Quad):Quad {
 		var indicesOffset:Int = Std.int(vertices.length / 2);
 
-		if(leftSlice != null && topSlice != null) {
+		if (leftSlice != null && topSlice != null) {
 			indices.push(topSlice.bl);
 			indices.push(topSlice.br);
 			indices.push(indicesOffset);
@@ -310,7 +310,7 @@ class OldUISliceSpriteTri extends UISprite {
 
 			return new Quad(topSlice.bl, topSlice.br, indicesOffset, leftSlice.br);
 		}
-		if(leftSlice != null) {
+		if (leftSlice != null) {
 			indices.push(leftSlice.tr);
 			indices.push(indicesOffset);
 			indices.push(indicesOffset + 1);
@@ -335,7 +335,7 @@ class OldUISliceSpriteTri extends UISprite {
 
 			return new Quad(leftSlice.tr, indicesOffset, indicesOffset + 1, leftSlice.br);
 		}
-		if(topSlice != null) {
+		if (topSlice != null) {
 			indices.push(topSlice.bl);
 			indices.push(topSlice.br);
 			indices.push(indicesOffset);

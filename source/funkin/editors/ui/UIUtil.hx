@@ -57,7 +57,7 @@ class UIUtil {
 
 					for (key in keybind) {
 						var shouldPress = Std.int(key) > 0;
-						if(!shouldPress) key = -key;
+						if (!shouldPress) key = -key;
 
 						var k = fixKey(key);
 						if (FlxG.keys.checkStatus(k, shouldPress ? JUST_PRESSED : JUST_RELEASED)) {

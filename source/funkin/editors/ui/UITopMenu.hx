@@ -61,16 +61,16 @@ class UITopMenuButton extends UISliceSprite {
 		label.follow(this, 0, Std.int((bHeight - label.height) / 2));
 		super.update(elapsed);
 
-		if(FlxG.mouse.released) {
-			if(justClosed > 0)
+		if (FlxG.mouse.released) {
+			if (justClosed > 0)
 				justClosed -= 1;
 		}
 
 		var opened = curMenu != null ? curMenu.contextMenuOpened() : false;
 
-		if(opened && FlxG.mouse.justPressed) {
+		if (opened && FlxG.mouse.justPressed) {
 			__rect.set(x, y, bWidth, bHeight);
-			if(UIState.state.isOverlapping(this, __rect)) {
+			if (UIState.state.isOverlapping(this, __rect)) {
 				curMenu.close();
 				justClosed = 2;
 				opened = false;
@@ -94,7 +94,7 @@ class UITopMenuButton extends UISliceSprite {
 	}
 
 	public function openContextMenu() {
-		//if(UIState.state.curContextMenu != null) {
+		//if (UIState.state.curContextMenu != null) {
 		//	UIState.state.curContextMenu.close();
 		//}
 		var screenPos = getScreenPosition(null, __lastDrawCameras[0] == null ? FlxG.camera : __lastDrawCameras[0]);

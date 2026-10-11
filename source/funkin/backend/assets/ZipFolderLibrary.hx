@@ -64,7 +64,7 @@ class ZipFolderLibrary extends AssetLibrary implements IModsAssetLibrary {
 		}
 
 		var count:Int = 0;
-        for (_ in videoCacheRemap.keys()) count++;
+		for (_ in videoCacheRemap.keys()) count++;
 		if (count <= 0) return;
 		trace('Precached $count video${(count == 1) ? "" : "s"}');
 	}

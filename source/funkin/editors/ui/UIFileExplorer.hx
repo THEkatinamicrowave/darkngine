@@ -64,7 +64,7 @@ class UIFileExplorer extends UISliceSprite {
 		deleteButton.visible = deleteButton.selectable = deleteIcon.visible = false;
 	}
 
-	function updateButtonsPos(){
+	function updateButtonsPos() {
 		uploadButton.follow(this, 8, 8);
 		uploadIcon.follow(uploadButton, (uploadButton.bWidth / 2) - 8, ((bHeight-16)/2) - 8);
 		deleteButton.follow(this,bWidth - (bHeight - 16) - 8,8);

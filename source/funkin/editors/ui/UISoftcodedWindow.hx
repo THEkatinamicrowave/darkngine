@@ -48,18 +48,18 @@ class UISoftcodedWindow extends UISubstateWindow {
 	}
 
 	function execString(input:String):String {
-		if(input == null) return null;
-		if(input.indexOf("${") == -1) return input;
+		if (input == null) return null;
+		if (input.indexOf("${") == -1) return input;
 		var text = "";
 		while(input.length > 0) {
 			var idx = input.indexOf("${");
-			if(idx == -1) {
+			if (idx == -1) {
 				text += input;
 				break;
 			}
 			text += input.substring(0, idx);
 			var ei = input.indexOf("}", idx);
-			if(ei == -1) {
+			if (ei == -1) {
 				text += input.substring(idx);
 				break;
 			}
@@ -120,9 +120,9 @@ class UISoftcodedWindow extends UISubstateWindow {
 		}
 		set("last", null);
 
-		if(varExists("winTitle")) winTitle = get("winTitle");
-		if(varExists("winWidth")) winWidth = get("winWidth");
-		if(varExists("winHeight")) winHeight = get("winHeight");
+		if (varExists("winTitle")) winTitle = get("winTitle");
+		if (varExists("winWidth")) winWidth = get("winWidth");
+		if (varExists("winHeight")) winHeight = get("winHeight");
 
 		winTitle = execString(layout.getAtt("title").getDefault(winTitle));
 		winWidth = Std.parseInt(layout.getAtt("width")).getDefault(winWidth);
@@ -143,9 +143,9 @@ class UISoftcodedWindow extends UISubstateWindow {
 
 				switch(type) {
 					case "section":
-						if(execAtt(el, "if", true) != true)
+						if (execAtt(el, "if", true) != true)
 							continue;
-						if(execAtt(el, "unless", false) != false)
+						if (execAtt(el, "unless", false) != false)
 							continue;
 						addLayout(getArr(el.elements));
 						continue;
@@ -263,7 +263,7 @@ class UISoftcodedWindow extends UISubstateWindow {
 							}
 						}
 						buttonlist.frames = Paths.getFrames(texture);
-						if(code != "")
+						if (code != "")
 							exec(code);
 						add(buttonlist);
 						addLabelOn(buttonlist, label);
@@ -280,14 +280,14 @@ class UISoftcodedWindow extends UISubstateWindow {
 				}
 
 				set("last", sprite);
-				if(name != null) set(name, sprite);
-				if(sprite is UISprite) elementMap.set(name, cast sprite);
+				if (name != null) set(name, sprite);
+				if (sprite is UISprite) elementMap.set(name, cast sprite);
 			}
 		}
 
 		addLayout(getArr(layout.elements));
 
-		if(get("hasSaveButton")) {
+		if (get("hasSaveButton")) {
 			saveButton = new UIButton(windowSpr.x + windowSpr.bWidth - 20, windowSpr.y + windowSpr.bHeight - 20, TU.translate("editor.saveClose"), function() {
 				saveData();
 				close();
@@ -297,16 +297,16 @@ class UISoftcodedWindow extends UISubstateWindow {
 			add(saveButton);
 		}
 
-		if(get("hasCloseButton")) {
+		if (get("hasCloseButton")) {
 			var x = saveButton != null ? saveButton.x - 20 : windowSpr.x + windowSpr.bWidth - 20;
 			var y = saveButton != null ? saveButton.y : windowSpr.y + windowSpr.bHeight - 20;
 			closeButton = new UIButton(x, y, TU.translate("editor.close"), function() {
 				close();
 			}, 125);
-			if(saveButton != null)
+			if (saveButton != null)
 				closeButton.color = 0xFFFF0000;
 			closeButton.x -= closeButton.bWidth;
-			if(saveButton == null)
+			if (saveButton == null)
 				closeButton.y -= closeButton.bHeight;
 			add(closeButton);
 		}
@@ -334,7 +334,7 @@ class UISoftcodedWindow extends UISubstateWindow {
 
 	public function saveData() {
 		for (el in elementMap) {
-			if(el is UINumericStepper) {
+			if (el is UINumericStepper) {
 				var el:UINumericStepper = cast el;
 				@:privateAccess el.__onChange(el.label.text);
 			}

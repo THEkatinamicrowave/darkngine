@@ -7,19 +7,19 @@ import funkin.menus.ui.effects.RegionEffect;
 class MarkupEffect extends RegionEffect
 {
 	public var char:UnicodeString;
-    public var color:FlxColor;
-    public var borderColor:FlxColor;
+	public var color:FlxColor;
+	public var borderColor:FlxColor;
 
-    public function new(char:UnicodeString, color:FlxColor = 0xFFFFFFFF, borderColor:FlxColor = 0xFF000000)
+	public function new(char:UnicodeString, color:FlxColor = 0xFFFFFFFF, borderColor:FlxColor = 0xFF000000)
 	{
-        super();
+		super();
 
 		this.char = char;
-        this.color = color;
-        this.borderColor = borderColor;
+		this.color = color;
+		this.borderColor = borderColor;
 
 		if (borderColor != 0xFF000000) trace('MarkupEffects do not yet support borderColors for Alphabet');
-    }
+	}
 
 	public function getMarkRanges(text:String):Array<FlxRange<Int>>
 	{

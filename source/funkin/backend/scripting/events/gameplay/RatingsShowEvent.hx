@@ -83,10 +83,10 @@ final class RatingsShowEvent extends CancellableEvent
 	public var position:FlxPoint;
 	/**
   	 * Whether to reset the sprite or not.
-     */
+	 */
 	public var resetSprite:Bool;
 	/**
-     * The rating name of the rating sprite. (may be null)
+	 * The rating name of the rating sprite. (may be null)
 	 */
 	public var rating:Null<String>;
 	/**

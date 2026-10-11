@@ -106,7 +106,7 @@ class PlaytestingWarningSubstate extends MusicBeatSubstate
 	}
 
 	override function destroy() {
-		if(FlxG.cameras.list.contains(camera))
+		if (FlxG.cameras.list.contains(camera))
 			FlxG.cameras.remove(camera, true);
 		super.destroy();
 	}

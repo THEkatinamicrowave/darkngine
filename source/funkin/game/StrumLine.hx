@@ -179,8 +179,8 @@ class StrumLine extends FlxTypedGroup<Strum> {
 		notes.sortNotes();
 
 		var scrollSpeed = strumLine.scrollSpeed;
-		if(scrollSpeed == null) if (PlayState.instance != null) scrollSpeed = PlayState.instance.scrollSpeed;
-		if(scrollSpeed == null) scrollSpeed = 1;
+		if (scrollSpeed == null) if (PlayState.instance != null) scrollSpeed = PlayState.instance.scrollSpeed;
+		if (scrollSpeed == null) scrollSpeed = 1;
 
 		// TODO: Make this work by accounting zoom and scroll speed changes  - Nex
 		/*var limit = FlxG.height / 0.45;
@@ -205,7 +205,7 @@ class StrumLine extends FlxTypedGroup<Strum> {
 	**/
 	public inline function updateNotes() {
 		__updateNote_songPos = Conductor.songPosition;
-		if(__updateNote_event == null) __updateNote_event = PlayState.instance.__updateNote_event;
+		if (__updateNote_event == null) __updateNote_event = PlayState.instance.__updateNote_event;
 		notes.forEach(updateNote);
 	}
 
@@ -366,7 +366,7 @@ class StrumLine extends FlxTypedGroup<Strum> {
 	 * @param amount The amount of strums to generate (-1 for the default amount)
 	**/
 	public inline function generateStrums(amount:Int = -1) {
-		if(amount == -1) amount = Flags.DEFAULT_STRUM_AMOUNT;
+		if (amount == -1) amount = Flags.DEFAULT_STRUM_AMOUNT;
 		for (i in 0...amount)
 			add(createStrum(i));
 	}
@@ -392,7 +392,7 @@ class StrumLine extends FlxTypedGroup<Strum> {
 		babyArrow.ID = i;
 		babyArrow.strumLine = this;
 
-		if(data.scrollSpeed != null)
+		if (data.scrollSpeed != null)
 			babyArrow.scrollSpeed = data.scrollSpeed;
 
 		var event = EventManager.get(StrumCreationEvent).recycle(babyArrow, PlayState.instance.strumLines.members.indexOf(this), i, animPrefix);

@@ -56,7 +56,7 @@ class UISprite extends FlxSprite {
 			FlxCamera._defaultCameras = cameras;
 
 			for(m in members)
-				if(m.exists && m.active)
+				if (m.exists && m.active)
 					m.update(elapsed);
 
 			FlxCamera._defaultCameras = __oldDefCams;
@@ -80,7 +80,7 @@ class UISprite extends FlxSprite {
 			FlxCamera._defaultCameras = cameras;
 
 			for(m in members)
-				if(m.exists && m.visible)
+				if (m.exists && m.visible)
 					m.draw();
 
 			FlxCamera._defaultCameras = __oldDefCams;
@@ -93,10 +93,10 @@ class UISprite extends FlxSprite {
 	}
 
 	public function updateButton() {
-		if(canBeHovered)
+		if (canBeHovered)
 			updateButtonHandler();
 		else {
-			if(FlxG.mouse.pressed) {
+			if (FlxG.mouse.pressed) {
 				updateButtonHandler();
 			}
 		}

@@ -181,7 +181,7 @@ class HealthIcon extends FunkinSprite
 			animation.play(char);
 		}
 
-		if(!animation.onFinishEnd.has(animFinishCallback))
+		if (!animation.onFinishEnd.has(animFinishCallback))
 			animation.onFinishEnd.add(animFinishCallback);
 
 		var parsedSteps:Map<Int, String> = [];
@@ -321,16 +321,16 @@ class HealthIcon extends FunkinSprite
 
 	var normalizedNames = ["neutral", "losing", "winning"];
 	private function normalizeAnim(anim:OneOfTwo<String, Int>):OneOfTwo<String, Int> {
-		if(this.animated) {
+		if (this.animated) {
 			if (anim is Int) {
 				var _:Int = cast anim;
-				if(_ >= 0 && _ < normalizedNames.length)
+				if (_ >= 0 && _ < normalizedNames.length)
 					anim = normalizedNames[anim];
 			}
 		} else {
 			if (anim is String) {
 				var _ = normalizedNames.indexOf(cast anim);
-				if(_ >= 0)
+				if (_ >= 0)
 					anim = _;
 			}
 		}
@@ -380,7 +380,7 @@ class HealthIcon extends FunkinSprite
 						var transAnim = 'from-$curAnimState-to-${event.anim}';
 						playAnim(hasAnim(transAnim) ? transAnim : event.anim);
 					} else {
-						if(animation.curAnim != null)
+						if (animation.curAnim != null)
 							animation.curAnim.curFrame = event.anim;
 					}
 				}

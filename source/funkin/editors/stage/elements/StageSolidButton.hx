@@ -13,7 +13,7 @@ class StageSolidButton extends StageSpriteButton {
 	}
 
 	public override function onEdit() {
-		if(!FlxG.keys.pressed.SHIFT) {
+		if (!FlxG.keys.pressed.SHIFT) {
 			FlxG.state.openSubState(new StageSpriteEditScreen(this, "layouts/stage/solidEditScreen"));
 		} else {
 			FlxG.state.openSubState(new StageXMLEditScreen(this.xml, updateInfo, "Solid"));

@@ -222,7 +222,7 @@ class CharacterAnimButton extends UIButton {
 		for (button in foldableButtons)
 			button.visible = button.active = !closed;
 
-		if(animLabelCheckbox.visible)
+		if (animLabelCheckbox.visible)
 			animLabelCheckbox.visible = animLabelCheckbox.active = (parent.character.frames is FlxAnimateFrames);
 		super.update(elapsed);
 	}

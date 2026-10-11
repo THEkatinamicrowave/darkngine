@@ -434,7 +434,7 @@ class Flags {
 				@:privateAccess
 				l = cast(l, openfl.utils.AssetLibrary).__proxy;
 			}
-			if(lib is funkin.backend.assets.TranslatedAssetLibrary) {
+			if (lib is funkin.backend.assets.TranslatedAssetLibrary) {
 				// skip translations since it would be useless, if you wanna modify it set the flags inside of global.hx
 				continue;
 			}

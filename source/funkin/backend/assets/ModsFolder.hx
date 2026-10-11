@@ -137,9 +137,9 @@ class ModsFolder {
 		}
 		
 		if (sortingOptions != null) {
-		    var sortForge:StringBuf = new StringBuf();
+			var sortForge:StringBuf = new StringBuf();
 			for (i in mods) {
-			    sortForge.add(i);
+				sortForge.add(i);
 				sortForge.add("::");
 			}
 
@@ -150,10 +150,10 @@ class ModsFolder {
 			final sortForgePure:String = sortForge.toString();
 
 			if (modsListSortCache.exists(sortForgePure))
-			    mods = modsListSortCache.get(sortForgePure);
+				mods = modsListSortCache.get(sortForgePure);
 				if (mods.length > 0 && mods[mods.length - 1] == null) mods.pop();
 			else {
-			    ModSortingController.sort(sortingOptions, mods);
+				ModSortingController.sort(sortingOptions, mods);
 				modsListSortCache.set(sortForgePure, mods);
 			}
 		}
@@ -221,43 +221,43 @@ class ModsFolder {
  * Describes how mods should be sorted when getting the mods list.
  */
 typedef ModSortingOptions = {
-    /**
-     * Whether or not the list should go in descending order (e.g. `[2, 1, 0]`).
-     */
-    var descending:Bool;
-    /**
-     * The sorting mode to use.
-     */
-    var mode:ModSortingMode;
+	/**
+	 * Whether or not the list should go in descending order (e.g. `[2, 1, 0]`).
+	 */
+	var descending:Bool;
+	/**
+	 * The sorting mode to use.
+	 */
+	var mode:ModSortingMode;
 }
 
 /**
  * This class performs the actual sorting for the mods list.
  */
 class ModSortingController {
-    /**
-     * Sort the mods list, according to the provided sorting options.
-     */
-    public static function sort(sortingOptions:ModSortingOptions, list:Array<String>):Void {
-        switch (sortingOptions.mode) {
-            case ModSortingMode.CLEAN: {}
-            case ModSortingMode.ALPHABETICAL: CoolUtil.sortAlphabetically(list);
-        }
-        if (sortingOptions.descending) list.reverse();
-    }
+	/**
+	 * Sort the mods list, according to the provided sorting options.
+	 */
+	public static function sort(sortingOptions:ModSortingOptions, list:Array<String>):Void {
+		switch (sortingOptions.mode) {
+			case ModSortingMode.CLEAN: {}
+			case ModSortingMode.ALPHABETICAL: CoolUtil.sortAlphabetically(list);
+		}
+		if (sortingOptions.descending) list.reverse();
+	}
 }
 
 /**
  * The mods list can be sorted in all of the ways provided by this enum.
  */
 enum abstract ModSortingMode(String) {
-    /**
-     * Use the original list received from reading the directory. This may depend
-     * on the current platform, but remains for legacy purposes.
-     */
-    var CLEAN;
-    /**
-     * The list should be in alphabetical order.
-     */
-    var ALPHABETICAL;
+	/**
+	 * Use the original list received from reading the directory. This may depend
+	 * on the current platform, but remains for legacy purposes.
+	 */
+	var CLEAN;
+	/**
+	 * The list should be in alphabetical order.
+	 */
+	var ALPHABETICAL;
 }

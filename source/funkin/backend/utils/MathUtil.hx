@@ -15,7 +15,7 @@ final class MathUtil {
 		var max = args[0];
 		for(i in 1...args.length) {
 			var arg = args[i];
-			if(arg > max)
+			if (arg > max)
 				max = arg;
 		}
 		return max;
@@ -31,7 +31,7 @@ final class MathUtil {
 		var min = args[0];
 		for(i in 1...args.length) {
 			var arg = args[i];
-			if(arg < min)
+			if (arg < min)
 				min = arg;
 		}
 		return min;
@@ -50,7 +50,7 @@ final class MathUtil {
 		var max = args[0];
 		for(i in 1...args.length) {
 			var arg = args[i];
-			if(arg > max)
+			if (arg > max)
 				max = arg;
 		}
 		return max;
@@ -69,7 +69,7 @@ final class MathUtil {
 		var min = args[0];
 		for(i in 1...args.length) {
 			var arg = args[i];
-			if(arg < min)
+			if (arg < min)
 				min = arg;
 		}
 		return min;

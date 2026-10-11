@@ -109,7 +109,7 @@ class UIColorwheel extends UISliceSprite {
 		hue = (mousePos.y / colorSlider.height) * 360;
 
 	public function updateWheel(checkChanged:Bool = true) {
-		if(checkChanged) colorChanged = true;
+		if (checkChanged) colorChanged = true;
 		colorPickerShader.hset("hue", hue / 360);
 		colorPickerSelector.curColor = color = curColor = FlxColor.fromHSB(hue, saturation, brightness); colorSliderSelector.curColor = FlxColor.fromHSB(hue, 1, 1);
 

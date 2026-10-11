@@ -8,7 +8,7 @@ class UIWindow extends UISliceSprite {
 	public override function new(x:Float, y:Float, w:Int, h:Int, ?title:String) {
 		super(x, y, w, h,  "editors/ui/normal-popup");
 
-		if(title != null && title.length != 0) {
+		if (title != null && title.length != 0) {
 			members.push(titleSpr = new UIText(x + 25, y, bWidth - 50, title, 15, -1));
 			titleSpr.y = y + ((30 - titleSpr.height) / 2);
 		}
@@ -23,18 +23,18 @@ class UIWindow extends UISliceSprite {
 
 		cursor = ARROW;
 
-		if(collapsable) {
+		if (collapsable) {
 			__rect.set(x, y, bWidth, topHeight);
 
-			if(UIState.state.isOverlapping(this, __rect)) {
+			if (UIState.state.isOverlapping(this, __rect)) {
 				cursor = CLICK;
-				if(FlxG.mouse.justPressed) {
+				if (FlxG.mouse.justPressed) {
 					content.exists = !content.exists;
 					drawMiddle = !drawMiddle;
 					drawBottom = !drawBottom;
 				}
 			} else {
-				if(!content.exists) {
+				if (!content.exists) {
 					cursor = null;
 				}
 			}
@@ -42,7 +42,7 @@ class UIWindow extends UISliceSprite {
 
 		__rect.x = x;
 		__rect.width = bWidth;
-		if(content.exists) {
+		if (content.exists) {
 			__rect.y = y+topHeight;
 			__rect.height = bHeight-topHeight;
 		}

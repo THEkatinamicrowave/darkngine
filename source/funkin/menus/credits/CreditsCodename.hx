@@ -69,7 +69,7 @@ class CreditsCodename extends funkin.options.TreeMenuScreen {
 
 	public function checkUpdate():Bool {
 		var curTime:Float = Date.now().getTime();
-		if(Options.cneLastUpdated != null && curTime < Options.cneLastUpdated + 120000) return false;  // Fuck you Github rate limits  - Nex
+		if (Options.cneLastUpdated != null && curTime < Options.cneLastUpdated + 120000) return false;  // Fuck you Github rate limits  - Nex
 		Options.cneLastUpdated = curTime;
 
 		error = false;
@@ -79,8 +79,8 @@ class CreditsCodename extends funkin.options.TreeMenuScreen {
 			Logs.error(errMsg.replace('\n', ' '));
 			funkin.backend.utils.NativeAPI.showMessageBox("Codename Engine Warning", errMsg, MSG_WARNING);
 		});
-		if(error) return false;
-		if((idk is Array)) {
+		if (error) return false;
+		if ((idk is Array)) {
 			var contributors:Array<CreditsGitHubContributor> = [];
 			for(e in idk) contributors.push({
 				login: e.login,
@@ -100,7 +100,7 @@ class CreditsCodename extends funkin.options.TreeMenuScreen {
 			Logs.error(errMsg.replace('\n', ' '));
 			funkin.backend.utils.NativeAPI.showMessageBox("Codename Engine Warning", errMsg, MSG_WARNING);
 		});
-		if(!errorOnMain) {
+		if (!errorOnMain) {
 			Options.mainCneDevs = [for(m in idk2) m.id];
 			Logs.verbose('[CreditsCodename] Main Devs list Updated!');
 		}
@@ -123,7 +123,7 @@ class CreditsCodename extends funkin.options.TreeMenuScreen {
 		for(c in Options.cneContributors) {
 			var text = TU.translate("credits.totalContributions", [c.contributions, totalContributions, FlxMath.roundDecimal(c.contributions / totalContributions * 100, 2)]);
 			var opt:GithubIconOption = new GithubIconOption(c, text);
-			if(Options.mainCneDevs.contains(c.id)) {
+			if (Options.mainCneDevs.contains(c.id)) {
 				opt.desc += TU.translate("credits.mainDev");
 				@:privateAccess opt.__text.color = Flags.MAIN_DEVS_COLOR;
 			}

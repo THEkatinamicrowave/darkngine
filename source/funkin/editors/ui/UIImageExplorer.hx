@@ -45,7 +45,7 @@ class UIImageExplorer extends UIFileExplorer {
 			if (onFile != null) onFile(filePath, file);
 		});
 
-		if(maxSize != null)
+		if (maxSize != null)
 			this.maxSize = maxSize;
 		
 		deleteButton.bWidth = 26;
@@ -103,37 +103,37 @@ class UIImageExplorer extends UIFileExplorer {
 		var files:Array<String> = [];
 
 		// CHECK ATLAS
-		if(allowAtlases && ANIMATE_ATLAS_REGEX.match(fileName)) {
+		if (allowAtlases && ANIMATE_ATLAS_REGEX.match(fileName)) {
 			// check if directory has the other files
 			files = FileSystem.readDirectory(directoryPath);
 			var hasAnimationJson:Bool = false;
 			var hasSpritemapJson:Bool = false;
 			for(file in files) {
-				if(file == "Animation.json")
+				if (file == "Animation.json")
 					hasAnimationJson = true;
-				else if(SPRITEMAP_JSON_REGEX.match(file.toLowerCase()))
+				else if (SPRITEMAP_JSON_REGEX.match(file.toLowerCase()))
 					hasSpritemapJson = true;
 
-				if(hasAnimationJson && hasSpritemapJson) {
+				if (hasAnimationJson && hasSpritemapJson) {
 					isAtlas = true;
 					break;
 				}
 			}
-		} else if(allowAtlases && Path.extension(fileName) == "png") {
+		} else if (allowAtlases && Path.extension(fileName) == "png") {
 			// check if the spritemap json files point to the image
 			files = FileSystem.readDirectory(directoryPath);
 			var hasAnimationJson:Bool = false;
 			var foundSpritemapJson:Bool = false;
 			for(file in files) {
-				if(SPRITEMAP_JSON_REGEX.match(file)) {
+				if (SPRITEMAP_JSON_REGEX.match(file)) {
 					var content:String = CoolUtil.removeBOM(File.getContent(Path.join([directoryPath, file])));
 					var json:SpritemapJson = Json.parse(content);
-					if(json.meta.image.toLowerCase() == fileName.toLowerCase())
+					if (json.meta.image.toLowerCase() == fileName.toLowerCase())
 						foundSpritemapJson = true;
-				} else if(file == "Animation.json")
+				} else if (file == "Animation.json")
 					hasAnimationJson = true;
 
-				if(hasAnimationJson && foundSpritemapJson) {
+				if (hasAnimationJson && foundSpritemapJson) {
 					isAtlas = true;
 					break;
 				}
@@ -143,10 +143,10 @@ class UIImageExplorer extends UIFileExplorer {
 		// IF ATLAS FIND SPRITMAPS
 		var spritemaps:Array<String> = [];
 		var spritemapImages:Array<String> = [];
-		if(isAtlas) {
+		if (isAtlas) {
 			// this doesn't check for gaps in the numbering
 			for(file in files)
-				if(SPRITEMAP_JSON_REGEX.match(file))
+				if (SPRITEMAP_JSON_REGEX.match(file))
 					spritemaps.push(file);
 
 			spritemaps.sort(Reflect.compare);
@@ -157,14 +157,14 @@ class UIImageExplorer extends UIFileExplorer {
 				for(file in files) {
 					// lowercase since windows does case insensitive stuff, so we use lowercase to match behavior on mac and linux
 					// and we also store the data from the filesystem instead of the json.meta.image
-					if(file.toLowerCase() == imageToFind) {
+					if (file.toLowerCase() == imageToFind) {
 						spritemapImages.push(file);
 						break;
 					}
 				}
 			}
 
-			if(spritemapImages.length == 0)
+			if (spritemapImages.length == 0)
 				isAtlas = false;
 		}
 
@@ -310,13 +310,13 @@ class UIImageExplorer extends UIFileExplorer {
 		members.push(directoryBG); __firstLoad = false;
 	}
 
-	override function updateButtonsPos(){
+	override function updateButtonsPos() {
 		super.updateButtonsPos();
 		directoryBG.follow(this,0,0);
 		directoryTextBox.follow(this, 0, 8+12+4);
 		directoryTextBoxLabel.follow(directoryBG, 8,6);
 		
-		if(uiElement != null && uiElement.exists){
+		if (uiElement != null && uiElement.exists) {
 			uiElement.follow(this, 16, 16+deleteButton.bHeight+4);
 			fileText.follow(this, 20, 16);
 		}

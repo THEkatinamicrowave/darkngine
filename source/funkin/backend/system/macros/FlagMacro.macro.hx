@@ -12,7 +12,7 @@ using funkin.backend.system.macros.FlagMacro;
 class FlagMacro {
 	private static function hasMeta(meta:Array<MetadataEntry>, name:String):Bool {
 		for(m in meta) {
-			if(m.name == name) {
+			if (m.name == name) {
 				return true;
 			}
 		}
@@ -48,7 +48,7 @@ class FlagMacro {
 
 					var alsos:Array<Expr> = [];
 					for(meta in field.meta) {
-						if(meta.name == ":also") {
+						if (meta.name == ":also") {
 							for(param in meta.params) {
 								switch(param.expr) {
 									case EField(_, _):
@@ -115,13 +115,13 @@ class FlagMacro {
 									case TPExpr(e):
 										switch(e.expr) {
 											case EConst(CString(s, kind)):
-												if(chosenType != NONE && chosenType != STRING)
+												if (chosenType != NONE && chosenType != STRING)
 													Context.error("Flag " + field.name + " Allow<> can only have one type", field.pos);
 												chosenType = STRING;
 
 												values.push(s);
 											case EConst(CInt(num)):
-												if(chosenType != NONE && chosenType != INT)
+												if (chosenType != NONE && chosenType != INT)
 													Context.error("Flag " + field.name + " Allow<> can only have one type", field.pos);
 												chosenType = INT;
 
@@ -138,18 +138,18 @@ class FlagMacro {
 							for(v in values) {
 								switch(expr.expr) {
 									case EConst(CString(s, kind)):
-										if(v == s)
+										if (v == s)
 											didFind = true;
 									case EConst(CInt(num)):
-										if(v == num)
+										if (v == num)
 											didFind = true;
 									default:
 								}
 							}
-							if(!didFind)
+							if (!didFind)
 								Context.error("Flag " + field.name + "'s Allow<> must have a default value that is allowed, " + expr.toString() + " is not allowed", field.pos);
 
-							if(chosenType == NONE)
+							if (chosenType == NONE)
 								Context.error("Flag " + field.name + "'s Allow<> must have atleast one value", field.pos);
 
 							var errorMessage = 'Flag ${field.name} must be one of ${values.join(", ")}';
@@ -158,10 +158,10 @@ class FlagMacro {
 							for(v in values)
 								checkExpr = macro $checkExpr || value == $v{v};
 
-							if(chosenType == STRING) {
+							if (chosenType == STRING) {
 								parser = macro value;
 								field.kind = FVar(macro: String, expr);
-							} else if(chosenType == INT) {
+							} else if (chosenType == INT) {
 								parser = macro Std.parseInt(value);
 								field.kind = FVar(macro: Int, expr);
 							} else {
@@ -169,8 +169,8 @@ class FlagMacro {
 							}
 
 							customCheck = macro @:mergeBlock {
-								if(name == $v{field.name}) {
-									if($checkExpr)
+								if (name == $v{field.name}) {
+									if ($checkExpr)
 										$i{field.name} = $parser;
 									else
 										throw $v{errorMessage};
@@ -193,7 +193,7 @@ class FlagMacro {
 						continue;
 					}
 
-					if(isNullable) {
+					if (isNullable) {
 						switch(field.kind) {
 							case FVar(t, e):
 								field.kind = FVar(TPath({name: "Null", pack: [], params: [TPType(t)]}), e);
@@ -205,14 +205,14 @@ class FlagMacro {
 
 					// parse(name: String, value: String)
 
-					if(customCheck != null) {
+					if (customCheck != null) {
 						parserExprs.push(customCheck);
 					} else {
 						var alsoExpr = alsos.length > 0 ? macro @:mergeBlock $b{alsos.map((e) -> return macro $e = val)} : macro {};
 
-						if(isNullable) {
+						if (isNullable) {
 							parserExprs.push(macro @:mergeBlock {
-								if(name == $v{field.name}) {
+								if (name == $v{field.name}) {
 									var val = value == "NULL" ? null : $parser;
 									$i{field.name} = val;
 									$alsoExpr;
@@ -221,7 +221,7 @@ class FlagMacro {
 							});
 						} else {
 							parserExprs.push(macro @:mergeBlock {
-								if(name == $v{field.name}) {
+								if (name == $v{field.name}) {
 									var val = $parser;
 									$i{field.name} = val;
 									$alsoExpr;
@@ -234,7 +234,7 @@ class FlagMacro {
 					// nothing
 			}
 
-			if(hasLazy) {
+			if (hasLazy) {
 				switch(field.kind) {
 					case FVar(t, expr):
 						field.kind = FVar(t, null);

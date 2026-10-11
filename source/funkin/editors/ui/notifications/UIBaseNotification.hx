@@ -38,7 +38,7 @@ class UIBaseNotification extends UISliceSprite {
 		textField.fieldWidth = bWidth - 32 - 8;
 		members.push(textField);
 
-		if(textField.height > bHeight)
+		if (textField.height > bHeight)
 			bHeight = Std.int(textField.height);
 
 		alpha = 0;
@@ -96,9 +96,9 @@ class UIBaseNotification extends UISliceSprite {
 		closeButton.field.color = 0xFF7f7f7f;
 		super.update(elapsed);
 
-		if(timerActive) {
+		if (timerActive) {
 			showingTimer -= elapsed;
-			if(showingTimer <= 0) {
+			if (showingTimer <= 0) {
 				timerActive = false;
 				idleDisappearAnimation();
 			}
@@ -115,7 +115,7 @@ class UIBaseNotification extends UISliceSprite {
 		x = closingX; alpha=0; FlxTween.cancelTweensOf(this, ["x", "alpha"]);
 		FlxTween.tween(this, {x: defaultX}, .4, {ease: FlxEase.circInOut});
 		FlxTween.tween(this, {alpha: 1}, .3, {ease: FlxEase.sineOut, startDelay: .1, onComplete: (_) -> {
-			if(showingTimer > 0) timerActive = true;
+			if (showingTimer > 0) timerActive = true;
 		}});
 
 		showedAnimation = true;
@@ -136,7 +136,7 @@ class UIBaseNotification extends UISliceSprite {
 
 		x = defaultX; alpha = 1; FlxTween.cancelTweensOf(this, ["x", "alpha"]);
 		FlxTween.tween(this, {alpha: 0}, .3, {ease: FlxEase.sineOut, onComplete: (_) -> {
-			if(onRemove != null) onRemove(this);
+			if (onRemove != null) onRemove(this);
 			destroy();
 		}});
 
@@ -150,7 +150,7 @@ class UIBaseNotification extends UISliceSprite {
 		x = defaultX; alpha = 1; FlxTween.cancelTweensOf(this, ["x", "alpha"]);
 		FlxTween.tween(this, {alpha: 0}, .3, {ease: FlxEase.sineOut});
 		FlxTween.tween(this, {x: closingX}, .4, {ease: FlxEase.circInOut, onComplete: (_) -> {
-			if(onRemove != null) onRemove(this);
+			if (onRemove != null) onRemove(this);
 			destroy();
 		}});
 

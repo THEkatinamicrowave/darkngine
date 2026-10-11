@@ -611,7 +611,7 @@ class Charter extends UIState {
 	override function destroy() {
 		__updatePlaytestInfo();
 
-		if(Framerate.isLoaded) {
+		if (Framerate.isLoaded) {
 			Framerate.fpsCounter.alpha = 1;
 			Framerate.memoryCounter.alpha = 1;
 			Framerate.codenameBuildField.alpha = 1;
@@ -1501,7 +1501,7 @@ class Charter extends UIState {
 		if (true) {
 			__crochet = ((60 / Conductor.bpm) * 1000);
 
-			if(FlxG.keys.justPressed.ANY && !strumLines.isDragging && this.currentFocus == null && (this.subState == null || !(this.subState is CharterEventScreenNew)))
+			if (FlxG.keys.justPressed.ANY && !strumLines.isDragging && this.currentFocus == null && (this.subState == null || !(this.subState is CharterEventScreenNew)))
 				UIUtil.processShortcuts(topMenu);
 
 			if (!topMenuSpr.anyMenuOpened) {
@@ -1727,7 +1727,7 @@ class Charter extends UIState {
 
 	function _edit_copy(_, playSFX=true) {
 		if (playSFX) UIState.playEditorSound(Flags.DEFAULT_EDITOR_COPY_SOUND);
-		if(selection.length == 0) return;
+		if (selection.length == 0) return;
 
 		var minStep:Float = selection[0].step;
 		for(s in selection)
@@ -2007,7 +2007,7 @@ class Charter extends UIState {
 		Conductor.songPosition += (Conductor.beatsPerMeasure * __crochet);
 	}
 	function _playback_section_start(_) {
-		if(FlxG.sound.music.playing) return;
+		if (FlxG.sound.music.playing) return;
 		Conductor.songPosition = (Conductor.beatsPerMeasure * (60000 / Conductor.bpm)) * curMeasure;
 	}
 	function _playback_back_step(_) {
@@ -2377,23 +2377,23 @@ class Charter extends UIState {
 	}
 
 	inline public function changeNoteType(?newID:Int, checkSelection:Bool = true) {
-		if(newID != null) noteType = newID;
+		if (newID != null) noteType = newID;
 		noteType = CoolUtil.boundInt(noteType, 0, noteTypes.length);
 		buildNoteTypesUI();
 
 		var changedNotes:{notes:Array<CharterNote>, oldTypes:Array<Int>, newTypes:Array<Int>} = {notes:[], oldTypes:[], newTypes:[]};
-		for(note in notesGroup) if(note.type < 0 || note.type > noteTypes.length) {
+		for(note in notesGroup) if (note.type < 0 || note.type > noteTypes.length) {
 			changedNotes.notes.push(note); changedNotes.oldTypes.push(note.type); changedNotes.newTypes.push(0);
 			note.updatePos(note.step, note.id, note.susLength, 0);
 		}
 
-		if(checkSelection) for(s in selection)
+		if (checkSelection) for(s in selection)
 			if (s is CharterNote) {
 				var n:CharterNote = cast s;
 				changedNotes.notes.push(n); changedNotes.oldTypes.push(n.type); changedNotes.newTypes.push(newID);
 				n.updatePos(n.step, n.id, n.susLength, newID);
 			}
-		if(changedNotes.notes.length > 0) undos.addToUndo(CEditSpecNotesType(changedNotes.notes, changedNotes.oldTypes, changedNotes.newTypes));
+		if (changedNotes.notes.length > 0) undos.addToUndo(CEditSpecNotesType(changedNotes.notes, changedNotes.oldTypes, changedNotes.newTypes));
 	}
 
 	function editNoteTypesList(_)

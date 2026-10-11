@@ -287,7 +287,7 @@ class AlphabetEditor extends UIState {
 		add(topMenuSpr);
 		add(uiGroup);
 
-		if(Framerate.isLoaded) {
+		if (Framerate.isLoaded) {
 			Framerate.fpsCounter.alpha = 0.4;
 			Framerate.memoryCounter.alpha = 0.4;
 			Framerate.codenameBuildField.alpha = 0.4;
@@ -298,7 +298,7 @@ class AlphabetEditor extends UIState {
 
 	override function destroy() {
 		super.destroy();
-		if(Framerate.isLoaded) {
+		if (Framerate.isLoaded) {
 			Framerate.fpsCounter.alpha = 1;
 			Framerate.memoryCounter.alpha = 1;
 			Framerate.codenameBuildField.alpha = 1;
@@ -353,20 +353,20 @@ class AlphabetEditor extends UIState {
 		}
 
 		if (currentFocus == null) {
-			if(FlxG.keys.justPressed.ANY)
+			if (FlxG.keys.justPressed.ANY)
 				UIUtil.processShortcuts(topMenu);
 			
-			if(curSelectedComponent != null) {
-				if(FlxG.keys.pressed.K) {
+			if (curSelectedComponent != null) {
+				if (FlxG.keys.pressed.K) {
 					curSelectedComponent.y -= 100 * elapsed;
 				}
-				if(FlxG.keys.pressed.I) {
+				if (FlxG.keys.pressed.I) {
 					curSelectedComponent.y += 100 * elapsed;
 				}
-				if(FlxG.keys.pressed.L) {
+				if (FlxG.keys.pressed.L) {
 					curSelectedComponent.x -= 100 * elapsed;
 				}
-				if(FlxG.keys.pressed.J) {
+				if (FlxG.keys.pressed.J) {
 					curSelectedComponent.x += 100 * elapsed;
 				}
 			}

@@ -49,7 +49,7 @@ class FNFLegacyParser {
 		var curTime:Float = 0;
 		var curCrochet:Float = ((60 / curBPM) * 1000);
 
-		if (data.notes != null) for(section in data.notes) {
+		if (data.notes != null) for (section in data.notes) {
 			if (section == null) {
 				curTime += curCrochet * beatsPerMeasure;
 				continue; // Yoshi Engine charts crash fix
@@ -84,7 +84,7 @@ class FNFLegacyParser {
 				});
 			}
 
-			if (section.sectionNotes != null) for(note in section.sectionNotes) {
+			if (section.sectionNotes != null) for (note in section.sectionNotes) {
 				if (note[1] < 0) continue;
 
 				var daStrumTime:Float = note[0];
@@ -98,7 +98,7 @@ class FNFLegacyParser {
 					else if (note[3] is String)
 						daNoteType = Chart.addNoteType(result, note[3]);
 				} else {
-					if(data.noteTypes != null)
+					if (data.noteTypes != null)
 						daNoteType = Chart.addNoteType(result, data.noteTypes[daNoteType-1]);
 				}
 

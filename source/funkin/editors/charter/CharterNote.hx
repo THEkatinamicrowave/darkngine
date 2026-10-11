@@ -79,8 +79,8 @@ class CharterNote extends UISprite implements ICharterSelectable {
 	public var typeAlpha:Float = 1;
 
 	function set_type(v:Null<Int>) {
-		if(v != this.type) {
-			if(noteTypeTexts[v] == null || noteTypeTexts[v].graphic.isDestroyed) {
+		if (v != this.type) {
+			if (noteTypeTexts[v] == null || noteTypeTexts[v].graphic.isDestroyed) {
 				noteTypeTexts[v] = new UIText(x, y, 0, Std.string(v));
 				noteTypeTexts[v].exists = v != 0;
 				//noteTypeTexts[v].layer = (Charter.instance != null) ? Charter.instance.textLayer : null;
@@ -137,7 +137,7 @@ class CharterNote extends UISprite implements ICharterSelectable {
 
 		if (angle == destAngle) return callScriptOnNote('onCharterNoteUpdatePos', this);
 
-		if(angleTween != null)
+		if (angleTween != null)
 			angleTween.cancel();
 
 		destAngle = CoolUtil.getClosestAngle(angle, destAngle);
@@ -172,7 +172,7 @@ class CharterNote extends UISprite implements ICharterSelectable {
 	public override function update(elapsed:Float) {
 		super.update(elapsed);
 
-		if(susLength != 0) {
+		if (susLength != 0) {
 			var sprLength:Float = (40 * (susLength - 1 + tempSusLength)) + ((susLength+tempSusLength) != 0 ? (height/2) : 0);
 			sustainSpr.scale.set(10, __susInstaLerp ? sprLength : CoolUtil.fpsLerp(sustainSpr.scale.y, sprLength, 1/2));
 			sustainSpr.updateHitbox();
@@ -236,7 +236,7 @@ class CharterNote extends UISprite implements ICharterSelectable {
 	}
 
 	public inline function drawNoteTypeText() {
-		if(typeText.exists && typeText.visible && typeVisible) {
+		if (typeText.exists && typeText.visible && typeVisible) {
 			typeText.alpha = typeAlpha;
 			typeText.follow(this, 20 - (typeText.frameWidth/2), 20 - (typeText.frameHeight/2));
 			typeText.draw();

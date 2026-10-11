@@ -62,7 +62,7 @@ class ModSwitchMenu extends MusicBeatSubstate {
 		FlxTween.tween(bg, {alpha: 0.5}, 0.25, {ease: FlxEase.cubeOut});
 
 		mods = ModsFolder.getModsList({
-		    descending: false,
+			descending: false,
 			mode: CLEAN,
 		});
 		mods.push(null);
@@ -77,7 +77,7 @@ class ModSwitchMenu extends MusicBeatSubstate {
 				name = mod;
 
 			var a = new Alphabet(0, 0, name, "bold");
-			if(mod == ModsFolder.currentModFolder) {
+			if (mod == ModsFolder.currentModFolder) {
 				a.effects = [new funkin.menus.ui.effects.ColorWaveEffect(0xFFFFFFFF, 0xFF00FF00, 10)];
 				a.effects[0].speed = 10;
 			}

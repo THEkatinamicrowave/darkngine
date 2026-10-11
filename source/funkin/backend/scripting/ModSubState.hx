@@ -24,12 +24,12 @@ class ModSubState extends MusicBeatSubstate {
 	* @param _data Optional extra Dynamic data passed from a previous state (JSON suggested).
 	*/
 	public function new(_stateName:String, ?_data:Dynamic) {
-		if(_stateName != null && _stateName != lastName) {
+		if (_stateName != null && _stateName != lastName) {
 			lastName = _stateName;
 			lastData = null;
 		}
 
-		if(_data != null)
+		if (_data != null)
 			lastData = _data;
 
 		data = lastData;

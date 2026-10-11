@@ -145,7 +145,7 @@ class UIButtonList<T:UIButton> extends UIWindow {
 	override function destroy() {
 		super.destroy();
 
-		if(buttonCameras != null) {
+		if (buttonCameras != null) {
 			if (FlxG.cameras.list.contains(buttonCameras))
 				FlxG.cameras.remove(buttonCameras);
 			buttonCameras = null;

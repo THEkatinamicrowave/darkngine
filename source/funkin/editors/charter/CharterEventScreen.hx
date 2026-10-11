@@ -124,7 +124,7 @@ class CharterEventScreen extends UISubstateWindow {
 
 			var visualName = curEvent.name;
 			var tuId = "charter.events." + TU.raw2Id(curEvent.name);
-			if(TU.exists(tuId))
+			if (TU.exists(tuId))
 				visualName = TU.translate(tuId);
 
 			eventName.text = visualName;
@@ -177,7 +177,7 @@ class CharterEventScreen extends UISubstateWindow {
 					case TDropDown(options):
 						addLabel();
 						var optionIndex = options.indexOf(cast value);
-						if(optionIndex < 0) {
+						if (optionIndex < 0) {
 							optionIndex = 0;
 						}
 						var dropdown = new UIDropDown(eventName.x, y, 320, 32, options, optionIndex);

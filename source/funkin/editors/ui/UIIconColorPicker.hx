@@ -44,7 +44,7 @@ class UIIconColorPicker extends UISliceSprite {
 		var path:String = Assets.exists(Paths.image('icons/$icon/icon')) ? Paths.image('icons/$icon/icon') : Paths.image('icons/$icon');
 		if (!Assets.exists(path)) path = Paths.image('icons/face/icon');
 
-		if(Assets.exists(Paths.getPath('images/icons/$icon/icon.xml'))) {
+		if (Assets.exists(Paths.getPath('images/icons/$icon/icon.xml'))) {
 			iconSprite.frames = FlxAtlasFrames.fromSparrow(__path = path, Paths.getPath('images/icons/$icon/icon.xml'));
 			iconSprite.animation.add("idle", [0], 24, true, false, false);
 			iconSprite.animation.play("idle");

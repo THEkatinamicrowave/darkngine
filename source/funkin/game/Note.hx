@@ -131,7 +131,7 @@ class Note extends FlxSprite
 
 		moves = false;
 
-		if(prev != null)
+		if (prev != null)
 			this.prevNote = prev;
 		else
 			this.prevNote = strumLine.notes.members.last();
@@ -141,7 +141,7 @@ class Note extends FlxSprite
 		this.isSustainNote = sustain;
 		this.sustainLength = sustainLength;
 		this.strumLine = strumLine;
-		for(field in Reflect.fields(noteData)) if(!DEFAULT_FIELDS.contains(field))
+		for(field in Reflect.fields(noteData)) if (!DEFAULT_FIELDS.contains(field))
 			this.extra.set(field, Reflect.field(noteData, field));
 
 		// work around to set the `sustainParent`
@@ -225,7 +225,7 @@ class Note extends FlxSprite
 	public var useAntialiasingFix(get, set):Bool;
 
 	inline function set_useAntialiasingFix(v:Bool) {
-		if(v != useAntialiasingFix) {
+		if (v != useAntialiasingFix) {
 			gapFix = v ? 1 : 0;
 		}
 		return v;
@@ -315,7 +315,7 @@ class Note extends FlxSprite
 	}
 
 	public function isOnScreenOriginal(?camera:FlxCamera):Bool {
-    	return super.isOnScreen(camera);
+		return super.isOnScreen(camera);
 	}
 
 	// The * 0.5 is so that it's easier to hit them too late, instead of too early

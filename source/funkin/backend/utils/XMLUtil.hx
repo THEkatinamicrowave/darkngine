@@ -102,7 +102,7 @@ final class XMLUtil {
 			Reflect.setProperty(o, keys[0], value);
 		} catch(e) {
 			var str = 'Failed to apply XML property: $e on ${Type.getClass(object)}';
-			if(isPath) {
+			if (isPath) {
 				str += ' (Path: ${property.att.name})';
 			}
 			Logs.warn(str);
@@ -170,11 +170,11 @@ final class XMLUtil {
 		if (node.has.applyStageMatrix) spr.applyStageMatrix = node.att.applyStageMatrix == "true";
 		if (node.has.useRenderTexture) spr.useRenderTexture = node.att.useRenderTexture == "true";
 		
-		if(node.has.x) {
+		if (node.has.x) {
 			var x:Null<Float> = Std.parseFloat(node.att.x);
 			if (x.isNotNull()) spr.x = x;
 		}
-		if(node.has.y) {
+		if (node.has.y) {
 			var y:Null<Float> = Std.parseFloat(node.att.y);
 			if (y.isNotNull()) spr.y = y;
 		}
@@ -244,14 +244,14 @@ final class XMLUtil {
 		if (node.has.alpha)
 			spr.alpha = Std.parseFloat(node.getAtt("alpha")).getDefaultFloat(spr.alpha);
 
-		if(node.has.color)
+		if (node.has.color)
 			spr.color = FlxColor.fromString(node.getAtt("color")).getDefault(0xFFFFFFFF);
 
 		// no need to getDefault here ? since null blend acts like normal blend
-		@:privateAccess if(node.has.blend)
+		@:privateAccess if (node.has.blend)
 			spr.blend = BlendMode.fromString(node.getAtt("blend"));
 
-		if(node.has.angle)
+		if (node.has.angle)
 			spr.angle = Std.parseFloat(node.getAtt("angle")).getDefault(spr.angle);
 
 		if (node.has.playOnCountdown)
@@ -263,7 +263,7 @@ final class XMLUtil {
 		if (node.has.beatOffset)
 			spr.beatOffset = Std.parseInt(node.att.beatOffset);
 
-		if(node.hasNode.anim) {
+		if (node.hasNode.anim) {
 			for(anim in node.nodes.anim)
 				addXMLAnimation(spr, anim);
 		} else if (spr.frames != null && spr.frames.frames != null) {
@@ -292,8 +292,8 @@ final class XMLUtil {
 	 * @param args The arguments to pass to the class (advanced)
 	 */
 	public static inline function createSpriteFromXML(node:Access, parentFolder:String = "", defaultAnimType:XMLAnimType = BEAT, ?cl:Class<FunkinSprite>, ?args:Array<Dynamic>, loadGraphic:Bool = true):FunkinSprite {
-		if(cl == null) cl = FunkinSprite;
-		if(args == null) args = [];
+		if (cl == null) cl = FunkinSprite;
+		if (args == null) args = [];
 		return loadSpriteFromXML(Type.createInstance(cl, args), node, parentFolder, defaultAnimType, loadGraphic);
 	}
 
@@ -356,7 +356,7 @@ final class XMLUtil {
 			var checkForSparrow = true;
 
 			if ((sprite.frames is FlxAnimateFrames) == (animData.isAnimate ?? true)) {
-				if(animData.anim == null)
+				if (animData.anim == null)
 					return MISSING_PROPERTY;
 
 				var funkSpr = cast(sprite, FunkinSprite);
@@ -372,7 +372,7 @@ final class XMLUtil {
 						animateAnim.addByFrameLabel(animData.name, animData.anim, animData.fps, animData.loop);
 				} else {
 					if (animData.indices != null && animData.indices.length > 0)
-					if(funkSpr.library.getSymbol(animData.anim) != null){
+					if (funkSpr.library.getSymbol(animData.anim) != null) {
 						if (animData.indices != null && animData.indices.length > 0)
 							animateAnim.addBySymbolIndices(animData.name, animData.anim, animData.indices, animData.fps, animData.loop);
 						else
@@ -432,10 +432,10 @@ final class XMLUtil {
 	public static function fixSpacingInNode(node:Access):Access {
 		var arr = Lambda.array(node.x);
 		for(i => n in arr) {
-			if(n.nodeType == PCData) {
-				if(i == 0) n.nodeValue = n.nodeValue.ltrim();
-				if(i == arr.length - 1) n.nodeValue = n.nodeValue.rtrim();
-				if(n.nodeValue.contains("\n")) {
+			if (n.nodeType == PCData) {
+				if (i == 0) n.nodeValue = n.nodeValue.ltrim();
+				if (i == arr.length - 1) n.nodeValue = n.nodeValue.rtrim();
+				if (n.nodeValue.contains("\n")) {
 					var a = n.nodeValue.split("\n");
 					n.nodeValue = [for(i => x in a) i == 0 ? x.rtrim() : i == arr.length - 1 ? x.ltrim() : x.trim()].join("\n");
 				}

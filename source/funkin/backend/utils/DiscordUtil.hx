@@ -413,8 +413,8 @@ final class DiscordUtil
 
 	public static function sendCustomCommand(data:Dynamic) {
 		#if DISCORD_RPC
-		if(data == null) return;
-		if(data.nonce == null) data.nonce = getUUID();
+		if (data == null) return;
+		if (data.nonce == null) data.nonce = getUUID();
 		var json = Json.stringify(data);
 		Discord.SendCustomCommand(json);
 		#end
