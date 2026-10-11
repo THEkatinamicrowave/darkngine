@@ -141,6 +141,7 @@ class CharterStrumline extends UISprite {
 		regenerateIcons(icons);
 
 		var asset = strumLine.vocalsSuffix.length > 0 ? FlxSoundData.fromAssetKey(Paths.voices(PlayState.SONG.meta.name, PlayState.difficulty, strumLine.vocalsSuffix), false) : null;
+		if (asset != null && asset.isStreamable) asset.buffer.load();
 
 		if (vocals == null) vocals.alive = (vocals = FlxG.sound.list.recycle(FlxSound)).exists = true;
 		if (asset != null) {
