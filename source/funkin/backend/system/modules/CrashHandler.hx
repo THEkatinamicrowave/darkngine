@@ -261,7 +261,7 @@ class CrashOverlay extends Sprite {
 	var scrollY:Float = 0;
 	var maxScroll:Float = 0;
 	var viewHeight:Float = 0;
-	 infoScrollRect:Rectangle;
+	var infoScrollRect:Rectangle;
 	public function new(report:String) {
 		super();
 		fullText = report;

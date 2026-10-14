@@ -1644,7 +1644,7 @@ class PlayState extends MusicBeatState
 	 * @param pos The position to put the camera position in. If `null`, a new FlxPoint will be created.
 	 * @param ignoreInvisible Whenever invisible characters should be ignored.
 	**/
-	public dynamic function getCharactersCamPos(chars:Array<Character>, ?pos:FlxPoint = null, ?ignoreInvisible:Bool = true):CamPosData {
+	public dynamic function getCharactersCamPos(chars:Array<Character>, ?pos:FlxPoint = null, ?ignoreInvisible:Bool = true, ?out:CamPosData = null):CamPosData {
 		if (pos == null) pos = FlxPoint.get();
 		var amount = 0;
 		for(c in chars) {
@@ -1667,7 +1667,6 @@ class PlayState extends MusicBeatState
 		out.amount = amount;
 		return out;
 	}
-
 
 	public var eventsTween:Map<String, FlxTween> = [];
 
