@@ -62,16 +62,16 @@ final class Windows {
 	if (window == NULL) return;
 
 	COLORREF finalColor;
-	if (color[0] == -1 && color[1] == -1 && color[2] == -1 && color[3] == -1) { // bad fix, I know :sob:
+	if(color[0] == -1 && color[1] == -1 && color[2] == -1 && color[3] == -1) { // bad fix, I know :sob:
 		finalColor = 0xFFFFFFFF; // Default border
-	} else if (color[3] == 0) {
+	} else if(color[3] == 0) {
 		finalColor = 0xFFFFFFFE; // No border (must have setBorder as true)
 	} else {
 		finalColor = RGB(color[0], color[1], color[2]); // Use your custom color
 	}
 
-	if (setHeader) DwmSetWindowAttribute(window, 35, &finalColor, sizeof(COLORREF));
-	if (setBorder) DwmSetWindowAttribute(window, 34, &finalColor, sizeof(COLORREF));
+	if(setHeader) DwmSetWindowAttribute(window, 35, &finalColor, sizeof(COLORREF));
+	if(setBorder) DwmSetWindowAttribute(window, 34, &finalColor, sizeof(COLORREF));
 
 	UpdateWindow(window);
 	')
@@ -82,7 +82,7 @@ final class Windows {
 	if (window == NULL) return;
 
 	COLORREF finalColor;
-	if (color[0] == -1 && color[1] == -1 && color[2] == -1 && color[3] == -1) { // bad fix, I know :sob:
+	if(color[0] == -1 && color[1] == -1 && color[2] == -1 && color[3] == -1) { // bad fix, I know :sob:
 		finalColor = 0xFFFFFFFF; // Default border
 	} else {
 		finalColor = RGB(color[0], color[1], color[2]); // Use your custom color
@@ -142,12 +142,12 @@ final class Windows {
 	memcpy(pixels, data, width * height * 4);
 
 	HBITMAP mask = CreateBitmap(width, height, 1, 1, NULL);
-	if (!mask) {
-		DeleteObject(color);
-		return;
-	}
+    if (!mask) {
+        DeleteObject(color);
+        return;
+    }
 
-	ICONINFO ii;
+    ICONINFO ii;
 	ZeroMemory(&ii, sizeof(ii));
 	ii.fIcon = TRUE;
 	ii.hbmMask = mask;
@@ -166,7 +166,7 @@ final class Windows {
 		HICON iconOld = (HICON) SendMessage(window, WM_GETICON, ICON_SMALL, 0);
 		SendMessage(window, WM_SETICON, ICON_SMALL, (LPARAM) icon);
 		if (iconOld) DestroyIcon(iconOld);
-	} 
+	}
 	')
 	public static function setWindowIconBytes(big:Bool, title:String, bytes:Bytes, width:Int, height:Int) {}
 
@@ -268,6 +268,26 @@ final class Windows {
 		return 0.0;
 	")
 	public static function getCurrentProcessMemory():Float
+	{
+		return 0;
+	}
+
+	@:functionCode('
+		typedef LONG (WINAPI *RtlGetVersionFn)(PRTL_OSVERSIONINFOW);
+
+		HMODULE ntdll = GetModuleHandleW(L"ntdll.dll");
+		if (!ntdll) return 0;
+
+		RtlGetVersionFn fn = (RtlGetVersionFn)(void*)GetProcAddress(ntdll, "RtlGetVersion");
+		if (!fn) return 0;
+
+		RTL_OSVERSIONINFOW info = {0};
+		info.dwOSVersionInfoSize = sizeof(info);
+		if (fn(&info) != 0) return 0;
+
+		return (int)info.dwBuildNumber;
+	')
+	public static function getBuildNumber():Int
 	{
 		return 0;
 	}

@@ -7,6 +7,9 @@ import funkin.backend.utils.native.HiddenProcess;
 import cpp.Float64;
 import cpp.UInt64;
 #end
+#if windows
+import funkin.backend.utils.native.Windows;
+#end
 
 using StringTools;
 import funkin.backend.system.macros.StringMacro;
@@ -55,6 +58,29 @@ class SystemInfo extends FramerateCategory {
 				osInfo = '${osName} ${osVersion}'.trim();
 		}
 		#else
+		#if windows
+		final buildNumber = Windows.getBuildNumber();
+
+		if (buildNumber >= 9200) {
+			final windowsCurrentVersionPath = "SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion";
+			var edition = RegistryUtil.get(HKEY_LOCAL_MACHINE, windowsCurrentVersionPath, "ProductName");
+
+			var lcuKey = "WinREVersion"; // Last Cumulative Update Key On Older Windows Versions
+			if (buildNumber >= 22000) {
+				edition = edition.replace("Windows 10", "Windows 11");
+				lcuKey = "LCUVer";
+			}
+
+			final lcuVersion = RegistryUtil.get(HKEY_LOCAL_MACHINE, windowsCurrentVersionPath, lcuKey);
+
+			osInfo = edition;
+			if (lcuVersion != null && lcuVersion != "")
+				osInfo += ' ${lcuVersion}';
+			else if (lime.system.System.platformVersion != null && lime.system.System.platformVersion != "")
+				osInfo += ' ${lime.system.System.platformVersion}';
+		}
+		else
+		#end
 		if (lime.system.System.platformLabel != null && lime.system.System.platformLabel != "" && lime.system.System.platformVersion != null && lime.system.System.platformVersion != "")
 			osInfo = '${lime.system.System.platformLabel.replace(lime.system.System.platformVersion, "").trim()} ${lime.system.System.platformVersion}';
 		else
@@ -63,10 +89,15 @@ class SystemInfo extends FramerateCategory {
 
 		try {
 			#if windows
-			var process = new HiddenProcess("wmic", ["cpu", "get", "name"]);
-			if (process.exitCode() != 0) throw 'Could not fetch CPU information';
+			if (buildNumber >= 9200) {
+				cpuName = RegistryUtil.get(HKEY_LOCAL_MACHINE, "HARDWARE\\DESCRIPTION\\System\\CentralProcessor\\0", "ProcessorNameString");
+			}
+			else {
+				var process = new HiddenProcess("wmic", ["cpu", "get", "name"]);
+				if (process.exitCode() != 0) throw 'Could not fetch CPU information';
 
-			cpuName = process.stdout.readAll().toString().trim().split("\n")[1].trim();
+				cpuName = process.stdout.readAll().toString().trim().split("\n")[1].trim();
+			}
 			#elseif mac
 			var process = new HiddenProcess("sysctl -a | grep brand_string"); // Somehow this isn't able to use the args but it still works
 			if (process.exitCode() != 0) throw 'Could not fetch CPU information';
@@ -87,7 +118,7 @@ class SystemInfo extends FramerateCategory {
 			Logs.error('Unable to grab CPU Name: $e');
 		}
 
-		@:privateAccess if (FlxG.renderTile) { // Blit doesn't enable the gpu. Idk if we should fix this
+		@:privateAccess if(FlxG.renderTile) { // Blit doesn't enable the gpu. Idk if we should fix this
 			if (flixel.FlxG.stage.context3D != null && flixel.FlxG.stage.context3D.gl != null) {
 				gpuName = Std.string(flixel.FlxG.stage.context3D.gl.getParameter(flixel.FlxG.stage.context3D.gl.RENDERER)).split("/")[0].trim();
 				#if !flash
@@ -95,7 +126,7 @@ class SystemInfo extends FramerateCategory {
 				gpuMaxSize = size+"x"+size;
 				#end
 
-				if (openfl.display3D.Context3D.__glMemoryTotalAvailable != -1) {
+				if(openfl.display3D.Context3D.__glMemoryTotalAvailable != -1) {
 					var vRAMBytes:Int = cast flixel.FlxG.stage.context3D.gl.getParameter(openfl.display3D.Context3D.__glMemoryTotalAvailable);
 					if (vRAMBytes == 1000 || vRAMBytes == 1 || vRAMBytes <= 0)
 						Logs.trace('Unable to grab GPU VRAM', ERROR, RED);
@@ -133,12 +164,13 @@ class SystemInfo extends FramerateCategory {
 			var gpuNameKnown = gpuName != "Unknown" && gpuName != cpuName;
 			var vramKnown = vRAM != "Unknown";
 
-			if (gpuNameKnown || vramKnown) buf.add("\n");
-			if (gpuNameKnown) {
+			if(gpuNameKnown || vramKnown) buf.add("\n");
+
+			if(gpuNameKnown) {
 				StringMacro.addLine(buf, 'GPU: ${gpuName}');
 			}
-			if (gpuNameKnown && vramKnown) buf.add(" | ");
-			if (vramKnown) {
+			if(gpuNameKnown && vramKnown) buf.add(" | ");
+			if(vramKnown) {
 				StringMacro.addLine(buf, 'VRAM: ${vRAM}');
 			}
 		}
@@ -162,7 +194,7 @@ class SystemInfo extends FramerateCategory {
 
 	public function new() {
 		super("System Info");
-		visible = Options.fpsCounterStats;
+		visible = Options.fpsCounterSystem;
 	}
 
 	public override function __enterFrame(t:Float) {

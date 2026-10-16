@@ -1,9 +1,12 @@
 package funkin.backend.system;
 
 import flixel.util.FlxColor;
+import funkin.backend.assets.AssetsLibraryList;
 import funkin.backend.assets.ModsFolder;
+import funkin.backend.assets.ModsFolderLibrary;
 import funkin.backend.assets.IModsAssetLibrary;
 import funkin.backend.assets.ScriptedAssetLibrary;
+import funkin.backend.assets.TranslatedAssetLibrary;
 import funkin.backend.system.macros.GitCommitMacro;
 import funkin.backend.utils.IniUtil;
 import lime.app.Application;
@@ -12,7 +15,8 @@ import lime.utils.AssetLibrary as LimeAssetLibrary;
 import lime.utils.AssetType;
 
 /**
- * A class that reads the `flags.ini` file, allowing to read settable Flags (customs too).
+ * A class that reads the `data/config/modpack.ini` or `data/config/flags.ini` file,
+ * allowing to read settable Flags (customs too).
  */
 @:build(funkin.backend.system.macros.FlagMacro.build())
 class Flags {
@@ -69,9 +73,9 @@ class Flags {
 	public static var CNE_OWNER:String = "CodenameCrew";
 	public static var CNE_URL:String = 'https://github.com/$CNE_OWNER/$CNE_NAME';
 
+	@:lazy public static var PATHS_CASE_SENSITIVE_FIX:Null<Bool> = null;
 	@:lazy public static var PATHS_CACHE_LIFETIME:Null<Int> = null;
 	public static var PATHS_CACHE_RESET_ON_SWITCH_STATE:Bool = true;
-	public static var PATHS_UNIX_FIX:Bool = true;
 
 	// turn this true to debug shaders, or off for releasing mods.
 	public static var SHADERS_CACHE_RESET_ON_SWITCH_STATE:Bool = false;
@@ -356,18 +360,32 @@ class Flags {
 	private static function loadPost() {
 		if (MOD_API_VERSION == null) MOD_API_VERSION = CURRENT_API_VERSION;
 		if (WINDOW_TITLE_USE_MOD_NAME == null) WINDOW_TITLE_USE_MOD_NAME = !overridenFlags.exists('TITLE') && overridenFlags.exists('MOD_NAME');
+		if (DEFAULT_GLSL_VERSION == null) DEFAULT_GLSL_VERSION = openfl.utils.GLSLSourceAssembler.getDefaultVersion();
+		if (PATHS_CASE_SENSITIVE_FIX == null) {
+			#if windows
+			for (l in Paths.assetsTree.libraries) {
+				final lib = AssetsLibraryList.getCleanLibrary(l);
+				if (!(lib is IModsAssetLibrary) || (lib is TranslatedAssetLibrary)) continue;
+
+				if (PATHS_CASE_SENSITIVE_FIX = !(lib is ModsFolderLibrary)) break;
+			}
+
+			if (PATHS_CASE_SENSITIVE_FIX == null) PATHS_CASE_SENSITIVE_FIX = false;
+			#else
+			PATHS_CASE_SENSITIVE_FIX = true;
+			#end
+		}
+
 		if (USE_LEGACY_TIMING == null) USE_LEGACY_TIMING = MOD_API_VERSION < 2;
 		if (SUSTAINS_AS_ONE_NOTE == null) SUSTAINS_AS_ONE_NOTE = MOD_API_VERSION >= 2;
-		if (DEFAULT_GLSL_VERSION == null) DEFAULT_GLSL_VERSION = openfl.utils.GLSLSourceAssembler.getDefaultVersion();
 		if (DEFAULT_SOUND_TIME_SCALED_PITCH == null) DEFAULT_SOUND_TIME_SCALED_PITCH = MOD_API_VERSION >= 2;
 		if (USE_SOUND_VOLUME_CURVE == null) USE_SOUND_VOLUME_CURVE = MOD_API_VERSION >= 2;
 		if (USE_FLXTRAIL_FRAMES == null) USE_FLXTRAIL_FRAMES = MOD_API_VERSION < 2;
+		if (USE_LEGACY_CENTER_CAM == null) USE_LEGACY_CENTER_CAM = MOD_API_VERSION < 3;
+		if (USE_LEGACY_FLXANIMATE_STAGE_MATRIX == null) USE_LEGACY_FLXANIMATE_STAGE_MATRIX = MOD_API_VERSION < 3;
 
 		flixel.sound.FlxSound.defaultTimeScaledPitch = cast DEFAULT_SOUND_TIME_SCALED_PITCH;
 		flixel.addons.effects.FlxTrail.defaultDelayBackwardCompatibility = cast USE_FLXTRAIL_FRAMES;
-
-		if (USE_LEGACY_CENTER_CAM == null) USE_LEGACY_CENTER_CAM = MOD_API_VERSION < 3;
-		if (USE_LEGACY_FLXANIMATE_STAGE_MATRIX == null) USE_LEGACY_FLXANIMATE_STAGE_MATRIX = MOD_API_VERSION < 3;
 
 		if (SOUND_EXT == null) SOUND_EXT = SOUND_EXTS[0]; else SOUND_EXTS = [SOUND_EXT];
 		if (VIDEO_EXT == null) VIDEO_EXT = VIDEO_EXTS[0]; else VIDEO_EXTS = [VIDEO_EXT];
@@ -428,7 +446,7 @@ class Flags {
 			libs = Paths.assetsTree.libraries.copy();
 			libs.reverse();
 		}
-		for(lib in libs) {
+		for (lib in libs) {
 			var l = lib;
 			if (l is openfl.utils.AssetLibrary) {
 				@:privateAccess
@@ -440,11 +458,12 @@ class Flags {
 			}
 
 			if (l is IModsAssetLibrary) {
+				if (cast(l, IModsAssetLibrary).modName == "assets") continue;
+				if (cast(l, IModsAssetLibrary).modName == "source") continue;
+
 				var flagsTxt = "";
 				if (l.exists(Paths.ini("config/modpack"), AssetType.TEXT))
 					flagsTxt = l.getAsset(Paths.ini("config/modpack"), AssetType.TEXT);
-				if (cast(l, IModsAssetLibrary).modName == "assets") continue;
-				if (cast(l, IModsAssetLibrary).modName == "source") continue;
 
 				if (cast(l, IModsAssetLibrary).modName == ModsFolder.currentModFolder) {
 					var flags:Map<String, String> = [];
