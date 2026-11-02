@@ -553,11 +553,26 @@ class FreeplaySonglist {
 
 	public function getSongsFromSource(source:funkin.backend.assets.AssetSource, useTxt:Bool = true, unlockAll:Bool = false, ?startDir:String = 'songs/', ?flatten:Bool = true) {
 		var songsFound:Array<String> = [];
-		var songPaths:Array<String> = [];
 		var mods:Array<String> = ModsFolder.getLoadedMods();
-		mods.reverse(); // addon songs appear lower than the mod's main music now
-		
+
+		// addon songs appear lower than the mod's main music now
+		if (ModsFolder.currentModFolder == null) { // no mods
+			final thisMod = mods.pop();
+			mods.insert(0, thisMod);
+		} else {
+			// put mod folder first, assets folder second
+			while (mods[0] != ModsFolder.currentModFolder) {
+				final thisMod = mods.pop();
+				mods.insert(0, thisMod);
+			}
+		}
+
+		// shitty but who cares
+		var scannedThisMod = false;
 		for (modName in mods) {
+			if (scannedThisMod && modName == 'assets') continue;
+			var scanningThisMod = modName == ModsFolder.currentModFolder;
+
 			var xmlPath = Paths.xml('config/freeplaySonglist/LIB_$modName');
 			var txtPath = Paths.txt('config/freeplaySonglist/LIB_$modName');
 			var legacyTxtPath = Paths.txt('freeplaySonglist/LIB_$modName');
@@ -565,25 +580,23 @@ class FreeplaySonglist {
 			if (Paths.assetsTree.existsSpecific(xmlPath, "TEXT", source)) {
 				var xml:Access = new Access(Xml.parse(Assets.getText(xmlPath)).firstElement());
 				if (xml != null) {
-					loadFromXML(xml, unlockAll, songPaths);
+					loadFromXML(xml, unlockAll, songsFound);
 				}
 			}
 
 			if (useTxt) {
-				if (Paths.assetsTree.existsSpecific(txtPath, "TEXT", source)) for (i in CoolUtil.coolTextFile(txtPath)) songPaths.push(i);
-				else if (Paths.assetsTree.existsSpecific(legacyTxtPath, "TEXT", source)) {
+				if (Assets.exists(txtPath)) {
+					for (i in CoolUtil.coolTextFile(txtPath)) songsFound.push(i);
+					if (scanningThisMod) scannedThisMod = true;
+				} else if (Assets.exists(legacyTxtPath)) {
 					Logs.warn("data/freeplaySonglist.txt is deprecated and will be removed in the future. Please move the file to data/config/", DARKYELLOW, "FreeplaySonglist");
-					for (i in CoolUtil.coolTextFile(legacyTxtPath)) songPaths.push(i);
+					for (i in CoolUtil.coolTextFile(legacyTxtPath)) songsFound.push(i);
+					if (scanningThisMod) scannedThisMod = true;
 				}
 			}
 		}
-		for (song in songPaths) {
-			songsFound.push(song);
-		}
-
-		// todo: make this better
+		
 		if (songsFound.length < 1 || !useTxt) {
-			songsFound = [];
 			var songDirs = Paths.getFolderDirectories(startDir, false, source);
 			if (!flatten) {
 				for (i in songDirs) {
@@ -611,7 +624,7 @@ class FreeplaySonglist {
 		return true;
 	}
 
-	private function loadFromXML(xml:Access, unlockAll:Bool, songPaths:Array<String>) {
+	private function loadFromXML(xml:Access, unlockAll:Bool, songsFound:Array<String>) {
 		var evaluate = function(target:String, value:String):Bool {
 			switch (target) {
 				case "Week":
@@ -677,7 +690,7 @@ class FreeplaySonglist {
 		var attemptAddSong = function(songName:String) {
 			if (songName == null || songName == "") return;
 
-			songPaths.push(songName);
+			songsFound.push(songName);
 		}
 
 		for (data in xml.elements) {
