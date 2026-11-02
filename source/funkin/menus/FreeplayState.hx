@@ -5,7 +5,6 @@ import flixel.sound.FlxSound;
 import haxe.xml.Access;
 import flixel.text.FlxText;
 import flixel.util.FlxColor;
-import funkin.backend.assets.AssetSource;
 import funkin.backend.chart.Chart;
 import funkin.backend.chart.ChartData.ChartMetaData;
 import funkin.backend.scripting.events.menu.MenuChangeEvent;
@@ -17,6 +16,9 @@ import funkin.game.HealthIcon;
 import funkin.menus.ui.MenuBG;
 import funkin.savedata.FunkinSave;
 import funkin.backend.assets.ModsFolder;
+import funkin.backend.assets.ModsFolderLibrary;
+import funkin.backend.assets.IModsAssetLibrary;
+import funkin.backend.assets.AssetSource;
 
 using StringTools;
 
@@ -551,33 +553,39 @@ class FreeplaySonglist {
 		return true;
 	}
 
-	public function getSongsFromSource(source:funkin.backend.assets.AssetSource, useTxt:Bool = true, unlockAll:Bool = false, ?startDir:String = 'songs/', ?flatten:Bool = true) {
-		var songsFound:Array<String> = [];
-		var mods:Array<String> = ModsFolder.getLoadedMods();
+	public function getSongsFromSource(source:AssetSource = BOTH, useTxt:Bool = true, unlockAll:Bool = false, ?startDir:String = 'songs/', ?flatten:Bool = true) {
+		var totalSongsFound:Array<String> = [];
+		var mods:Array<IModsAssetLibrary> = ModsFolder.getLoadedModsLibs(true);
 
 		// addon songs appear lower than the mod's main music now
-		if (ModsFolder.currentModFolder == null) { // no mods
+		while (mods[0].modName != (ModsFolder.currentModFolder ?? 'assets')) {
 			final thisMod = mods.pop();
 			mods.insert(0, thisMod);
-		} else {
-			// put mod folder first, assets folder second
-			while (mods[0] != ModsFolder.currentModFolder) {
-				final thisMod = mods.pop();
-				mods.insert(0, thisMod);
-			}
 		}
 
-		// shitty but who cares
-		var scannedThisMod = false;
-		for (modName in mods) {
-			if (scannedThisMod && modName == 'assets') continue;
-			var scanningThisMod = modName == ModsFolder.currentModFolder;
+		if (source != BOTH && ModsFolder.currentModFolder != null) {
+			var i:Int = 0;
+			while (i < mods.length) {
+				final thisMod = mods[i];
+				if (thisMod.modName == ((source == MODS) ? 'assets' : ModsFolder.currentModFolder))
+					mods.remove(thisMod);
+				else i++;
+			}
+		}
+		
+		var i:Int = 0;
+		while (i < mods.length) {
+			final modLib:ModsFolderLibrary = cast mods[i++];
+			if (modLib == null) { i++; continue; }
 
+			final modName = modLib.modName;
+			var songsFound:Array<String> = [];
+			
 			var xmlPath = Paths.xml('config/freeplaySonglist/LIB_$modName');
 			var txtPath = Paths.txt('config/freeplaySonglist/LIB_$modName');
 			var legacyTxtPath = Paths.txt('freeplaySonglist/LIB_$modName');
-			
-			if (Paths.assetsTree.existsSpecific(xmlPath, "TEXT", source)) {
+
+			if (Assets.exists(xmlPath)) {
 				var xml:Access = new Access(Xml.parse(Assets.getText(xmlPath)).firstElement());
 				if (xml != null) {
 					loadFromXML(xml, unlockAll, songsFound);
@@ -585,40 +593,39 @@ class FreeplaySonglist {
 			}
 
 			if (useTxt) {
-				if (Assets.exists(txtPath)) {
+				if (modLib.exists(txtPath, "TEXT")) {
 					for (i in CoolUtil.coolTextFile(txtPath)) songsFound.push(i);
-					if (scanningThisMod) scannedThisMod = true;
-				} else if (Assets.exists(legacyTxtPath)) {
+				} else if (modLib.exists(legacyTxtPath, "TEXT")) {
 					Logs.warn("data/freeplaySonglist.txt is deprecated and will be removed in the future. Please move the file to data/config/", DARKYELLOW, "FreeplaySonglist");
 					for (i in CoolUtil.coolTextFile(legacyTxtPath)) songsFound.push(i);
-					if (scanningThisMod) scannedThisMod = true;
 				}
 			}
-		}
-		
-		if (songsFound.length < 1 || !useTxt) {
-			var songDirs = Paths.getFolderDirectories(startDir, false, source);
-			if (!flatten) {
-				for (i in songDirs) {
-					var subs = Paths.getFolderDirectories('$startDir$i', false, source);
-					songsFound.push(isSubSongDirectory(subs) ? '$i/' : i);
-				}
-			} else {
-				function poop(a:Array<Dynamic>, startDir:String) {
+			for (s in songsFound) totalSongsFound.push(s);
+
+			if (songsFound.length < 1 || !useTxt) {
+				// only scan the songs folder in this library (assets/ is automatically replaced)
+				var songDirs = modLib.getFolders('assets/' + startDir);
+				function scanForSongs(a:Array<Dynamic>, startDir:String, ?multiScan:Bool = false) {
 					for (i in a) {
-						var subs = Paths.getFolderDirectories('$startDir$i', false, source);
-						if (isSubSongDirectory(subs)) poop(subs, '$startDir$i/');
-						else songsFound.push(startDir.substr('songs/'.length) + i);
+						var subs = modLib.getFolders('$startDir$i');
+						if (isSubSongDirectory(subs)) {
+							if (multiScan) scanForSongs(subs, '$startDir$i');
+							else songsFound.push(StringTools.trim(i + '/'));
+						}
+						else songsFound.push(StringTools.trim(i));
 					}
 				}
-				poop(songDirs, startDir);
+				scanForSongs(songDirs, 'assets/' + startDir, flatten);
+				for (s in songsFound) if (totalSongsFound.indexOf(s) == -1) totalSongsFound.push(s); // dont allow any duplicates
 			}
-			// put folders at the top
-			songsFound = songsFound.filter(a -> a.endsWith('/'))
-				.concat(songsFound.filter(a -> !a.endsWith('/')));
 		}
-		if (songsFound.length > 0) {
-			for (s in songsFound) songs.push(Chart.loadChartMeta(startDir.substr('songs/'.length) + s, source == MODS));
+
+		// put folders at the top (in chart editor)
+		totalSongsFound = totalSongsFound.filter(a -> a.endsWith('/'))
+			.concat(totalSongsFound.filter(a -> !a.endsWith('/')));
+
+		if (totalSongsFound.length > 0) {
+			for (s in totalSongsFound) songs.push(Chart.loadChartMeta(startDir.substr('songs/'.length) + s, source == MODS));
 			return false;
 		}
 		return true;
