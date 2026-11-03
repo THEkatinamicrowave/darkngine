@@ -15,6 +15,9 @@ import funkin.backend.week.WeekData;
 import funkin.game.HealthIcon;
 import funkin.menus.ui.MenuBG;
 import funkin.savedata.FunkinSave;
+import funkin.backend.system.Controls.Control;
+import funkin.backend.TurboControls;
+
 import funkin.backend.assets.ModsFolder;
 import funkin.backend.assets.ModsFolderLibrary;
 import funkin.backend.assets.IModsAssetLibrary;
@@ -120,6 +123,10 @@ class FreeplayState extends MusicBeatState
 	 */
 	public var interpColor:FlxInterpolateColor;
 
+	public var upTurboControl:TurboControls;
+	public var downTurboControl:TurboControls;
+	public var turboBasics:Array<TurboBasic>;
+
 	override function create()
 	{
 		CoolUtil.playMenuSong();
@@ -141,6 +148,15 @@ class FreeplayState extends MusicBeatState
 		updateCurSong();
 
 		DiscordUtil.call("onMenuLoaded", ["Freeplay"]);
+
+		upTurboControl = new TurboControls([Control.UP]);
+		downTurboControl = new TurboControls([Control.DOWN]);
+		turboBasics = [upTurboControl, downTurboControl];
+
+		for (basic in turboBasics) {
+			basic.delay = 0.6;
+			basic.interval = 0.08;
+		}
 
 		super.create();
 
@@ -247,7 +263,12 @@ class FreeplayState extends MusicBeatState
 
 		var selectedAnotherSong:Bool = false;
 		if (canSelect) {
-			changeSelection((controls.UP_P ? -1 : 0) + (controls.DOWN_P ? 1 : 0) - FlxG.mouse.wheel);
+			for (basic in turboBasics) basic.update(elapsed);
+
+			changeSelection((upTurboControl.activated ? -1 : 0) + (downTurboControl.activated ? 1 : 0) - FlxG.mouse.wheel);
+			if (FlxG.keys.justPressed.HOME) changeSelection(-curSelected);
+			if (FlxG.keys.justPressed.END) changeSelection(songs.length - 1 - curSelected);
+
 			changeDiff((controls.LEFT_P ? -1 : 0) + (controls.RIGHT_P ? 1 : 0));
 			changeCoopMode((controls.CHANGE_MODE ? 1 : 0)); // TODO: make this configurable
 			// putting it before so that its actually smooth
@@ -328,6 +349,11 @@ class FreeplayState extends MusicBeatState
 		{
 			select();
 		}
+	}
+
+	override function destroy() {
+		for (basic in turboBasics) basic.destroy();
+		super.destroy();
 	}
 
 	var __opponentMode:Bool = false;
