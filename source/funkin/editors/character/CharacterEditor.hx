@@ -19,11 +19,17 @@ import haxe.xml.Printer;
 import funkin.editors.ui.UIImageExplorer.ImageSaveData;
 import sys.FileSystem;
 import sys.io.File;
+import funkin.backend.shaders.FunkinShader;
+import flixel.util.FlxColor;
 
 class CharacterEditor extends UIState {
 	static var __character:String;
 	public var character:CharacterGhost;
-	public var extraGhost:Character = null;
+	
+	public var charShader:FunkinShader;
+	public var dad:Character;
+	public var gf:Character;
+	public var boyfriend:Character;
 
 	public static var instance(get, never):CharacterEditor;
 
@@ -46,7 +52,6 @@ class CharacterEditor extends UIState {
 
 	public var characterPropertiesWindow:CharacterPropertiesWindow;
 	public var characterAnimsWindow:CharacterAnimsWindow;
-	public var characterExtraGhostWindow:CharacterExtraGhostWindow;
 
 	public var charCamera:FlxCamera;
 	public var gizmosCamera:FlxCamera;
@@ -240,6 +245,15 @@ class CharacterEditor extends UIState {
 						label: translate("view.axis"),
 						onSelect: _view_character_show_axis,
 						icon: Options.characterAxis ? 1 : 0
+					},
+					{
+						label: translate("view.posGuide"),
+						slider: {
+							min: 0,
+							max: 1,
+							value: Options.characterPosGuideAlpha,
+							onChange: _view_position_guide_alpha
+						},
 					}
 				]
 			},
@@ -322,10 +336,19 @@ class CharacterEditor extends UIState {
 		characterAnimsWindow = new CharacterAnimsWindow((FlxG.width-(500-16)-16), characterPropertiesWindow.y+224+16, character);
 		uiGroup.add(characterPropertiesWindow.animsWindow = characterAnimsWindow);
 
-		characterExtraGhostWindow = new CharacterExtraGhostWindow(16, (FlxG.height - CharacterExtraGhostWindow.objsHeight - 16), extraGhost);
-		uiGroup.add(characterExtraGhostWindow);
-
 		add(uiGroup);
+
+		charShader = FunkinShader.fromFile('engine/characterPosGuide');
+		dad = new Character(0, 0, Flags.DEFAULT_OPPONENT, false, true, true);
+		gf = new Character(0, 0, Flags.DEFAULT_GIRLFRIEND, false, true, true);
+		boyfriend = new Character(0, 0, Flags.DEFAULT_CHARACTER, true, true, true);
+		for (i in [dad, boyfriend, gf]) {
+			i.cameras = [charCamera];
+			i.shader = charShader;
+			i.color = FlxColor.interpolate(i.iconColor ?? -1, -1, 0.4);
+			i.useRenderTexture = true;
+			i.alpha = Options.characterPosGuideAlpha;
+		}
 
 		playAnimation(character.getAnimOrder()[0]);
 		changeStage("characteradjuster");
@@ -490,7 +513,8 @@ class CharacterEditor extends UIState {
 		#if sys
 		UIState.playEditorSound(Flags.DEFAULT_EDITOR_SAVE_SOUND);
 		CoolUtil.safeSaveFile(
-			'${Paths.getAssetsRoot()}/data/characters/${character.curCharacter}.xml',
+			Paths.assetsTree.getPath(Paths.xml('characters/${character.curCharacter}'))
+				?? '${Paths.getAssetsRoot()}/data/characters/${character.curCharacter}.xml',
 			buildCharacter()
 		);
 		#else
@@ -775,6 +799,7 @@ class CharacterEditor extends UIState {
 			stage = null;
 		}
 		remove(character);
+		remove(boyfriend); remove(dad); remove(gf);
 
 		if (__stage == null) {
 			updateStagePositions([]);
@@ -796,6 +821,17 @@ class CharacterEditor extends UIState {
 				for (pose in stage.characterPoses.keys())
 					pose.toUpperCase()
 			]);
+
+			stage.characterPoses['dad'].revertCharacter(dad);
+			stage.characterPoses['boyfriend'].revertCharacter(boyfriend);
+			stage.characterPoses['girlfriend'].revertCharacter(gf);
+			stage.characterPoses['dad'].prepareCharacter(dad, 0);
+			stage.characterPoses['boyfriend'].prepareCharacter(boyfriend, 0);
+			stage.characterPoses['girlfriend'].prepareCharacter(gf, 0);
+
+			insert(members.indexOf(stage.characterPoses['girlfriend']), gf);
+			insert(members.indexOf(stage.characterPoses['dad']), dad);
+			insert(members.indexOf(stage.characterPoses['boyfriend']), boyfriend);
 
 			changeStagePosition(stagePosition);
 			changeCharacterDesginedAs(stagePosition.toUpperCase() == "BOYFRIEND", false);
@@ -900,6 +936,10 @@ class CharacterEditor extends UIState {
 	function _view_character_show_axis(t) {
 		t.icon = (Options.characterAxis = !Options.characterAxis) ? 1 : 0;
 		axisGizmo.visible = Options.characterAxis;
+	}
+
+	function _view_position_guide_alpha(t) {
+		boyfriend.alpha = dad.alpha = gf.alpha = Options.characterPosGuideAlpha = t.slider.value;
 	}
 
 	function _view_focus_character(_) {
