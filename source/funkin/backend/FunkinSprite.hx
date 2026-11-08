@@ -94,7 +94,7 @@ class FunkinSprite extends FlxAnimate implements IBeatReceiver implements IOffse
 		}
 
 		moves = false;
-		applyStageMatrix = Flags.USE_LEGACY_FLXANIMATE_STAGE_MATRIX;
+		applyStageMatrix = true;
 		postStageMatrixApply = Flags.USE_LEGACY_FLXANIMATE_STAGE_MATRIX;
 	}
 

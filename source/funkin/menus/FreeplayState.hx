@@ -589,11 +589,14 @@ class FreeplaySonglist {
 			mods.insert(0, thisMod);
 		}
 
-		if (source != BOTH && ModsFolder.currentModFolder != null) {
+		if (source != BOTH) {
 			var i:Int = 0;
 			while (i < mods.length) {
 				final thisMod = mods[i];
-				if (thisMod.modName == ((source == MODS) ? 'assets' : ModsFolder.currentModFolder))
+				if (
+					((source == MODS) && (thisMod.modName == 'assets'))
+					|| ((source == SOURCE) && (thisMod.modName != 'assets'))
+				)
 					mods.remove(thisMod);
 				else i++;
 			}
@@ -633,9 +636,9 @@ class FreeplaySonglist {
 				var songDirs = modLib.getFolders('assets/' + startDir);
 				function scanForSongs(a:Array<Dynamic>, startDir:String, ?multiScan:Bool = false) {
 					for (i in a) {
-						var subs = modLib.getFolders('$startDir$i');
+						var subs = modLib.getFolders('$startDir$i/');
 						if (isSubSongDirectory(subs)) {
-							if (multiScan) scanForSongs(subs, '$startDir$i');
+							if (multiScan) scanForSongs(subs, '$startDir$i/');
 							else songsFound.push(StringTools.trim(i + '/'));
 						}
 						else songsFound.push(StringTools.trim(i));
@@ -770,14 +773,19 @@ class FreeplaySonglist {
 
 		switch(Flags.SONGS_LIST_MOD_MODE) {
 			case 'prepend':
-				songList.getSongsFromSource(MODS, useTxt, startDir, flatten);
-				songList.getSongsFromSource(SOURCE, useTxt, startDir, flatten);
+				songList.getSongsFromSource(MODS, useTxt, false, startDir, flatten);
+				songList.getSongsFromSource(SOURCE, useTxt, false, startDir, flatten);
 			case 'append':
-				songList.getSongsFromSource(SOURCE, useTxt, startDir, flatten);
-				songList.getSongsFromSource(MODS, useTxt, startDir, flatten);
+				songList.getSongsFromSource(SOURCE, useTxt, false, startDir, flatten);
+				songList.getSongsFromSource(MODS, useTxt, false, startDir, flatten);
 			default /*case 'override'*/:
-				if (songList.getSongsFromSource(MODS, useTxt, startDir, flatten))
-					songList.getSongsFromSource(SOURCE, useTxt, startDir, flatten);
+				// appends addon songs after base game songs,
+				// because old behavior would clear base game songs either way
+				if (ModsFolder.currentModFolder == null) {
+					songList.getSongsFromSource(SOURCE, useTxt, false, startDir, flatten);
+					songList.getSongsFromSource(MODS, useTxt, false, startDir, flatten);
+				} else if (songList.getSongsFromSource(MODS, useTxt, false, startDir, flatten))
+					songList.getSongsFromSource(SOURCE, useTxt, false, startDir, flatten);
 		}
 
 		return songList;
