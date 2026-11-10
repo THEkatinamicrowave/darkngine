@@ -290,7 +290,9 @@ class AlphabetEditor extends UIState {
 		if (Framerate.isLoaded) {
 			Framerate.fpsCounter.alpha = 0.4;
 			Framerate.memoryCounter.alpha = 0.4;
+			#if SHOW_BUILD_ON_FPS
 			Framerate.codenameBuildField.alpha = 0.4;
+			#end
 		}
 
 		DiscordUtil.call("onEditorLoaded", ["Alphabet Editor", __typeface]);
@@ -301,7 +303,9 @@ class AlphabetEditor extends UIState {
 		if (Framerate.isLoaded) {
 			Framerate.fpsCounter.alpha = 1;
 			Framerate.memoryCounter.alpha = 1;
+			#if SHOW_BUILD_ON_FPS
 			Framerate.codenameBuildField.alpha = 1;
+			#end
 		}
 	}
 
