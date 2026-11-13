@@ -349,4 +349,5 @@ enum abstract CharacterDragMode(Int) {
 	var NONE = 0;
 	var OFFSET = 1;
 	var POSITION = 2;
+	// var CAMERA = 3;
 }
