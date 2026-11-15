@@ -13,7 +13,7 @@ class OptionsMacro {
 	public static function build():Array<Field> {
 		var fields = Context.getBuildFields();
 
-		for(f in fields) {
+		for (f in fields) {
 			switch(f.kind) {
 				case FProp(get, set, t, e):
 					if (f.name.startsWith('SOLO_') && get == "get" && set == "null") {
@@ -24,8 +24,8 @@ class OptionsMacro {
 						var ptwoname = 'P2_$name';
 						var newFuncExpr:Expr = macro {
 							var a:Array<FlxKey> = [];
-							for(e in $i{ponename}) a.push(e);
-							for(e in $i{ptwoname}) a.push(e);
+							for (e in $i{ponename}) a.push(e);
+							for (e in $i{ptwoname}) a.push(e);
 							return a;
 						};
 

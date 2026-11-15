@@ -148,7 +148,7 @@ class StrumLine extends FlxTypedGroup<Strum> {
 		// TODO: implement double generate call support if needed
 
 		var total = 0;
-		if (strumLine.notes != null) for(note in strumLine.notes) {
+		if (strumLine.notes != null) for (note in strumLine.notes) {
 			if (startTime != null && startTime > note.time)
 				continue;
 
@@ -169,7 +169,7 @@ class StrumLine extends FlxTypedGroup<Strum> {
 
 		var prev:Note = null;
 
-		if (strumLine.notes != null) for(note in strumLine.notes) {
+		if (strumLine.notes != null) for (note in strumLine.notes) {
 			if (startTime != null && startTime > note.time)
 				continue;
 
@@ -331,7 +331,7 @@ class StrumLine extends FlxTypedGroup<Strum> {
 		}
 
 		if (__notePerStrum.length != membersLength)
-			__notePerStrum = cast new haxe.ds.Vector(membersLength); // [for(_ in 0...members.length) null];
+			__notePerStrum = cast new haxe.ds.Vector(membersLength); // [for (_ in 0...members.length) null];
 
 		for (i in 0...membersLength) {
 			__pressed[i] = members[i].__getPressed(this);
@@ -528,13 +528,13 @@ class StrumLine extends FlxTypedGroup<Strum> {
 	 */
 	#if REGION
 	private inline function set_cpu(b:Bool):Bool {
-		for(s in members)
+		for (s in members)
 			if (s != null)
 				s.cpu = b;
 		return cpu = b;
 	}
 	private inline function set_animSuffix(str:String):String {
-		for(s in members)
+		for (s in members)
 			if (s != null)
 				s.animSuffix = str;
 		return animSuffix = str;

@@ -105,7 +105,7 @@ class UISoftcodedWindow extends UISubstateWindow {
 	public override function create() {
 		var layout = new Access(Xml.parse(Assets.getText(Paths.xml("editors/" + xmlPath))).firstElement());
 
-		for(k=>e in Script.getDefaultVariables()) {
+		for (k=>e in Script.getDefaultVariables()) {
 			set(k, e);
 		}
 		set("self", this);
@@ -115,7 +115,7 @@ class UISoftcodedWindow extends UISubstateWindow {
 			var radios:Array<UIRadioButton> = cast members.filter((o) -> o is UIRadioButton);
 			return cast radios.filter((o) -> o.forID == forID);
 		});
-		for(k=>v in customVariables) {
+		for (k=>v in customVariables) {
 			set(k, v);
 		}
 		set("last", null);
@@ -134,11 +134,11 @@ class UISoftcodedWindow extends UISubstateWindow {
 			add(new UIText(ui.x, ui.y - 24, 0, text));
 
 		function getArr(i:Iterator<Access>) {
-			return [for(e in i) e];
+			return [for (e in i) e];
 		}
 
 		function addLayout(elements:Array<Access>) {
-			for(el in elements) {
+			for (el in elements) {
 				var type = el.name;
 
 				switch(type) {
@@ -222,7 +222,7 @@ class UISoftcodedWindow extends UISubstateWindow {
 						slider;
 					case "dropdown":
 						var items:Array<DropDownItem> = [];
-						for(i=>node in el.nodes.item)
+						for (i=>node in el.nodes.item)
 							items.push({label: execString(node.getAtt("label")), value: execAtt(node, "value", i)});
 						var curValue = execAtt(el, "value");
 						var index = UIDropDown.indexOfItemValue(items, curValue);
@@ -255,7 +255,7 @@ class UISoftcodedWindow extends UISubstateWindow {
 						set("buttonlist", buttonlist);
 						var texture = "editors/ui/inputbox";
 						var code = "";
-						for(node in getArr(el.elements)) {
+						for (node in getArr(el.elements)) {
 							switch(node.name) {
 								case "camSpacing": buttonlist.cameraSpacing = execAtt(node, "value", 0);
 								case "texture": texture = execString(node.getAtt("path")).getDefault(texture);

@@ -130,7 +130,7 @@ class CharacterPropertiesWindow extends UISliceSprite {
 			newPosX = FlxMath.roundDecimal(newPosX, 2);
 			character.globalOffset.x = newPosX;
 		}
-		if (newPosY != null){
+		if (newPosY != null) {
 			newPosY = FlxMath.roundDecimal(newPosY, 2);
 			character.globalOffset.y = newPosY;
 		}
@@ -183,13 +183,13 @@ class CharacterPropertiesWindow extends UISliceSprite {
 		var paths:Array<String> = [];
 		var hasMultiSprite:Bool = false;
 
-		for(e in character.xml.elements)
+		for (e in character.xml.elements)
 			if (e.name == "spritesheet" || e.name == "sheet") { 
 				hasMultiSprite = true; break;
 			}
 
 		if (hasMultiSprite) {
-			for(e in character.xml.elements)
+			for (e in character.xml.elements)
 				if (e.name == "spritesheet" || e.name == "sheet")
 					paths.push(e.x.get('path'));
 		} else {
@@ -204,7 +204,7 @@ class CharacterPropertiesWindow extends UISliceSprite {
 	public function changeSprite(imageSaveDatas:Array<ImageSaveData>) @:privateAccess { //TODO: Add a 'spritesheets' variable to Character.hx and deprecate 'Character.sprite'
 		var paths:Array<String> = [];
 
-		for(e in character.xml.elements)
+		for (e in character.xml.elements)
 			if (e.name == "spritesheet" || e.name == "sheet") 
 				character.xml.x.removeChild(e.x);
 
@@ -216,7 +216,7 @@ class CharacterPropertiesWindow extends UISliceSprite {
 		} else {
 			character.sprite = null;
 
-			for(data in imageSaveDatas) {
+			for (data in imageSaveDatas) {
 				var sheetElement = Xml.createElement("spritesheet");
 				var path = 'characters/${data.directory.length > 0 ? '${data.directory}/' : ""}' + data.imageName;
 

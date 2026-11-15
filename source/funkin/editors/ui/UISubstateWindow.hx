@@ -43,11 +43,11 @@ class UISubstateWindow extends MusicBeatSubstate {
 	public override function create() {
 		super.create();
 
-		for(c in FlxG.cameras.list) {
+		for (c in FlxG.cameras.list) {
 			// Prevent adding a shader if it already has one
 			@:privateAccess if (c._filters != null) {
 				var shouldSkip = false;
-				for(filter in c._filters) {
+				for (filter in c._filters) {
 					if (filter is ShaderFilter) {
 						var filter:ShaderFilter = cast filter;
 						if (filter.shader is CustomShader) {
@@ -88,7 +88,7 @@ class UISubstateWindow extends MusicBeatSubstate {
 	public override function destroy() {
 		UIState.playEditorSound(Flags.DEFAULT_EDITOR_WINDOWCLOSE_SOUND);
 		super.destroy();
-		for(e in camShaders)
+		for (e in camShaders)
 			e.removeShader(blurShader);
 
 		blurShader = null;

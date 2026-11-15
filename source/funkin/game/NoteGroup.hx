@@ -30,7 +30,7 @@ class NoteGroup extends FlxTypedGroup<Note> {
 	 * Adds an array of notes to the group, and sorts them.
 	**/
 	public inline function addNotes(notes:Array<Note>) {
-		for(e in notes) add(e);
+		for (e in notes) add(e);
 		sortNotes();
 	}
 

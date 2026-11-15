@@ -20,7 +20,7 @@ class ScriptPack extends Script {
 	 * Loads all scripts in the pack.
 	**/
 	public override function load() {
-		for(e in scripts) {
+		for (e in scripts) {
 			e.load();
 		}
 	}
@@ -30,7 +30,7 @@ class ScriptPack extends Script {
 	 * @param path Path to check
 	 */
 	public function contains(path:String) {
-		for(e in scripts)
+		for (e in scripts)
 			if (e.path == path)
 				return true;
 		return false;
@@ -45,7 +45,7 @@ class ScriptPack extends Script {
 	 * @param name Path to the script
 	**/
 	public function getByPath(name:String) {
-		for(s in scripts)
+		for (s in scripts)
 			if (s.path == name)
 				return s;
 		return null;
@@ -56,7 +56,7 @@ class ScriptPack extends Script {
 	 * @param name Name of the script
 	**/
 	public function getByName(name:String) {
-		for(s in scripts)
+		for (s in scripts)
 			if (s.fileName == name)
 				return s;
 		return null;
@@ -85,7 +85,7 @@ class ScriptPack extends Script {
 	 * @param parameters Parameters to pass to the function
 	**/
 	public override function call(func:String, ?parameters:Array<Dynamic>):Dynamic {
-		for(e in scripts)
+		for (e in scripts)
 			if (e.active)
 				e.call(func, parameters);
 		return null;
@@ -98,7 +98,7 @@ class ScriptPack extends Script {
 	 * @param arg Argument to pass to the function
 	**/
 	public override function callOne(func:String, arg:Dynamic):Dynamic {
-		for(e in scripts) {
+		for (e in scripts) {
 			if (!e.active) continue;
 			_ONE_ARG[0] = arg;
 			e.call(func, _ONE_ARG);
@@ -113,7 +113,7 @@ class ScriptPack extends Script {
 	 * @return (modified by scripts)
 	 */
 	public inline function event<T:CancellableEvent>(func:String, event:T):T {
-		for(e in scripts) {
+		for (e in scripts) {
 			if (!e.active) continue;
 
 			__eventArgs[0] = event; // set per-script so nested event dispatch on the same pack can't clobber it
@@ -128,7 +128,7 @@ class ScriptPack extends Script {
 	 * @param val Name of the variable
 	**/
 	public override function get(val:String):Dynamic {
-		for(e in scripts) {
+		for (e in scripts) {
 			var v = e.get(val);
 			if (v != null) return v;
 		}
@@ -139,14 +139,14 @@ class ScriptPack extends Script {
 	 * Reloads all scripts in the pack.
 	**/
 	public override function reload() {
-		for(e in scripts) e.reload();
+		for (e in scripts) e.reload();
 	}
 
 	/**
 	 * Sets a variable in every script.
 	**/
 	public override function set(val:String, value:Dynamic) {
-		for(e in scripts) e.set(val, value);
+		for (e in scripts) e.set(val, value);
 	}
 
 	/**
@@ -154,7 +154,7 @@ class ScriptPack extends Script {
 	 */
 	public override function setParent(parent:Dynamic) {
 		this.parent = parent;
-		for(e in scripts) e.setParent(parent);
+		for (e in scripts) e.setParent(parent);
 	}
 
 	/**
@@ -162,7 +162,7 @@ class ScriptPack extends Script {
 	**/
 	public override function destroy() {
 		super.destroy();
-		for(e in scripts) e.destroy();
+		for (e in scripts) e.destroy();
 	}
 
 	@:dox(hide) public override function onCreate(path:String) {}
@@ -198,7 +198,7 @@ class ScriptPack extends Script {
 	private function __configureNewScript(script:Script) {
 		if (parent != null) script.setParent(parent);
 		script.setPublicMap(publicVariables);
-		for(k=>e in additionalDefaultVariables) script.set(k, e);
+		for (k=>e in additionalDefaultVariables) script.set(k, e);
 	}
 
 	override public function toString():String {

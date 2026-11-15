@@ -61,11 +61,11 @@ class SplashGroup extends FlxTypedGroup<Splash> {
 	}
 
 	function setupAnims(xml:Access, splash:Splash) {
-		for(strum in xml.nodes.strum) {
+		for (strum in xml.nodes.strum) {
 			var id:Null<Int> = Std.parseInt(strum.att.id);
 			if (id != null) {
 				animationNames[id] = [];
-				for(anim in strum.nodes.anim) {
+				for (anim in strum.nodes.anim) {
 					if (!anim.has.name) continue;
 					XMLUtil.addXMLAnimation(splash, anim, false);
 					animationNames[id].push(anim.att.name);
@@ -76,10 +76,10 @@ class SplashGroup extends FlxTypedGroup<Splash> {
 		// if (animationNames.length <= 0)
 		//		animationNames.push([]);
 
-		for(anim in xml.nodes.anim) {
+		for (anim in xml.nodes.anim) {
 			if (!anim.has.name) continue;
 			XMLUtil.addXMLAnimation(splash, anim, false);
-			for(a in animationNames) {
+			for (a in animationNames) {
 				if (a == null) continue;
 				a.push(anim.att.name);
 			}

@@ -17,8 +17,8 @@ final class BitmapUtil {
 		var color:FlxColor = 0;
 		var fixedColor:FlxColor = 0;
 
-		for(y in 0...bmap.height) {
-			for(x in 0...bmap.width) {
+		for (y in 0...bmap.height) {
+			for (x in 0...bmap.width) {
 				color = bmap.getPixel32(x, y);
 				fixedColor = 0xFF000000 | (color & 0xFFFFFF);
 				if (!colorMap.exists(fixedColor))
@@ -29,7 +29,7 @@ final class BitmapUtil {
 
 		var mostPresentColor:FlxColor = 0;
 		var mostPresentColorCount:Float = -1;
-		for(c=>n in colorMap) {
+		for (c=>n in colorMap) {
 			if (n > mostPresentColorCount) {
 				mostPresentColorCount = n;
 				mostPresentColor = c;
@@ -48,8 +48,8 @@ final class BitmapUtil {
 		var color:FlxColor = 0;
 		var fixedColor:FlxColor = 0;
 
-		for(y in 0...bmap.height) {
-			for(x in 0...bmap.width) {
+		for (y in 0...bmap.height) {
+			for (x in 0...bmap.width) {
 				color = bmap.getPixel32(x, y);
 				fixedColor = 0xFF000000 | (color & 0xFFFFFF);
 				if (!colorMap.exists(fixedColor))
@@ -60,7 +60,7 @@ final class BitmapUtil {
 
 		var mostPresentColor:FlxColor = 0;
 		var mostPresentColorCount:Float = -1;
-		for(c=>n in colorMap) {
+		for (c=>n in colorMap) {
 			if (n > mostPresentColorCount) {
 				mostPresentColorCount = n;
 				mostPresentColor = c;

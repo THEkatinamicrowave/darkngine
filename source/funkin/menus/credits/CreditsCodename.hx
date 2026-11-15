@@ -82,7 +82,7 @@ class CreditsCodename extends funkin.options.TreeMenuScreen {
 		if (error) return false;
 		if ((idk is Array)) {
 			var contributors:Array<CreditsGitHubContributor> = [];
-			for(e in idk) contributors.push({
+			for (e in idk) contributors.push({
 				login: e.login,
 				avatar_url: e.avatar_url,
 				html_url: e.html_url,
@@ -101,7 +101,7 @@ class CreditsCodename extends funkin.options.TreeMenuScreen {
 			funkin.backend.utils.NativeAPI.showMessageBox("Codename Engine Warning", errMsg, MSG_WARNING);
 		});
 		if (!errorOnMain) {
-			Options.mainCneDevs = [for(m in idk2) m.id];
+			Options.mainCneDevs = [for (m in idk2) m.id];
 			Logs.verbose('[CreditsCodename] Main Devs list Updated!');
 		}
 
@@ -119,8 +119,8 @@ class CreditsCodename extends funkin.options.TreeMenuScreen {
 		}
 
 		totalContributions = 0;
-		for(c in Options.cneContributors) totalContributions += c.contributions;
-		for(c in Options.cneContributors) {
+		for (c in Options.cneContributors) totalContributions += c.contributions;
+		for (c in Options.cneContributors) {
 			var text = TU.translate("credits.totalContributions", [c.contributions, totalContributions, FlxMath.roundDecimal(c.contributions / totalContributions * 100, 2)]);
 			var opt:GithubIconOption = new GithubIconOption(c, text);
 			if (Options.mainCneDevs.contains(c.id)) {

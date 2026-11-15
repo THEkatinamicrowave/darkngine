@@ -24,7 +24,7 @@ class FramerateCategory extends Sprite {
 		bgSprite.alpha = 0.5;
 		addChild(bgSprite);
 
-		for(label in [this.title, this.text]) {
+		for (label in [this.title, this.text]) {
 			label.autoSize = LEFT;
 			label.x = 0;
 			label.y = 0;
@@ -40,7 +40,7 @@ class FramerateCategory extends Sprite {
 	}
 
 	public function reload() {
-		for(label in [this.title, this.text]) label.defaultTextFormat = new TextFormat(Framerate.fontName, label == this.title ? 18 : 12, -1);
+		for (label in [this.title, this.text]) label.defaultTextFormat = new TextFormat(Framerate.fontName, label == this.title ? 18 : 12, -1);
 	}
 
 	public override function __enterFrame(t:Float) {

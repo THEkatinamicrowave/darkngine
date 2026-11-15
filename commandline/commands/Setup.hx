@@ -11,7 +11,7 @@ class Setup {
 	private static function recursiveDelete(path:String) {
 		for (file in FileSystem.readDirectory(path)) {
 			var p = '$path/$file';
-			if(FileSystem.isDirectory(p))
+			if (FileSystem.isDirectory(p))
 				recursiveDelete(p);
 			else
 				FileSystem.deleteFile(p);
@@ -60,14 +60,14 @@ class Setup {
 		}
 
 		var libFile = "./building/libs.xml";
-		if(args.existsOption("lib")) {
+		if (args.existsOption("lib")) {
 			libFile = args.getOption("lib");
-			if(libFile == null) {
+			if (libFile == null) {
 				Sys.println('Please specify a file with the --lib option as --lib=path/to/libs.xml');
 				return;
 			}
 		}
-		if(!FileSystem.exists(libFile)) {
+		if (!FileSystem.exists(libFile)) {
 			Sys.println('File $libFile does not exist.');
 			return;
 		}
@@ -78,16 +78,16 @@ class Setup {
 		var libSumFile = libFile + ".sum";
 		var libSumToCompare = "";
 		try {
-		    var libSumFileContents = File.getContent(libSumFile);
+			var libSumFileContents = File.getContent(libSumFile);
 			if (!IGNORE_SUM && libSum == libSumFileContents) {
-			    // Multiline strings are already awkward as-is in Haxe, so this just uses a buffer to emulate them.
-			    var multiline = new StringBuf();
+				// Multiline strings are already awkward as-is in Haxe, so this just uses a buffer to emulate them.
+				var multiline = new StringBuf();
 				multiline.add('libs.xml has remained unchanged since the last time the setup subcommand was run.\n');
 				multiline.add('If you want to force a reinstall of the currently installed libraries, then please pass the --ignore-sum flag,\n');
 				multiline.add('or delete the generated ');
 				multiline.add(libSumFile);
 				multiline.add(' file.');
-			    Sys.println(multiline);
+				Sys.println(multiline);
 				return;
 			}
 		} catch (_) {}
@@ -122,7 +122,7 @@ class Setup {
 							inLib: libNode.has.inLib ? libNode.att.inLib : null,
 							dir: libNode.has.dir ? libNode.att.dir : null,
 							lines: {
-								if(Lambda.count(libNode.nodes.line) > 0)
+								if (Lambda.count(libNode.nodes.line) > 0)
 								[
 									for (line in libNode.nodes.line)
 										line.innerData
@@ -157,12 +157,12 @@ class Setup {
 		final defines = args.args.copy();
 		defines.push(platform);
 		defines.push("true");
-		if(args.args.length == 0) defines.push("all");
+		if (args.args.length == 0) defines.push("all");
 
 		function parse(libNode:Access) {
-			if(libNode.name == "if" || libNode.name == "unless") {
+			if (libNode.name == "if" || libNode.name == "unless") {
 				var cond = libNode.att.cond;
-				if(Utils.evaluateArgsCondition(cond, defines) != (libNode.name == "if")) {
+				if (Utils.evaluateArgsCondition(cond, defines) != (libNode.name == "if")) {
 					return;
 				}
 
@@ -201,14 +201,14 @@ class Setup {
 							command('haxelib$commandPrefix install ${lib.name} ${lib.version != null ? " " + lib.version : " "}');
 						case "git":
 							prettyPrint((lib.global == "true" ? "Globally installing" : "Locally installing") + ' "${lib.name}" from git url "${lib.url}"');
-							if(FAST) {
+							if (FAST) {
 								var oldcwd = Sys.getCwd();
 								var newCwd = oldcwd + "/.haxelib/" + lib.name + "/";
 								var newCwdGit = newCwd + "git/";
 								addMissingFolders(newCwdGit);
 								Sys.setCwd(newCwd);
 								File.saveContent(".current", "git");
-								if(FileSystem.exists(newCwdGit)) recursiveDelete(newCwdGit);
+								if (FileSystem.exists(newCwdGit)) recursiveDelete(newCwdGit);
 								command('git clone ${lib.url} ${lib.name} --depth 1${lib.ref != null ? " --branch " + lib.ref : ""} --progress');
 								FileSystem.rename(newCwd + lib.name, newCwdGit);
 								Sys.setCwd(oldcwd);
@@ -224,24 +224,24 @@ class Setup {
 					var cmd:CmdData = event.data;
 					var lib = cmd.inLib;
 					var dir = "";
-					if(cmd.dir != null) {
+					if (cmd.dir != null) {
 						dir = "/" + cmd.dir;
 					}
 					var oldCwd = Sys.getCwd();
-					if(lib != null) {
+					if (lib != null) {
 						final libPrefix = '.haxelib/$lib';
-						if(FileSystem.exists(libPrefix)) {
-							if(FileSystem.exists(libPrefix + '/.dev')) { // haxelib dev
+						if (FileSystem.exists(libPrefix)) {
+							if (FileSystem.exists(libPrefix + '/.dev')) { // haxelib dev
 								final devPath = File.getContent(libPrefix + '/.dev');
-								if(!FileSystem.exists(devPath)) {
+								if (!FileSystem.exists(devPath)) {
 									Sys.println('Cannot find dev path $devPath for $lib');
 									Sys.setCwd(oldCwd);
 									continue;
 								}
 								Sys.setCwd(devPath + dir);
-							} else if(FileSystem.exists(libPrefix + '/.current')) {
+							} else if (FileSystem.exists(libPrefix + '/.current')) {
 								final version = StringTools.replace(File.getContent(libPrefix + '/.current'), ".", ",");
-								if(!FileSystem.exists(libPrefix + '/$version')) {
+								if (!FileSystem.exists(libPrefix + '/$version')) {
 									Sys.println('Cannot find version $version of $lib');
 									Sys.setCwd(oldCwd);
 									continue;
@@ -262,14 +262,14 @@ class Setup {
 					Sys.setCwd(oldCwd);
 				case PRINT:
 					final data:PrintData = event.data;
-					if(data.pretty)
+					if (data.pretty)
 						prettyPrint(data.text);
 					else
 						Sys.println(data.text);
 			}
 		}
 
-		if(shouldCheckHaxeVersion) {
+		if (shouldCheckHaxeVersion) {
 			final proc = new Process('haxe --version');
 			proc.exitCode(true);
 			final haxeVer = proc.stdout.readLine();
@@ -305,7 +305,7 @@ class Setup {
 
 			prettyPrint("Because of this component, if you want to compile, you need to restart the device.");
 			Sys.print("Do you wish to do it now [y/n]? ");
-			if(Sys.stdin().readLine().toLowerCase() == "y") command("shutdown /r /t 0 /f");
+			if (Sys.stdin().readLine().toLowerCase() == "y") command("shutdown /r /t 0 /f");
 		}
 	}
 
@@ -313,7 +313,7 @@ class Setup {
 		final lines = text.split("\n");
 		var length = -1;
 		for (line in lines)
-			if(line.length > length)
+			if (line.length > length)
 				length = line.length;
 		var header = "══════";
 		for (i in 0...length)

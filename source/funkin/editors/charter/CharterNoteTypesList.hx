@@ -86,7 +86,7 @@ class NoteTypeButton extends UIButton {
 		updateNote(name);
 
 		members.push(textBox = new UIAutoCompleteTextBox(IDText.x + 10, 10, name, 200-4));
-		textBox.suggestItems = [for(script in (suggestList)) Path.withoutExtension(script)];
+		textBox.suggestItems = [for (script in (suggestList)) Path.withoutExtension(script)];
 		textBox.onChange = function(noteType:String) {
 			updateNote(noteType);
 		};

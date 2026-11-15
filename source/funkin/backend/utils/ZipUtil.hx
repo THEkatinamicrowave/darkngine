@@ -42,7 +42,7 @@ final class ZipUtil {
 			if (prefix != null) {
 				var f = fields;
 				fields = new List<Entry>();
-				for(field in f) {
+				for (field in f) {
 					if (field.fileName.startsWith(prefix)) {
 						fields.push(field);
 					}
@@ -52,13 +52,13 @@ final class ZipUtil {
 			if (prog == null)
 				prog = new ZipProgress();
 			prog.fileCount = fields.length;
-			for(k=>field in fields) {
+			for (k=>field in fields) {
 				prog.curFile = k;
 				var isFolder = field.fileName.endsWith("/") && field.fileSize == 0;
 				if (isFolder) {
 					FileSystem.createDirectory('${destFolder}/${field.fileName}');
 				} else {
-					var split = [for(e in field.fileName.split("/")) e.trim()];
+					var split = [for (e in field.fileName.split("/")) e.trim()];
 					split.pop();
 					FileSystem.createDirectory('${destFolder}/${split.join("/")}');
 
@@ -151,13 +151,13 @@ final class ZipUtil {
 			(doFolder = function() {
 				var path = curPath.join("/");
 				var zipPath = destPath.join("/");
-				for(e in FileSystem.readDirectory(path)) {
+				for (e in FileSystem.readDirectory(path)) {
 					if (bannedNames.contains(e.toLowerCase()) && !whitelist.contains(e.toLowerCase())) continue;
 					if (FileSystem.isDirectory('$path/$e')) {
 						// is directory, so loop into that function again
-						for(p in [curPath, destPath]) p.push(e);
+						for (p in [curPath, destPath]) p.push(e);
 						doFolder();
-						for(p in [curPath, destPath]) p.pop();
+						for (p in [curPath, destPath]) p.pop();
 					} else {
 						// is file, put it in the list
 						var zipPath = '$zipPath/$e';
@@ -168,7 +168,7 @@ final class ZipUtil {
 			})();
 
 			prog.fileCount = files.length;
-			for(k=>file in files) {
+			for (k=>file in files) {
 				prog.curFile = k;
 
 				var fileContent = File.getBytes(file.name);
@@ -208,7 +208,7 @@ final class ZipUtil {
 	 */
 	public static function arrayToList(array:Array<Entry>):List<Entry> {
 		var list = new List<Entry>();
-		for(e in array) list.push(e);
+		for (e in array) list.push(e);
 		return list;
 	}
 }

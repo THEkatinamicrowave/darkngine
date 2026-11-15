@@ -94,7 +94,7 @@ class ModsFolderLibrary extends AssetLibrary implements IModsAssetLibrary {
 		var path = getAssetPath();
 		try {
 			var result:Array<String> = [];
-			for(e in FileSystem.readDirectory(path))
+			for (e in FileSystem.readDirectory(path))
 				if (FileSystem.isDirectory('$path$e') == folders)
 					result.push(e);
 			return result;
@@ -157,7 +157,7 @@ class ModsFolderLibrary extends AssetLibrary implements IModsAssetLibrary {
 	}
 
 	function __listAppend(arr:Array<String>, folder:String) {
-		for(file in FileSystem.readDirectory('$basePath/$folder')) {
+		for (file in FileSystem.readDirectory('$basePath/$folder')) {
 			var fullPath = '$basePath/$folder/$file';
 			if (FileSystem.isDirectory(fullPath))
 				__listAppend(arr, '$folder$file/');

@@ -471,15 +471,15 @@ class SongCreationScreen extends UISubstateWindow {
 		for (diff in diffCharts) diff.chart.events = [];
 
 		if (onSave != null) onSave({
-			meta: meta,
-			instBytes: files.get('Inst.$ogg'),
-			voicesBytes: files.get('Voices.$ogg'), //it may exist
-			playerVocals: files.get('Voices-${playData.characters.playerVocals != null ? playData.characters.playerVocals[0] : playData.characters.player}.$ogg'),
-			oppVocals: files.get('Voices-${playData.characters.opponentVocals != null ? playData.characters.opponentVocals[0] : playData.characters.opponent}.$ogg'),
-			instExt:   ogg,
-			voicesExt: ogg,
-			playerExt: ogg,
-			oppExt:    ogg
+			meta:			meta,
+			instBytes:		files.get('Inst.$ogg'),
+			voicesBytes:	files.get('Voices.$ogg'), //it may exist
+			playerVocals:	files.get('Voices-${playData.characters.playerVocals != null ? playData.characters.playerVocals[0] : playData.characters.player}.$ogg'),
+			oppVocals:		files.get('Voices-${playData.characters.opponentVocals != null ? playData.characters.opponentVocals[0] : playData.characters.opponent}.$ogg'),
+			instExt:		ogg,
+			voicesExt:		ogg,
+			playerExt:		ogg,
+			oppExt:			ogg
 		}, (songFolder:String) -> {
 			#if sys
 			for (diff in diffCharts) CoolUtil.safeSaveFile('$songFolder/${getChartSavePath(meta, diff.diffName)}', Json.stringify(diff.chart, Flags.JSON_PRETTY_PRINT));

@@ -26,7 +26,7 @@ class SplashHandler extends FlxTypedGroup<Splash> {
 
 	public override function destroy() {
 		super.destroy();
-		for(grp in grpMap)
+		for (grp in grpMap)
 			grp.destroy();
 		grpMap = null;
 	}
@@ -35,7 +35,7 @@ class SplashHandler extends FlxTypedGroup<Splash> {
 	public override function draw() {
 		super.draw();
 		if (_firstDraw != (_firstDraw = false))
-			for(grp in grpMap)
+			for (grp in grpMap)
 				grp.draw();
 	}
 

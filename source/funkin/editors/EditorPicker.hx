@@ -74,7 +74,7 @@ class EditorPicker extends MusicBeatSubstate {
 		add(bg);
 
 		optionHeight = FlxG.height / options.length;
-		for(k=>o in options) {
+		for (k=>o in options) {
 			var visualName = (o.id != null) ? TU.translate("editor." + o.id + ".name") : o.name;
 			var spr = new EditorPickerOption(visualName, o.id, optionHeight);
 			spr.y = k * optionHeight;
@@ -149,7 +149,7 @@ class EditorPicker extends MusicBeatSubstate {
 
 		curSelected = FlxMath.wrap(curSelected + change, 0, sprites.length-1);
 
-		for(o in sprites)
+		for (o in sprites)
 			o.selected = false;
 		sprites[curSelected].selected = true;
 	}

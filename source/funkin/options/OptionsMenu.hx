@@ -151,7 +151,7 @@ class OptionsMenu extends TreeMenu {
 	public function parseOptionsFromXML(screen:TreeMenuScreen, xml:Access):Array<FlxSprite> {
 		var options:Array<FlxSprite> = [];
 
-		for(node in xml.elements) {
+		for (node in xml.elements) {
 			switch(node.name) {
 				case "separator":
 					options.push(new Separator(node.has.height ? Std.parseFloat(node.att.height) : 67));
@@ -191,7 +191,7 @@ class OptionsMenu extends TreeMenu {
 					var optionOptions:Array<Dynamic> = [];
 					var optionDisplayOptions:Array<String> = [];
 
-					for(choice in node.elements) {
+					for (choice in node.elements) {
 						optionOptions.push(choice.att.value);
 						optionDisplayOptions.push(choice.att.name);
 					}

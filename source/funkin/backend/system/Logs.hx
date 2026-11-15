@@ -10,13 +10,13 @@ import haxe.Log;
 final class Logs {
 	private static var __showing:Bool = false;
 
-	public static final LOG_WARNING_TEXT =     '   WARNING   ';
-	public static final LOG_ERROR_TEXT =       '    ERROR    ';
-	public static final LOG_TRACE_TEXT =       '    TRACE    ';
-	public static final LOG_VERBOSE_TEXT =     '   VERBOSE   ';
-	public static final LOG_SUCCESS_TEXT =     '   SUCCESS   ';
-	public static final LOG_FAILURE_TEXT =     '   FAILURE   ';
-	public static final LOG_INFORMATION_TEXT = ' INFORMATION ';
+	public static final LOG_WARNING_TEXT =		'   WARNING   ';
+	public static final LOG_ERROR_TEXT =		'    ERROR    ';
+	public static final LOG_TRACE_TEXT =		'    TRACE    ';
+	public static final LOG_VERBOSE_TEXT =		'   VERBOSE   ';
+	public static final LOG_SUCCESS_TEXT =		'   SUCCESS   ';
+	public static final LOG_FAILURE_TEXT =		'   FAILURE   ';
+	public static final LOG_INFORMATION_TEXT =	' INFORMATION ';
 
 	public static var nativeTrace = Log.trace;
 	public static function init() {
@@ -75,8 +75,8 @@ final class Logs {
 			if (!(d is Array))
 				d = [d];
 			var a:Array<Dynamic> = d;
-			var strs = [for(e in a) Std.string(e)];
-			for(e in strs)
+			var strs = [for (e in a) Std.string(e)];
+			for (e in strs)
 			{
 				Logs.trace('$prefix $e', level, color);
 			}
@@ -101,7 +101,7 @@ final class Logs {
 			},
 			logText('] ', LIGHTGRAY, level)
 		];
-		for(k=>e in superCoolText)
+		for (k=>e in superCoolText)
 			text.insert(k, e);
 		return text;
 	}
@@ -120,7 +120,7 @@ final class Logs {
 			Sys.sleep(0.05);
 		}
 		__showing = true;
-		for(t in text) {
+		for (t in text) {
 			NativeAPI.setConsoleColors(t.color);
 			Sys.print(t.text);
 		}
@@ -133,11 +133,11 @@ final class Logs {
 		}
 		__showing = true;
 		@:privateAccess
-		Sys.print([for(t in text) t.text].join(""));
+		Sys.print([for (t in text) t.text].join(""));
 		__showing = false;
 		#else
 		@:privateAccess
-		nativeTrace([for(t in text) t.text].join(""));
+		nativeTrace([for (t in text) t.text].join(""));
 		#end
 
 		#if IMGUI_ENABLED

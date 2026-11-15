@@ -445,7 +445,7 @@ class StageEditor extends UIState {
 
 			// TODO: make this work with multiple selections
 			if (selection.length == 1) {
-				for(sprite in selection) {
+				for (sprite in selection) {
 					if (sprite is FunkinSprite) {
 						handleSelection(cast sprite);
 					}
@@ -646,14 +646,14 @@ class StageEditor extends UIState {
 		saveToXml(xml, "startCamPosY", stage.startCam.y, 0);
 		xml.attributeOrder = ["name", "folder", "zoom", "startCamPosX", "startCamPosY"];
 
-		for(prop in stage.extra.keys())
+		for (prop in stage.extra.keys())
 			if (!Stage.DEFAULT_ATTRIBUTES.contains(prop) && !prop.startsWith("stageEditor."))
 				saveToXml(xml, prop, stage.extra.get(prop));
 
 		var group:Xml = null;
 		var curGroup:String = null;
 
-		for(button in stageSpritesWindow.buttons.members) {
+		for (button in stageSpritesWindow.buttons.members) {
 			button.cleanupXML();
 			var sprite:FunkinSprite = button.getSprite();
 			var newNode:Xml = button.xml.x;
@@ -786,7 +786,7 @@ class StageEditor extends UIState {
 	function updateSelection() {
 		var sprites = getRealSprites();
 		// Unselect all
-		for(sprite in sprites) {
+		for (sprite in sprites) {
 			if (sprite is FunkinSprite) {
 				var sprite:FunkinSprite = cast sprite;
 				sprite.extra.set(exID("selected"), false);
@@ -794,7 +794,7 @@ class StageEditor extends UIState {
 			}
 		}
 		// Mark selected as selected
-		for(sprite in selection) {
+		for (sprite in selection) {
 			if (sprite is FunkinSprite) {
 				var sprite:FunkinSprite = cast sprite;
 				sprite.extra.set(exID("selected"), true);
@@ -819,7 +819,7 @@ class StageEditor extends UIState {
 	function _select_inverse(_, checkSelection:Bool = true) {
 		var oldSelection = selection;
 		_select_all(null, false);
-		for(sprite in oldSelection) {
+		for (sprite in oldSelection) {
 			selection.remove(sprite);
 		}
 		if (checkSelection) updateSelection();
@@ -878,7 +878,7 @@ class StageEditor extends UIState {
 	function _editor_showCharacters(t) {
 		showCharacters = !showCharacters;
 		t.icon = showCharacters ? 1 : 0;
-		for(char in chars) {
+		for (char in chars) {
 			var button:StageCharacterButton = char.extra.get(exID("button"));
 			button.isHidden = !showCharacters;
 			button.updateInfo();
@@ -889,7 +889,7 @@ class StageEditor extends UIState {
 	override function draw() {
 		super.draw();
 
-		for(sprite in selection)
+		for (sprite in selection)
 			if (sprite is FunkinSprite) drawGuides(cast sprite);
 	}
 
@@ -927,14 +927,14 @@ class StageEditor extends UIState {
 		if (sprite.extra.exists(exID("buttonBoxes"))) {
 			var oldButtonBoxes:Array<FlxPoint> = cast sprite.extra.get(exID("buttonBoxes"));
 			if (oldButtonBoxes != null)
-				for(point in oldButtonBoxes) point.put();
+				for (point in oldButtonBoxes) point.put();
 		}
 
 		var buttonBoxes:Array<FlxPoint> = [];
 		if (sprite != null) sprite.extra.set(exID("buttonBoxes"), buttonBoxes);
 
 		DrawUtil.dot.color = 0xFFBBE4EA; DrawUtil.dot.animation.play("default");
-		for(i in 0...transformedCorners.length) {
+		for (i in 0...transformedCorners.length) {
 			var transformedCorner:FlxPoint = transformedCorners[i];
 
 			if (i != CENTER_INDEX) {
@@ -1073,7 +1073,7 @@ class StageEditor extends UIState {
 				}
 			}
 
-			for(i=>edge in edges) {
+			for (i=>edge in edges) {
 				if (checkDot(buttonBoxes[i])) {
 					mouseMode = switch(edge) {
 						case TOP_LEFT: SCALE_TOP_LEFT;
@@ -1107,7 +1107,7 @@ class StageEditor extends UIState {
 				}
 			}
 		}
-		for(i=>edge in edges) {
+		for (i=>edge in edges) {
 			if (checkDot(buttonBoxes[i])) {
 				// TODO: make it show both sided arrows when resizing, unless its at minimum size then show only one
 				// TODO: make this rotate with the sprite

@@ -30,7 +30,7 @@ class ArgParser {
 				}
 				final split = key.split("=");
 				var longName = split.shift();
-				if(!isLongKey) {
+				if (!isLongKey) {
 					// Allow -ABC to be parsed as -A -B -C
 					// Values will only work for the last one
 					while(longName.length > 1) {

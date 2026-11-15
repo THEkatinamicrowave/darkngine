@@ -10,7 +10,7 @@ class UITopMenu extends UISliceSprite {
 		scrollFactor.set(0, 0);
 
 		var x:Int = 0;
-		for(o in options) {
+		for (o in options) {
 			var b = new UITopMenuButton(x, 0, this, o.label, o.childs);
 			x += b.bWidth;
 			members.push(b);
@@ -21,7 +21,7 @@ class UITopMenu extends UISliceSprite {
 
 	public override function update(elapsed:Float) {
 		anyMenuOpened = false;
-		for(c in members) {
+		for (c in members) {
 			var c:UITopMenuButton = cast c;
 			if (c.curMenu.contextMenuOpened()) {
 				anyMenuOpened = true;

@@ -800,21 +800,21 @@ class Charter extends UIState {
 
 	public function updateEventChanges() {
 		var characterChanges:Array<Array<CharacterChange>> = [];
-		for(i in 0...strumLines.members.length)
+		for (i in 0...strumLines.members.length)
 			characterChanges.push([]);
 
 		cameraMovementChanges = [];
 		for (grp in [leftEventsGroup, rightEventsGroup]) {
 			grp.filterEvents();
 			grp.sortEvents();
-			for(e in grp.members) {
-				for(event in e.events) {
+			for (e in grp.members) {
+				for (event in e.events) {
 					if (event.name == "Camera Movement" && Options.charterShowCameraHighlights) {
 						cameraMovementChanges.push({
 							strumLineID: event.params[0],
 							step: e.step
 						});
-					} else if(event.name == "Character Change"){
+					} else if (event.name == "Character Change") {
 						characterChanges[event.params[0]].push({
 							index: event.params[1],
 							character: event.params[2],
@@ -837,8 +837,8 @@ class Charter extends UIState {
 			}
 		}
 
-		if(characterChanges.length != 0)
-			for(index => sl in strumLines.members){
+		if (characterChanges.length != 0)
+			for (index => sl in strumLines.members) {
 				//need to sort again for both local and global events to be used
 				characterChanges[index].sort(function(e1, e2) {
 					return FlxSort.byValues(FlxSort.ASCENDING, e1.step, e2.step);
@@ -848,8 +848,8 @@ class Charter extends UIState {
 			}
 
 		for (e in leftEventsGroup.members) {
-			for(event in e.events) {
-				if (event.name == "Camera Movement"){
+			for (event in e.events) {
+				if (event.name == "Camera Movement") {
 					e.refreshEventIcons();
 					break;
 				}
@@ -857,8 +857,8 @@ class Charter extends UIState {
 		}
 
 		for (e in rightEventsGroup.members) {
-			for(event in e.events) {
-				if (event.name == "Camera Movement"){
+			for (event in e.events) {
+				if (event.name == "Camera Movement") {
 					e.refreshEventIcons();
 					break;
 				}
@@ -905,7 +905,7 @@ class Charter extends UIState {
 			});
 		}
 		selection = __fixSelection(selection);
-		for(s in selection) s.selected = true;
+		for (s in selection) s.selected = true;
 	}
 
 	var __autoSaveLocation:String = null;
@@ -961,14 +961,14 @@ class Charter extends UIState {
 						if (FlxG.keys.pressed.SHIFT) {
 							for (group in [notesGroup, leftEventsGroup, rightEventsGroup]) {
 								var group:FlxTypedGroup<Dynamic> = cast group;
-								for(n in group)
+								for (n in group)
 									if (n.handleSelection(selectionBox) && selection.contains(n))
 										selection.remove(n);
 							}
 						} else if (FlxG.keys.pressed.CONTROL) {
 							for (group in [notesGroup, leftEventsGroup, rightEventsGroup]) {
 								var group:FlxTypedGroup<Dynamic> = cast group;
-								for(n in group)
+								for (n in group)
 									if (n.handleSelection(selectionBox) && !selection.contains(n))
 										selection.push(n);
 							}
@@ -976,7 +976,7 @@ class Charter extends UIState {
 							selection = [];
 							for (group in [notesGroup, leftEventsGroup, rightEventsGroup]) {
 								var group:FlxTypedGroup<Dynamic> = cast group;
-								for(n in group)
+								for (n in group)
 									if (n.handleSelection(selectionBox))
 										selection.push(n);
 							}
@@ -1105,10 +1105,10 @@ class Charter extends UIState {
 				} else if (gridBackdropDummy.hoveredByChild) {
 					if (FlxG.mouse.pressed) {
 						var noteHovered:Bool = false;
-						for(n in selection) if (n.hovered) {noteHovered = true; break;}
+						for (n in selection) if (n.hovered) {noteHovered = true; break;}
 
 						var noteSusDrag:Bool = false;
-						for(s in selection) {
+						for (s in selection) {
 							if (!(s is CharterNote)) continue;
 							var n:CharterNote = cast s;
 							if (n.sustainDraggable) {noteSusDrag = true; break;}
@@ -1352,7 +1352,7 @@ class Charter extends UIState {
 
 		if (__createNotes) {
 			var toBeCreated:Selection = [];
-			for(note in strL.notes) {
+			for (note in strL.notes) {
 				var n = new CharterNote();
 				CharterNote.callScriptOnNote('onCharterNoteCreation', n);
 				var t = Conductor.getStepForTime(note.time);
@@ -1614,7 +1614,7 @@ class Charter extends UIState {
 		strumlineInfoBG.screenCenter(X);
 		strumlineInfoBG.y = -(((FlxG.height - (2 * topMenuSpr.bHeight)) / charterCamera.zoom) - FlxG.height) / 2;
 
-		for(id=>str in strumLines.members)
+		for (id=>str in strumLines.members)
 			if (str != null) str.y = strumlineInfoBG.y;
 
 		//strumlineAddButton.x = 0;
@@ -1770,7 +1770,7 @@ class Charter extends UIState {
 		if (selection.length == 0) return;
 
 		var minStep:Float = selection[0].step;
-		for(s in selection)
+		for (s in selection)
 			if (s.step < minStep) minStep = s.step;
 
 		clipboard = [
@@ -1790,7 +1790,7 @@ class Charter extends UIState {
 
 		var minStep = curStep;
 		var sObjects:Array<ICharterSelectable> = [];
-		for(c in clipboard) {
+		for (c in clipboard) {
 			switch(c) {
 				case CNote(step, id, strumLineID, susLength, type):
 					var note = new CharterNote();
@@ -1876,7 +1876,7 @@ class Charter extends UIState {
 				selection = [for (s in selectionDrags) s.selectable];
 				checkSelectionForBPMUpdates();
 			case CEditSustains(changes):
-				for(n in changes)
+				for (n in changes)
 					n.note.updatePos(n.note.step, n.note.id, n.before, n.note.type);
 			case CEditEvent(event, oldEvents, newEvents):
 				event.events = oldEvents.copy();
@@ -1897,7 +1897,7 @@ class Charter extends UIState {
 				PlayState.SONG.bookmarks = oldArray;
 				updateBookmarks();
 			case CEditSpecNotesType(notes, oldTypes, newTypes):
-				for(i=>note in notes) note.updatePos(note.step, note.id, note.susLength, oldTypes[i]);
+				for (i=>note in notes) note.updatePos(note.step, note.id, note.susLength, oldTypes[i]);
 			case CChangeBundle(changes):
 				var i = changes.length - 1;
 				while (i >= 0) {
@@ -1940,7 +1940,7 @@ class Charter extends UIState {
 				//this.selection = selection;
 				checkSelectionForBPMUpdates();
 			case CEditSustains(changes):
-				for(n in changes)
+				for (n in changes)
 					n.note.updatePos(n.note.step, n.note.id, n.after, n.note.type);
 			case CEditEvent(event, oldEvents, newEvents):
 				event.events = newEvents.copy();
@@ -1961,7 +1961,7 @@ class Charter extends UIState {
 				PlayState.SONG.bookmarks = newArray;
 				updateBookmarks();
 			case CEditSpecNotesType(notes, oldTypes, newTypes):
-				for(i=>note in notes) note.updatePos(note.step, note.id, note.susLength, newTypes[i]);
+				for (i=>note in notes) note.updatePos(note.step, note.id, note.susLength, newTypes[i]);
 			case CChangeBundle(changes):
 				for (change in changes) _redo(change);
 		}
@@ -2405,7 +2405,7 @@ class Charter extends UIState {
 		if (selection.length <= 0 || change == 0 || gridActionType != NONE) return;
 
 		var undoChanges:Array<NoteSustainChange> = [];
-		for(s in selection)
+		for (s in selection)
 			if (s is CharterNote) {
 				var n:CharterNote = cast s;
 				var old:Float = n.susLength;
@@ -2422,12 +2422,12 @@ class Charter extends UIState {
 		buildNoteTypesUI();
 
 		var changedNotes:{notes:Array<CharterNote>, oldTypes:Array<Int>, newTypes:Array<Int>} = {notes:[], oldTypes:[], newTypes:[]};
-		for(note in notesGroup) if (note.type < 0 || note.type > noteTypes.length) {
+		for (note in notesGroup) if (note.type < 0 || note.type > noteTypes.length) {
 			changedNotes.notes.push(note); changedNotes.oldTypes.push(note.type); changedNotes.newTypes.push(0);
 			note.updatePos(note.step, note.id, note.susLength, 0);
 		}
 
-		if (checkSelection) for(s in selection)
+		if (checkSelection) for (s in selection)
 			if (s is CharterNote) {
 				var n:CharterNote = cast s;
 				changedNotes.notes.push(n); changedNotes.oldTypes.push(n.type); changedNotes.newTypes.push(newID);
@@ -2529,12 +2529,12 @@ class Charter extends UIState {
 		PlayState.SONG.strumLines = [];
 		PlayState.SONG.noteTypes = this.noteTypes;
 		PlayState.SONG.chartVersion = Chart.version;
-		for(s in strumLines) {
+		for (s in strumLines) {
 			s.strumLine.notes = [];
 			PlayState.SONG.strumLines.push(s.strumLine);
 		}
 		notesGroup.sortNotes();
-		for(n in notesGroup.members) {
+		for (n in notesGroup.members) {
 			if (PlayState.SONG.strumLines[n.strumLineID] != null)
 				PlayState.SONG.strumLines[n.strumLineID].notes.push(buildNote(n));
 		}
@@ -2561,8 +2561,8 @@ class Charter extends UIState {
 		Conductor.mapCharterBPMChanges(PlayState.SONG);
 		buildEvents();
 
-		for(e in leftEventsGroup.members) {
-			for(event in e.events) {
+		for (e in leftEventsGroup.members) {
+			for (event in e.events) {
 				if (event.name == "BPM Change" || event.name == "Time Signature Change" || event.name == "Continuous BPM Change") {
 					e.refreshEventIcons();
 					break;
@@ -2570,8 +2570,8 @@ class Charter extends UIState {
 			}
 		}
 
-		for(e in rightEventsGroup.members) {
-			for(event in e.events) {
+		for (e in rightEventsGroup.members) {
+			for (event in e.events) {
 				if (event.name == "BPM Change" || event.name == "Time Signature Change" || event.name == "Continuous BPM Change") {
 					e.refreshEventIcons();
 					break;

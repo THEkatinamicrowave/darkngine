@@ -28,7 +28,7 @@ class BuildInfo {
 			exportPath += "obj/Options.txt";
 
 			var options = sys.io.File.getContent(exportPath);
-			for(option in options.split("\n")) {
+			for (option in options.split("\n")) {
 				if (option.startsWith("haxe=")) {
 					lastBuiltWith = option.substr(5).trim();
 					break;

@@ -238,10 +238,10 @@ class TitleState extends MusicBeatState
 			if (xml.hasNode.intro) {
 				titleLines = [];
 				if (xml.node.intro.has.length) titleLength = Std.parseInt(xml.node.intro.att.length).getDefault(16);
-				for(node in xml.nodes.sprites) {
+				for (node in xml.nodes.sprites) {
 					var parentFolder:String = node.getAtt("folder").getDefault("");
 					if (parentFolder != "" && !parentFolder.endsWith("/")) parentFolder += "/";
-					for(sprNode in node.elements) {
+					for (sprNode in node.elements) {
 						var spr = XMLUtil.createSpriteFromXML(sprNode, parentFolder);
 						switch(sprNode.name) {
 							case "press-enter":
@@ -252,10 +252,10 @@ class TitleState extends MusicBeatState
 						if (node.has.name) titleSprites[node.att.name] = spr;
 					}
 				}
-				for(text in xml.node.intro.nodes.text) {
+				for (text in xml.node.intro.nodes.text) {
 					var beat:Int = text.has.beat ? Std.parseInt(text.att.beat).getDefault(0) : 0;
 					var texts:Array<OneOfTwo<String, TitleStateImage>> = [];
-					for(node in text.elements) {
+					for (node in text.elements) {
 						switch(node.name) {
 							case "line":
 								if (!node.has.text) continue;

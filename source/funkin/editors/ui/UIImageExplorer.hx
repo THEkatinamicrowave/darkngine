@@ -108,7 +108,7 @@ class UIImageExplorer extends UIFileExplorer {
 			files = FileSystem.readDirectory(directoryPath);
 			var hasAnimationJson:Bool = false;
 			var hasSpritemapJson:Bool = false;
-			for(file in files) {
+			for (file in files) {
 				if (file == "Animation.json")
 					hasAnimationJson = true;
 				else if (SPRITEMAP_JSON_REGEX.match(file.toLowerCase()))
@@ -124,7 +124,7 @@ class UIImageExplorer extends UIFileExplorer {
 			files = FileSystem.readDirectory(directoryPath);
 			var hasAnimationJson:Bool = false;
 			var foundSpritemapJson:Bool = false;
-			for(file in files) {
+			for (file in files) {
 				if (SPRITEMAP_JSON_REGEX.match(file)) {
 					var content:String = CoolUtil.removeBOM(File.getContent(Path.join([directoryPath, file])));
 					var json:SpritemapJson = Json.parse(content);
@@ -145,16 +145,16 @@ class UIImageExplorer extends UIFileExplorer {
 		var spritemapImages:Array<String> = [];
 		if (isAtlas) {
 			// this doesn't check for gaps in the numbering
-			for(file in files)
+			for (file in files)
 				if (SPRITEMAP_JSON_REGEX.match(file))
 					spritemaps.push(file);
 
 			spritemaps.sort(Reflect.compare);
-			for(spritemap in spritemaps) {
+			for (spritemap in spritemaps) {
 				var content:String = CoolUtil.removeBOM(File.getContent(Path.join([directoryPath, spritemap])));
 				var json:SpritemapJson = Json.parse(content);
 				var imageToFind:String = json.meta.image.toLowerCase();
-				for(file in files) {
+				for (file in files) {
 					// lowercase since windows does case insensitive stuff, so we use lowercase to match behavior on mac and linux
 					// and we also store the data from the filesystem instead of the json.meta.image
 					if (file.toLowerCase() == imageToFind) {
@@ -202,7 +202,7 @@ class UIImageExplorer extends UIFileExplorer {
 			directoryPath = Path.directory(imagePath);
 			fileName = Path.withoutDirectory(imagePath).toLowerCase();
 
-			for(spritemap in spritemapImages) {
+			for (spritemap in spritemapImages) {
 				var spritemapPath:String = Path.join([directoryPath, spritemap]);
 
 				var info = FileSystem.stat(spritemapPath);

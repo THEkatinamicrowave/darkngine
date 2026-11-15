@@ -145,8 +145,8 @@ class CharterStrumline extends UISprite {
 
 	public function getIconsFromStep(s:Float):Array<String> {
 		var characters:Array<String> = strumLine.characters != null ? strumLine.characters.copy() : [];
-		for(change in characterChanges)
-			if(change.step <= s)
+		for (change in characterChanges)
+			if (change.step <= s)
 				characters[change.index] = change.character;
 
 		return characters;
@@ -180,8 +180,8 @@ class CharterStrumline extends UISprite {
 		}
 	}
 
-	function updateHighlightColor(?icons:Array<String>){
-		if(icons == null) icons = changedCharacters;
+	function updateHighlightColor(?icons:Array<String>) {
+		if (icons == null) icons = changedCharacters;
 
 		highlightColor = 0xFFFFFFFF;
 		if (icons[0] != null) {

@@ -804,7 +804,7 @@ class PlayState extends MusicBeatState
 
 		// PRECACHING
 		#if REGION
-		for(content in Paths.getFolderContent('images/game/score/', true, BOTH))
+		for (content in Paths.getFolderContent('images/game/score/', true, BOTH))
 			graphicCache.cache(Paths.getPath(content));
 
 		for (i in 1...4) {
@@ -819,7 +819,7 @@ class PlayState extends MusicBeatState
 
 		generateSong(SONG);
 
-		for(noteType in SONG.noteTypes) {
+		for (noteType in SONG.noteTypes) {
 			var scriptPath = Paths.script('data/notes/${noteType}');
 			if (Assets.exists(scriptPath) && !scripts.contains(scriptPath)) {
 				var script = Script.create(scriptPath);
@@ -831,7 +831,7 @@ class PlayState extends MusicBeatState
 		}
 
 		var canCenter:Bool = Options.centeredFields && Flags.ALLOW_CENTERED_FIELDS && !coopMode;
-		for(i=>strumLine in SONG.strumLines) {
+		for (i=>strumLine in SONG.strumLines) {
 			if (strumLine == null) continue;
 
 			var chars = [];
@@ -840,7 +840,7 @@ class PlayState extends MusicBeatState
 				case 1: "boyfriend";
 				case 2: "girlfriend";
 			}) : strumLine.position;
-			if (strumLine.characters != null) for(k=>charName in strumLine.characters) {
+			if (strumLine.characters != null) for (k=>charName in strumLine.characters) {
 				var char = new Character(0, 0, charName, stage.isCharFlipped(stage.characterPoses[charName] != null ? charName : charPosName, strumLine.type == 1));
 				stage.applyCharStuff(char, charPosName, k);
 				chars.push(char);
@@ -887,7 +887,7 @@ class PlayState extends MusicBeatState
 			gameAndCharsEvent("onPostGenerateStrums", event);
 		}
 
-		for(str in strumLines)
+		for (str in strumLines)
 			str.generate(str.data, (chartingMode && Charter.startHere) ? Charter.startTime : null);
 
 		FlxG.camera.follow(camFollow, LOCKON, Flags.DEFAULT_CAMERA_FOLLOW_SPEED);
@@ -905,9 +905,9 @@ class PlayState extends MusicBeatState
 			FlxG.camera.focusOn(camFollow.getPosition(FlxPoint.weak()));
 		}
 
-		for(event in SONG.events){
-			if(event.name == "Character Change"){
-				if(!event.params[3] || Character.cachedFrames.exists(event.params[2])) continue;
+		for (event in SONG.events) {
+			if (event.name == "Character Change") {
+				if (!event.params[3] || Character.cachedFrames.exists(event.params[2])) continue;
 
 				Character.cacheCharacter(event.params[2]);
 			}
@@ -945,7 +945,7 @@ class PlayState extends MusicBeatState
 		accuracyTxt = new FunkinText(healthBarBG.x + 50, healthBarBG.y + 30, Std.int(healthBarBG.width - 100), TEXT_GAME_ACCURACY.format(["-%", "(N/A)"]), 16);
 		accuracyTxt.addFormat(accFormat, 0, 1);
 
-		for(text in [scoreTxt, missesTxt, accuracyTxt]) {
+		for (text in [scoreTxt, missesTxt, accuracyTxt]) {
 			text.scrollFactor.set();
 			add(text);
 		}
@@ -955,7 +955,7 @@ class PlayState extends MusicBeatState
 		if (updateRatingStuff != null)
 			updateRatingStuff();
 
-		for(e in [healthBar, healthBarBG, iconP1, iconP2, scoreTxt, missesTxt, accuracyTxt])
+		for (e in [healthBar, healthBarBG, iconP1, iconP2, scoreTxt, missesTxt, accuracyTxt])
 			e.cameras = [camHUD];
 		#end
 
@@ -1261,7 +1261,7 @@ class PlayState extends MusicBeatState
 
 	@:dox(hide)
 	private inline function generateStrums(amount:Null<Int> = null):Void {
-		for(p in strumLines) {
+		for (p in strumLines) {
 			var kc = amount != null ? amount : p.data.keyCount;
 			p.generateStrums(kc);
 		}
@@ -1664,7 +1664,7 @@ class PlayState extends MusicBeatState
 		if (pos == null) pos = FlxPoint.get();
 		var amount:Int = 0;
 		final cpos = FlxPoint.get();
-		for(c in chars) {
+		for (c in chars) {
 			if (c == null || (!ignoreInvisible && (c.alpha <= 0 || !c.visible || !c.exists)) || (!ignoreInactive && !c.active)) continue;
 			c.__getCameraPositionInto(cpos);
 			pos.x += cpos.x;
@@ -1823,7 +1823,7 @@ class PlayState extends MusicBeatState
 				var oldChar:Character = strumLines.members[event.params[0]].characters[event.params[1]];
 				var newChar:Character = new Character(oldChar.x, oldChar.y, event.params[2], oldChar.isPlayer);
 				stage.applyCharStuff(newChar, !event.params[7] ? strumLines.members[event.params[0]].data.position : null, event.params[1]);
-				if(event.params[6]) newChar.shader = oldChar.shader;
+				if (event.params[6]) newChar.shader = oldChar.shader;
 
 				newChar.x += event.params[4];
 				newChar.y += event.params[5];
@@ -1832,7 +1832,7 @@ class PlayState extends MusicBeatState
 				strumLines.members[event.params[0]].characters[event.params[1]] = newChar;
 
 				//refresh icons
-				switch(event.params[0]){
+				switch(event.params[0]) {
 					case 0:
 						iconP2.setIcon(dad.getIcon());
 					case 1:
@@ -2018,7 +2018,7 @@ class PlayState extends MusicBeatState
 
 	private inline function keyShit():Void
 	{
-		for(id=>p in strumLines.members)
+		for (id=>p in strumLines.members)
 			p.updateInput(id);
 	}
 
@@ -2080,7 +2080,7 @@ class PlayState extends MusicBeatState
 		}
 
 		if (!event.animCancelled) {
-			for(char in event.characters) {
+			for (char in event.characters) {
 				if (char == null) continue;
 
 				if (event.stunned) char.stunned = true;
@@ -2190,7 +2190,7 @@ class PlayState extends MusicBeatState
 			if (strumLine != null) strumLine.addHealth(event.healthGain);
 
 			if (!event.animCancelled)
-				for(char in event.characters)
+				for (char in event.characters)
 					if (char != null)
 						char.playSingAnim(event.direction, event.animSuffix, SING, event.forceAnim);
 

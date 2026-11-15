@@ -11,7 +11,7 @@ using funkin.backend.system.macros.FlagMacro;
 
 class FlagMacro {
 	private static function hasMeta(meta:Array<MetadataEntry>, name:String):Bool {
-		for(m in meta) {
+		for (m in meta) {
 			if (m.name == name) {
 				return true;
 			}
@@ -47,9 +47,9 @@ class FlagMacro {
 					}
 
 					var alsos:Array<Expr> = [];
-					for(meta in field.meta) {
+					for (meta in field.meta) {
 						if (meta.name == ":also") {
-							for(param in meta.params) {
+							for (param in meta.params) {
 								switch(param.expr) {
 									case EField(_, _):
 										alsos.push(param);
@@ -110,7 +110,7 @@ class FlagMacro {
 
 							var values:Array<String> = [];
 
-							for(param in params) {
+							for (param in params) {
 								switch(param) {
 									case TPExpr(e):
 										switch(e.expr) {
@@ -135,7 +135,7 @@ class FlagMacro {
 							}
 
 							var didFind = false;
-							for(v in values) {
+							for (v in values) {
 								switch(expr.expr) {
 									case EConst(CString(s, kind)):
 										if (v == s)
@@ -155,7 +155,7 @@ class FlagMacro {
 							var errorMessage = 'Flag ${field.name} must be one of ${values.join(", ")}';
 
 							var checkExpr = macro value == $v{values.shift()};
-							for(v in values)
+							for (v in values)
 								checkExpr = macro $checkExpr || value == $v{v};
 
 							if (chosenType == STRING) {
@@ -290,7 +290,7 @@ class FlagMacro {
 		});
 
 		//var printer = new haxe.macro.Printer();
-		//for(field in fields) {
+		//for (field in fields) {
 		//	trace(printer.printField(field));
 		//}
 		//trace(printer.printField(fields[fields.length - 2]));

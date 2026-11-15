@@ -88,7 +88,7 @@ class HScript extends Script {
 	}
 	private function _importFailedCallback(cl:Array<String>, prefix:String):Bool {
 		var assetsPath = 'assets/$prefix${cl.join("/")}';
-		for(hxExt in ["hx", "hscript", "hsc", "hxs"]) {
+		for (hxExt in ["hx", "hscript", "hsc", "hxs"]) {
 			var p = '$assetsPath.$hxExt';
 			if (__importedPaths.exists(p))
 				return true; // no need to reimport again
@@ -175,7 +175,7 @@ class HScript extends Script {
 		interp.allowStaticVariables = interp.allowPublicVariables = false;
 		var savedVariables:Map<String, Dynamic> = [];
 		var defaultVars = Script.getDefaultVariables(this);
-		for(k=>e in interp.variables) {
+		for (k=>e in interp.variables) {
 			if (!Reflect.isFunction(e) && !defaultVars.exists(k)) {
 				savedVariables[k] = e;
 			}
@@ -184,13 +184,13 @@ class HScript extends Script {
 		returnParser(parser);
 		onCreate(path);
 
-		for(k=>e in defaultVars)
+		for (k=>e in defaultVars)
 			set(k, e);
 
 		load();
 		setParent(oldParent);
 
-		for(k=>e in savedVariables)
+		for (k=>e in savedVariables)
 			interp.variables.set(k, e);
 
 		interp.allowStaticVariables = interp.allowPublicVariables = true;

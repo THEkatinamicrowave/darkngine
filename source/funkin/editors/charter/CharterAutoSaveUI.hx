@@ -22,7 +22,7 @@ class CharterAutoSaveUI extends UISliceSprite {
 		super(x, y, 300, 46, "editors/ui/inputbox");
 
 		icon = new FlxSprite(x+12, y+9).loadGraphic(Paths.image("editors/autosave-icons"), true, 10, 10);
-		icon.animation.add("icon", [for(i in 0...3) i], 0, true);
+		icon.animation.add("icon", [for (i in 0...3) i], 0, true);
 		icon.animation.play("icon"); icon.animation.curAnim.curFrame = 0;
 		members.push(icon);
 

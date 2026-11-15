@@ -13,7 +13,7 @@ final class MathUtil {
 	**/
 	public static function maxInt(...args:Int):Int {
 		var max = args[0];
-		for(i in 1...args.length) {
+		for (i in 1...args.length) {
 			var arg = args[i];
 			if (arg > max)
 				max = arg;
@@ -29,7 +29,7 @@ final class MathUtil {
 	**/
 	public static function minInt(...args:Int):Int {
 		var min = args[0];
-		for(i in 1...args.length) {
+		for (i in 1...args.length) {
 			var arg = args[i];
 			if (arg < min)
 				min = arg;
@@ -48,7 +48,7 @@ final class MathUtil {
 	**/
 	public static function max(...args:Float):Float {
 		var max = args[0];
-		for(i in 1...args.length) {
+		for (i in 1...args.length) {
 			var arg = args[i];
 			if (arg > max)
 				max = arg;
@@ -67,7 +67,7 @@ final class MathUtil {
 	**/
 	public static function min(...args:Float):Float {
 		var min = args[0];
-		for(i in 1...args.length) {
+		for (i in 1...args.length) {
 			var arg = args[i];
 			if (arg < min)
 				min = arg;

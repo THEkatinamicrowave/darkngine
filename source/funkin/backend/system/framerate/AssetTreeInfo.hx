@@ -28,7 +28,7 @@ class AssetTreeInfo extends FramerateCategory {
 		if (Paths.assetsTree != null) {
 			text = "";
 			var buf = new StringBuf();
-			for(l in Paths.assetsTree.libraries) {
+			for (l in Paths.assetsTree.libraries) {
 				var l = AssetsLibraryList.getCleanLibrary(l);
 
 				var tag = l.tag.toString().toUpperCase();

@@ -96,7 +96,7 @@ class PauseSubState extends MusicBeatSubstate
 		if (multiplayerInfo != null)
 			multiplayerText = new FunkinText(20, 15, 0, TU.translate(multiplayerInfo), 32, false);
 
-		for(k=>label in [levelInfo, levelDifficulty, deathCounter, multiplayerText]) {
+		for (k=>label in [levelInfo, levelDifficulty, deathCounter, multiplayerText]) {
 			if (label == null) continue;
 			label.scrollFactor.set();
 			label.alpha = 0;

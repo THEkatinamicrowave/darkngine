@@ -113,7 +113,7 @@ class CharterEventScreen extends UISubstateWindow {
 
 		// destroy old elements
 		paramsFields = [];
-		for(e in paramsPanel) {
+		for (e in paramsPanel) {
 			e.destroy();
 			paramsPanel.remove(e);
 		}
@@ -130,7 +130,7 @@ class CharterEventScreen extends UISubstateWindow {
 			eventName.text = visualName;
 			// add new elements
 			var y:Float = eventName.y + eventName.height + 10;
-			for(k=>param in EventsData.getEventParams(curEvent.name)) {
+			for (k=>param in EventsData.getEventParams(curEvent.name)) {
 				function addLabel() {
 					var visualName = param.name;
 					// TODO: add translations
@@ -164,7 +164,7 @@ class CharterEventScreen extends UISubstateWindow {
 						addLabel();
 						var strumlineFormat = TU.getRaw("charterEventScreen.strumLine.format");
 						var dropdown = new UIDropDown(eventName.x, y, 320, 32, [
-							for(k=>s in cast(FlxG.state, Charter).strumLines.members)
+							for (k=>s in cast(FlxG.state, Charter).strumLines.members)
 								strumlineFormat.format([k+1, s.strumLine.characters[0]])
 						], cast value);
 						paramsPanel.add(dropdown); paramsFields.push(dropdown);
@@ -262,7 +262,7 @@ class EventButton extends UIButton {
 		this.event = event;
 		super(0, 0, null, function() {
 			substate.changeTab(id);
-			for(i in parent.buttons.members)
+			for (i in parent.buttons.members)
 				i.alpha = i == this ? 1 : 0.25;
 		}, 73, 40);
 		autoAlpha = false;

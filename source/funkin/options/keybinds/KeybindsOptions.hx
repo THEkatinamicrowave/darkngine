@@ -331,9 +331,9 @@ class KeybindsOptions extends MusicBeatSubstate {
 		}
 
 		// Logs.trace("Found " + filePaths.length + " custom controls");
-		// for(i in filePaths) Logs.trace(i);
+		// for (i in filePaths) Logs.trace(i);
 
-		for(source in filePaths) {
+		for (source in filePaths) {
 			var access:Access = null;
 
 			try {

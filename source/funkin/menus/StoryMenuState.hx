@@ -88,7 +88,7 @@ class StoryMenuState extends MusicBeatState {
 
 		leftArrow = new FlxSprite((FlxG.width + 400) / 2, weekBG.y + weekBG.height + 10 + 10);
 		rightArrow = new FlxSprite(FlxG.width - 10, weekBG.y + weekBG.height + 10 + 10);
-		for(k=>arrow in [leftArrow, rightArrow]) {
+		for (k=>arrow in [leftArrow, rightArrow]) {
 			var dir = directions[k];
 
 			arrow.frames = assets;
@@ -184,7 +184,7 @@ class StoryMenuState extends MusicBeatState {
 				selectWeek();
 		}
 		else {
-			for(e in [leftArrow, rightArrow])
+			for (e in [leftArrow, rightArrow])
 				if (e != null && e.exists)
 					e.animation.play('idle');
 		}
@@ -214,7 +214,7 @@ class StoryMenuState extends MusicBeatState {
 		curWeek = event.value;
 
 		if (!force) CoolUtil.playMenuSFX();
-		for(k=>e in weekSprites.members) {
+		for (k=>e in weekSprites.members) {
 			e.targetY = k - curWeek;
 			e.alpha = k == curWeek ? 1.0 : 0.6;
 		}
@@ -230,7 +230,7 @@ class StoryMenuState extends MusicBeatState {
 		}
 		weekBGSprite.visible = Assets.exists(graphicPath);
 
-		tracklist.text = '${TU.translate("story.tracks")}\n\n${[for(e in weeks[curWeek].songs) if (!e.hide) e.displayName.getDefault(e.name)].join('\n')}';
+		tracklist.text = '${TU.translate("story.tracks")}\n\n${[for (e in weeks[curWeek].songs) if (!e.hide) e.displayName.getDefault(e.name)].join('\n')}';
 		weekTitle.text = weeks[curWeek].name.getDefault("");
 
 		if (characterSprites != null) for (i in 0...3) {
@@ -256,7 +256,7 @@ class StoryMenuState extends MusicBeatState {
 		curDifficulty = event.value;
 
 		if (__oldDiffName != (__oldDiffName = weeks[curWeek].difficulties[curDifficulty].toLowerCase())) {
-			for(e in difficultySprites) e.visible = false;
+			for (e in difficultySprites) e.visible = false;
 
 			var diffSprite = difficultySprites[__oldDiffName];
 			if (diffSprite != null) {
@@ -277,7 +277,7 @@ class StoryMenuState extends MusicBeatState {
 	public function loadXMLs() {
 		weekList = StoryWeeklist.get(true, false);  // will only load week files AND NOT characters too (we will load them later only if needed)!!  - Nex
 		weeks = weekList.weeks;
-		if(weeks.length <= 0)
+		if (weeks.length <= 0)
 			weeks = [Week.loadWeek('tutorial', false)];
 
 		for (week in weeks) for (char in week.chars) if (char != null)

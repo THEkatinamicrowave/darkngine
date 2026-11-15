@@ -105,10 +105,10 @@ final class AudioAnalyzer {
 		for (i in 0...barCount) {
 			if ((range = (s2 = calculateScale(i + 1)) - s1) < 1.0) {
 				var c = (s1 + s2) * 0.5;
-			    var s = Math.floor(c);
-			    var e = s + 1;
-			    if (e > n) e = n;
-			    v = frequencies[s] + (frequencies[e] - frequencies[s]) * (c - s);
+				var s = Math.floor(c);
+				var e = s + 1;
+				if (e > n) e = n;
+				v = frequencies[s] + (frequencies[e] - frequencies[s]) * (c - s);
 			}
 			else {
 				v = frequencies[i1] * (Math.ceil(s1) - s1);

@@ -320,24 +320,24 @@ class InspectorObjectProperties {
 						textField("Key", mesh.assetsKey);
 						textField("Is Copy", mesh.__isCopy ? "True" : "False");
 						@:privateAccess {
-							final vertexBuffer  = mesh.buffers[FoxVertexBufferType.VERTICES],
-								  uvBuffer      = mesh.buffers[FoxVertexBufferType.UVS],
-								  normalBuffer  = mesh.buffers[FoxVertexBufferType.NORMALS],
-								  tangentBuffer = mesh.buffers[FoxVertexBufferType.TANGENTS],
-								  colorBuffer   = mesh.buffers[FoxVertexBufferType.COLORS],
-								  boneWeights   = mesh.buffers[FoxVertexBufferType.WEIGHTS],
-								  boneIndices   = mesh.buffers[FoxVertexBufferType.BONE_INDICES],
-								  indexBuffer   = mesh.buffers[FoxVertexBufferType.INDICES];
+							final vertexBuffer	= mesh.buffers[FoxVertexBufferType.VERTICES],
+								uvBuffer		= mesh.buffers[FoxVertexBufferType.UVS],
+								normalBuffer	= mesh.buffers[FoxVertexBufferType.NORMALS],
+								tangentBuffer	= mesh.buffers[FoxVertexBufferType.TANGENTS],
+								colorBuffer		= mesh.buffers[FoxVertexBufferType.COLORS],
+								boneWeights		= mesh.buffers[FoxVertexBufferType.WEIGHTS],
+								boneIndices		= mesh.buffers[FoxVertexBufferType.BONE_INDICES],
+								indexBuffer		= mesh.buffers[FoxVertexBufferType.INDICES];
 							// this should be better
 							inline function stride(buffer:FoxVertexBuffer) return buffer.components * buffer.bytesPerElement;
-							if (vertexBuffer != null) textField("Vertex Buffer", 	  "Num: " + vertexBuffer.count  + ", Stride: " + stride(vertexBuffer)  + ", Size: " + (vertexBuffer.count  * stride(vertexBuffer) ));
-							if (uvBuffer != null) textField("UV Buffer", 			  "Num: " + uvBuffer.count      + ", Stride: " + stride(uvBuffer)      + ", Size: " + (uvBuffer.count      * stride(uvBuffer)     ));
-							if (indexBuffer != null) textField("Index Buffer",        "Num: " + indexBuffer.count   				    				   + ", Size: " + (indexBuffer.count   * stride(indexBuffer)  ));
-							if (normalBuffer != null) textField("Normal Buffer",      "Num: " + normalBuffer.count  + ", Stride: " + stride(normalBuffer)  + ", Size: " + (normalBuffer.count  * stride(normalBuffer) ));
-							if (tangentBuffer != null) textField("Tangent Buffer",    "Num: " + tangentBuffer.count + ", Stride: " + stride(tangentBuffer) + ", Size: " + (tangentBuffer.count * stride(tangentBuffer)));
-							if (colorBuffer != null) textField("Color Buffer", 		  "Num: " + colorBuffer.count   + ", Stride: " + stride(colorBuffer)   + ", Size: " + (colorBuffer.count   * stride(colorBuffer)  ));
-							if (boneWeights != null) textField("Bone Weights Buffer", "Num: " + boneWeights.count   + ", Stride: " + stride(boneWeights)   + ", Size: " + (boneWeights.count   * stride(boneWeights)  ));
-							if (boneIndices != null) textField("Bone Indices Buffer", "Num: " + boneIndices.count   + ", Stride: " + stride(boneIndices)   + ", Size: " + (boneIndices.count   * stride(boneIndices)  ));
+							if (vertexBuffer != null) textField("Vertex Buffer",		"Num: " + vertexBuffer.count	+ ", Stride: " + stride(vertexBuffer)	+ ", Size: " + (vertexBuffer.count	* stride(vertexBuffer)	));
+							if (uvBuffer != null) textField("UV Buffer",				"Num: " + uvBuffer.count		+ ", Stride: " + stride(uvBuffer)	  	+ ", Size: " + (uvBuffer.count		* stride(uvBuffer)		));
+							if (indexBuffer != null) textField("Index Buffer",			"Num: " + indexBuffer.count												+ ", Size: " + (indexBuffer.count	* stride(indexBuffer)	));
+							if (normalBuffer != null) textField("Normal Buffer",		"Num: " + normalBuffer.count	+ ", Stride: " + stride(normalBuffer)  	+ ", Size: " + (normalBuffer.count	* stride(normalBuffer)	));
+							if (tangentBuffer != null) textField("Tangent Buffer",		"Num: " + tangentBuffer.count	+ ", Stride: " + stride(tangentBuffer) 	+ ", Size: " + (tangentBuffer.count	* stride(tangentBuffer)	));
+							if (colorBuffer != null) textField("Color Buffer",			"Num: " + colorBuffer.count		+ ", Stride: " + stride(colorBuffer)   	+ ", Size: " + (colorBuffer.count	* stride(colorBuffer)	));
+							if (boneWeights != null) textField("Bone Weights Buffer",	"Num: " + boneWeights.count		+ ", Stride: " + stride(boneWeights)   	+ ", Size: " + (boneWeights.count	* stride(boneWeights)	));
+							if (boneIndices != null) textField("Bone Indices Buffer",	"Num: " + boneIndices.count		+ ", Stride: " + stride(boneIndices)   	+ ", Size: " + (boneIndices.count	* stride(boneIndices)	));
 						}
 						ImGui.endTable();
 					}

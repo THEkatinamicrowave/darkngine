@@ -133,14 +133,14 @@ class FreeplayState extends MusicBeatState
 		songList = FreeplaySonglist.get();
 		songs = songList.songs;
 
-		for(k=>s in songs) {
+		for (k=>s in songs) {
 			if (s.name == Options.freeplayLastSong) {
 				curSelected = k;
 			}
 		}
 
 		updateCurDifficulties();
-		for(i=>diff in curDifficulties) {
+		for (i=>diff in curDifficulties) {
 			if (curDiffMetaKeys[i] == Options.freeplayLastVariation && diff == Options.freeplayLastDifficulty)
 				curDifficulty = i;
 		}

@@ -39,7 +39,7 @@ class ClassicAlphabet extends FlxSpriteGroup
 	var isBold:Bool = false;
 
 	private override function set_color(c:Int):Int {
-		for(e in group.members) {
+		for (e in group.members) {
 			if (e is AlphaCharacter) {
 				var char:AlphaCharacter = cast e;
 				char.setColor(c, isBold);
@@ -59,7 +59,7 @@ class ClassicAlphabet extends FlxSpriteGroup
 			AlphaCharacter.letterAnims = [];
 			AlphaCharacter.boldAlphabetPath = AlphaCharacter.letterAlphabetPath = 'ui/alphabet';
 
-			for(e in xml.elements) {
+			for (e in xml.elements) {
 				var bold = e.name == "bold";
 				var list = bold ? AlphaCharacter.boldAnims : AlphaCharacter.letterAnims;
 				if (e.has.spritesheet) {
@@ -68,7 +68,7 @@ class ClassicAlphabet extends FlxSpriteGroup
 					else
 						AlphaCharacter.letterAlphabetPath = e.att.spritesheet;
 				}
-				for(e in e.nodes.letter) {
+				for (e in e.nodes.letter) {
 					if (!e.has.char || !e.has.anim) continue;
 					var name = e.att.char;
 					var anim = e.att.anim;
@@ -208,7 +208,7 @@ class ClassicAlphabet extends FlxSpriteGroup
 
 		if (text != _finalText) {
 			_finalText = text;
-			for(e in members)
+			for (e in members)
 				e.destroy();
 			members.clear();
 			lastSprite = null;

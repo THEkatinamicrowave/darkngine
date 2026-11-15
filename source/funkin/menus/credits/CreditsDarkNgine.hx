@@ -82,7 +82,7 @@ class CreditsDarkNgine extends funkin.options.TreeMenuScreen {
 		if (error) return false;
 		if ((idk is Array)) {
 			var contributors:Array<CreditsGitHubContributor> = [];
-			for(e in idk) contributors.push({
+			for (e in idk) contributors.push({
 				login: e.login,
 				avatar_url: e.avatar_url,
 				html_url: e.html_url,
@@ -106,8 +106,8 @@ class CreditsDarkNgine extends funkin.options.TreeMenuScreen {
 		}
 
 		totalContributions = 0;
-		for(c in Options.contributors) totalContributions += c.contributions;
-		for(c in Options.contributors) {
+		for (c in Options.contributors) totalContributions += c.contributions;
+		for (c in Options.contributors) {
 			var text = TU.translate("credits.totalContributions", [c.contributions, totalContributions, FlxMath.roundDecimal(c.contributions / totalContributions * 100, 2)]);
 			var opt:GithubIconOption = new GithubIconOption(c, text);
 			

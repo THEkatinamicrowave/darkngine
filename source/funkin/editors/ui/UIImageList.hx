@@ -29,7 +29,7 @@ class UIImageList extends UIButtonList<UIImageButton> {
 		if (imgs == null)
 			return;
 
-		for(img in imgs)
+		for (img in imgs)
 			add(makeNewButton(img));
 	}
 
@@ -45,7 +45,7 @@ class UIImageList extends UIButtonList<UIImageButton> {
 	public function getSaveDatas() {
 		var data:Array<ImageSaveData> = [];
 
-		for(b in buttons) {
+		for (b in buttons) {
 			var file = b.imageExplorer.getSaveData();
 
 			if (b.imageExplorer.uiElement != null && b.imageExplorer.uiElement.exists)
@@ -58,7 +58,7 @@ class UIImageList extends UIButtonList<UIImageButton> {
 	public function getAnimList():Array<String> {
 		var anims:Array<String> = [];
 
-		for(b in buttons)
+		for (b in buttons)
 			if (b.imageExplorer.animationList != null)
 				anims = anims.concat(b.imageExplorer.animationList);
 		

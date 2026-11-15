@@ -155,7 +155,7 @@ class ZipFolderLibrary extends AssetLibrary implements IModsAssetLibrary {
 		var checkPath = _parsedAsset.toLowerCase();
 
 		@:privateAccess
-		for(k=>e in lowerCaseAssets) {
+		for (k=>e in lowerCaseAssets) {
 			if (k.toLowerCase().startsWith(checkPath)) {
 				if (nameMap.exists(k))
 					k = nameMap.get(k);
@@ -176,7 +176,7 @@ class ZipFolderLibrary extends AssetLibrary implements IModsAssetLibrary {
 		var checkPath = _parsedAsset.toLowerCase();
 
 		@:privateAccess
-		for(k=>e in lowerCaseAssets) {
+		for (k=>e in lowerCaseAssets) {
 			if (k.toLowerCase().startsWith(checkPath)) {
 				if (nameMap.exists(k))
 					k = nameMap.get(k);
@@ -191,6 +191,6 @@ class ZipFolderLibrary extends AssetLibrary implements IModsAssetLibrary {
 		return content;
 	}
 
-	public override function list(type:String):Array<String> { return [for(k=>e in nameMap) '$prefix$e']; }
+	public override function list(type:String):Array<String> { return [for (k=>e in nameMap) '$prefix$e']; }
 }
 #end

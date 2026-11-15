@@ -51,7 +51,7 @@ class DialogueBox extends FunkinSprite {
 			if (dialogueBoxData.has.textSound) textTypeSFX = Paths.sound(dialogueBoxData.att.textSound);
 			if (dialogueBoxData.has.nextSound) nextSFX = Paths.sound(dialogueBoxData.att.nextSound);
 
-			for(pos in dialogueBoxData.nodes.charpos) {
+			for (pos in dialogueBoxData.nodes.charpos) {
 				if (!pos.has.name) continue;
 				positions[pos.att.name] = {
 					x: pos.has.x ? Std.parseFloat(pos.att.x).getDefaultFloat(0) : 0,

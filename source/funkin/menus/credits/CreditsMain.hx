@@ -53,7 +53,7 @@ class CreditsMain extends TreeMenu {
 	public function parseCreditsFromXML(xml:Access, source:AssetSource = BOTH):Array<FlxSprite> {
 		var credsMenus:Array<FlxSprite> = [];
 
-		for(node in xml.elements) {
+		for (node in xml.elements) {
 			var desc = node.getAtt("desc").getDefault("No Description");
 
 			if (node.name == "github") {

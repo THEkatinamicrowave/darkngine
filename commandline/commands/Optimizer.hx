@@ -7,7 +7,7 @@ class Optimizer {
 		final args = ArgParser.parse(args);
 		final saveOld = !args.existsOption("no-old");
 
-		if(args.length == 0) {
+		if (args.length == 0) {
 			Sys.println(Main.curCommand.dDoc);
 			return;
 		}
@@ -24,7 +24,7 @@ class Optimizer {
 			return;
 		}
 
-		if(saveOld)
+		if (saveOld)
 			File.saveContent(filename + ".old", data);
 		File.saveContent(filename, haxe.Json.stringify(json));
 	}

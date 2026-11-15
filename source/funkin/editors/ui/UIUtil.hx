@@ -40,7 +40,7 @@ class UIUtil {
 		var maxKeyLength = 0;
 		var curTopMenuOption = null;
 
-		for(o in topMenuOptions) {
+		for (o in topMenuOptions) {
 			if (o == null) continue;
 
 			if (o.keybinds == null) {
@@ -125,7 +125,7 @@ class UIUtil {
 	}
 
 	public static inline function prettify(str:String) {
-		return [for(s in str.split(" ")) [for(k=>l in s.split("")) k == 0 ? l.toUpperCase() : l.toLowerCase()].join("")].join(" ");
+		return [for (s in str.split(" ")) [for (k=>l in s.split("")) k == 0 ? l.toUpperCase() : l.toLowerCase()].join("")].join(" ");
 	}
 
 	/**

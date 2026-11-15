@@ -109,7 +109,7 @@ class CharacterAnimsWindow extends UIButtonList<CharacterAnimButton> {
 	}
 
 	public function clearDisplayAnims() {
-		for(k=>e in displayAnimsFramesList)
+		for (k=>e in displayAnimsFramesList)
 			e.renderTexture?.destroy();
 		displayAnimsFramesList.clear();
 	}

@@ -131,7 +131,7 @@ final class GitHub {
 	 * @return Filtered releases.
 	 */
 	public static inline function filterReleases(releases:Array<GitHubRelease>, keepPrereleases:Bool = true, keepDrafts:Bool = false)
-		return #if GITHUB_API [for(release in releases) if (release != null && (!release.prerelease || (release.prerelease && keepPrereleases)) && (!release.draft || (release.draft && keepDrafts))) release] #else releases #end;
+		return #if GITHUB_API [for (release in releases) if (release != null && (!release.prerelease || (release.prerelease && keepPrereleases)) && (!release.draft || (release.draft && keepDrafts))) release] #else releases #end;
 
 	private static function __parseGitHubException(obj:Dynamic):GitHubException {
 		#if GITHUB_API

@@ -48,7 +48,7 @@ class CharacterSpriteScreen extends UISubstateWindow {
 			addToUndo(); // should be async?? -lunar
 			var saveDatas:Array<ImageSaveData> = imageList.getSaveDatas();
 			
-			for(data in saveDatas)
+			for (data in saveDatas)
 				UIImageExplorer.saveFilesGlobal(data, '${Paths.getAssetsRoot()}/images/characters');
 
 			onSave(saveDatas);
@@ -77,10 +77,10 @@ class CharacterSpriteScreen extends UISubstateWindow {
 		idCounter = FlxMath.wrap(idCounter + FlxG.random.int(1, 57349), 0, 9999);
 		CharacterEditor.undos.addToUndo(CCharEditSprite(idCounter));
 	
-		for(i in 0...ogImageSaveDatas.length)
+		for (i in 0...ogImageSaveDatas.length)
 			CoolUtil.safeSaveFile('./.temp/${idCounter}__undo__/${Type.getClassName(Type.getClass(FlxG.state))}__$i.cneisd', UIImageExplorer.serializeSaveDataGlobal(ogImageSaveDatas[i]));
 		
-		for(i in 0...imageList.getSaveDatas().length)
+		for (i in 0...imageList.getSaveDatas().length)
 			CoolUtil.safeSaveFile('./.temp/${idCounter}__redo__/${Type.getClassName(Type.getClass(FlxG.state))}__$i.cneisd', UIImageExplorer.serializeSaveDataGlobal(imageList.getSaveDatas()[i]));
 	}
 }

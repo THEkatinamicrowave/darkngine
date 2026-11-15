@@ -131,13 +131,13 @@ class UpdateUtil {
 		var newArray:Array<GitHubRelease> = [], __curVersionPos = -2;
 		var thisVersionExists:Bool = false;
 		var skipNextBinaryChecks:Bool = false;
-		for(index in 0...releases.length) {
+		for (index in 0...releases.length) {
 			var i = index;
 
 			var release = releases[i];
 			var containsBinary = skipNextBinaryChecks;
 			if (!containsBinary) {
-				for(asset in release.assets) {
+				for (asset in release.assets) {
 					if (asset.name.toLowerCase() == AsyncUpdater.executableGitHubName.toLowerCase()) {
 						containsBinary = true;
 						break;

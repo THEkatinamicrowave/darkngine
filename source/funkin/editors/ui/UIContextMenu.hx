@@ -53,7 +53,7 @@ class UIContextMenu extends MusicBeatSubstate {
 		add(bg);
 
 		var lastY:Float = bg.y + 4;
-		for(o in options) {
+		for (o in options) {
 			if (o == null) {
 				var spr = new FlxSprite(bg.x + 8, lastY + 2).makeGraphic(1, 1, -1);
 				spr.alpha = 0.3;
@@ -73,13 +73,13 @@ class UIContextMenu extends MusicBeatSubstate {
 		}
 
 		var maxW = bg.bWidth - 8;
-		for(o in contextMenuOptions)
+		for (o in contextMenuOptions)
 			if (o.bWidth > maxW)
 				maxW = o.bWidth;
 
-		for(o in contextMenuOptions)
+		for (o in contextMenuOptions)
 			o.bWidth = maxW;
-		for(o in separators) {
+		for (o in separators) {
 			o.scale.set(maxW - 8, 1);
 			o.updateHitbox();
 		}
@@ -89,21 +89,21 @@ class UIContextMenu extends MusicBeatSubstate {
 		if (bg.y + bg.bHeight > FlxG.height && bg.y > FlxG.height*0.5) {
 			flipped = true;
 			bg.y -= bg.bHeight;
-			for(o in contextMenuOptions)
+			for (o in contextMenuOptions)
 				o.y -= bg.bHeight;
-			for(o in separators)
+			for (o in separators)
 				o.y -= bg.bHeight;
 		}
 
 		if (bg.x + bg.bWidth > FlxG.width && bg.x > FlxG.width*0.5) {
 			bg.x -= bg.bWidth;
-			for(o in contextMenuOptions)
+			for (o in contextMenuOptions)
 				o.x -= bg.bWidth;
-			for(o in separators)
+			for (o in separators)
 				o.x -= bg.bWidth;
 		}
 
-		for(o in contextMenuOptions) {
+		for (o in contextMenuOptions) {
 			o.postCreate();
 		}
 	}

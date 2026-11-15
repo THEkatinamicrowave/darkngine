@@ -9,7 +9,7 @@ import haxe.macro.Expr;
  */
 class Macros {
 	public static function addAdditionalClasses() {
-		for(inc in [
+		for (inc in [
 			// FLIXEL
 			"flixel.util", "flixel.ui", "flixel.tweens", "flixel.tile", "flixel.text",
 			"flixel.system", "flixel.sound", "flixel.path", "flixel.math", "flixel.input",
@@ -57,7 +57,7 @@ class Macros {
 		];
 
 		if (Context.defined("sys")) {
-			for(inc in ["sys", "openfl.net", "funkin.backend.system.net"]) {
+			for (inc in ["sys", "openfl.net", "funkin.backend.system.net"]) {
 				if (!isHl) Compiler.include(inc, compathx4);
 				else {
 

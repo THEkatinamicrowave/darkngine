@@ -32,14 +32,14 @@ class AliasMacro {
 		var fields = Context.getBuildFields();
 		var ogFieldCount = fields.length;
 
-		for(i in 0...ogFieldCount) {
+		for (i in 0...ogFieldCount) {
 			var field = fields[i];
 			if (field.meta == null) continue;
 
 			var previousAliases:Array<{name:String, pos:Position}> = [];
-			for(meta in field.meta) {
+			for (meta in field.meta) {
 				if (meta.name == ":alias" && meta.params != null) {
-					for(p in meta.params) {
+					for (p in meta.params) {
 						switch(p.expr) {
 							case EConst(CString(s, kind)):
 								previousAliases.push({
@@ -58,7 +58,7 @@ class AliasMacro {
 			ghostAccess.remove(AOverride);
 			ghostAccess.remove(APublic);
 
-			for(alias in previousAliases) {
+			for (alias in previousAliases) {
 				var ghostField:Field = {
 					name: alias.name,
 					pos: alias.pos,
@@ -69,7 +69,7 @@ class AliasMacro {
 
 				switch(field.kind) {
 					case FFun(f):
-						var args:Array<Expr> = [for(a in f.args) {
+						var args:Array<Expr> = [for (a in f.args) {
 							expr: EConst(CIdent(a.name)),
 							pos: Context.currentPos()
 						}];
@@ -120,7 +120,7 @@ class AliasMacro {
 				fields.push(ghostField);
 			}
 
-			var docFooter = '_Aliases: ${[for(alias in previousAliases) '`${alias.name}`'].join(", ")}_';
+			var docFooter = '_Aliases: ${[for (alias in previousAliases) '`${alias.name}`'].join(", ")}_';
 			if (field.doc != null)
 				field.doc += '\n\n$docFooter'; 
 			else

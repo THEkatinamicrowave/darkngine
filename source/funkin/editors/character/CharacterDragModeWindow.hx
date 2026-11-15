@@ -5,8 +5,8 @@ class CharacterDragModeWindow extends UISliceSprite {
 	inline function translate(id:String, ?args:Array<Dynamic>)
 		return TU.translate("characterEditor.dragMode." + id, args);
 
-	inline function getDragTranslate(drag:CharacterDragMode){
-		return switch(drag){
+	inline function getDragTranslate(drag:CharacterDragMode) {
+		return switch(drag) {
 			case NONE:
 				translate('none');
 			case OFFSET:
@@ -90,7 +90,7 @@ class CharacterDragModeWindow extends UISliceSprite {
 		refreshText();
 	}
 
-	public function refreshText(){
+	public function refreshText() {
 		dragModeText.text = '${translate('currentDrag')}: ${getDragTranslate(Options.characterDragging)}';
 
 		positionIcon.alpha = Options.characterDragging == POSITION ? 1 : 0.5;

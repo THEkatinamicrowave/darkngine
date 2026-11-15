@@ -110,7 +110,7 @@ class CharterEventScreenNew extends MusicBeatSubstate {
 
 		// destroy old elements
 		paramsFields = [];
-		for(e in paramsPanel) {
+		for (e in paramsPanel) {
 			e.destroy();
 			paramsPanel.remove(e);
 		}
@@ -125,7 +125,7 @@ class CharterEventScreenNew extends MusicBeatSubstate {
 			bWidth = eventName.x + eventName.width+16;
 
 			// add new elements
-			for(k=>param in EventsData.getEventParams(curEvent.name)) {
+			for (k=>param in EventsData.getEventParams(curEvent.name)) {
 				function addLabel() {
 					var label:UIText = new UIText(eventName.x+6, winHeight, 0, param.name);
 					winHeight += label.height + 4;
@@ -158,7 +158,7 @@ class CharterEventScreenNew extends MusicBeatSubstate {
 						numericStepper;
 					case TStrumLine:
 						addLabel();
-						var dropdown = new UIDropDown(eventName.x+6, winHeight, 320, 32, [for(k=>s in cast(FlxG.state, Charter).strumLines.members) 'Strumline #${k+1} (${s.strumLine.characters[0]})'], cast value);
+						var dropdown = new UIDropDown(eventName.x+6, winHeight, 320, 32, [for (k=>s in cast(FlxG.state, Charter).strumLines.members) 'Strumline #${k+1} (${s.strumLine.characters[0]})'], cast value);
 						paramsPanel.add(dropdown); paramsFields.push(dropdown);
 						dropdown;
 					case TColorWheel:
@@ -304,7 +304,7 @@ class CharterEventScreenNew extends MusicBeatSubstate {
 		if (curEvent < 0) return;
 
 		events[curEvent].params = [
-			for(p in paramsFields) {
+			for (p in paramsFields) {
 				if (p is UIDropDown) {
 					var dataParams = EventsData.getEventParams(events[curEvent].name);
 					if (dataParams[paramsFields.indexOf(p)].type == TStrumLine) cast(p, UIDropDown).index;
@@ -347,7 +347,7 @@ class EventButtonNew extends UIButton {
 		this.event = event;
 		super(0, 0, null, function() {
 			substate.changeTab(id);
-			for(i in parent.buttons.members)
+			for (i in parent.buttons.members)
 				i.alpha = i == this ? 1 : 0.25;
 		}, 73, 40);
 		autoAlpha = false;

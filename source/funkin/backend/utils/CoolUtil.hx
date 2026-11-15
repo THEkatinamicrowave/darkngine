@@ -120,7 +120,7 @@ final class CoolUtil
 		#if sys
 		if (!FileSystem.exists(delete)) return;
 		var files:Array<String> = FileSystem.readDirectory(delete);
-		for(file in files) {
+		for (file in files) {
 			if (FileSystem.isDirectory(delete + "/" + file)) {
 				deleteFolder(delete + "/" + file);
 				FileSystem.deleteDirectory(delete + "/" + file);
@@ -422,7 +422,7 @@ final class CoolUtil
 			var b:Int = 0;
 			var a:Int = 255;
 			var array:Array<Dynamic> = cast c;
-			for(k=>e in array) {
+			for (k=>e in array) {
 				if (e is Int || e is Float) {
 					switch(k) {
 						case 0:	r = Std.int(e);
@@ -486,7 +486,7 @@ final class CoolUtil
 			if (musicData["EndTime"] != null) FlxG.sound.music.endTime = Std.parseFloat(musicData["EndTime"]) * 1000;
 			if (musicData["Offset"] != null) FlxG.sound.music.offset = Std.parseFloat(musicData["Offset"]) * 1000;
 
-			var timeSignParsed:Array<Null<Float>> = musicData["TimeSignature"] == null ? [] : [for(s in musicData["TimeSignature"].split("/")) Std.parseFloat(s)];
+			var timeSignParsed:Array<Null<Float>> = musicData["TimeSignature"] == null ? [] : [for (s in musicData["TimeSignature"].split("/")) Std.parseFloat(s)];
 			var beatsPerMeasure:Float = Flags.DEFAULT_BEATS_PER_MEASURE, stepsPerBeat:Float = Flags.DEFAULT_STEPS_PER_BEAT;
 			if (timeSignParsed.length == 2) {
 				beatsPerMeasure = Math.isNaN(timeSignParsed[0]) ? Flags.DEFAULT_BEATS_PER_MEASURE : timeSignParsed[0];
@@ -532,7 +532,7 @@ final class CoolUtil
 	@:noUsing public static function coolTextFile(path:String):Array<String>
 	{
 		var trim:String;
-		return [for(line in Assets.getText(path).split("\n")) if ((trim = line.trim()) != "" && !trim.startsWith("#")) trim];
+		return [for (line in Assets.getText(path).split("\n")) if ((trim = line.trim()) != "" && !trim.startsWith("#")) trim];
 	}
 
 	/**
@@ -553,7 +553,7 @@ final class CoolUtil
 		var arr:Array<Int> = [];
 		arr.resize(len);
 		#end
-		for(i in 0...len)
+		for (i in 0...len)
 			arr[i] = i + min;
 		return arr;
 	}
@@ -731,7 +731,7 @@ final class CoolUtil
 	public static function autoSetFormat(text:FlxText, formats:Array<TextFormat>) {
 		var i = 0;
 		@:privateAccess
-		for(format in formats) {
+		for (format in formats) {
 			var fmtt = format.format;
 			var start = i;
 			var end = i + format.text.length;
@@ -755,7 +755,7 @@ final class CoolUtil
 			if (Reflect.hasField(fmtt, "leftMargin")) fmt.format.leftMargin = Std.parseInt(fmtt.leftMargin);
 			if (Reflect.hasField(fmtt, "letterSpacing")) fmt.format.letterSpacing = Std.parseFloat(fmtt.letterSpacing);
 			if (Reflect.hasField(fmtt, "rightMargin")) fmt.format.rightMargin = Std.parseInt(fmtt.rightMargin);
-			if (Reflect.hasField(fmtt, "tabStops")) fmt.format.tabStops = [for(x in cast(fmtt.tabStops, String).split(",")) Std.parseInt(x)];
+			if (Reflect.hasField(fmtt, "tabStops")) fmt.format.tabStops = [for (x in cast(fmtt.tabStops, String).split(",")) Std.parseInt(x)];
 			if (Reflect.hasField(fmtt, "underline")) fmt.format.underline = fmtt.underline == "true";
 			text.addFormat(fmt, start, end);
 		}
@@ -771,7 +771,7 @@ final class CoolUtil
 		spr.frames = Paths.getFrames(path, true);
 
 		if (spr.frames != null && spr.frames.frames != null) {
-			spr.animation.add("idle", [for(i in 0...spr.frames.frames.length) i], fps, true);
+			spr.animation.add("idle", [for (i in 0...spr.frames.frames.length) i], fps, true);
 			spr.animation.play("idle");
 		}
 
@@ -856,7 +856,7 @@ final class CoolUtil
 	 * @return Array<T>
 	 */
 	public static inline function pushGroup<T>(array:Array<T>, ...args:T):Array<T> {
-		for(a in args)
+		for (a in args)
 			array.push(a);
 		return array;
 	}
@@ -1087,7 +1087,7 @@ final class CoolUtil
 
 	public static inline function repeat(str:String, times:Int) {
 		var r = new StringBuf();
-		for(i in 0...times)
+		for (i in 0...times)
 			r.add(str);
 		return r.toString();
 	}
@@ -1297,13 +1297,13 @@ final class CoolUtil
 
 		@:privateAccess var collections = cast (animate.frames, FlxAnimateFrames).addedCollections;
 		collections.push(cast animate.frames);
-		for(col in collections) {
-			for(l in col.timeline.layers)
-				for(f in l.frames) {
+		for (col in collections) {
+			for (l in col.timeline.layers)
+				for (f in l.frames) {
 					 if (f.name != "")
 						animsList.push(f.name);
 
-					 for(e in f.elements) {
+					 for (e in f.elements) {
 						var element = e.toSymbolInstance();
 
 						if (element != null && element.symbolName != null)

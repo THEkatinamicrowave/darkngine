@@ -162,10 +162,10 @@ class VideoCutscene extends Cutscene {
 	public static function splitTime(str:String):Float {
 		if (str == null || str.trim() == "") return -1;
 		var multipliers:Array<Float> = [1, 60, 3600, 86400, 31536000]; // no way a cutscene will last longer than years
-		var timeSplit:Array<Null<Float>> = [for(e in str.split(":")) Std.parseFloat(e.replace(",", "."))];
+		var timeSplit:Array<Null<Float>> = [for (e in str.split(":")) Std.parseFloat(e.replace(",", "."))];
 		var time:Float = 0;
 
-		for(k=>i in timeSplit) {
+		for (k=>i in timeSplit) {
 			var mul = multipliers[timeSplit.length - 1 - k];
 			if (i != null)
 				time += i * mul;

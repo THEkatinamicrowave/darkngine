@@ -63,7 +63,7 @@ final class MatrixUtil {
 		var funkinSprite:FunkinSprite = null;
 		if (isFunkinSprite) funkinSprite = cast sprite;
 
-		for(point in points) {
+		for (point in points) {
 			var x = matrix.__transformX(point.x * _width, point.y * _height);
 			var y = matrix.__transformY(point.x * _width, point.y * _height);
 
@@ -84,7 +84,7 @@ final class MatrixUtil {
 	}
 
 	private static function rawTransformPoints(points:Array<FlxPoint>, matrix:FlxMatrix, _width:Float = 1, _height:Float = 1):Array<FlxPoint> {
-		for(point in points) {
+		for (point in points) {
 			var x = matrix.__transformX(point.x * _width, point.y * _height);
 			var y = matrix.__transformY(point.x * _width, point.y * _height);
 

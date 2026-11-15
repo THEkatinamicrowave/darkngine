@@ -441,7 +441,7 @@ class CharacterEditor extends UIState {
 			cameraHoverDummy.cursor = DRAG;
 
 			if (FlxG.mouse.justReleased) {
-				if(Options.characterDragging == OFFSET){
+				if (Options.characterDragging == OFFSET) {
 					draggingOffset.x /= character.scale.x;
 					draggingOffset.y /= character.scale.y;
 
@@ -558,7 +558,7 @@ class CharacterEditor extends UIState {
 					try {
 						var paths:Array<ImageSaveData> = [];
 
-						for(file in FileSystem.readDirectory(cneisdPath)) {
+						for (file in FileSystem.readDirectory(cneisdPath)) {
 							var cneisdData:String = File.getContent(cneisdPath + file);
 							var imageSaveData:ImageSaveData = UIImageExplorer.deserializeSaveDataGlobal(cneisdData);
 
@@ -639,7 +639,7 @@ class CharacterEditor extends UIState {
 					try {
 						var paths:Array<ImageSaveData> = [];
 
-						for(file in FileSystem.readDirectory(cneisdPath)) {
+						for (file in FileSystem.readDirectory(cneisdPath)) {
 							var cneisdData:String = File.getContent(cneisdPath + file);
 							var imageSaveData:ImageSaveData = UIImageExplorer.deserializeSaveDataGlobal(cneisdData);
 
@@ -983,7 +983,7 @@ class CharacterEditor extends UIState {
 			character.colorTransform.color = 0xFFEF0202;
 		}
 
-		for(i in characterAnimsWindow.buttons.members)
+		for (i in characterAnimsWindow.buttons.members)
 			i.alpha = i.anim == anim ? 1 : 0.25;
 	}
 	#end

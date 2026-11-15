@@ -280,7 +280,7 @@ final class XMLUtil {
 			spr.beatOffset = Std.parseInt(node.att.beatOffset);
 
 		if (node.hasNode.anim) {
-			for(anim in node.nodes.anim)
+			for (anim in node.nodes.anim)
 				addXMLAnimation(spr, anim);
 		} else if (spr.frames != null && spr.frames.frames != null) {
 			addAnimToSprite(spr, {
@@ -291,7 +291,7 @@ final class XMLUtil {
 				animType: spr.spriteAnimType,
 				x: 0,
 				y: 0,
-				indices: [for(i in 0...spr.frames.frames.length) i],
+				indices: [for (i in 0...spr.frames.frames.length) i],
 				label: false
 			});
 		}
@@ -437,7 +437,7 @@ final class XMLUtil {
 
 	public static inline function fixXMLText(text:String) {
 		var v:String;
-		return [for(l in text.split("\n")) if ((v = l.trim()) != "") v].join("\n");
+		return [for (l in text.split("\n")) if ((v = l.trim()) != "") v].join("\n");
 	}
 
 	/**
@@ -447,13 +447,13 @@ final class XMLUtil {
 	 */
 	public static function fixSpacingInNode(node:Access):Access {
 		var arr = Lambda.array(node.x);
-		for(i => n in arr) {
+		for (i => n in arr) {
 			if (n.nodeType == PCData) {
 				if (i == 0) n.nodeValue = n.nodeValue.ltrim();
 				if (i == arr.length - 1) n.nodeValue = n.nodeValue.rtrim();
 				if (n.nodeValue.contains("\n")) {
 					var a = n.nodeValue.split("\n");
-					n.nodeValue = [for(i => x in a) i == 0 ? x.rtrim() : i == arr.length - 1 ? x.ltrim() : x.trim()].join("\n");
+					n.nodeValue = [for (i => x in a) i == 0 ? x.rtrim() : i == arr.length - 1 ? x.ltrim() : x.trim()].join("\n");
 				}
 			}
 		}

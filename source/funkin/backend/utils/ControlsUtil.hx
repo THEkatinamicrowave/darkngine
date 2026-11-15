@@ -103,7 +103,7 @@ class ControlsUtil {
 
 			if (Assets.exists(folder)) filePaths.push(folder);
 		}
-		for(source in filePaths) {
+		for (source in filePaths) {
 			if (Paths.assetsTree.existsSpecific(source, "TEXT")) {
 				var access:Access = null;
 				try {

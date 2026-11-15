@@ -45,7 +45,7 @@ class AsyncUpdater {
 	public function installFiles(files:Array<String>) {
 		progress.step = INSTALLING;
 		progress.files = files.length+1;
-		for(k=>e in files) {
+		for (k=>e in files) {
 			var path = '$path$e';
 			progress.curFile = k+1;
 			progress.curFileName = e;
@@ -73,8 +73,8 @@ class AsyncUpdater {
 		var files:Array<String> = [];
 		var fileNames:Array<String> = [];
 		var exePath:String = "";
-		for(r in releases) {
-			for(e in r.assets) {
+		for (r in releases) {
+			for (e in r.assets) {
 				if (e.name.toLowerCase() == "update-assets.zip") {
 					files.push(e.browser_download_url);
 					fileNames.push('${Path.withoutExtension(e.name)}-${r.tag_name}.${Path.extension(e.name)}');

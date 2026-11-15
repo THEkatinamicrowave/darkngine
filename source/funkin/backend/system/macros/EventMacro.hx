@@ -18,19 +18,19 @@ class EventMacro {
 		var curClass = curClassRest.get();
 		if (curClass == null || curClass.name == "CancellableEvent") return fields;
 
-		for(f in fields)
+		for (f in fields)
 			if (f.name == "recycle")
 				return fields;
 
 		// gets all fields
 		var values:Array<EventVar> = [];
 		var hiddenValues:Array<EventVar> = [];
-		for(field in fields) {
+		for (field in fields) {
 			if (field.access.contains(AStatic)) continue;
 
 			var hidden = false;
 			if (field.meta != null)
-				for(m in field.meta)
+				for (m in field.meta)
 					if (m.name == ":dox")
 						hidden = true;
 			if (!field.access.contains(APublic)) hidden = true;
@@ -49,7 +49,7 @@ class EventMacro {
 
 		// add recycle option
 		var func:Function = {
-			args: [for(a in values) {
+			args: [for (a in values) {
 				value: a.expr,
 				type: a.type,
 				opt: false,
@@ -73,13 +73,13 @@ class EventMacro {
 		switch(func.expr.expr) {
 			case EBlock(exprs):
 				// add a "set this" expr for each variable
-				for(v in values) {
+				for (v in values) {
 					var name = v.name;
 					exprs.push(macro this.$name = $i{name});
 				}
 
 				// add a "set this" expr to reset each private/hidden variables
-				for(v in hiddenValues) {
+				for (v in hiddenValues) {
 					var name = v.name;
 					exprs.push(macro this.$name = ${v.expr});
 				}

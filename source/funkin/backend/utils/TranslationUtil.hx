@@ -108,7 +108,7 @@ final class TranslationUtil
 			], VERBOSE);
 		}
 
-		for(mod in ModsFolder.getLoadedModsLibs(false))
+		for (mod in ModsFolder.getLoadedModsLibs(false))
 			if (mod is TranslatedAssetLibrary)
 				cast(mod, TranslatedAssetLibrary).langFolder = name;
 
@@ -168,7 +168,7 @@ final class TranslationUtil
 	public static function raw2Id(str:String):String
 	{
 		str = str.trim().toLowerCase();
-		return [for(i => s in str.split(" "))
+		return [for (i => s in str.split(" "))
 			i != 0 ? s.charAt(0).toUpperCase() + s.substr(1) : s
 		].join("");
 	}
@@ -205,7 +205,7 @@ final class TranslationUtil
 					for (key => value in v)
 						config[key] = value;
 			} else { // if there was no config.ini, use the file name as the language name
-				for(file in Paths.getFolderContent(mainPath + lang).sortAlphabetically()) {
+				for (file in Paths.getFolderContent(mainPath + lang).sortAlphabetically()) {
 					if (Path.extension(file) == "xml") {
 						config["name"] = Path.withoutExtension(file);
 						break;
@@ -241,7 +241,7 @@ final class TranslationUtil
 
 		final NODE_NAMES = ["text", "trans", "lang", "string", "str"];
 		function parseXml(xml:Access, prefix:String = "") {
-			for(node in xml.elements) {
+			for (node in xml.elements) {
 				if (node.name == "group") // Cosmetic name
 					parseXml(node, prefix + (node.has.prefix ? node.att.prefix : ""));
 				else if (NODE_NAMES.contains(node.name))
@@ -254,7 +254,7 @@ final class TranslationUtil
 
 		// todo make it load the default languages in a second string map
 
-		for(mod in ModsFolder.getLoadedModsLibs(true)) for(file in mod.getFiles("assets/" + mainPath).sortAlphabetically().map((v)->'$mainPath/$v')) {
+		for (mod in ModsFolder.getLoadedModsLibs(true)) for (file in mod.getFiles("assets/" + mainPath).sortAlphabetically().map((v)->'$mainPath/$v')) {
 			if (Path.extension(file).toLowerCase() != "xml") continue;
 
 			// Parse the XML
@@ -278,7 +278,7 @@ final class TranslationUtil
 			parseXml(langNode, prefix);
 		}
 
-		for(pair in translations) {
+		for (pair in translations) {
 			var node = pair.node;
 			if (!node.has.id) {
 				Logs.warn('A <${node.name}> node requires an ID attribute.', "Language");
@@ -312,7 +312,7 @@ final class TranslationUtil
 
 	public static function getLanguageFromName(name:String):String {
 		var reverseMap = new Map<String, String>();
-		for(key => val in nameMap) reverseMap.set(val, key);
+		for (key => val in nameMap) reverseMap.set(val, key);
 		return reverseMap.exists(name) ? reverseMap.get(name) : name;
 	}
 

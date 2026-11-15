@@ -18,7 +18,7 @@ class CharterStrumlineButton extends UISprite {
 
 		button = new UISprite();
 		button.loadGraphic(Paths.image(imagePath), true, 71, 71);
-		for(i in 0...button.frames.frames.length)
+		for (i in 0...button.frames.frames.length)
 			button.animation.add(Std.string(i), [i]);
 		button.animation.play("0", true);
 		button.scale.set(0.85,0.85);

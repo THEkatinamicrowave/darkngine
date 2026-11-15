@@ -68,7 +68,7 @@ class ModSwitchMenu extends MusicBeatSubstate {
 		mods.push(null);
 
 		alphabets = new FlxTypedGroup<Alphabet>();
-		for(mod in mods) {
+		for (mod in mods) {
 			var conf = (mod != null && Options.legacyModMenuNames) ? disableConf : ModsFolder.getModConfig(mod);
 			modConf.push(conf);
 
@@ -242,7 +242,7 @@ class ModSwitchMenu extends MusicBeatSubstate {
 		if (change != 0)
 			CoolUtil.playMenuSFX(SCROLL, 0.7);
 
-		for(k => alphabet in addonObjs.members) {
+		for (k => alphabet in addonObjs.members) {
 			alphabet.alpha = 0.6;
 			alphabet.targetY = k - curAddon;
 		}

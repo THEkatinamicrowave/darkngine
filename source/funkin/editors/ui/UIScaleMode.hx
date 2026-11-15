@@ -43,7 +43,7 @@ class UIScaleMode extends StageSizeScaleMode {
 		}
 
 		@:privateAccess {
-			for(camera in FlxG.cameras.list) {
+			for (camera in FlxG.cameras.list) {
 				camera.width = FlxG.initialWidth;
 				camera.height = FlxG.initialHeight;
 			}

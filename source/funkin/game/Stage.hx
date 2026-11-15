@@ -100,14 +100,14 @@ class Stage extends FlxBasic implements IBeatReceiver {
 			}
 
 			// Load custom attributes
-			for(att in xml.x.attributes())
+			for (att in xml.x.attributes())
 				if (!DEFAULT_ATTRIBUTES.contains(att))
 					extra.set(att, xml.x.get(att));
 
 			// some way to tag that the sprites are from the group
-			for(node in xml.elements) {
-				if (node.name == "high-memory" && (!Options.lowMemoryMode || forceLoadAll)) for(e in node.elements) __pushNcheckNode(elems, e);
-				else if (node.name == "low-memory" && (Options.lowMemoryMode || forceLoadAll)) for(e in node.elements) __pushNcheckNode(elems, e);
+			for (node in xml.elements) {
+				if (node.name == "high-memory" && (!Options.lowMemoryMode || forceLoadAll)) for (e in node.elements) __pushNcheckNode(elems, e);
+				else if (node.name == "low-memory" && (Options.lowMemoryMode || forceLoadAll)) for (e in node.elements) __pushNcheckNode(elems, e);
 				else __pushNcheckNode(elems, node);
 			}
 
@@ -127,7 +127,7 @@ class Stage extends FlxBasic implements IBeatReceiver {
 				}
 			}
 
-			for(node in elems) {
+			for (node in elems) {
 				var sprite:Dynamic = switch(node.name) {
 					case "sprite" | "spr" | "sparrow":
 						if (!node.has.sprite || !node.has.name) continue;
@@ -190,7 +190,7 @@ class Stage extends FlxBasic implements IBeatReceiver {
 				}
 
 				if (sprite != null) {
-					for(e in node.nodes.property)
+					for (e in node.nodes.property)
 						XMLUtil.applyXMLProperty(sprite, e);
 				}
 
@@ -480,7 +480,7 @@ class StageCharPos extends FlxObject {
 
 	public function revertCharacter(char:Character) {
 		if (oldInfo == null) return;
-		for(field in Reflect.fields(oldInfo)) {
+		for (field in Reflect.fields(oldInfo)) {
 			switch(field) {
 				case "scrollX": char.scrollFactor.x = oldInfo.scrollX;
 				case "scrollY": char.scrollFactor.y = oldInfo.scrollY;

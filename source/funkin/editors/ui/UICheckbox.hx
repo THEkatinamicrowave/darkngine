@@ -11,7 +11,7 @@ class UICheckbox extends UISprite {
 	public function new(x:Float, y:Float, text:String, checked:Bool = false, w:Int = 0, small:Bool = false) {
 		super(x, y);
 		loadGraphic(Paths.image('editors/ui/checkbox${small ? "-small" : ""}'), true, small ? 14 : 20, small ? 14 : 20);
-		for(frame=>name in ["normal", "hover", "pressed", "checkmark"])
+		for (frame=>name in ["normal", "hover", "pressed", "checkmark"])
 			animation.add(name, [frame], 0, false);
 
 		this.checked = checked;

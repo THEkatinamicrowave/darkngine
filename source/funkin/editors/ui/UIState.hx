@@ -75,7 +75,7 @@ class UIState extends MusicBeatState {
 	}
 
 	public function isOverlapping(spr:UISprite, rect:FlxRect) {
-		for(camera in spr.__lastDrawCameras) {
+		for (camera in spr.__lastDrawCameras) {
 			var pos = FlxG.mouse.getScreenPosition(camera, __point);
 			__rect.copyFrom(rect);
 

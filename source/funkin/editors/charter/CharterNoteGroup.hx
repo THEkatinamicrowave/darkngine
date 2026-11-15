@@ -27,12 +27,12 @@ class CharterNoteGroup extends FlxTypedGroup<CharterNote> {
 		var begin = SortedArrayUtil.binarySearch(members, curStep - max, getVarForEachAdd);
 		var end = SortedArrayUtil.binarySearch(members, curStep + max, getVarForEachRemove);
 
-		for(i in begin...end) {
+		for (i in begin...end) {
 			__loopSprite = members[i];
 			if (__loopSprite != null && !Charter.selection.contains(__loopSprite))
 				noteFunc(__loopSprite);
 		}
-		for(c in Charter.selection.copy())
+		for (c in Charter.selection.copy())
 			if (c != null && c is CharterNote) noteFunc(cast c);
 
 		__currentlyLooping = oldCur;

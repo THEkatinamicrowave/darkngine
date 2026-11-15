@@ -55,7 +55,7 @@ class UISprite extends FlxSprite {
 			__oldDefCams = FlxCamera._defaultCameras;
 			FlxCamera._defaultCameras = cameras;
 
-			for(m in members)
+			for (m in members)
 				if (m.exists && m.active)
 					m.update(elapsed);
 
@@ -79,7 +79,7 @@ class UISprite extends FlxSprite {
 			__oldDefCams = FlxCamera._defaultCameras;
 			FlxCamera._defaultCameras = cameras;
 
-			for(m in members)
+			for (m in members)
 				if (m.exists && m.visible)
 					m.draw();
 

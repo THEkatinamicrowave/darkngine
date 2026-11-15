@@ -57,19 +57,19 @@ final class MarkdownUtil {
 
 	public static function prepareMarkdown(text:String) {
 		text = "\n" + text;
-		text = parseEmote(text, "\n- ",             "\n{ident1}&nbsp;&nbsp;• ",             "{ident1}");
-		text = parseEmote(text, "\n    - ",         "\n{ident2}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;• ",         "{ident2}");
-		text = parseEmote(text, "\n        - ",     "\n{ident3}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;• ",     "{ident3}");
-		text = parseEmote(text, "\n            - ", "\n{ident4}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;• ", "{ident4}");
-		text = parseEmote(text, "\n> ",             "\n{gray}",                 "{gray}");
-		text = parseEmote(text, "\n### ",           "\n{subsubtitle}",          "{subsubtitle}");
-		text = parseEmote(text, "\n## ",            "\n{subtitle}",             "{subtitle}");
-		text = parseEmote(text, "\n# ",             "\n{title}",                "{title}");
-		text = parseEmote(text, "***",              "{bold-italic}",            "{bold-italic}",    "***");
-		text = parseEmote(text, "**",               "{bold}",                   "{bold}",           "**");
-		text = parseEmote(text, "*",                "{italic}",                 "{italic}",         "*");
-		text = parseEmote(text, "_",                "{italic}",                 "{italic}",         "*");
-		text = parseEmote(text, "__",               "{bold}",                   "{bold}",           "*");
+		text = parseEmote(text, "\n- ",				"\n{ident1}&nbsp;&nbsp;• ",																			"{ident1}");
+		text = parseEmote(text, "\n    - ",			"\n{ident2}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;• ",													"{ident2}");
+		text = parseEmote(text, "\n        - ",		"\n{ident3}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;• ",							"{ident3}");
+		text = parseEmote(text, "\n            - ",	"\n{ident4}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;• ",	"{ident4}");
+		text = parseEmote(text, "\n> ",				"\n{gray}",																							"{gray}");
+		text = parseEmote(text, "\n### ",			"\n{subsubtitle}",																					"{subsubtitle}");
+		text = parseEmote(text, "\n## ",			"\n{subtitle}",																						"{subtitle}");
+		text = parseEmote(text, "\n# ",				"\n{title}",																						"{title}");
+		text = parseEmote(text, "***",				"{bold-italic}",																					"{bold-italic}",	"***");
+		text = parseEmote(text, "**",				"{bold}",																							"{bold}",			"**");
+		text = parseEmote(text, "*",				"{italic}",																							"{italic}",			"*");
+		text = parseEmote(text, "_",				"{italic}",																							"{italic}",			"*");
+		text = parseEmote(text, "__",				"{bold}",																							"{bold}",			"*");
 		text.substr("\n".length);
 		return text;
 	}

@@ -371,7 +371,7 @@ class Character extends FunkinSprite implements IBeatReceiver implements IOffset
 	}
 
 	public function buildCharacter(xml:Access) {
-		for(node in xml.elements)
+		for (node in xml.elements)
 			switch(node.name) {
 				case "use-extension" | "extension" | "ext":
 					if (!XMLImportedScriptInfo.shouldLoadBefore(node)) continue;
@@ -422,14 +422,14 @@ class Character extends FunkinSprite implements IBeatReceiver implements IOffset
 		var hasInterval:Bool = xml.x.exists("interval");
 		if (hasInterval) beatInterval = Std.parseInt(xml.x.get("interval"));
 
-		if(cachedFrames.exists(curCharacter)) this.frames = cachedFrames.get(curCharacter);
+		if (cachedFrames.exists(curCharacter)) this.frames = cachedFrames.get(curCharacter);
 		else XMLUtil.appendSpriteSheetsFromXML(this, xml, 'characters/');
 		
 		if (xml.x.exists("centercam")) centeredCamera = (xml.x.get("centercam") == "true");
 		else if (Flags.USE_LEGACY_CENTER_CAM) centeredCamera = true;
 		else centeredCamera = !isAnimate;
 		
-		for(node in xml.elements) {
+		for (node in xml.elements) {
 			switch(node.name) {
 				case "anim":	
 					if (defaultAimFPS != 24) {
@@ -508,7 +508,7 @@ class Character extends FunkinSprite implements IBeatReceiver implements IOffset
 				xml.set("postStageMatrixApply", postStageMatrixApply ? "true" : "false");
 		}
 
-		for(e in this.xml.elements)
+		for (e in this.xml.elements)
 			if (e.name == "spritesheet" || e.name == "sheet") 
 				xml.addChild(e.x);
 
@@ -557,7 +557,7 @@ class Character extends FunkinSprite implements IBeatReceiver implements IOffset
 		return (icon != null) ? icon : curCharacter;
 
 	public function getAnimOrder()
-		return [for(a in xml.nodes.anim) if (a.has.name) a.att.name];
+		return [for (a in xml.nodes.anim) if (a.has.name) a.att.name];
 
 	@:noCompletion private function set_stunned(b:Bool) {
 		__stunnedTime = 0;

@@ -87,7 +87,7 @@ class DialogueCutscene extends ScriptedCutscene {
 				var formats = XMLUtil.getTextFormats(XMLUtil.fixSpacingInNode(node));
 				var volume:Null<Float> = 0.8;
 				var line:DialogueLine = {
-					text: [for(x in formats) x.text].join(""),
+					text: [for (x in formats) x.text].join(""),
 					format: formats,
 					char: node.getAtt('char').getDefault('boyfriend'),
 					bubble: node.getAtt('bubble').getDefault('normal'),

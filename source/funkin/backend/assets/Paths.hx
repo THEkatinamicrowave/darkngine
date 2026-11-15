@@ -181,7 +181,7 @@ class Paths
 		var scriptPath = isAssetsPath ? key : getPath(key, library);
 		if (!Assets.exists(scriptPath)) {
 			var p:String;
-			for(ex in Script.scriptExtensions) {
+			for (ex in Script.scriptExtensions) {
 				if (Assets.exists(p = scriptPath + '.' + ex)) {
 					scriptPath = p;
 					break;
@@ -431,7 +431,7 @@ class Paths
 		if (!key.endsWith("/")) key += "/";
 		var content = assetsTree.getFolders('assets/$key', source);
 		if (addPath) {
-			for(k=>e in content)
+			for (k=>e in content)
 				content[k] = '$key$e';
 		}
 		return content;

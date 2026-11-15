@@ -504,7 +504,7 @@ class Alphabet extends FlxSprite {
 
 	final function defaultsIndexOf(data:AlphabetLetterData):Int {
 		//while(i < defaults.length) {
-		for(i in 0...3) {
+		for (i in 0...3) {
 			if (defaults[i] == data)
 				return i;
 		}

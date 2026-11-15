@@ -46,7 +46,7 @@ class CharterNote extends UISprite implements ICharterSelectable {
 
 		antialiasing = true; ID = -1;
 		loadGraphic(Paths.image('editors/charter/note'), true, 157, 154);
-		animation.add("note", [for(i in 0...frames.frames.length) i], 0, true);
+		animation.add("note", [for (i in 0...frames.frames.length) i], 0, true);
 		animation.play("note");
 		this.setUnstretchedGraphicSize(40, 40, false);
 

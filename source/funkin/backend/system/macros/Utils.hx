@@ -11,9 +11,9 @@ class Utils {
 		totalArguments++;
 
 		var funcCalls = [];
-		for(i in 0...totalArguments) {
+		for (i in 0...totalArguments) {
 			var args = [
-				for(d in 0...i) macro $i{argsName}[$v{d}]
+				for (d in 0...i) macro $i{argsName}[$v{d}]
 			];
 
 			funcCalls.push(macro $i{funcName}($a{args}));
@@ -24,7 +24,7 @@ class Utils {
 			expr: ESwitch(
 				macro ($i{argsName}.length),
 				[
-					for(i in 0...totalArguments) {
+					for (i in 0...totalArguments) {
 						values: [macro $v{i}],
 						expr: funcCalls[i],
 						guard: null,

@@ -229,21 +229,21 @@ class MusicBeatSubstate extends FlxSubState implements IBeatCancellableReceiver
 	@:dox(hide) public function stepHit(curStep:Int):Void
 	{
 		if (__beatReceiversDirty || members.length != __lastMemberLength) __refreshBeatReceivers();
-		for(e in __beatReceivers) e.stepHit(curStep);
+		for (e in __beatReceivers) e.stepHit(curStep);
 		callOne("stepHit", curStep);
 	}
 
 	@:dox(hide) public function beatHit(curBeat:Int):Void
 	{
 		if (__beatReceiversDirty || members.length != __lastMemberLength) __refreshBeatReceivers();
-		for(e in __beatReceivers) e.beatHit(curBeat);
+		for (e in __beatReceivers) e.beatHit(curBeat);
 		callOne("beatHit", curBeat);
 	}
 
 	@:dox(hide) public function measureHit(curMeasure:Int):Void
 	{
 		if (__beatReceiversDirty || members.length != __lastMemberLength) __refreshBeatReceivers();
-		for(e in __beatReceivers) e.measureHit(curMeasure);
+		for (e in __beatReceivers) e.measureHit(curMeasure);
 		callOne("measureHit", curMeasure);
 	}
 

@@ -49,7 +49,7 @@ class MainMenuState extends MusicBeatState
 		magenta.color = 0xFFfd719b;
 		add(magenta);
 
-		for(bg in [bg, magenta]) {
+		for (bg in [bg, magenta]) {
 			bg.scrollFactor.set(0, 0.18);
 			bg.scale.set(1.15, 1.15);
 			bg.updateHitbox();

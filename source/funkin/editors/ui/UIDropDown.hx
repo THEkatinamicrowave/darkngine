@@ -24,7 +24,7 @@ class UIDropDown extends UISliceSprite {
 	var curMenu:UIContextMenu = null;
 
 	public static function getItems(options:Array<String>):Array<DropDownItem> {
-		return [for(i=>o in options) {label: o, value: i}];
+		return [for (i=>o in options) {label: o, value: i}];
 	}
 
 	public function new(x:Float, y:Float, width:Int = 320, height:Int = 32, _options:Array<OneOfTwo<DropDownItem, String>>, index:Int = 0) {
@@ -41,7 +41,7 @@ class UIDropDown extends UISliceSprite {
 		}
 
 		this.items = _items;
-		this.options = [for(o in _items) o.label]; // backwards compatibility
+		this.options = [for (o in _items) o.label]; // backwards compatibility
 		this.index = index;
 
 		cursor = CLICK;
@@ -58,11 +58,11 @@ class UIDropDown extends UISliceSprite {
 	}
 
 	public static function indexOfItemValue(items:Array<DropDownItem>, value:Dynamic):Int {
-		return [for(o in items) o.value].indexOf(value);
+		return [for (o in items) o.value].indexOf(value);
 	}
 
 	public static function indexOfItemLabel(items:Array<DropDownItem>, str:String):Int {
-		return [for(o in items) o.label].indexOf(str);
+		return [for (o in items) o.label].indexOf(str);
 	}
 
 	public function setOption(newIndex:Int) {
@@ -90,7 +90,7 @@ class UIDropDown extends UISliceSprite {
 		UIState.playEditorSound(Flags.DEFAULT_EDITOR_DROPDOWNAPPEAR_SOUND);
 		var screenPos = getScreenPosition(null, __lastDrawCameras[0] == null ? FlxG.camera : __lastDrawCameras[0]);
 		curMenu = UIState.state.openContextMenu([
-			for(k=>o in items) {
+			for (k=>o in items) {
 				icon: (k == index) ? 1 : 0,
 				label: o.label
 			}

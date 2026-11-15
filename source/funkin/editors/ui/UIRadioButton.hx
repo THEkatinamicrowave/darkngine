@@ -16,7 +16,7 @@ class UIRadioButton extends UISprite {
 		super(x, y);
 		this.forID = forID;
 		loadGraphic(Paths.image('editors/ui/radiobutton'), true, 20, 20);
-		for(frame=>name in ["normal", "hover", "pressed", "selected"])
+		for (frame=>name in ["normal", "hover", "pressed", "selected"])
 			animation.add(name, [frame], 0, false);
 
 		this.checked = checked;
@@ -78,7 +78,7 @@ class UIRadioButton extends UISprite {
 				var members = (parent is UIWindow) ? (cast(parent, UIWindow)).members : (cast(parent, UISubstateWindow)).members;
 				var radios:Array<UIRadioButton> = cast members.filter((o) -> o is UIRadioButton && o != this);
 				//trace(radios);
-				for(radio in radios) {
+				for (radio in radios) {
 					if (radio.forID != null && radio.forID == forID) {
 						radio.checked = false;
 						radio.targetScale = 0;

@@ -141,7 +141,7 @@ class Note extends FlxSprite
 		this.isSustainNote = sustain;
 		this.sustainLength = sustainLength;
 		this.strumLine = strumLine;
-		for(field in Reflect.fields(noteData)) if (!DEFAULT_FIELDS.contains(field))
+		for (field in Reflect.fields(noteData)) if (!DEFAULT_FIELDS.contains(field))
 			this.extra.set(field, Reflect.field(noteData, field));
 
 		// work around to set the `sustainParent`

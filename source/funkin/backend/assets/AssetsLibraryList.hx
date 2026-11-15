@@ -38,7 +38,7 @@ class AssetsLibraryList extends AssetLibrary {
 			libraries.remove(lib);
 			#if TRANSLATIONS_SUPPORT
 			// TODO: improve this code
-			for(k=>l in libraries) {
+			for (k=>l in libraries) {
 				if (l == null) continue;
 				if (l is TranslatedAssetLibrary) {
 					var tlib = cast(l, TranslatedAssetLibrary);
@@ -141,7 +141,7 @@ class AssetsLibraryList extends AssetLibrary {
 
 	public function getFiles(folder:String, source:AssetSource = BOTH):Array<String> {
 		var content:Array<String> = [];
-		for(k=>l in libraries) {
+		for (k=>l in libraries) {
 			if (shouldSkipLib(l, source)) continue;
 
 			l = getCleanLibrary(l);
@@ -150,7 +150,7 @@ class AssetsLibraryList extends AssetLibrary {
 			#if MOD_SUPPORT
 			if (l is IModsAssetLibrary) {
 				var lib = cast(l, IModsAssetLibrary);
-				for(e in lib.getFiles(folder))
+				for (e in lib.getFiles(folder))
 					content.pushOnce(e);
 			}
 			#end
@@ -160,7 +160,7 @@ class AssetsLibraryList extends AssetLibrary {
 
 	public function getFolders(folder:String, source:AssetSource = BOTH):Array<String> {
 		var content:Array<String> = [];
-		for(k=>l in libraries) {
+		for (k=>l in libraries) {
 			if (shouldSkipLib(l, source)) continue;
 
 			l = getCleanLibrary(l);
@@ -169,7 +169,7 @@ class AssetsLibraryList extends AssetLibrary {
 			#if MOD_SUPPORT
 			if (l is IModsAssetLibrary) {
 				var lib = cast(l, IModsAssetLibrary);
-				for(e in lib.getFolders(folder))
+				for (e in lib.getFolders(folder))
 					content.pushOnce(e);
 			}
 			#end
@@ -198,11 +198,11 @@ class AssetsLibraryList extends AssetLibrary {
 	public override function list(type:String):Array<String> {
 		// idk if there's a more efficient way tbh, correct if u find better
 		var files:Map<String, Bool> = [];
-		for(k=>l in libraries) {
-			for(f in l.list(type))
+		for (k=>l in libraries) {
+			for (f in l.list(type))
 				files.set(f, false);
 		}
-		return [for(k=>e in files) k];
+		return [for (k=>e in files) k];
 	}
 
 	public override function isLocal(id:String, type:String) {
@@ -246,7 +246,7 @@ class AssetsLibraryList extends AssetLibrary {
 	#end
 
 	public function unloadLibraries() {
-		for(l in libraries)
+		for (l in libraries)
 			if (!__defaultLibraries.contains(l))
 				l.unload();
 	}

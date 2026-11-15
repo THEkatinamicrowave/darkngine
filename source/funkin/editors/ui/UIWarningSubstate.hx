@@ -41,11 +41,11 @@ class UIWarningSubstate extends MusicBeatSubstate {
 	}
 
 	public override function create() {
-		for(c in FlxG.cameras.list) {
+		for (c in FlxG.cameras.list) {
 			// Prevent adding a shader if it already has one
 			@:privateAccess if (c._filters != null) {
 				var shouldSkip = false;
-				for(filter in c._filters) {
+				for (filter in c._filters) {
 					if (filter is ShaderFilter) {
 						var filter:ShaderFilter = cast filter;
 						if (filter.shader is CustomShader) {
@@ -102,7 +102,7 @@ class UIWarningSubstate extends MusicBeatSubstate {
 		add(messageSpr);
 
 		var xPos = (FlxG.width - (30 + (170 * buttons.length))) / 2;
-		for(k=>b in buttons) {
+		for (k=>b in buttons) {
 			var button = new UIButton(xPos + 20 + (170 * k), spr.y + spr.bHeight - (36 + 16), b.label, function() {
 				b.onClick(this);
 				close();
@@ -122,7 +122,7 @@ class UIWarningSubstate extends MusicBeatSubstate {
 
 	public override function destroy() {
 		super.destroy();
-		for(e in camShaders)
+		for (e in camShaders)
 			e.removeShader(blurShader);
 
 		FlxTween.cancelTweensOf(warnCam);

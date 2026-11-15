@@ -18,7 +18,7 @@ class MemoryCounter extends Sprite {
 		memoryText = new TextField();
 		memoryPeakText = new TextField();
 
-		for(label in [memoryText, memoryPeakText]) {
+		for (label in [memoryText, memoryPeakText]) {
 			label.autoSize = LEFT;
 			label.x = 0;
 			label.y = 0;
@@ -36,7 +36,7 @@ class MemoryCounter extends Sprite {
 	}
 
 	public function reload() {
-		for(label in [memoryText, memoryPeakText]) label.defaultTextFormat = Framerate.textFormat;
+		for (label in [memoryText, memoryPeakText]) label.defaultTextFormat = Framerate.textFormat;
 		updateLabelPosition();
 		contentDirty = true;
 	}

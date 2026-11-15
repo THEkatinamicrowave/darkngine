@@ -142,7 +142,7 @@ class Chart {
 			var path = 'songs/$songName/charts/';
 			if (isVariant) path += '$variant/';
 
-			data.difficulties = [for(f in Paths.getFolderContent(path, false, fromMods ? MODS : SOURCE)) if (Path.extension(f.toUpperCase()) == "JSON") Path.withoutExtension(f)];
+			data.difficulties = [for (f in Paths.getFolderContent(path, false, fromMods ? MODS : SOURCE)) if (Path.extension(f.toUpperCase()) == "JSON") Path.withoutExtension(f)];
 			if (data.difficulties.length == 3) {
 				var tempDiffs = [];
 				for (d in data.difficulties) switch(d.toLowerCase()) {
@@ -243,7 +243,7 @@ class Chart {
 		/**
 		 * Set defaults on strum lines
 		*/
-		for(strumLine in base.strumLines) {
+		for (strumLine in base.strumLines) {
 			if (strumLine.keyCount == null)
 				strumLine.keyCount = 4;
 		}

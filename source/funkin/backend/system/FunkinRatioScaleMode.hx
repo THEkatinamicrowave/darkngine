@@ -30,7 +30,7 @@ class FunkinRatioScaleMode extends RatioScaleMode {
 
 		@:privateAccess {
 
-			for(c in FlxG.cameras.list) {
+			for (c in FlxG.cameras.list) {
 				if (c.width == FlxG.width && c.height == FlxG.height) {
 					c.width = width;
 					c.height = height;

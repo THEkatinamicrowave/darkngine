@@ -74,7 +74,7 @@ class CharacterSelectionScreen extends EditorTreeMenuScreen {
 		CoolUtil.safeSaveFile(characterPath, "<!DOCTYPE codename-engine-character>\n" + Printer.print(xml, true));
 
 		// Save Image files 
-		for(data in imageSaveDatas)
+		for (data in imageSaveDatas)
 			UIImageExplorer.saveFilesGlobal(data, '${Paths.getAssetsRoot()}/images/characters');
 
 		// Add to Menu >:D

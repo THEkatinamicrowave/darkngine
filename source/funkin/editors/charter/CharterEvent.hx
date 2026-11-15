@@ -53,7 +53,7 @@ class CharterEvent extends UISliceSprite implements ICharterSelectable {
 			x = eventsBackdrop.x + ((global != Options.charterSwapEventSides) ? 0 : eventsBackdrop.width - bWidth);
 		}
 
-		for(k=>i in icons) {
+		for (k=>i in icons) {
 			i.follow(this, (k * 22) + 30 - (i.width / 2), (bHeight - i.height) / 2);
 		}
 
@@ -402,7 +402,7 @@ class CharterEvent extends UISliceSprite implements ICharterSelectable {
 			i.destroy();
 		}
 
-		for(event in events) {
+		for (event in events) {
 			var spr = generateEventIcon(event, false);
 			icons.push(spr);
 			members.push(spr);

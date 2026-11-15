@@ -51,7 +51,7 @@ class ConsoleHscript {
 		interp.resetVariables();
 		variableFields = [];
 		var defaults = Script.getDefaultVariables(null);
-		for(k=>e in defaults) {
+		for (k=>e in defaults) {
 			set(k, e);
 		}
 		for (k=>e in extraImports) {

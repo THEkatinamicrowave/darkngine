@@ -179,7 +179,7 @@ class HealthIcon extends FunkinSprite
 
 			loadGraphic(iconAsset, true, Std.int(Math.min(iconSize, assetW)), Std.int(Math.min(iconSize, assetH)));
 
-			animation.add(char, [for(i in 0...iconAmt) i], 0, false, isPlayer != iconIsPlayer);
+			animation.add(char, [for (i in 0...iconAmt) i], 0, false, isPlayer != iconIsPlayer);
 			animation.play(char);
 		}
 
