@@ -15,12 +15,11 @@ class Week {
 		if (week == null) return null;
 		if (!week.has.name) {
 			Logs.trace('Week "${weekName}" has no name attribute', WARNING);
-			return null;
 		}
 
 		var weekObj:WeekData = {
 			xml: week,
-			name: week.att.name,
+			name: week.getAtt('name').getDefault(''),
 			id: weekName,
 			sprite: week.getAtt('sprite').getDefault(weekName),
 			chars: [null, null, null],
@@ -30,7 +29,7 @@ class Week {
 			bgSprite: week.has.bgSprite ? 'menus/storymenu/bgs/${week.getAtt('bgSprite')}' : ""
 		};
 
-		var weekName = weekObj.name;
+		var weekName = weekObj.id;
 		for (k => song in week.nodes.song) {
 			if (song == null) continue;
 			try {
